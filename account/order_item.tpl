@@ -87,7 +87,7 @@
 														{/block}
 														{block name='account-order-item-content-information-notice'}
 															{if !empty($oPosition->cHinweis)}
-																<li class="text-info notice">{$oPosition->cHinweis}</li>
+																<li class="notice">{$oPosition->cHinweis}</li>
 															{/if}
 														{/block}
 														{block name='account-order-item-content-information-manufacturer'}
@@ -159,7 +159,7 @@
 												{/block}
 												{block name='account-order-item-content-information-notice2'}
 													{if !empty($oPosition->cHinweis)}
-														<small class="text-info notice">{$oPosition->cHinweis}</small>
+														<small class="notice block">{$oPosition->cHinweis}</small>
 													{/if}
 												{/block}
                             				{/if}
@@ -228,7 +228,9 @@
 												</div>
 											{/block}
 											{block name='account-order-item-content-quantity'}
-												{lang key="quantity"}: {$oPosition->nAnzahl|replace_delim} {if !empty($oPosition->Artikel->cEinheit)}{$oPosition->Artikel->cEinheit}{/if}
+												{if $oPosition->nPosTyp != '3' && $oPosition->nPosTyp != '2' && $oPosition->nPosTyp != '5'}
+													{lang key="quantity"}: {$oPosition->nAnzahl|replace_delim} {if !empty($oPosition->Artikel->cEinheit)}{$oPosition->Artikel->cEinheit}{/if}
+												{/if}
 											{/block}
                         				</div>
 									{/block}

@@ -46,7 +46,11 @@
                         							<form id="cart-form" method="post" action="{$cartURL}">
                             							{$jtl_token}
                             							<input type="hidden" name="wka" value="1" />
-                            							{include file='checkout/inc_order_items.tpl' tplscope='cart'}
+														{if $snackyConfig.basketVersion == 0}
+                            								{include file='checkout/inc_order_items.tpl' tplscope='cart'}
+														{else}
+															{include file='basket/basket.tpl' tplscope='cart'}
+														{/if}
                         							</form>
                     							{/block}
                 							</div>

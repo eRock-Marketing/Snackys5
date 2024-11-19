@@ -97,11 +97,23 @@
 													</p>
 												{/block}
 												{block name='step5-overview-shipping-estimated'}
-													{$cEstimatedDelivery = JTL\Session\Frontend::getCart()->getEstimatedDeliveryTime()}
-													{if $cEstimatedDelivery|strlen > 0}
-														<p class="small text-muted">
-															<strong>{lang key="shippingTime" section="global"}</strong>: {$cEstimatedDelivery}
-														</p>
+													{if $snackyConfig.deliveryDate == '1'}
+														{block name='step5-overview-shipping-snackys-deliverydate'}
+															<p>
+																<strong>{lang key="deliveryDate" section="custom"}:</strong>
+																{getDeliveryDate calculateDays=$snackyConfig.daysForDeliverCalculation days=JTL\Session\Frontend::getCart()->oFavourableShipping->nMinLiefertage saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
+																{if JTL\Session\Frontend::getCart()->oFavourableShipping->nMinLiefertage < JTL\Session\Frontend::getCart()->oFavourableShipping->nMaxLiefertage}
+																	- {getDeliveryDate calculateDays=$snackyConfig.daysForDeliverCalculation days=JTL\Session\Frontend::getCart()->oFavourableShipping->nMaxLiefertage saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
+																{/if}
+															</p>
+														{/block}
+													{else}
+														{$cEstimatedDelivery = JTL\Session\Frontend::getCart()->getEstimatedDeliveryTime()}
+														{if $cEstimatedDelivery|strlen > 0}
+															<p class="small text-muted">
+																<strong>{lang key="shippingTime" section="global"}</strong>: {$cEstimatedDelivery}
+															</p>
+														{/if}
 													{/if}
 												{/block}
 												{block name='step5-overview-shipping-edit'}
@@ -283,42 +295,102 @@
                             				<input type="hidden" id="comment-hidden" name="kommentar" value="" />
                             				<div class="">
 												{block name='step5-complete-submit-basket'}
-                            						{include file="checkout/inc_order_items.tpl" tplscope="confirmation"}
+													{if $snackyConfig.basketVersion == 0}
+														{include file='checkout/inc_order_items.tpl' tplscope='confirmation'}
+													{else}
+														{include file='basket/basket.tpl' tplscope='confirmation'}
+													{/if}
 												{/block}
-												<hr>
+												{if $snackyConfig.basketVersion == 0}<hr>{/if}
 												{block name='step5-complete-submit-sum'}
-													<div class="cart-sum mb-sm">
+													<div class="{if $snackyConfig.basketVersion == 0}cart-sum {/if}mb-sm">
 														{block name='step5-complete-submit-sum-netto'}
 															{if $NettoPreise}
-																<div class="total-net flx-ac flx-jb">
-																	<span class="price_label"><strong>{lang key="totalSum" section="global"} ({lang key="net" section="global"}):</strong></span>
-																	<strong class="price total-sum">{$WarensummeLocalized[$NettoPreise]}</strong>
-																</div>
+																{if $snackyConfig.basketVersion == 0}
+																	<div class="total-net flx-ac flx-jb">
+																		<span class="price_label"><strong>{lang key="totalSum" section="global"} ({lang key="net" section="global"}):</strong></span>
+																		<strong class="price total-sum">{$WarensummeLocalized[$NettoPreise]}</strong>
+																	</div>
+																{else}
+																	<div class="row bskt flx-nw itms flx-ac total">
+																		<div class="col-prd flx-ac">
+																			<span class="spacer"></span>
+																			<div class="prd">
+																				{lang key="totalSum" section="global"} ({lang key="net" section="global"}):
+																			</div>
+																		</div>
+																		<div class="col-prc col-nbr">
+																			{$WarensummeLocalized[$NettoPreise]}
+																		</div>
+																	</div>
+																{/if}
 															{/if}
 														{/block}
 														{block name='step5-complete-submit-sum-steuerpos'}
 															{if $Einstellungen.global.global_steuerpos_anzeigen !== 'N' && $Steuerpositionen|@count > 0}
-																{foreach name=steuerpositionen from=$Steuerpositionen item=Steuerposition}
-																	<div class="tax flx-ac flx-jb">
-																		<span class="tax_label">{$Steuerposition->cName}:</span>
-																		<span class="tax_label">{$Steuerposition->cPreisLocalized}</span>
-																	</div>
+																{foreach name=steuerpositionen from=$Steuerpositionen item=Steuerposition}																	
+																	{if $snackyConfig.basketVersion == 0}
+																		<div class="tax flx-ac flx-jb">
+																			<span class="tax_label">{$Steuerposition->cName}:</span>
+																			<span class="tax_label">{$Steuerposition->cPreisLocalized}</span>
+																		</div>
+																	{else}
+																		<div class="row bskt flx-nw itms flx-ac total">
+																			<div class="col-prd flx-ac">
+																				<span class="spacer"></span>
+																				<div class="prd">
+																					{$Steuerposition->cName}:
+																				</div>
+																			</div>
+																			<div class="col-prc col-nbr">
+																				{$Steuerposition->cPreisLocalized}
+																			</div>
+																		</div>
+																	{/if}
 																{/foreach}
 															{/if}
 														{/block}
 														{block name='step5-complete-submit-sum-credit'}
 															{if isset($smarty.session.Bestellung->GuthabenNutzen) && $smarty.session.Bestellung->GuthabenNutzen == 1}
-																 <div class="customer-credit flx-ac flx-jb">
-																 	<span>{lang key="useCredit" section="account data"}</span>
-																  	<span>{$smarty.session.Bestellung->GutscheinLocalized}</span>
-																 </div>
+																{if $snackyConfig.basketVersion == 0}
+																	<div class="customer-credit flx-ac flx-jb">
+																		<span>{lang key="useCredit" section="account data"}</span>
+																		<span>{$smarty.session.Bestellung->GutscheinLocalized}</span>
+																	</div>
+																{else}
+																	<div class="row bskt flx-nw itms flx-ac total">
+																		<div class="col-prd flx-ac">
+																			<span class="spacer"></span>
+																			<div class="prd">
+																				{lang key="useCredit" section="account data"}
+																			</div>
+																		</div>
+																		<div class="col-prc col-nbr">
+																			{$smarty.session.Bestellung->GutscheinLocalized}
+																		</div>
+																	</div>
+																{/if}
 															{/if}
 														{/block}
 														{block name='step5-complete-submit-sum-total'}
-															<div class="total info flx-ac flx-jb">
-																<span class="price_label"><strong>{lang key="totalSum" section="global"}:</strong></span>
-																<strong class="price total-sum">{$WarensummeLocalized[0]}</strong>
-															</div>
+															{if $snackyConfig.basketVersion == 0}
+																<div class="total info flx-ac flx-jb">
+																	<span class="price_label"><strong>{lang key="totalSum" section="global"}:</strong></span>
+																	<strong class="price total-sum">{$WarensummeLocalized[0]}</strong>
+																</div>
+															{else}
+																<div class="row bskt flx-nw itms flx-ac total">
+																	<div class="col-prd flx-ac">
+																		<span class="spacer"></span>
+																		<div class="prd">
+																			<strong>{lang key="totalSum" section="global"}:</strong>
+																		</div>
+																	</div>
+																	<div class="col-prc col-nbr">
+																		<strong>{$WarensummeLocalized[0]}</strong>
+																	</div>
+																</div>
+															{/if}
 														{/block}
 													</div>
 												{/block}

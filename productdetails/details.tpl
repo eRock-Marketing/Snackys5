@@ -59,6 +59,7 @@
 										</div>
                 					{/if}
                 				{/block}
+								{include file="snippets/zonen.tpl" id="before_product_info" title="before_product_info"}
                 				{block name="productdetails-info-essential-wrapper"}
                 					{if ($Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0) || isset($Artikel->cArtNr) || ($Einstellungen.artikeldetails.artikeldetails_kategorie_anzeigen === 'Y')}
                     					<div class="info-essential row mb-xs">

@@ -2,12 +2,15 @@
     margin-bottom: 0;
 }
 .pl-heading{
-    padding: 2rem 0 1px 0;
+    padding: 2rem 0;
     background: var(--plh-b);
     color: var(--plh-t);
 }
 #plh h1{
     color: var(--plh-h1);
+}
+#plh .desc:empty{
+    display: none;
 }
 #plh .desc .img-ct{
     border: 1px solid var(--pbx-im-r);
@@ -20,6 +23,9 @@
 }
 #plh hr{
     border-color: var(--plh-t);
+}
+#plh .mw-container > .mb-sm:last-child{
+    margin-bottom: 0;
 }
 @media screen and (max-width: 991px){
     .pl-heading{

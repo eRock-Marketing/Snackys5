@@ -110,7 +110,7 @@
 																{/block}
 																{block name='order-items-item-infos-notices'}
 																	{if !empty($oPosition->cHinweis)}
-																		<li class="text-info notice">{$oPosition->cHinweis}</li>
+																		<li class="notice">{$oPosition->cHinweis}</li>
 																	{/if}
 																{/block}
 																{block name='order-items-item-infos-manufacturer'}
@@ -198,7 +198,7 @@
 													{/block}
 													{block name='order-items-item-notice-specialpos'}
 														{if !empty($oPosition->cHinweis)}
-															<small class="text-info notice">{$oPosition->cHinweis}</small>
+															<small class="notice block">{$oPosition->cHinweis}</small>
 														{/if}
 													{/block}
                             					{/if}
@@ -346,7 +346,7 @@
 														{/block}
 													{else}
 														{block name='order-items-item-quantity-not-changeable'}
-															{if $oPosition->nPosTyp != '3' && $oPosition->nPosTyp != '2'}
+															{if $oPosition->nPosTyp != '3' && $oPosition->nPosTyp != '2' && $oPosition->nPosTyp != '5'}
 																<span class="qty">
 																	<span class="badge">{$oPosition->nAnzahl|replace_delim} {if !empty($oPosition->Artikel->cEinheit)}{$oPosition->Artikel->cEinheit}{/if}</span>
 																</span>

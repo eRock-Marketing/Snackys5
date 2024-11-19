@@ -114,11 +114,6 @@
                     {/block}
                     {block name="productdetails-review-reviews-all"}
                         {if $ratingPagination->getPageItemCount() > 0}
-                            {block name='productdetails-reviews-verified-purchase-notice'}
-                                {* button type="link" variant="outline-secondary" block="true" class="verified-purchase-notice" data=["toggle"=>"popover","content"=>"{{lang key='verifiedPurchaseNotice' section='product rating'}|escape:"html"}"]}
-                                    {lang key='reviewsHowTo' section='product rating'}
-                                {/button *}
-                            {/block}
                             {block name="productdetails-review-reviews-all-form"}
                                 <form method="post" action="{get_static_route id='bewertung.php'}#tab-votes" class="reviews-list">
                                     {$jtl_token}
@@ -133,6 +128,9 @@
                                         </div>
                                     {/foreach}
                                 </form>
+                            {/block}
+                            {block name='productdetails-reviews-verified-purchase-notice'}
+                                <small class="mt-xs text-muted block">{{lang key='verifiedPurchaseNotice' section='product rating'}|escape:"html"}</small>
                             {/block}
                             {block name="productdetails-review-reviews-all-pagination"}
                                 {if empty($smarty.get.quickView)}

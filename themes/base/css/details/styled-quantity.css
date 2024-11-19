@@ -8,14 +8,20 @@
   appearance: textfield;
 }
 .qty-btns .btn{
-    border: 1px solid var(--inp-r);
-    background: var(--inp-b);
-    color: var(--inp-t);
+    border: 1px solid var(--btn-df-r);
+    background: var(--btn-df-b);
+    color: var(--btn-df-t);
+}
+.qty-btns .btn svg{
+    fill: var(--btn-df-t);
 }
 .qty-btns .btn:hover{
-    border: 1px solid var(--inp-r-h);
-    background: var(--inp-b-h);
-    color: var(--inp-t-h);
+    border: 1px solid var(--btn-df-r-h);
+    background: var(--btn-df-b-h);
+    color: var(--btn-df-t-h);
+}
+.qty-btns .btn:hover svg{
+    fill: var(--btn-df-t-h);
 }
 .qty-btns .icon{
     width: .8rem;
