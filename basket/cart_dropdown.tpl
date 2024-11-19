@@ -283,7 +283,7 @@
 		{include file="snippets/zonen.tpl" id="after_sidebasket_buybuttons" title="after_sidebasket_buybuttons"}
 	{/block}
 	{block name='basket-cart-dropdown-shipping-include-free-hint'}
-		<div class="alert alert-info">
+		<div class="alert alert-info alert-fg">
 			{include file='basket/freegift_hint.tpl'}
 		</div>
 	{/block}

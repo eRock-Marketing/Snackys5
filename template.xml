@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Template isFullResponsive="true">
     <Name>Snackys</Name>
-    <Author>eRock Marketing</Author>
-    <URL>https://www.erock-marketing.de</URL>
+    <Author>eRock Creations</Author>
+    <URL>https://www.erock-creations.de</URL>
     <MinShopVersion>5.4.0</MinShopVersion>
-    <Version>5.4.0</Version>
+    <Version>5.4.1</Version>
     <Preview>preview-snackys.png</Preview>
-    <Description>Ultraschnelles responsive JTL Template von eRock Marketing</Description>
+    <Description>Ultraschnelles responsive JTL Template von eRock Creations</Description>
     <Framework>Bootstrap4</Framework>
 	<Settings>
 		<Section Name="Allgemein" Key="general">
@@ -30,8 +30,8 @@
 		</Section>
 		<Section Name="Theme" Key="theme">
 			<Setting Description="Theme" Key="theme_default" Type="select" Value="snackys" override="true">
-				<Option Value="snackys">Snackys - with <![CDATA[&hearts;]]> by eRock Marketing</Option>
-				<Option Value="darkmode">Snackys Darkmode - with <![CDATA[&hearts;]]> by eRock Marketing</Option>
+				<Option Value="snackys">Snackys - with <![CDATA[&hearts;]]> by eRock Creations</Option>
+				<Option Value="darkmode">Snackys Darkmode - with <![CDATA[&hearts;]]> by eRock Creations</Option>
 				<Option Value="custom">Custom - eigenes Theme</Option>
 			</Setting>
             <Setting Description="Favicon" Key="favicon" Type="upload" Value="favicon.ico" maxFileSize="123456" showPreview="false" allowedFileExtensions="['ico','png']" accept="image/*" target="favicon/" targetFileName="favicon.ico"/>

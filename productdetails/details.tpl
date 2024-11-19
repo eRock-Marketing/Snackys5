@@ -183,6 +183,28 @@
 										{/block}
 									{/if}
 								{/block}
+								{block name="productdetails-info-gpsr-wrapper"}
+									{if $snackyConfig.gpsr_shown != 0 && $snackyConfig.gpsr_position == 3}
+										{block name="productdetails-gpsr-description"}
+											<strong class="block">{lang key='gpsrHeadline' section='custom'}</strong>
+											<a href="#" data-toggle="modal" data-target="#gpsr-popup" title="{lang key='gpsrHeadline' section='custom'}"><u>{lang key='gpsrLink' section='custom'}</u></a>
+											<div class="modal modal-dialog blanklist" tabindex="-1" id="gpsr-popup">
+												<div class="modal-content">
+													<div class="modal-header">
+														<span class="modal-title block h5">
+															{lang key='gpsrHeadline' section='custom'}
+														</span>
+														<button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
+														</button>
+													</div>
+													<div class="modal-body">
+														{include file="snippets/gpsr.tpl" hideTitle=true}
+													</div>
+												</div>
+											</div>
+										{/block}
+									{/if}
+								{/block}
                 				{block name="productdetails-info-product-offer"}
                 					<div class="product-offer">
                     					<hr>

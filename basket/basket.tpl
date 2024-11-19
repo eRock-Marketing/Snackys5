@@ -52,7 +52,7 @@
 								<div class="col-prd flx-ac">
 									{block name='oder-items-product-image'}
 										{if $Einstellungen.kaufabwicklung.warenkorb_produktbilder_anzeigen === 'Y'}
-											{if $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL || $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_GRATISGESCHENK}
+											{if !empty($oPosition->Artikel->cVorschaubildURL)}
 												<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}">
 													<span class="img-ct">
 														{if isset($nSeitenTyp) && $nSeitenTyp == 37}

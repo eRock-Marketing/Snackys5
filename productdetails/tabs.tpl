@@ -13,6 +13,13 @@
         {/if}
         {$dimension = $Artikel->getDimension()}
         {$funcAttr = $Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_ATTRIBUTEANHAENGEN]|default:0}
+        {if $snackyConfig.gpsr_shown == 2}
+            {assign var="splitManuDesc" value="####"|explode:$Artikel->cHerstellerBeschreibung}
+            {if count($splitManuDesc)>1}
+                {assign var="hasSplitManu" value=true}
+            {/if}
+        {/if}
+        {$showGPSR = isset($Artikel->cHerstellerBeschreibung) && ($snackyConfig.gpsr_position == 0 || $snackyConfig.gpsr_position == 1) && ($snackyConfig.gpsr_shown == 1 || ($snackyConfig.gpsr_shown == 2 && isset($hasSplitManu)))}
         {$showAttributesTable = ($Einstellungen.artikeldetails.merkmale_anzeigen === 'Y'
             && !empty($Artikel->oMerkmale_arr) || $showProductWeight || $showShippingWeight
             || $Einstellungen.artikeldetails.artikeldetails_abmessungen_anzeigen === 'Y'
@@ -24,7 +31,7 @@
         {$useDescriptionWithMediaGroup = ((($Einstellungen.artikeldetails.mediendatei_anzeigen === 'YA'
             && $Artikel->cMedienDateiAnzeige !== 'tab') || $Artikel->cMedienDateiAnzeige === 'beschreibung')
             && !empty($Artikel->getMediaTypes()))}
-        {$useDescription = (($Artikel->cBeschreibung|strlen > 0) || $useDescriptionWithMediaGroup || $showAttributesTable)}
+        {$useDescription = (($Artikel->cBeschreibung|strlen > 0) || $useDescriptionWithMediaGroup || $showAttributesTable || $showGPSR)}
         {$useDownloads = (isset($Artikel->oDownload_arr) && $Artikel->oDownload_arr|count > 0)}
         {$useVotes = $Einstellungen.bewertung.bewertung_anzeigen === 'Y'}
         {$useQuestionOnItem = $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'Y'}
@@ -78,6 +85,15 @@
                                     <li role="presentation" class="nav-item">
                                         <a class="nav-link{if $setActiveClass.description} active{/if}" aria-controls="tab-description" role="tab" data-toggle="tab" href="#tab-description">
                                             {block name='tab-description-title'}{lang key='description' section='productDetails'}{/block}
+                                        </a>
+                                    </li>
+                                {/if}
+                            {/block}
+                            {block name="tab-nav-block-gpsr"}
+                                {if $snackyConfig.gpsr_shown != 0 && $snackyConfig.gpsr_position == 2}
+                                    <li role="presentation" class="nav-item">
+                                        <a class="nav-link" aria-controls="tab-gpsr" role="tab" data-toggle="tab" href="#tab-gpsr">
+                                            {lang key='gpsrHeadline' section='custom'}
                                         </a>
                                     </li>
                                 {/if}
@@ -201,6 +217,11 @@
                                                         </div>
                                                         {include file="snippets/zonen.tpl" id="opc_after_desc"}
                                                     {/block}
+                                                    {block name="tab-description-gpsr-before"}
+                                                        {if $snackyConfig.gpsr_shown != 0 && $snackyConfig.gpsr_position == 0}
+                                                            {include file='snippets/gpsr.tpl'}
+                                                        {/if}
+                                                    {/block}
                                                     {block name="tab-description-attributes"}
                                                         {if (!empty($Artikel->cBeschreibung) || $useDescriptionWithMediaGroup) && $showAttributesTable}
                                                             <hr>
@@ -211,7 +232,38 @@
                                                             dimension=$dimension showAttributesTable=$showAttributesTable}
                                                         {include file="snippets/zonen.tpl" id="opc_after_desc_attributes"}
                                                     {/block}
+                                                    {block name="tab-description-gpsr-after"}
+                                                        {if $snackyConfig.gpsr_shown != 0 && $snackyConfig.gpsr_position == 1}
+                                                            {if (!empty($Artikel->cBeschreibung) || $useDescriptionWithMediaGroup) && $showAttributesTable}
+                                                                <hr>
+                                                            {/if}
+                                                            {include file='snippets/gpsr.tpl'}
+                                                        {/if}
+                                                    {/block}
                                                 </div>
+                                            </div>
+                                        {/block}
+                                    </div>
+                                {/if}
+                            {/block}
+                            {block name="tabs-gpsr"}
+                                {if $snackyConfig.gpsr_shown != 0 && $snackyConfig.gpsr_position == 2}
+                                    <div class="tab-ct tab-pane panel-default" id="tab-gpsr">
+                                        {block name="tabs-gpsr-accordeon"}
+                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-gpsr" role="button">
+                                                <div class="panel-title h3 m0">{lang key='gpsrHeadline' section='custom'}</div>
+                                                <span class="img-ct icon">
+                                                    <svg>
+                                                    <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        {/block}
+                                        {block name="tabs-gpsr-body"}
+                                            <div class="panel-body{if !$tabanzeige} mb-md{/if}">
+                                                {include file="snippets/zonen.tpl" id="opc_before_gpsr"}
+                                                {include file="snippets/gpsr.tpl" hideTitle=true}
+                                                {include file="snippets/zonen.tpl" id="opc_after_gpsr"}
                                             </div>
                                         {/block}
                                     </div>
