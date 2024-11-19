@@ -128,7 +128,7 @@
 /* PayPal */
 .ppf-container{
 	margin: 1rem 0;
-	border-radius: .3rem;
+	border-radius: var(--btn-rnd-sm);
 }
 .ppf-container p:first-child{
 	margin-top: 0;

@@ -1,5 +1,5 @@
 {block name='layout-gtagmanager-tracking'}
-	<script type="text/javascript">
+	<script>
 		window.dataLayer = window.dataLayer || [];
         function gtag(){
             dataLayer.push(arguments);
@@ -14,15 +14,6 @@
 			'wait_for_update': 1500
 		});
 		{/if}
-	</script>
-	<script>
-	(function(w,d,s,l,i){ldelim}w[l]=w[l]||[];w[l].push({ldelim}'gtm.start':
-	new Date().getTime(),event:'gtm.js'{rdelim});var f=d.getElementsByTagName(s)[0],
-	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	{rdelim})(window,document,'script','dataLayer','{$snackyConfig.gtag|trim}');
-	</script>
-	<script type="text/javascript">
 		{* Google Ads Conversion / Remarketing & Basic Google Analytics Purchase *}
 		dataLayer.push({ldelim}
 			{if $nSeitenTyp == 18}
@@ -47,13 +38,13 @@
 			ecomm_totalvalue: [{foreach from=$Suchergebnisse->getProducts() item="totalvalue" name="totalvalue"}{if !$smarty.foreach.totalvalue.first},{/if}{$totalvalue->Preise->fVKNetto|number_format:2:".":""}{/foreach}]
 			{elseif $nSeitenTyp == 33 && $Bestellung->Positionen|count > 0}
 			{* Bestellbestätigung *}
-			ecomm_prodid: [{foreach from=$Bestellung->Positionen item="prodid" name="prodid"}{if $prodid->nPosTyp == $C_WARENKORBPOS_TYP_ARTIKEL}{if !$smarty.foreach.prodid.first},{/if}"{$prodid->Artikel->cArtNr}"{/if}{/foreach}],
+			ecomm_prodid: [{foreach from=$Bestellung->Positionen item="prodid" name="prodid"}{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}{if !$smarty.foreach.prodid.first},{/if}"{$prodid->Artikel->cArtNr}"{/if}{/foreach}],
 			ecomm_pagetype: 'purchase',
-			ecomm_totalvalue: [{foreach from=$Bestellung->Positionen item="totalvalue" name="totalvalue"}{if $prodid->nPosTyp == $C_WARENKORBPOS_TYP_ARTIKEL}{if !$smarty.foreach.totalvalue.first},{/if}{$totalvalue->fPreis|number_format:2:".":""}{/if}{/foreach}],
+			ecomm_totalvalue: [{foreach from=$Bestellung->Positionen item="totalvalue" name="totalvalue"}{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}{if !$smarty.foreach.totalvalue.first},{/if}{$totalvalue->fPreis|number_format:2:".":""}{/if}{/foreach}],
 			transactionTotal: {$Bestellung->fWarensummeNetto|number_format:2:".":""},
 			transactionId: '{$Bestellung->cBestellNr}',
 			transactionProducts: [{foreach from=$Bestellung->Positionen item="prodid" name="prodid"}
-				{if $prodid->nPosTyp == $C_WARENKORBPOS_TYP_ARTIKEL}
+				{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
 				{if !$smarty.foreach.prodid.first},{/if}
 				{
 					sku: '{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}',
@@ -93,12 +84,13 @@
 			'event': 'view_item_list',
 			'ecommerce': {
 				'currencyCode': '{$smarty.session.Waehrung->getCode()}',
-				'impressions': [
+				'item_list_name': '{$listName|escape}',
+				'items': [
 					{foreach from=$Suchergebnisse->getProducts() item="prodid" name="prodid"}
 					{if !$smarty.foreach.prodid.first},{/if}
 					{
-						'name': '{$prodid->cName|escape}',       // Name or ID is required.
-						'id': '{if $snackyConfig.artnr == "id"}{$prodid->kArtikel}{else}{$prodid->cArtNr|escape}{/if}',
+						'item_name': '{$prodid->cName|escape}',       // Name or ID is required.
+						'item_id': '{if $snackyConfig.artnr == "id"}{$prodid->kArtikel}{else}{$prodid->cArtNr|escape}{/if}',
 						'price': {$prodid->Preise->fVKNetto|number_format:2:".":""},
 						{if !empty($prodid->cHersteller)}
 						'brand': '{$prodid->cHersteller|escape}',
@@ -119,9 +111,9 @@
 		dataLayer.push({
 			'event': 'view_item',
 			'ecommerce': {
-				'detail': [{
-					'name': '{$Artikel->cName|escape}', // Name or ID is required.
-					'id': '{if $snackyConfig.artnr == "id"}{$Artikel->kArtikel}{else}{$Artikel->cArtNr|escape}{/if}',
+				'items': [{
+					'item_name': '{$Artikel->cName|escape}', // Name or ID is required.
+					'item_id': '{if $snackyConfig.artnr == "id"}{$Artikel->kArtikel}{else}{$Artikel->cArtNr|escape}{/if}',
 					'price': {$Artikel->Preise->fVKNetto|number_format:2:".":""},
 					{if !empty($Artikel->cHersteller)}
 					'brand': '{$Artikel->cHersteller|escape}',
@@ -147,26 +139,24 @@
 		dataLayer.push({
 			'event': 'add_to_cart',
 			'ecommerce': {
-				'add': {
-					'currencyCode': '{$smarty.session.Waehrung->getCode()}',
-					'products': [{
-						'name': '{$pushedArtikel->cName|escape}', // Name or ID is required.
-						'id': '{if $snackyConfig.artnr == "id"}{$pushedArtikel->kArtikel}{else}{$pushedArtikel->cArtNr|escape}{/if}',
-						'price': {$pushedArtikel->Preise->fVKNetto|number_format:2:".":""},
-						{if !empty($pushedArtikel->cHersteller)}
-						'brand': '{$pushedArtikel->cHersteller|escape}',
-						{/if}
-						{if isset($Brotnavi[$i_kat])}
-						'category': '{$Brotnavi[$i_kat]->getName()|escape}',
-						{/if}
-						'quantity': '{if $smarty.request.anzahl>0}{$smarty.request.anzahl}{else}1{/if}'
-					}]
-				}
+				'currencyCode': '{$smarty.session.Waehrung->getCode()}',
+				'items': [{
+					'item_name': '{$pushedArtikel->cName|escape}', // Name or ID is required.
+					'item_id': '{if $snackyConfig.artnr == "id"}{$pushedArtikel->kArtikel}{else}{$pushedArtikel->cArtNr|escape}{/if}',
+					'price': {$pushedArtikel->Preise->fVKNetto|number_format:2:".":""},
+					{if !empty($pushedArtikel->cHersteller)}
+					'brand': '{$pushedArtikel->cHersteller|escape}',
+					{/if}
+					{if isset($Brotnavi[$i_kat])}
+					'category': '{$Brotnavi[$i_kat]->getName()|escape}',
+					{/if}
+					'quantity': '{if $smarty.request.anzahl>0}{$smarty.request.anzahl}{else}1{/if}'
+				}]
 			}
 		});
 		{/if}
 		{* Begin Checkout *}
-		{if !(isset($bWarenkorbHinzugefuegt) && $bWarenkorbHinzugefuegt) && ($nSeitenTyp == 3 || ($nSeitenTyp == 11 && ($bestellschritt[1] == 1 || $bestellschritt[2] == 1)))}
+		{if $nSeitenTyp == 11}
 		{assign var="activeStep" value=1}	{*Schritt 1 = Warenkorb, Checkout dann weiterführend: 2=Adresse,3=Zahlung,4=Übersicht *}
 		{if $nSeitenTyp == 11}
 		{if $bestellschritt[1] == 1 || $bestellschritt[2] == 1}
@@ -180,29 +170,26 @@
 
 		dataLayer.push({ ecommerce: null });
 		dataLayer.push({
-			'event': 'checkout',
+			'event': '{if $activeStep == 1 || $activeStep == 2}begin_checkout{elseif $activeStep==3}add_shipping_info{elseif $activeStep==4}add_payment_info{else}checkout_step_{$activeStep}{/if}',
 			'ecommerce': {
-				'checkout': {
-					'actionField': {
-						'step': {$activeStep}
-					},
-					'products': [
-						{foreach from=$smarty.session.Warenkorb->PositionenArr item="prodid" name="prodid"}
-						{if $prodid->nPosTyp == $C_WARENKORBPOS_TYP_ARTIKEL}
-						{if !$smarty.foreach.prodid.first},{/if}
-						{
-							'name': '{$prodid->Artikel->cName|escape}',       // Name or ID is required.
-							'id': '{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}',
-							'price': {$prodid->fPreis|number_format:2:".":""},
-							{if !empty($prodid->Artikel->cHersteller)}
-							'brand': '{$prodid->Artikel->cHersteller|escape}',
-							{/if}
-							'quantity': {$prodid->nAnzahl}
-						}
+				currency: "{$smarty.session.Waehrung->getCode()}",
+				value: {$Warensumme|number_format:2:".":""},
+				'items': [
+					{foreach from=$smarty.session.Warenkorb->PositionenArr item="prodid" name="prodid"}
+					{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
+					{if !$smarty.foreach.prodid.first},{/if}
+					{
+						'item_name': '{$prodid->Artikel->cName|escape}',       // Name or ID is required.
+						'item_id': '{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}',
+						'price': {$prodid->fPreis|number_format:2:".":""},
+						{if !empty($prodid->Artikel->cHersteller)}
+						'brand': '{$prodid->Artikel->cHersteller|escape}',
 						{/if}
-						{/foreach}
-					]
-				}
+						'quantity': {$prodid->nAnzahl}
+					}
+					{/if}
+					{/foreach}
+				]
 			}
 		});
 		{/if}
@@ -213,38 +200,43 @@
 		dataLayer.push({
 			'event': 'purchase',
 			'ecommerce': {
-				'purchase': {
-					'products': [
-						{foreach from=$Bestellung->Positionen item="prodid" name="prodid"}
-						{if $prodid->nPosTyp == $C_WARENKORBPOS_TYP_ARTIKEL}
-						{if !$smarty.foreach.prodid.first},{/if}
-						{
-							'name': '{$prodid->Artikel->cName|escape}',       // Name or ID is required.
-							'id': '{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}',
-							'price': {$prodid->fPreis|number_format:2:".":""},
-							{if !empty($prodid->Artikel->cHersteller)}
-							'brand': '{$prodid->Artikel->cHersteller|escape}',
-							{/if}
-							'quantity': {$prodid->nAnzahl}
-						}
-						{elseif $prodid->nPosTyp==3}
-						{assign var="coupon" value=$prodid->cName|escape}
+				transaction_id: "{$Bestellung->cBestellNr}",
+				value: {$Bestellung->fWarensummeNetto|number_format:2:".":""},
+				tax: {$Bestellung->fSteuern|number_format:2:".":""},
+				shipping: {$Bestellung->fVersandNetto|number_format:2:".":""},
+				currency: "{$smarty.session.Waehrung->getCode()}",
+				items: [
+					{foreach from=$Bestellung->Positionen item="prodid" name="prodid"}
+					{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
+					{if !$smarty.foreach.prodid.first},{/if}
+					{
+						item_id: "{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}",
+						item_name: "{$prodid->Artikel->cName|escape}",
+						{if !empty($prodid->Artikel->cHersteller)}
+						item_brand: "{$prodid->Artikel->cHersteller|escape}",
 						{/if}
-						{/foreach}
-					],
-					'actionField': {
-						'id': '{$Bestellung->cBestellNr}',                         // Transaction ID. Required for purchases and refunds.
-						'revenue': '{$Bestellung->fWarensummeNetto|number_format:2:".":""}',                     // Total transaction value (incl. tax and shipping)
-						'tax':'{$Bestellung->fSteuern|number_format:2:".":""}',
-						'shipping': '{$Bestellung->fVersandNetto|number_format:2:".":""}',
-						'currency': '{$smarty.session.Waehrung->getCode()}'
-						{if $coupon!=""}
-						,'coupon': '{$coupon}'
-						{/if}
+						price: {$prodid->fPreis|number_format:2:".":""},
+						quantity: {$prodid->nAnzahl}
 					}
-				}
+					{elseif $prodid->nPosTyp==3}
+					{assign var="coupon" value=$prodid->cName|escape}
+					{/if}
+					{/foreach}
+				]
+				{if $coupon!=""}
+				,coupon: "{$coupon}"
+				{/if}
 			}
 		});
 		{/if}
+	</script>
+	
+	
+	<script>
+	(function(w,d,s,l,i){ldelim}w[l]=w[l]||[];w[l].push({ldelim}'gtm.start':
+	new Date().getTime(),event:'gtm.js'{rdelim});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	{rdelim})(window,document,'script','dataLayer','{$snackyConfig.gtag|trim}');
 	</script>
 {/block}

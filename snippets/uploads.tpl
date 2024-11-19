@@ -70,7 +70,7 @@
                                                     cname:      "{$Artikel->cName|replace:" ":"_"}_{$oUploadSchema->cName|replace:" ":"_"}"
                                                     {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)},
                                                     variation:  "{strip}
-                                                    {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|trans|replace:" ":"_"}{/foreach}
+                                                    {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|transByISO|replace:" ":"_"}{/foreach}
                                                         "{/strip}
                                                     {/if}
                                                 },
@@ -169,7 +169,7 @@
                                 {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)}
                                     <small>
                                         {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}
-                                            - {$Variation->cEigenschaftName|trans}: {$Variation->cEigenschaftWertName|trans}
+                                            - {$Variation->cEigenschaftName|transByISO}: {$Variation->cEigenschaftWertName|transByISO}
                                         {/foreach}
                                     </small>
                                 {/if}
@@ -241,7 +241,7 @@
                                                                 cname:      "{$oUpload->cName|replace:" ":"_"}"
                                                                 {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)},
                                                                 variation: "{strip}
-                                                                {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|trans|replace:" ":"_"}{/foreach}
+                                                                {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|transByISO|replace:" ":"_"}{/foreach}
                                                                     "{/strip}
                                                                 {/if}
                                                             },

@@ -104,6 +104,13 @@
                                                         </li>
                                                     {/if}
                                                 {/block}
+                                                {block name='product-info-infos-han'}
+                                                    {if !empty($Artikel->cHAN) && ($Einstellungen.artikeldetails.han_display === 'lists' || $Einstellungen.artikeldetails.han_display === 'always')}
+                                                        <li>
+                                                            <strong>{lang key='han'}: </strong> <span>{$Artikel->cHAN}</span>
+                                                        </li>
+                                                    {/if}
+                                                {/block}
                                                 {block name='product-info-infos-isbn'}
                                                     {if !empty($Artikel->cISBN) && ($Einstellungen.artikeldetails.isbn_display === 'L' || $Einstellungen.artikeldetails.isbn_display === 'DL')}
                                                         <li>

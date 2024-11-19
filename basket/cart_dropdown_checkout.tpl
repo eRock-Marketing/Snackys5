@@ -36,8 +36,8 @@
 													{block name='checkout-cart-item-article-name'}
 														<div class="cols-name{if $Einstellungen.kaufabwicklung.warenkorb_produktbilder_anzeigen != 'Y'} noimg{/if}">
 															{$oPosition->nAnzahl|replace_delim}{if $oPosition->Artikel->cEinheit} {$oPosition->Artikel->cEinheit}{else}&times;{/if}
-															<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:"html"}">
-																{$oPosition->cName|trans}
+															<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:"html"}">
+																{$oPosition->cName|transByISO}
 															</a>
 														</div>
 													{/block}
@@ -85,15 +85,15 @@
 															{if $Einstellungen.kaufabwicklung.warenkorb_varianten_varikombi_anzeigen === 'Y' && isset($oPosition->WarenkorbPosEigenschaftArr) && !empty($oPosition->WarenkorbPosEigenschaftArr)}
 																{foreach name=variationen from=$oPosition->WarenkorbPosEigenschaftArr item=Variation}
 																	<li class="variation">
-																		<strong>{$Variation->cEigenschaftName|trans}:</strong> {$Variation->cEigenschaftWertName|trans}
+																		<strong>{$Variation->cEigenschaftName|transByISO}:</strong> {$Variation->cEigenschaftWertName|transByISO}
 																	</li>
 																{/foreach}
 															{/if}
 														{/block}
 														{block name='checkout-cart-item-article-delivery'}
-															{if $Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|trans}
+															{if $Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|transByISO}
 																<li class="delivery-status">
-																	<strong>{lang key="deliveryStatus" section="global"}:</strong> {$oPosition->cLieferstatus|trans}
+																	<strong>{lang key="deliveryStatus" section="global"}:</strong> {$oPosition->cLieferstatus|transByISO}
 																</li>
 															{/if}
 														{/block}
@@ -186,7 +186,7 @@
 											{/block}
 											{block name='checkout-cart-item-other-name'}
 												<div class="cols-name" colspan="2">
-													{$oPosition->nAnzahl|replace_delim}&times;&nbsp;{$oPosition->cName|trans|escape:"htmlall"}
+													{$oPosition->nAnzahl|replace_delim}&times;&nbsp;{$oPosition->cName|transByISO|escape:"htmlall"}
 												</div>
 											{/block}
 											{block name='checkout-cart-item-other-price'}

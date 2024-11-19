@@ -316,7 +316,7 @@ hr {
     background-color: var(--dro-b);
     border: 1px solid var(--dro-r);
     color: var(--dro-t);
-    border-radius: .3rem;
+    border-radius: var(--box-rnd-sm);
     box-shadow: 0 0.25rem 0.5625rem -0.0625rem rgba(0,0,0,0.03), 0 0.275rem 1.25rem -0.0625rem rgba(0,0,0,0.05);
     z-index: 11;
     margin-top: .5rem;
@@ -612,16 +612,16 @@ th.visible-lg, td.visible-lg {
 /* Panel */
 .panel{
     padding: 1rem;
-    border-radius: .5rem;
+    border-radius: var(--box-rnd);
     background: var(--pan-b);
     box-shadow: 0 0 0 0.3rem var(--pan-b);
     border: 1px solid var(--pan-r);
     color: var(--pan-t);
 }
-.panel a{
+.panel a:not(.btn){
     color: var(--pan-l);
 }
-.panel a:hover{
+.panel a:not(.btn):hover{
     color: var(--pan-l-h);
 }
 .panel-heading{
@@ -640,7 +640,7 @@ th.visible-lg, td.visible-lg {
 /* Cards */
 .card{
     border: 1px solid var(--crd-r);
-    border-radius: .5rem;
+    border-radius: var(--box-rnd);
 }
 .card-header,
 .card-body{
@@ -648,7 +648,7 @@ th.visible-lg, td.visible-lg {
 }
 .card-header{
     background: var(--crd-b);
-    border-radius: .5rem .5rem 0 0;
+    border-radius: var(--box-rnd) var(--box-rnd) 0 0;
 }
 .panel .item:not(:last-child),
 .card .item:not(:last-child){
@@ -667,7 +667,7 @@ th.visible-lg, td.visible-lg {
     font-size: .875rem;
     background-color: var(--bod-b);
     border: 1px solid var(--hr);
-    border-radius: .3rem;
+    border-radius: var(--box-rnd-sm);
     padding: 1rem;
     white-space: normal;
 }

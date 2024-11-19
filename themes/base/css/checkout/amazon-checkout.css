@@ -5,7 +5,7 @@ h1{
     .lpa-checkout-wrapper{
         padding: 2.5rem;
         border: 2px solid var(--hr-li);
-        border-radius: .5rem;
+        border-radius: var(--box-rnd);
     }
 }
 .lpa-checkout-wrapper{

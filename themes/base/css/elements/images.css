@@ -16,12 +16,12 @@ img[height]:not(.zoomImg):not([height="auto"]){
 .img-ct,
 .embed-responsive{
     position: relative;
-    border-radius: .8rem;
+    border-radius: var(--img-rnd);
 	display: flex;
 	overflow: hidden;
 }
 .img-ct:not(.icon) img{
-    border-radius: .8rem;
+    border-radius: var(--img-rnd);
 }
 .img-w{
     margin-bottom: .9rem;

@@ -53,7 +53,7 @@
 									{block name='oder-items-product-image'}
 										{if $Einstellungen.kaufabwicklung.warenkorb_produktbilder_anzeigen === 'Y'}
 											{if $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL || $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_GRATISGESCHENK}
-												<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:'html'}">
+												<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}">
 													<span class="img-ct">
 														{if isset($nSeitenTyp) && $nSeitenTyp == 37}
 															{include file='snippets/image.tpl'
@@ -80,12 +80,12 @@
 										<div class="prd">
 											{if $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL || $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_GRATISGESCHENK}
 												{block name='oder-items-product-data-name'}
-													<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:'html'}" class="prd-itm">{$oPosition->cName|trans}</a>
+													<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}" class="prd-itm">{$oPosition->cName|transByISO}</a>
 												{/block}
 												{block name='oder-items-product-data-list'}
 													{assign "hasmore" 0}
 													{if ($Einstellungen.kaufabwicklung.warenkorb_varianten_varikombi_anzeigen === 'Y' && isset($oPosition->WarenkorbPosEigenschaftArr) && !empty($oPosition->WarenkorbPosEigenschaftArr))
-														|| ($Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|trans)
+														|| ($Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|transByISO)
 														|| !empty($oPosition->cHinweis)
 														|| ($oPosition->Artikel->cHersteller && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen != "N")
 														|| ($Einstellungen.kaufabwicklung.bestellvorgang_artikelmerkmale == 'Y' && !empty($oPosition->Artikel->oMerkmale_arr))
@@ -130,7 +130,7 @@
 															<div class="modal-content">
 																<div class="modal-header">
 																	<span class="modal-title block h5">
-																		{$oPosition->cName|trans}
+																		{$oPosition->cName|transByISO}
 																	</span>
 																	<button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
 																	</button>
@@ -161,7 +161,7 @@
 																						</span>
 																						<span class="prd">
 																							<span class="qty">{if !$KonfigPos->istKonfigVater()}{$KonfigPos->nAnzahlEinzel}{else}1{/if}&times;</span>
-																						 	{$KonfigPos->cName|trans}
+																						 	{$KonfigPos->cName|transByISO}
 																						</span>
 																						<span class="prcv">
 																							{$KonfigPos->cEinzelpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}
@@ -195,7 +195,7 @@
 																						</span>		
 																						<span class="prd">																				
 																							<span class="qty">{if !$KonfigPos->istKonfigVater()}{$KonfigPos->nAnzahlEinzel}{else}1{/if}&times;</span>
-																							{$KonfigPos->cName|trans}
+																							{$KonfigPos->cName|transByISO}
 																						 </span>
 																						<span class="prcv">
 																							{$KonfigPos->cEinzelpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}
@@ -219,7 +219,7 @@
 																<div class="modal-content">
 																	<div class="modal-header">
 																		<span class="modal-title block h5">
-																			{$oPosition->cName|trans}
+																			{$oPosition->cName|transByISO}
 																		</span>
 																		<button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
 																		</button>
@@ -245,7 +245,7 @@
 																				</span>	
 																				<span class="prd">																				
 																					<span class="qty">{$partListItem->fAnzahl_stueckliste}&times;</span>
-																					{$partListItem->cName|trans}
+																					{$partListItem->cName|transByISO}
 																				 </span>
 																			</div>
 																		{/foreach}
@@ -256,18 +256,18 @@
 													{/block}
 												{/block}
 											{else}
-												<span class="prd-itm">{$oPosition->cName|trans}{if isset($oPosition->discountForArticle)}{$oPosition->discountForArticle|trans}{/if}</span>
+												<span class="prd-itm">{$oPosition->cName|transByISO}{if isset($oPosition->discountForArticle)}{$oPosition->discountForArticle|transByISO}{/if}</span>
 												{block name='order-items-item-affix-specialpos'}
 													{if isset($oPosition->cArticleNameAffix)}
 														{if is_array($oPosition->cArticleNameAffix)}
 															<ul class="blanklist small">
 																{foreach $oPosition->cArticleNameAffix as $cArticleNameAffix}
-																	<li>{$cArticleNameAffix|trans}</li>
+																	<li>{$cArticleNameAffix|transByISO}</li>
 																{/foreach}
 															</ul>
 														{else}
 															<ul class="blanklist small">
-																<li>{$oPosition->cArticleNameAffix|trans}</li>
+																<li>{$oPosition->cArticleNameAffix|transByISO}</li>
 															</ul>
 														{/if}
 													{/if}
@@ -401,17 +401,17 @@
 											{if $Einstellungen.kaufabwicklung.warenkorb_varianten_varikombi_anzeigen === 'Y' && isset($oPosition->WarenkorbPosEigenschaftArr) && !empty($oPosition->WarenkorbPosEigenschaftArr)}
 												{foreach name=variationen from=$oPosition->WarenkorbPosEigenschaftArr item=Variation}
 													<tr class="variation">
-														<td>{$Variation->cEigenschaftName|trans}:</td> 
-														<td>{$Variation->cEigenschaftWertName|trans}</td>
+														<td>{$Variation->cEigenschaftName|transByISO}:</td> 
+														<td>{$Variation->cEigenschaftWertName|transByISO}</td>
 													</tr>
 												{/foreach}
 											{/if}
 										{/block}
 										{block name='order-items-item-infos-delivery'}
-											{if $Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|trans}
+											{if $Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|transByISO}
 												<tr class="delivery-status">
 													<td>{lang key="deliveryStatus" section="global"}:</td> 
-													<td>{$oPosition->cLieferstatus|trans}</td>
+													<td>{$oPosition->cLieferstatus|transByISO}</td>
 												</tr>
 											{/if}
 										{/block}

@@ -156,29 +156,31 @@
 													{if !empty($oLieferscheinpos->oPosition->cHinweis)}
 														<li class="text-info notice">{$oLieferscheinpos->oPosition->cHinweis}</li>
 													{/if}
-
-													{* eindeutige Merkmale *}
-													{if $oLieferscheinpos->oPosition->Artikel->cHersteller && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== "N"}
-														<li class="manufacturer">
-															<strong>{lang key='manufacturer' section='productDetails'}</strong>:
-															<span class="values">
-															   {$oLieferscheinpos->oPosition->Artikel->cHersteller}
-															</span>
-														</li>
-													{/if}
-
-													{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelmerkmale == 'Y' && !empty($oLieferscheinpos->oPosition->Artikel->oMerkmale_arr)}
-														{foreach $oLieferscheinpos->oPosition->Artikel->oMerkmale_arr as $characteristic}
-															<li class="characteristic">
-																<strong>{$characteristic->getName()|escape:'html'}</strong>:
+													{* Artikel property is not set on free gifts and maybe some other position types *}
+													{if isset($oLieferscheinpos->oPosition->Artikel)}
+														{* eindeutige Merkmale *}
+														{if $oLieferscheinpos->oPosition->Artikel->cHersteller && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== "N"}
+															<li class="manufacturer">
+																<strong>{lang key='manufacturer' section='productDetails'}</strong>:
 																<span class="values">
-																	{foreach $characteristic->getCharacteristicValues() as $characteristicValue}
-																		{if !$characteristicValue@first}, {/if}
-																		{$characteristicValue->getValue()}
-																	{/foreach}
+																{$oLieferscheinpos->oPosition->Artikel->cHersteller}
 																</span>
 															</li>
-														{/foreach}
+														{/if}
+
+														{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelmerkmale == 'Y' && !empty($oLieferscheinpos->oPosition->Artikel->oMerkmale_arr)}
+															{foreach $oLieferscheinpos->oPosition->Artikel->oMerkmale_arr as $characteristic}
+																<li class="characteristic">
+																	<strong>{$characteristic->getName()|escape:'html'}</strong>:
+																	<span class="values">
+																		{foreach $characteristic->getCharacteristicValues() as $characteristicValue}
+																			{if !$characteristicValue@first}, {/if}
+																			{$characteristicValue->getValue()}
+																		{/foreach}
+																	</span>
+																</li>
+															{/foreach}
+														{/if}
 													{/if}
 												</ul>
 											</td>

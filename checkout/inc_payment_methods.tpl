@@ -10,19 +10,19 @@
                 }
                     {block name='checkout-inc-payment-methods-image-title'}
                         {if $zahlungsart->cBild}
-                            {image src=$zahlungsart->cBild alt=$zahlungsart->angezeigterName|trans fluid=true class="img-sm"}
+                            {image src=$zahlungsart->cBild alt=$zahlungsart->angezeigterName|transByISO fluid=true class="img-sm"}
                         {/if}
                     {/block}
                     {block name='checkout-inc-payment-methods-content-wrapper'}
                         <span class="pay-wrap">
                             {block name='checkout-inc-payment-methods-text-title'}
                                 <span class="block">
-                                    <span class="title">{$zahlungsart->angezeigterName|trans}</span>
+                                    <span class="title">{$zahlungsart->angezeigterName|transByISO}</span>
                                     {if $zahlungsart->fAufpreis != 0}
                                         {block name='checkout-inc-payment-methods-badge'}
                                             <strong class="checkout-payment-method-badge">
                                                 {if $zahlungsart->cGebuehrname|has_trans}
-                                                    <span>{$zahlungsart->cGebuehrname|trans} </span>
+                                                    <span>{$zahlungsart->cGebuehrname|transByISO} </span>
                                                 {/if}
                                                 {$zahlungsart->cPreisLocalized}
                                             </strong>
@@ -33,7 +33,7 @@
                             {if $zahlungsart->cHinweisText|has_trans}
                                 {block name='checkout-inc-payment-methods-note'}
                                     <span class="checkout-payment-method-note">
-                                        <small>{$zahlungsart->cHinweisText|trans}</small>
+                                        <small>{$zahlungsart->cHinweisText|transByISO}</small>
                                     </span>
                                 {/block}
                             {/if}

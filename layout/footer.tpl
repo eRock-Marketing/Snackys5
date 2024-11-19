@@ -338,7 +338,7 @@
 									{checkCopyfree cAssign="snackysCopyfree"}
 									{if !$snackysCopyfree}
 										<li id="template-copyright">
-											Made with <span class="color-brand">&hearts;</span> by <a href="https://www.erock-marketing.de/" title="eCommerce Agency - eRock marketing">eRock Marketing</a>
+											Made with <span class="color-brand">&hearts;</span> by <a href="https://www.erock-creations.de/" title="eCommerce Agency - eRock Creations" target="_blank">eRock Creations</a>
 										</li>
 									{/if}
 								</ul>

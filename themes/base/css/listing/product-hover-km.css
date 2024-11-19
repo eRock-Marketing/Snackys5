@@ -33,5 +33,5 @@
 	right: .8rem;
 	bottom: .8rem;
 	pointer-events: all;
-    border-radius: 50%;
+    border-radius: var(--rnd-fll);
 }

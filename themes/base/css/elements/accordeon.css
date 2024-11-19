@@ -20,10 +20,10 @@
     border-bottom-width: 0;
 }
 .accordion .card:first-child{
-    border-radius: .5rem .5rem 0 0;
+    border-radius: var(--box-rnd) var(--box-rnd) 0 0;
 }
 .accordion .card:last-child{
-    border-radius: 0 0 .5rem .5rem;
+    border-radius: 0 0 var(--box-rnd) var(--box-rnd);
     border-bottom-width: 1px;
 }
 .accordion .card-link{

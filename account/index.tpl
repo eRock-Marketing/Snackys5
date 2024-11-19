@@ -203,6 +203,10 @@
 							{block name='account-index-include-changepass'}
 								{include file='account/change_password.tpl'}
 							{/block}
+						{elseif $step === 'manageTwoFA'}
+							{block name='account-index-include-manage-two-fa'}
+								{include file='account/two_fa.tpl'}
+							{/block}
 						{elseif $step === 'bestellung'}
 							{block name='account-index-include-orderdetails'}
 								<div id="order-details">

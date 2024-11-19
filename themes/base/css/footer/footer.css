@@ -31,7 +31,7 @@
 .btn-social{
     width: 2rem;
     height: 2rem;
-    border-radius: 50%;
+    border-radius: var(--rnd-fll);
     margin: .4rem;
 }
 .btn-social:hover{

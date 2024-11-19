@@ -48,7 +48,7 @@
 	background: rgba(255,255,255,.7);
 	border: 0;
 	padding: 1.5rem .8rem;
-	border-radius: .3rem;
+	border-radius: var(--btn-rnd-sm);
 	opacity: 1;
 }
 .sl-w .sl-nx{

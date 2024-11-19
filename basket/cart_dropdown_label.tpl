@@ -9,8 +9,8 @@
 				</span>
 			{/block}
 			{block name='basket-cart-dropdown-label-link-badge'}
-				{if $WarenkorbArtikelPositionenanzahl >= 1}
-					<sup class="badge"><em>{$WarenkorbArtikelPositionenanzahl}</em></sup>
+				{if $WarenkorbArtikelAnzahl >= 1}
+					<sup class="badge"><em>{$WarenkorbArtikelAnzahl}</em></sup>
 				{/if}
 			{/block}
         </a>

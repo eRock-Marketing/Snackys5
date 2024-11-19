@@ -50,8 +50,6 @@
 {/block}
 
 {block name='shipping-class'}
-    {if !empty($taxdata.shippingClass) && $taxdata.shippingClass !== 'standard' && $Einstellungen.global.global_versandklasse_anzeigen === 'Y'}
-        ({$taxdata.shippingClass})
-    {/if}
+    {* Block content removed in 5.4.0 *}
 {/block}
 {/block}

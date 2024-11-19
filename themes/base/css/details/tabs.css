@@ -10,7 +10,7 @@
 /* Tab Bewertung */
 #tab-votes .progress,
 #tab-votes .progress-bar{
-    border-radius: 1rem;
+    border-radius: var(--rnd-frc);
     font-size: 0;
     height: .5rem;
     background: var(--prg-b);

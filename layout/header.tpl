@@ -600,7 +600,7 @@
 				</div>
 			{/if}
 		{/block}		
-		{if !$bExclusive && !empty($boxes.left|strip_tags|trim) && $nSeitenTyp == 2}
+		{if !$bExclusive && !empty($boxes.left) && !empty($boxes.left|strip_tags|trim) && $nSeitenTyp == 2}
 			{assign var="hasFilters" value="true"}
 		{else}
 			{assign var="hasFilters" value=false}

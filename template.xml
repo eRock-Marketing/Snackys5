@@ -3,8 +3,8 @@
     <Name>Snackys</Name>
     <Author>eRock Marketing</Author>
     <URL>https://www.erock-marketing.de</URL>
-    <MinShopVersion>5.3.0</MinShopVersion>
-    <Version>5.3.2</Version>
+    <MinShopVersion>5.4.0</MinShopVersion>
+    <Version>5.4.0</Version>
     <Preview>preview-snackys.png</Preview>
     <Description>Ultraschnelles responsive JTL Template von eRock Marketing</Description>
     <Framework>Bootstrap4</Framework>

@@ -125,7 +125,7 @@ body.edge a:hover .second-img{
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     padding: .4rem .3rem;
-    border-radius: 0 0 .8rem .8rem;
+    border-radius: 0 0 var(--img-rnd) var(--img-rnd);
     color: var(--pbx-ct-t);
 }
 .sale-ct .ct-un{

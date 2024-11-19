@@ -3,7 +3,7 @@
 	z-index: 9;
 	background: var(--pbx-h-b);
     box-shadow: 0 0 0 .4rem var(--pbx-h-b), 0 0 0 300vw rgba(0,0,0,.3);
-    border-radius: .6rem .6rem 0 0;
+    border-radius: var(--box-rnd) var(--box-rnd) 0 0;
 }
 .p-w:hover .p-c.hv-e:after{
 	content: '';
@@ -12,7 +12,7 @@
 	right: -15px;
 	left: -15px;
 	bottom: 0;
-    border-radius: .6rem .6rem 0 0;
+    border-radius: var(--box-rnd) var(--box-rnd) 0 0;
 	pointer-events: none;
 	z-index: -1;
 }
@@ -39,7 +39,7 @@
 	right: -15px;
 	padding: 15px;
 	background: var(--pbx-h-b);
-    border-radius: 0 0 .6rem .6rem;
+    border-radius: 0 0 var(--box-rnd) var(--box-rnd);
     top: 100%;
 }
 .hv-e .exp .var-it{
@@ -160,7 +160,7 @@
     }
     .p-c.hv-e .exp .btn-primary{
         width: 100%;
-        border-radius: .3rem;
+        border-radius: var(--btn-rnd-sm);
         justify-content: center;
     }
 }

@@ -64,8 +64,8 @@
 												{block name='sidebasket-items-warenkorbartikel-name'}
 													<div class="cols-name">
 														{$oPosition->nAnzahl|replace_delim}{if $oPosition->Artikel->cEinheit} {$oPosition->Artikel->cEinheit}{else}&times;{/if}
-														<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:"html"}">
-															{$oPosition->cName|trans}
+														<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:"html"}">
+															{$oPosition->cName|transByISO}
 														</a>
 													</div>
 												{/block}
@@ -153,7 +153,7 @@
 											{/block}
 											{block name='sidebasket-items-nichtwarenkorbartikel-name'}
 												<div class="cols-name" colspan="2">
-													{$oPosition->nAnzahl|replace_delim}&times;&nbsp;{$oPosition->cName|trans|escape:"htmlall"}
+													{$oPosition->nAnzahl|replace_delim}&times;&nbsp;{$oPosition->cName|transByISO|escape:"htmlall"}
 												</div>
 											{/block}
 											{block name='sidebasket-items-nichtwarenkorbartikel-price'}
@@ -281,6 +281,11 @@
 		</div>
 		<div class="payplan"></div>
 		{include file="snippets/zonen.tpl" id="after_sidebasket_buybuttons" title="after_sidebasket_buybuttons"}
+	{/block}
+	{block name='basket-cart-dropdown-shipping-include-free-hint'}
+		<div class="alert alert-info">
+			{include file='basket/freegift_hint.tpl'}
+		</div>
 	{/block}
 	{block name='sidebasket-legallinks'}
 		{getLink nLinkart=12 cAssign="linkdatenschutz"}

@@ -71,7 +71,7 @@
 		{if !empty($hinweis)}
 			{assign var="activeClass" value="login"}
 		{/if}
-		{if !empty($fehlendeAngaben) && !$hinweis}
+		{if !empty($fehlendeAngaben) && !isset($hinweis)}
 			{assign var="activeClass" value="reg"}
 		{/if}
 		{if isset($fehlendeAngaben.email_vorhanden) && $fehlendeAngaben.email_vorhanden == 1}
@@ -80,7 +80,7 @@
 		{if isset($fehlendeAngaben.formular_zeit) && $fehlendeAngaben.formular_zeit == 1}
 			{assign var="activeClass" value="reg"}
 		{/if}
-		{if $smarty.post.unreg_form == 1}
+		{if (isset($smarty.post.unreg_form) && $smarty.post.unreg_form == 1) || (isset($smarty.get.unreg_form) && $smarty.get.unreg_form == 1)}
 		{assign var="activeClass" value="guest"}
 		{/if}
 	{/block}
@@ -133,7 +133,11 @@
 									<fieldset>
 										{$jtl_token}
 										<legend>{block name="checkout-login-title"}{lang key="alreadyCustomer" section="global"}{/block}</legend>
-										{include file="register/form/customer_login.tpl" withSidebar=$withSidebar}
+										{if $showTwoFAForm|default:false}
+											{include file='snippets/two_fa_login.tpl'}
+										{else}
+											{include file="register/form/customer_login.tpl" withSidebar=$withSidebar}
+										{/if}
 									</fieldset>
 								{/block}
 								{block name="checkout-quick-checkout-placeholders"}

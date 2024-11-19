@@ -50,7 +50,7 @@
 }
 .sc-item .cols-img .img-ct,
 .sc-item .cols-img img{
-    border-radius: .5rem;
+    border-radius: var(--img-rnd-md);
 }
 .sc-item{
 	padding: .5rem 0;
@@ -84,7 +84,7 @@
 	appearance: inherit;
     border: 0;
     padding: .5rem;
-    border-radius: .3rem;
+    border-radius: var(--btn-rnd-sm);
 }
 .sc-item .editpos{
     margin-left: .5rem;
@@ -119,13 +119,13 @@
 	padding: .3rem .75rem;
 	font-size: .8rem;
     width: 4rem;
-    border-radius: .3rem 0 0 .3rem;
+    border-radius: var(--frm-rnd) 0 0 var(--frm-rnd);
 }
 .sc-item .input-group button{
     border: 1px solid var(--inp-r);
     margin: 0;
     width: auto;
-    border-radius: 0 .3rem .3rem 0;
+    border-radius: 0 var(--frm-rnd) var(--frm-rnd) 0;
     padding: .5rem .8rem;
     background: none;
     border-left: 0;
@@ -157,7 +157,7 @@
 /* Empty Basket */
 .c-empt{
     padding: 2rem;
-    border-radius: .5rem;
+    border-radius: var(--box-rnd);
     border: 4px dotted var(--hr-li);
 }
 .c-empt .img-ct{

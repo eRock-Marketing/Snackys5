@@ -10,11 +10,11 @@
     border: 1px solid var(--inp-r);
     color: var(--inp-t);
     padding: 0 .7rem;
-    border-radius: 0 .3rem .3rem 0;
+    border-radius: 0 var(--frm-rnd) var(--frm-rnd) 0;
     font-size: .9rem;
 }
 .mtrx .input-group input:only-child{
-    border-radius: .3rem;
+    border-radius: var(--frm-rnd);
 }
 .mtrx .img-ct{
     width: 4rem;

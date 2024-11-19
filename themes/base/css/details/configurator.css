@@ -27,7 +27,6 @@
 }
 #product-configuration-sidebar table{
     padding: 0 1rem;
-    border-radius: .8rem .8rem 0 0;
     background: var(--pan-b);
     font-size: .95rem;
 }
@@ -45,7 +44,7 @@
 }
 .cfg-group .alert{
     padding: .8rem 1rem;
-    border-radius: .3rem;
+    border-radius: var(--frm-rnd);
     margin-bottom: 1rem;
     font-size: .85rem;
 }
@@ -57,7 +56,7 @@
     background: var(--tag-df-b);
     color: var(--tag-df-t);
     padding: .4rem .5rem;
-    border-radius: 3rem;
+    border-radius: var(--rnd-frc);
     margin-top: .2rem;
     font-size: .8rem;
     display: none;
@@ -88,7 +87,7 @@
 }
 .cfg-ct{
     border: 2px solid var(--inp-r);
-    border-radius: .8rem;
+    border-radius: var(--box-rnd-lg);
     padding: 1rem;
     position: relative;
     height: 100%;
@@ -110,7 +109,7 @@ input:checked + .cfg-ct{
 .cfg-ct .check{
     width: 2rem;
     height: 2rem;
-    border-radius: 50%;
+    border-radius: var(--rnd-fll);
     background: var(--btn-su-b) url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNODIuOCAxMy45MzhjLTEuNS4xLTIuOS44LTMuOSAyLjItMTQuMiAxNy44LTI3LjEgMzUuNC00MC44IDUyLjlsLTE3LjUtMTcuNGMtMi41LTIuNS02LjEtMi04LjEgMS4xcy0xLjYgNy42LjkgMTAuMWwyMS41IDIxLjZjMi4zIDIuMyA1LjYgMi4xIDcuNy0uNiAxNS40LTE5LjQgMjkuMi0zOC41IDQ0LjQtNTcuNSAyLjMtMi44IDIuMy03LjMuMS0xMC4yLTEuMS0xLjQtMi43LTIuMi00LjMtMi4yeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==')no-repeat center/60%;
     position: absolute;
     top: 0;
@@ -152,7 +151,7 @@ input:checked + .cfg-ct .check{
     width: 2rem;
     min-width: 2rem;
     height: 2rem;
-    border-radius: 50%;
+    border-radius: var(--rnd-fll);
     background: var(--btn-df-b);    
     color: var(--btn-df-t);
     text-align: center;
@@ -172,7 +171,7 @@ input:checked + .cfg-ct .check{
 .cfg-ftr{
     padding: 1rem;
     background: var(--bod-b-l);
-    border-radius: .5rem
+    border-radius: var(--box-rnd);
 }
 .cfg-ct .text{
     position: relative;
@@ -201,7 +200,7 @@ a.desc-tgl{
     background: var(--btn-pr-b);
     width: 1.2rem;
     height: 1.2rem;
-    border-radius: 50%;
+    border-radius: var(--rnd-fll);
     text-align: center;
     line-height: 1.2rem;
     font-size: .8rem;
@@ -290,10 +289,10 @@ a.desc-tgl{
     padding-right: 2rem;
 }
 .typ-dd .list-group-item:first-child .cfg-ct{
-    border-radius: .5rem .5rem 0 0;
+    border-radius: var(--box-rnd) var(--box-rnd) 0 0;
 }
 .typ-dd .list-group-item:last-child .cfg-ct{
-    border-radius: 0 0 .5rem .5rem;
+    border-radius: 0 0 var(--box-rnd) var(--box-rnd);
 }
 .typ-dd .list-group-item:not(:last-child) .cfg-ct{
     border-bottom: 0;

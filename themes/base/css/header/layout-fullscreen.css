@@ -3,7 +3,7 @@
 	position: relative;
 }
 #km-fw #top-bar-wrapper{
-    z-index: 3;
+    z-index: 5;
     position: relative;
 }
 #km-fw #header-promo,

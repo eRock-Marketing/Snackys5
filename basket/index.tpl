@@ -14,20 +14,27 @@
 			{include file="snippets/extension.tpl"}
 		{/block}
 		{block name="basket-content-wrapper"}
-			<div class="row {if ($Warenkorb->PositionenArr|count > 0)}flx-jb{else}flx-jc{/if}">
+			<div class="row {if $WarenkorbArtikelAnzahl > 0}flx-jb{else}flx-jc{/if}">
 				{block name="basket-content-left"}
-    				<div class="{if ($Warenkorb->PositionenArr|count > 0)}col-12 col-md-7 col-lg-8{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-9{/if}{else}col-12 col-md-8 col-lg-6{/if}">
+    				<div class="{if $WarenkorbArtikelAnzahl > 0}col-12 col-md-7 col-lg-8{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-9{/if}{else}col-12 col-md-8 col-lg-6{/if}">
 						{block name="basket-content-headline"}
-    						<h1 class="mb-sm{if ($Warenkorb->PositionenArr|count == 0)} text-center{/if}">{lang key="basket" section="global"} {if ($Warenkorb->PositionenArr|count > 0)}<span class="text-muted">({count(JTL\Session\Frontend::getCart()->PositionenArr)} {lang key='products'})</span>{/if}</h1>
+    						<h1 class="mb-sm{if ($WarenkorbArtikelAnzahl == 0)} text-center{/if}">
+								{lang key="basket" section="global"} {if $WarenkorbArtikelAnzahl > 0}<span class="text-muted">({$WarenkorbArtikelAnzahl} {lang key='products'})</span>{/if}
+							</h1>
     						{include file="snippets/zonen.tpl" id="opc_after_heading"}
 						{/block}
 						{block name='basket-index-notice-shipping'}
-        					{if !empty($WarenkorbVersandkostenfreiHinweis) && $Warenkorb->PositionenArr|count > 0}
+        					{if !empty($WarenkorbVersandkostenfreiHinweis) && $WarenkorbArtikelAnzahl > 0}
             					<div class="alert alert-info">
                 					{$WarenkorbVersandkostenfreiHinweis}
             					</div>
         					{/if}
     					{/block}
+						{* block name='basket-index-shipping-include-free-hint'}
+							<div class="alert alert-info">
+								{include file='basket/freegift_hint.tpl'}
+							</div>
+						{/block *}
 						{block name='basket-index-notice-weight'}
 							{if $Einstellungen.kaufabwicklung.warenkorb_gesamtgewicht_anzeigen === 'Y'}
 								<div class="alert alert-info">
@@ -36,7 +43,7 @@
 							{/if}
 						{/block}
 						{block name="basket-content-basket"}
-    						{if ($Warenkorb->PositionenArr|count > 0)}
+    						{if $WarenkorbArtikelAnzahl > 0}
         						{block name="basket"}
             						<div class="basket_wrapper">
 										{block name="basket-content-items-wrapper"}
@@ -88,7 +95,7 @@
 					</div>
 				{/block}
 				{block name="basket-content-right"}
-    				{if ($Warenkorb->PositionenArr|count > 0)}
+    				{if $WarenkorbArtikelAnzahl > 0}
     					<div class="col-12 col-md-5 col-lg-4{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-3{/if} right-boxes mt-xs">
 							{block name='basket-index-include-uploads'}
 								{if !empty($oUploadSchema_arr)}
@@ -99,6 +106,9 @@
 							{/block}
 							{block name="basket-content-buybox"}			
         						<div class="cart-sum panel mb-sm">
+									{block name='basket-index-side-heading'}
+										<div class="h4">{lang key="orderOverview" section="account data"}</div>
+									{/block}
             						{assign var="showCoupon" value=false}
             						{if $Einstellungen.kaufabwicklung.warenkorb_kupon_anzeigen === 'Y' && $KuponMoeglich == 1}
                 						{block name="basket-coupon-outer"}
@@ -201,26 +211,38 @@
         						</div>
 							{/block}
 							{block name="basket-freegift-outer"}
-        						{if $oArtikelGeschenk_arr|count > 0}
+								{if $freeGifts->count() > 0}
             						{block name="basket-freegift"}
                 						<div id="freegift" class="panel mb-sm">
 											{block name="basket-freegift-headline"}
                     							<div class="panel-heading">
-                        							<h2 class="panel-title h4">{block name="basket-freegift-title"}{lang key='freeGiftFromOrderValueBasket'}{/block}</h2>
+                        							<div id="freeGiftsHeading" class="panel-title h4">
+														{block name="basket-freegift-title"}
+															{if !empty($oSpezialseiten_arr) && isset($oSpezialseiten_arr[$smarty.const.LINKTYP_GRATISGESCHENK])}
+																<a href="{$oSpezialseiten_arr[$smarty.const.LINKTYP_GRATISGESCHENK]->getURL()}"
+																	title="{lang key='freeGiftFromOrderValueBasket'}">
+																	{lang key='freeGiftFromOrderValueBasket'}
+																</a>
+															{else}
+																{lang key='freeGiftFromOrderValueBasket'}
+															{/if}
+														{/block}
+													</div>
                     							</div>
 											{/block}
 											{block name="basket-freegift-body-outer"}
                     							<div class="panel-body">
+
                         							{block name="basket-freegift-body"}
                             							<form method="post" name="freegift" action="{$cartURL}#freegift">
                                 							{$jtl_token}
-                                    						{foreach $oArtikelGeschenk_arr as $oArtikelGeschenk}
+                                    						{foreach $freeGifts as $oArtikelGeschenk}
 																{block name="basket-freegift-item"}
 																	<div class="row mb-xs">
-																		<label class="thumbnail flx-ac flx-nw w100" for="gift{$oArtikelGeschenk->kArtikel}" role="button">
+																		<label class="thumbnail flx-ac flx-nw w100" for="gift{$oArtikelGeschenk->productID}" role="button">
 																			{block name="basket-freegift-item-radio"}
 																				<div class="col-1">
-																					<input name="gratisgeschenk" type="radio" value="{$oArtikelGeschenk->kArtikel}" id="gift{$oArtikelGeschenk->kArtikel}" />
+																					<input name="gratisgeschenk" type="radio" value="{$oArtikelGeschenk->productID}" id="gift{$oArtikelGeschenk->productID}" />
 																				</div>
 																			{/block}
 																			{block name="basket-freegift-item-image"}
@@ -228,7 +250,7 @@
 																					<div class="img-ct">
 																						{include file='snippets/image.tpl'
 																							fluid=false
-																							item=$oArtikelGeschenk
+																							item=$oArtikelGeschenk->getProduct()
 																							square=false
 																							srcSize='xs'
 																							sizes='45px'
@@ -238,8 +260,8 @@
 																			{/block}
 																			{block name="basket-freegift-item-name"}
 																				<div class="caption col-8 col-sm-9 col-md-8">
-																					<p class="m0">{$oArtikelGeschenk->cName}</p>
-																					<p class="small text-muted m0">{lang key='freeGiftFrom1'} {$oArtikelGeschenk->cBestellwert} {lang key='freeGiftFrom2'}</p>
+																					<p class="m0">{$oArtikelGeschenk->getProduct()->cName}</p>
+																					<p class="small text-muted m0">{lang key='freeGiftFrom1'} {$oArtikelGeschenk->getProduct()->cBestellwert} {lang key='freeGiftFrom2'}</p>
 																				</div>
 																			{/block}
 																		</label>

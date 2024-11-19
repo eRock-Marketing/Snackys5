@@ -15,7 +15,7 @@
 #search input{
     border: 0;
     padding: 1rem 3.125rem 1rem 1rem;
-    border-radius: .5rem;
+    border-radius: var(--btn-rnd);
     background: var(--ser-b);
     border: 1px solid var(--ser-r);
     color: var(--ser-t);
@@ -89,7 +89,7 @@
 	height: .15rem;
 	background: var(--hed-i);
 	position: absolute;
-	border-radius: .2rem;
+	border-radius: var(--rnd-frc);
 	top: .2rem
 }
 #mob-nt:hover .burger-line{

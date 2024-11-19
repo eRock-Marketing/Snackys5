@@ -8,6 +8,18 @@
 .item .icon.inactive svg{
     fill: var(--btn-da-b);
 }
+#er_twofa{
+    border: 1px solid var(--hr);
+    padding: 2rem;
+    border-radius: var(--box-rnd);
+}
+#er_twofa svg{
+    height: auto;
+    width: 6rem;
+    display: block;
+    margin: auto;
+    fill: var(--icon)
+}
 @media screen and (min-width: 992px){
     .al-wp > .panel{
         margin-right: 2rem;

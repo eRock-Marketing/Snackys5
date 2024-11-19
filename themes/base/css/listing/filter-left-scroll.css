@@ -6,7 +6,7 @@
 }
 #sp-l .panel-body::-webkit-scrollbar-thumb {
     background: var(--scb-tr) ;
-    border-radius: 2rem;
+    border-radius: var(--rnd-frc);
     border: 5px solid var(--pan-b);
 }
 #sp-l .panel-body::-webkit-scrollbar-thumb:hover,

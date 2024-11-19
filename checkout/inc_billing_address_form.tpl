@@ -434,11 +434,7 @@
 								>
 								{if isset($fehlendeAngaben.ort)}
 									<div class="form-error-msg text-danger">
-										{if $fehlendeAngaben.ort==3}
-											 {lang key="cityNotNumeric" section="account data"}
-										{else}
-											{lang key="fillOut" section="global"}
-										{/if}
+										{lang key="fillOut" section="global"}
 									</div>
 								{/if}
 							</div>

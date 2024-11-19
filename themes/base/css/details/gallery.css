@@ -5,7 +5,7 @@
 #gallery-thumbs .img-ct{
     box-shadow: 0 0 0 1px var(--pbx-im-r);
     transition: box-shadow .3s ease;
-    border-radius: .5rem;
+    border-radius: var(--img-rnd-md);
     background: var(--pbx-im-b);
 }
 #gallery-thumbs .img-w.active .img-ct,
@@ -14,7 +14,7 @@
     transform: none;
 }
 #gallery-thumbs img{
-    border-radius: .5rem;
+    border-radius: var(--img-rnd-md);
 }
 #gallery-thumbs.two-cols{
     align-content: flex-start;
@@ -27,7 +27,7 @@
 #gallery a{
     display: block; 
     cursor: zoom-in;
-    border-radius: 0.8rem;
+    border-radius: var(--img-rnd);
 }
 #gallery a:not(.active){
     display: none;

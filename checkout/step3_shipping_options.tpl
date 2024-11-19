@@ -31,7 +31,7 @@
 																{if $versandart->cBild}
 																	<span class="payship-img">
 																		<span class="img-ct icon contain">
-																			{image src=$versandart->cBild alt="{$versandart->angezeigterName|trans}"}
+																			{image src=$versandart->cBild alt="{$versandart->angezeigterName|transByISO}"}
 																		</span>
 																	</span>
 																{/if}
@@ -40,10 +40,10 @@
 																<span class="payship-content">
 																	{block name='step3-shippings-list-item-content-name'}
 																		<strong class="block">
-																			{if $versandart->angezeigterName|trans === '' && $versandart->cBild === ''}
+																			{if $versandart->angezeigterName|transByISO === '' && $versandart->cBild === ''}
 																				{$versandart->cName}
 																			{else}
-																				{$versandart->angezeigterName|trans}
+																				{$versandart->angezeigterName|transByISO}
 																			{/if}
 																			<span class="badge small">
 																				{$versandart->cPreisLocalized}
@@ -53,23 +53,23 @@
 																	{block name='step3-shippings-list-item-content-infos'}
 																		<span class="block small">
 																			{block name='step3-shippings-list-item-content-infos-notice'}
-																				<span class="block">{$versandart->angezeigterHinweistext|trans}</span>
+																				<span class="block">{$versandart->angezeigterHinweistext|transByISO}</span>
 																			{/block}
 																			{block name='step3-shippings-list-item-content-infos-shippingtime'}
-																				{if !empty($versandart->cLieferdauer|trans)}
-																					<span class="block">{lang key="shippingTime"}: {$versandart->cLieferdauer|trans}</span>
+																				{if !empty($versandart->cLieferdauer|transByISO)}
+																					<span class="block">{lang key="shippingTime"}: {$versandart->cLieferdauer|transByISO}</span>
 																				{/if}
 																			{/block}
 																			{block name='step3-shippings-list-item-content-infos-specific-costs'}
 																				{if isset($versandart->specificShippingcosts_arr)}
 																					{foreach $versandart->specificShippingcosts_arr as $specificShippingcosts}
-																						<span class="block">{$specificShippingcosts->cName|trans}: {$specificShippingcosts->cPreisLocalized}</span>
+																						<span class="block">{$specificShippingcosts->cName|transByISO}: {$specificShippingcosts->cPreisLocalized}</span>
 																					{/foreach}
 																				{/if}
 																			{/block}
 																			{block name='step3-shippings-list-item-content-infos-zuschlag'}
 																				{if !empty($versandart->Zuschlag->fZuschlag)}
-																					<span class="block">{$versandart->Zuschlag->angezeigterName|trans} (+{$versandart->Zuschlag->cPreisLocalized})</span>
+																					<span class="block">{$versandart->Zuschlag->angezeigterName|transById} (+{$versandart->Zuschlag->cPreisLocalized})</span>
 																				{/if}
 																			{/block}
 																		</span>

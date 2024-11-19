@@ -39,7 +39,7 @@
                 				{if $Einstellungen.kaufabwicklung.warenkorb_produktbilder_anzeigen === 'Y'}
                     				<div class="img-col col-3 col-sm-2 col-md-2">
                         				{if !empty($oPosition->Artikel->cVorschaubildURL)}
-                        					<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:'html'}" class="img-ct w100">
+                        					<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}" class="img-ct w100">
 												{if isset($nSeitenTyp) && $nSeitenTyp == 37}
 													{include file='snippets/image.tpl'
 														fluid=false
@@ -66,8 +66,8 @@
                         					<div class="col-8 col-md-8 col-lg-9">
                              					{if $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL || $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_GRATISGESCHENK}
 													{block name='order-items-item-name'}
-                                						<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:'html'}" class="block">
-															<strong class="title">{$oPosition->cName|trans}</strong>
+                                						<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}" class="block">
+															<strong class="title">{$oPosition->cName|transByISO}</strong>
 														</a>
 													{/block}
 													{block name='order-items-item-infos-list'}
@@ -96,15 +96,15 @@
 																	{if $Einstellungen.kaufabwicklung.warenkorb_varianten_varikombi_anzeigen === 'Y' && isset($oPosition->WarenkorbPosEigenschaftArr) && !empty($oPosition->WarenkorbPosEigenschaftArr)}
 																		{foreach name=variationen from=$oPosition->WarenkorbPosEigenschaftArr item=Variation}
 																			<li class="variation">
-																				<strong>{$Variation->cEigenschaftName|trans}:</strong> {$Variation->cEigenschaftWertName|trans}
+																				<strong>{$Variation->cEigenschaftName|transByISO}:</strong> {$Variation->cEigenschaftWertName|transByISO}
 																			</li>
 																		{/foreach}
 																	{/if}
 																{/block}
 																{block name='order-items-item-infos-delivery'}
-																	{if $Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|trans}
+																	{if $Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|transByISO}
 																		<li class="delivery-status">
-																			<strong>{lang key="deliveryStatus" section="global"}:</strong> {$oPosition->cLieferstatus|trans}
+																			<strong>{lang key="deliveryStatus" section="global"}:</strong> {$oPosition->cLieferstatus|transByISO}
 																		</li>
 																	{/if}
 																{/block}
@@ -179,19 +179,19 @@
 													{/block}
                             					{else}
 													{block name='order-items-item-name-specialpos'}
-                                						<strong>{$oPosition->cName|trans}{if isset($oPosition->discountForArticle)}{$oPosition->discountForArticle|trans}{/if}</strong>
+                                						<strong>{$oPosition->cName|transByISO}{if isset($oPosition->discountForArticle)}{$oPosition->discountForArticle|transByISO}{/if}</strong>
 													{/block}
 													{block name='order-items-item-affix-specialpos'}
 														{if isset($oPosition->cArticleNameAffix)}
 															{if is_array($oPosition->cArticleNameAffix)}
 																<ul class="small text-muted blanklist">
 																	{foreach $oPosition->cArticleNameAffix as $cArticleNameAffix}
-																		<li>{$cArticleNameAffix|trans}</li>
+																		<li>{$cArticleNameAffix|transByISO}</li>
 																	{/foreach}
 																</ul>
 															{else}
 																<ul class="small text-muted blanklist">
-																	<li>{$oPosition->cArticleNameAffix|trans}</li>
+																	<li>{$oPosition->cArticleNameAffix|transByISO}</li>
 																</ul>
 															{/if}
 														{/if}
@@ -211,7 +211,7 @@
 																		&& !$KonfigPos->isIgnoreMultiplier()}
 																		<li>
 																			<span class="qty">{if !$KonfigPos->istKonfigVater()}{$KonfigPos->nAnzahlEinzel}{else}1{/if}x</span>
-																			{$KonfigPos->cName|trans} &raquo;
+																			{$KonfigPos->cName|transByISO} &raquo;
 																			<span class="price_value">
 																				{$KonfigPos->cEinzelpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}
 																				{lang key="pricePerUnit" section="checkout"}
@@ -229,7 +229,7 @@
 																		&& $KonfigPos->isIgnoreMultiplier()}
 																		<li>
 																			<span class="qty">{if !$KonfigPos->istKonfigVater()}{$KonfigPos->nAnzahlEinzel}{else}1{/if}x</span>
-																			{$KonfigPos->cName|trans} &raquo;
+																			{$KonfigPos->cName|transByISO} &raquo;
 																			<span class="price_value">
 																				{$KonfigPos->cEinzelpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}
 																				{lang key="pricePerUnit" section="checkout"}
@@ -247,7 +247,7 @@
 															{foreach $oPosition->Artikel->oStueckliste_arr as $partListItem}
 																<li>
 																	<span class="qty">{$partListItem->fAnzahl_stueckliste}x</span>
-																	{$partListItem->cName|trans}
+																	{$partListItem->cName|transByISO}
 																</li>
 															{/foreach}
 														</ul>

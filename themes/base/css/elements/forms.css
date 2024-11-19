@@ -14,7 +14,7 @@ textarea{
     padding: .75rem 1rem;
     display: block;
     transition: .3s ease;   
-    border-radius: .3rem;
+    border-radius: var(--frm-rnd);
     box-shadow: none;
     -webkit-appearance: none;
     -moz-appearance: none;

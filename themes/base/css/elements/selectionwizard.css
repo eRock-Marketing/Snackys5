@@ -38,7 +38,7 @@ body:not([data-page="18"]) #selection_wizard{
 #selection_wizard .answers > span > span{
 	padding: .3rem 1rem;
 	border: 1px solid var(--hr);
-	border-radius: .3rem;
+	border-radius: var(--btn-rnd-sm);
 	display: inline-block;
 	margin: .35rem .35rem .35rem 0;
 	transition: .3s ease;

@@ -123,6 +123,18 @@
 								</span>
 							</a>
 						{/block}
+						{block name="my-personal-data-twofa"}
+							{if $twoFAEnabled === true}
+								<a class="flx-ac item" href="{get_static_route id='jtl.php' params=['twofa' => 1]}">
+									<strong class="w100">{lang key='twoFactorAuthentication' section='account data'}</strong>
+									<span class="img-ct icon icon-wt">
+										<svg>
+										<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-edit"></use>
+										</svg>
+									</span>
+								</a>
+							{/if}
+						{/block}
     				</div>
 				</div>
 			{/block}

@@ -46,7 +46,7 @@
                             <tbody>
                                 {foreach $ArtikelabhaengigeVersandarten as $artikelversand}
                                     <tr>
-                                        <td>{$artikelversand->cName|trans}</td>
+                                        <td>{$artikelversand->cName|transByISO}</td>
                                         <td class="text-right"><strong>{$artikelversand->cPreisLocalized}</strong>
                                         </td>
                                     </tr>
@@ -63,25 +63,25 @@
                                         <td>
                                             {if $versandart->cBild}
                                                 <span class="img-ct icon icon-xl">
-												{image src=$versandart->cBild alt="{$versandart->angezeigterName|trans}"}
+												{image src=$versandart->cBild alt="{$versandart->angezeigterName|transByISO}"}
                                                 </span>
                                             {else}
-                                                {$versandart->angezeigterName|trans}
+                                                {$versandart->angezeigterName|transByISO}
                                             {/if}
-                                            {if $versandart->angezeigterHinweistext|trans}
+                                            {if $versandart->angezeigterHinweistext|transByISO}
                                                 <p class="small">
-                                                    {$versandart->angezeigterHinweistext|trans}
+                                                    {$versandart->angezeigterHinweistext|transByISO}
                                                 </p>
                                             {/if}
                                             {if isset($versandart->Zuschlag) && $versandart->Zuschlag->fZuschlag != 0}
                                                 <p class="small">
-                                                    {$versandart->Zuschlag->angezeigterName|trans}
+                                                    {$versandart->Zuschlag->angezeigterName|transByISO}
                                                         (+{$versandart->Zuschlag->cPreisLocalized})
                                                 </p>
                                             {/if}
-                                            {if $versandart->cLieferdauer|trans && $Einstellungen.global.global_versandermittlung_lieferdauer_anzeigen === 'Y'}
+                                            {if $versandart->cLieferdauer|transByISO && $Einstellungen.global.global_versandermittlung_lieferdauer_anzeigen === 'Y'}
                                                 <p class="small">
-                                                    {lang key="shippingTimeLP" section="global"}: {$versandart->cLieferdauer|trans}
+                                                    {lang key="shippingTimeLP" section="global"}: {$versandart->cLieferdauer|transByISO}
                                                 </p>
                                             {/if}
                                         </td>

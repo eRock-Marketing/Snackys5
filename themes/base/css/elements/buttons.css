@@ -15,7 +15,7 @@
     display: inline-flex;
 	align-items: center;
     padding: .7rem 1.2rem;
-    border-radius: .5rem;
+    border-radius: var(--btn-rnd);
     line-height: 1.2;
     font-weight: 600;
     background: var(--btn-df-b);
@@ -40,7 +40,7 @@
     fill: var(--btn-df-t-h);
 }
 .btn-rd{
-    border-radius: 10rem;
+    border-radius: var(--rnd-frc);
 }
 .btn-block{
     display: block;
@@ -225,7 +225,7 @@ label.btn-block,
     line-height: normal;
     color: var(--cls-b-i);
     font-size: 2rem;
-    border-radius: 50%;
+    border-radius: var(--rnd-fll);
     display: flex;
     align-items: center;
     justify-content: center;

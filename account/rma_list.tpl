@@ -84,7 +84,7 @@
                                                                             {block name='account-rmalist-card-body-table-body-modal-table-item-image'}
                                                                             {if isset($product->kArtikel)}
                                                                                 {col class="col-auto"}
-                                                                                    {link href=$item->getSeo() title=$item->name|trans|escape:'html'}
+                                                                                    {link href=$item->getSeo() title=$item->name|transByISO|escape:'html'}
                                                                                         {include file='snippets/image.tpl'
                                                                                         fluid=false
                                                                                         item=$product
@@ -101,7 +101,7 @@
                                                                             {block name='account-rmalist-card-body-table-body-modal-table-item-desc'}
                                                                             {col}
                                                                                 {if $item->getSeo() !== ''}
-                                                                                    {link href=$item->getSeo() title=$item->name|trans|escape:'html'}
+                                                                                    {link href=$item->getSeo() title=$item->name|transByISO|escape:'html'}
                                                                                         {$item->name|trans}
                                                                                     {/link}
                                                                                 {else}

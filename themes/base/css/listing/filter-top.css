@@ -16,10 +16,17 @@
     border: 1px solid var(--drbtn-r);    
     color: var(--drbtn-t);
 }
+#nav-ft .btn:not(.active) svg,
+.mobile .ftr-sort .btn:not(.active) svg{
+    fill: var(--drbtn-t);
+}
 #nav-ft .btn:hover:not(.active){
     background: var(--drbtn-b-h);
     border: 1px solid var(--drbtn-r-h);    
     color: var(--drbtn-t-h);
+}
+#nav-ft .btn:hover:not(.active) svg{  
+    fill: var(--drbtn-t-h);
 }
 #nav-ft .form-group{
     margin: .25rem 0;
@@ -54,7 +61,7 @@
 }
 #nav-ft .dropdown > .dropdown-menu{
     padding: 1rem;
-    border-radius: .3rem;
+    border-radius: var(--box-rnd-sm);
     margin-top: .5rem;
 	max-height: 50vh;
     overflow: auto;
@@ -67,7 +74,7 @@
         background: var(--pan-b);
         border: 1px solid var(--pan-r);
         padding: 1.5rem;
-        border-radius: .5rem;
+        border-radius: var(--box-rnd);
         margin-top: -.3rem;
     }
     #nav-ft .l-op .btn{
@@ -170,7 +177,7 @@
 .PRwrapper input[type="range"]::-webkit-slider-thumb {
     height: 20px;
     width: 20px;
-    border-radius: 50%;
+    border-radius: var(--rnd-fll);
     background: #FFF;
     pointer-events: auto;
     -webkit-appearance: none;
@@ -180,7 +187,7 @@
     height: 20px;
     width: 20px;
     border: none;
-    border-radius: 50%;
+    border-radius: var(--rnd-fll);
     background: #FFF;
     pointer-events: auto;
     -moz-appearance: none;

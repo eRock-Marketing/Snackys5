@@ -29,7 +29,7 @@ var _paq = window._paq = window._paq || [];
 		]);
 	{elseif $nSeitenTyp == 33 && $Bestellung->Positionen|count > 0}
 		{foreach from=$Bestellung->Positionen item="prodid" name="prodid"}
-			{if $prodid->nPosTyp == $C_WARENKORBPOS_TYP_ARTIKEL}
+			{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
 				_paq.push(['addEcommerceItem',
 				  "{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}",
 				  "{$prodid->Artikel->cName|escape}",

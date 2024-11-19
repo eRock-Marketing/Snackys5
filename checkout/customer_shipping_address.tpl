@@ -269,11 +269,7 @@
 								<div class="alert alert-danger">{lang key="cityNotNumeric" section="account data"}</div>
 							{else}
 								<div class="alert alert-danger">
-									{if $fehlendeAngaben.ort==3}
-										{lang key='cityNotNumeric' section='account data'}
-									{else}
-										{lang key='fillOut' section='global'}
-									{/if}
+									{lang key='fillOut' section='global'}
 								</div>
 							{/if}
 						{/if}
