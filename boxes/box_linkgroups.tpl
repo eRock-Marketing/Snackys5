@@ -12,7 +12,7 @@
 				<div class="panel-body">
 					<ul class="nav blanklist">
 						{block name='boxes-box-linkgroups-include-linkgroups-recursive'}
-							{include file='snippets/linkgroup_recursive.tpl' linkgroupIdentifier=$oBox->getLinkGroupTemplate() dropdownSupport=true  tplscope='box' limit=3}
+						{include file='snippets/linkgroup_recursive.tpl' links=$oBox->getLinkGroup()->getHierarchy() linkgroupIdentifier=$oBox->getLinkGroupTemplate() dropdownSupport=true  tplscope='box' limit=3}
 						{/block}
 					</ul>
 				</div>

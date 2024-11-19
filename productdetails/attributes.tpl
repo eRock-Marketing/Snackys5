@@ -8,7 +8,7 @@
 						{foreach $Artikel->oMerkmale_arr as $characteristic}
 							<li class="flx">
 								{block name='productdetails-attributes-characteristics-name'}
-									<strong class="first mr-xxs">{$characteristic->getName()}: </strong>
+									<strong class="first mr-xxs">{$characteristic->getName()|escape:'html'}: </strong>
 								{/block}
 								{strip}
 								{block name='productdetails-attributes-characteristics-value'}

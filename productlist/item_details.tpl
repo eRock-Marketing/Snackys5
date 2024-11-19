@@ -84,7 +84,7 @@
             {/col}
         {/block}
     {/if}
-    {if isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
+    {if $Einstellungen.artikeldetails.show_shelf_life_expiration_date === 'Y' && isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
         {block name='productlist-item-details-mhd'}
             {col tag='dt' cols=6 title="{lang key='productMHDTool'}"}{lang key='productMHD'}:{/col}
             {col tag='dd' cols=6}{$Artikel->dMHD_de}{/col}

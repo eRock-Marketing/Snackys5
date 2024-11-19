@@ -61,35 +61,39 @@
                 </a>
             {/block}
             {block name='item-slider-caption'}
-                <div class="caption">
-                    <a href="{$Artikel->cURLFull}" class="title word-break block h4 m0">
-                        {block name='item-slider-caption-partlist'}
-                            {if isset($showPartsList) && $showPartsList === true && isset($Artikel->fAnzahl_stueckliste)}
-                                <span class="article-bundle-info">
-                                    <span class="bundle-amount">{$Artikel->fAnzahl_stueckliste}</span> <span class="bundle-times">x</span>
-                                </span>
-                            {/if}
+                {if empty($noCaptionSlider)}
+                    <div class="caption">
+                        <a href="{$Artikel->cURLFull}" class="title word-break block h4 m0">
+                            {block name='item-slider-caption-partlist'}
+                                {if isset($showPartsList) && $showPartsList === true && isset($Artikel->fAnzahl_stueckliste)}
+                                    <span class="article-bundle-info">
+                                        <span class="bundle-amount">{$Artikel->fAnzahl_stueckliste}</span> <span class="bundle-times">x</span>
+                                    </span>
+                                {/if}
+                            {/block}
+                            {block name='item-slider-name'}
+                                {$Artikel->cKurzbezeichnung}
+                            {/block}
+                        </a>
+                        {block name='item-slider-price'}
+                            <div class="item-slider-price">
+                                {include file="productdetails/price.tpl" Artikel=$Artikel price_image=null tplscope=$tplscope}
+                            </div>
                         {/block}
-                        {block name='item-slider-name'}
-                            {$Artikel->cKurzbezeichnung}
-                        {/block}
-                    </a>
-                    {block name='item-slider-price'}
-                        <div class="item-slider-price">
-                            {include file="productdetails/price.tpl" Artikel=$Artikel price_image=null tplscope=$tplscope}
-                        </div>
-                    {/block}
-                </div>
+                    </div>
+                {/if}
             {/block}
             {block name='item-slider-form'}
-                <form action="{$ShopURL}/" method="post" class="buy_form_{$Artikel->kArtikel} form form-basket jtl-validate" data-toggle="basket-add{if $snackyConfig.liveBasketFromBasket == 'N' && $nSeitenTyp == 3}-direct{/if}">
-                    {$jtl_token}
-                    {block name="item-box-buyoptions"}                    
-                        {if $snackyConfig.listShowCart != 1}                
-                            {include file="productlist/item_buyoptions.tpl"}
-                        {/if}
-                    {/block}
-                </form>
+                {if empty($noCaptionSlider)}
+                    <form action="{$ShopURL}/" method="post" class="buy_form_{$Artikel->kArtikel} form form-basket jtl-validate" data-toggle="basket-add{if $snackyConfig.liveBasketFromBasket == 'N' && $nSeitenTyp == 3}-direct{/if}">
+                        {$jtl_token}
+                        {block name="item-box-buyoptions"}                    
+                            {if $snackyConfig.listShowCart != 1}                
+                                {include file="productlist/item_buyoptions.tpl"}
+                            {/if}
+                        {/block}
+                    </form>
+                {/if}
             {/block}
         </div>
     {/block}

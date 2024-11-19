@@ -3,7 +3,7 @@
         {inline_script}<script>
             $(document).ready(function () {
                 $('#paypal_button').hide();
-                $('#paypal_text').html('{lang key='redirect' section='global'}');
+                $('#paypal_text').html('{lang key='redirect' section='global' addslashes=true}');
                 $('#paypal_checkout').submit();
             });
         </script>{/inline_script}

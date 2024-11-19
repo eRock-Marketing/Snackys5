@@ -74,7 +74,7 @@
 																{/if}
 															{/block}                                
 															{block name="productdetails-info-mhd-wrapper"}
-																{if isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
+																{if $Einstellungen.artikeldetails.show_shelf_life_expiration_date === 'Y' && isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
 																	<li title="{lang key='productMHDTool'}" class="best-before nav-it">
 																		<strong>{lang key="productMHD"}:</strong> <span>{$Artikel->dMHD_de}</span>                                        
 																	</li>

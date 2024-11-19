@@ -19,7 +19,7 @@
 							</span>
 						{/if}
 						{if $Einstellungen.navigationsfilter.merkmal_anzeigen_als !== 'B'}
-							{$characteristic->getName()}
+							{$characteristic->getName()|escape:'html'}
 						{/if}
 						{if ($snackyConfig.filterOpen == 1 && $oBox->getPosition() == 'left') || ($oBox->getPosition() == 'bottom' && $snackyConfig.footerBoxesOpen === '0')}<span class="caret"></span>{/if}
 					</div>

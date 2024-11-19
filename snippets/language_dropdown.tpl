@@ -34,7 +34,7 @@
                 {block name='snippets-language-dropdown-item'}
                     {if $language->getId() != JTL\Shop::getLanguageID()}
                     <li>
-                        <a href="{$language->getUrl()}" class="link-lang flx-ac"  data-iso="{$language->getIso()}" rel="nofollow">
+                        <a href="{$language->getUrl()}" class="link-lang flx-ac"  data-iso="{$language->getIso()}">
                             <span class="img-ct icon {if isset($isHeader) && $isHeader}ic-lg{/if} rt4x3 mr-xxs">
                                 {if $language->getIso639()|lower == 'de' || $language->getIso639()|lower == 'en'}
                                     <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">

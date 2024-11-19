@@ -1,8 +1,11 @@
 {block name='snippets-consent-manager'}
 <div id="consent-manager" data-nosnippet class="d-none">
-	{$privacyURL = ''}
+	{$privacyUrl='#'}{$privacyName=''}{$imprintUrl='#'}{$imprintName=''}
 	{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}
-		{$privacyURL = $oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}
+		{$privacyUrl = $oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}
+		{$privacyName = $oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getDisplayName()}
+		{$imprintUrl = $oSpezialseiten_arr[$smarty.const.LINKTYP_IMPRESSUM]->getURL()}
+		{$imprintName = $oSpezialseiten_arr[$smarty.const.LINKTYP_IMPRESSUM]->getDisplayName()}
 	{/if}
 	{block name='snippets-consent-manager-banner'}
 		<div id="consent-banner">
@@ -21,7 +24,16 @@
 							{$items = []}
 							{foreach $consentItems as $item}{$items[] = $item->getName()}{/foreach}
 							{block name='snippets-consent-manager-banner-body-description-description'}
-								<p>{lang key='consentDescription' section='consent' printf=implode(', ', $items)|cat:':::'|cat:$privacyURL}</p>
+								<p>{lang key='consentDescription' section='consent' printf=implode(', ', $items)|cat:':::'|cat:$privacyUrl}</p>
+								{if $imprintUrl !== '#'}
+									<a href="{$imprintUrl}" title="{$imprintName}">{$imprintName}</a>
+								{/if}
+								{if $imprintUrl !== '#' && $privacyUrl !== '#'}
+									<span class="mx-1">|</span>
+								{/if}
+								{if $privacyUrl !== '#'}
+									<a href="{$privacyUrl}" title="{$privacyName}">{$privacyName}</a>
+								{/if}
 							{/block}
 						</div>
 					{/block}
@@ -66,7 +78,20 @@
 					<span class="consent-display-1">{lang key='cookieSettings' section='consent'}</span>
 				{/block}
 				{block name='snippets-consent-manager-settings-description'}
-					<p>{lang key='cookieSettingsDescription' section='consent' printf=$privacyURL}</p>
+					<p>{lang key='cookieSettingsDescription' section='consent' printf=$privacyUrl}</p>
+					{if $privacyName !== ''}
+						<div class="mb-5 mb-xs">
+							{if $imprintUrl !== '#'}
+								<a href="{$imprintUrl}" title="{$imprintName}">{$imprintName}</a>
+							{/if}
+							{if $imprintUrl !== '#' && $privacyUrl !== '#'}
+								<span class="mx-1">|</span>
+							{/if}
+							{if $privacyUrl !== '#'}
+								<a href="{$privacyUrl}" title="{$privacyName}">{$privacyName}</a>
+							{/if}
+						</div>
+					{/if}
 				{/block}
 				{block name='snippets-consent-manager-settings-buttons-top'}
 					<div class="consent-btn-holder">
@@ -84,13 +109,15 @@
 						{$id = $item->getID()}
 						<div class="consent-switch">
 							{block name='snippets-consent-manager-settings-items-checkbox'}
-								<input type="checkbox" class="consent-input" id="consent-{$id}" name="consent-{$id}" data-storage-key="{$item->getItemID()}">
+								<input type="checkbox" class="consent-input" id="consent-{$id}" name="consent-{$id}"{if $item->getItemID() === 'necessary'} disabled checked{else} data-storage-key="{$item->getItemID()}"{/if}>
 								<label class="consent-label" for="consent-{$id}">{$item->getName()}</label>
 							{/block}
 							{block name='snippets-consent-manager-settings-items-more-button'}
-								<a class="consent-show-more" href="#" data-collapse="consent-{$id}-description">
-									{lang key='moreInformation' section='consent'}<span class="consent-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></svg></span>
-								</a>
+								{if $item->hasMoreInfo()}
+									<a class="consent-show-more" href="#" data-collapse="consent-{$id}-description">
+										{lang key='moreInformation' section='consent'}<span class="consent-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></svg></span>
+									</a>
+								{/if}
 							{/block}
 							{block name='snippets-consent-manager-settings-items-help'}
 								<div class="consent-help">
@@ -98,14 +125,22 @@
 								</div>
 							{/block}
 							{block name='snippets-consent-manager-settings-items-more-content'}
-								<div class="consent-help consent-more-description consent-hidden" id="consent-{$id}-description">
-									<span class="consent-display-3 consent-no-space">{lang key='description' section='consent'}:</span>
-									<p>{$item->getPurpose()}</p>
-									<span class="consent-display-3 consent-no-space">{lang key='company' section='consent'}:</span>
-									<p>{$item->getCompany()}</p>
-									<span class="consent-display-3 consent-no-space">{lang key='terms' section='consent'}:</span>
-									<a href="{$item->getPrivacyPolicy()}" target="_blank" rel="noopener">{lang key='link' section='consent'}</a>
-								</div>
+								{if $item->hasMoreInfo()}
+									<div class="consent-help consent-more-description consent-hidden" id="consent-{$id}-description">
+										{if !empty($item->getPurpose())}
+											<span class="consent-display-3 consent-no-space">{lang key='description' section='consent'}:</span>
+											<p>{$item->getPurpose()}</p>
+										{/if}
+										{if !empty($item->getCompany())}
+											<span class="consent-display-3 consent-no-space">{lang key='company' section='consent'}:</span>
+											<p>{$item->getCompany()}</p>
+										{/if}
+										{if !empty({$item->getPrivacyPolicy()})}
+											<span class="consent-display-3 consent-no-space">{lang key='terms' section='consent'}:</span>
+											<a href="{$item->getPrivacyPolicy()}" target="_blank" rel="noopener">{lang key='link' section='consent'}</a>
+										{/if}
+									</div>
+								{/if}
 							{/block}
 						</div>
 						{block name='snippets-consent-manager-settings-items-hr'}
@@ -157,7 +192,7 @@
 						<span class="consent-display-1">{lang key='dataProtection' section='consent'}</span>
 					{/block}
 					{block name='snippets-consent-manager-confirm-description'}
-						<p>{lang key='dataProtectionDescription' section='consent' printf=$privacyURL}</p>
+						<p>{lang key='dataProtectionDescription' section='consent' printf=$privacyUrl}</p>
 					{/block}
 					{block name='snippets-consent-manager-confirm-info'}
 						<div class="consent-info">

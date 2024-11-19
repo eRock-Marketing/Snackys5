@@ -13,16 +13,16 @@
 			{if (isset($nWarenkorb2PersMerge) && $nWarenkorb2PersMerge === 1)}
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">   
-						<div class="modal-header"><h4 class="modal-title">{lang key="basket" section="global"}</h4></div> 
+						<div class="modal-header"><h4 class="modal-title">{lang key="basket" section="global" addslashes=true}</h4></div> 
 						<section class="tmp-modal-content">
 							<div class="modal-body">
-								{lang key="basket2PersMerge" section="login"}
+								{lang key="basket2PersMerge" section="login" addslashes=true}
 								<div class="answer">
 									<a href="{get_static_route id='bestellvorgang.php'}?basket2Pers=1&token={$smarty.session.jtl_token}">
-										{lang key="yes" section="global"}
+										{lang key="yes" section="global" addslashes=true}
 									</a>
 									<a href="{get_static_route id='jtl.php'}?updatePersCart=1&token={$smarty.session.jtl_token}" class="x">
-										{lang key="no" section="global"}
+										{lang key="no" section="global" addslashes=true}
 									</a>
 								</div>
 							</div>
@@ -228,6 +228,24 @@
 						{elseif $step === 'bewertungen'}
 							{block name='account-index-include-feedback'}
 								{include file='account/feedback.tpl'}
+							{/block}
+						{elseif $step === 'newRMA'}
+							{block name='account-index-include-new-rma'}
+								{if $Einstellungen.global.global_rma_enabled === 'Y'}
+									{include file='account/rma.tpl'}
+								{/if}
+							{/block}
+						{elseif $step === 'showRMA'}
+							{block name='account-index-include-show-rma'}
+								{if $Einstellungen.global.global_rma_enabled === 'Y'}
+									{include file='account/rma_summary.tpl' showButtons=false}
+								{/if}
+							{/block}
+						{elseif $step === 'rmas'}
+							{block name='account-index-include-rmas'}
+								{if $Einstellungen.global.global_rma_enabled === 'Y'}
+									{include file='account/rmas.tpl'}
+								{/if}
 							{/block}
 						{/if}
 						{if $showLoginPanel}

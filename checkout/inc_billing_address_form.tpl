@@ -54,7 +54,8 @@
 									{if $Einstellungen.kunden.kundenregistrierung_abfragen_titel === 'Y'}required{/if} 
 									{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTitel)}pattern="{$snackyConfig.patternTitel}"{/if}
 									spellcheck="false" 
-									autocorrect="off"
+									autocorrect="off" 
+									maxlength="64"
 									>
 									{if isset($fehlendeAngaben.titel)}
 										<div class="form-error-msg text-danger">
@@ -158,7 +159,8 @@
 									placeholder="{lang key="firm" section="account data"}" 
 									{if $Einstellungen.kunden.kundenregistrierung_abfragen_firma === 'Y'} required{/if} 
 									spellcheck="false" 
-									autocorrect="off"
+									autocorrect="off" 
+									maxlength="128"
 									>
 									{if isset($fehlendeAngaben.firma)}
 										<div class="form-error-msg text-danger">
@@ -189,6 +191,7 @@
 									{if $Einstellungen.kunden.kundenregistrierung_abfragen_firmazusatz === 'Y'} required{/if}
 									spellcheck="false" 
 									autocorrect="off" 
+									maxlength="60" 
 									/>
 									{if isset($fehlendeAngaben.firmazusatz)}
 										<div class="form-error-msg text-danger">
@@ -397,7 +400,8 @@
 								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternPLZ)}pattern="{$snackyConfig.patternPLZ}"{/if}
 								spellcheck="false" 
 								autocorrect="off"
-								autocomplete="billing postal-code"
+								autocomplete="billing postal-code" 
+								maxlength="20"
 								>
 								{if isset($fehlendeAngaben.plz)}
 									<div class="form-error-msg text-danger">
@@ -458,7 +462,8 @@
 								{if $Einstellungen.kunden.kundenregistrierung_abfragen_ustid === 'Y'} required{/if} 
 								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternUst)}pattern="{$snackyConfig.patternUst}"{/if}
 								spellcheck="false" 
-								autocorrect="off"
+								autocorrect="off" 
+								maxlength="20"
 								>
 								{if isset($fehlendeAngaben.ustid)}
 								<div class="form-error-msg text-danger">
@@ -564,7 +569,8 @@
 										{if $Einstellungen.kunden.kundenregistrierung_abfragen_tel === 'Y'} required{/if} 
 										{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTelefon)}pattern="{$snackyConfig.patternTelefon}"{/if}
 										spellcheck="false" 
-										autocorrect="off"
+										autocorrect="off" 
+										maxlength="45"
 										/>
 										{if isset($fehlendeAngaben.tel)}
 										<div class="form-error-msg text-danger">
@@ -599,7 +605,8 @@
 										{if $Einstellungen.kunden.kundenregistrierung_abfragen_fax === 'Y'} required{/if}
 										{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternFax)}pattern="{$snackyConfig.patternFax}"{/if}
 										spellcheck="false" 
-										autocorrect="off"
+										autocorrect="off" 
+										maxlength="45"
 										/>
 										{if isset($fehlendeAngaben.fax)}
 											<div class="form-error-msg text-danger">
@@ -640,7 +647,8 @@
 										{if $Einstellungen.kunden.kundenregistrierung_abfragen_mobil === 'Y'} required{/if} 
 										{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternMobil)}pattern="{$snackyConfig.patternMobil}"{/if}
 										spellcheck="false" 
-										autocorrect="off"
+										autocorrect="off" 
+										maxlength="30"
 										/>
 										{if isset($fehlendeAngaben.mobil)}
 											<div class="form-error-msg text-danger">

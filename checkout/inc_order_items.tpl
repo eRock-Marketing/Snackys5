@@ -79,7 +79,7 @@
 																	</li>
 																{/block}
 																{block name='order-items-item-infos-mhd'}
-																	{if isset($oPosition->Artikel->dMHD) && isset($oPosition->Artikel->dMHD_de) && $oPosition->Artikel->dMHD_de !== null}
+																	{if $Einstellungen.artikeldetails.show_shelf_life_expiration_date === 'Y' && isset($oPosition->Artikel->dMHD) && isset($oPosition->Artikel->dMHD_de) && $oPosition->Artikel->dMHD_de !== null}
 																		<li title="{lang key='productMHDTool' section='global'}" class="best-before">
 																			<strong>{lang key="productMHD" section="global"}:</strong> {$oPosition->Artikel->dMHD_de}
 																		</li>
@@ -127,7 +127,7 @@
 																	{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelmerkmale == 'Y' && !empty($oPosition->Artikel->oMerkmale_arr)}
 																		{foreach $oPosition->Artikel->oMerkmale_arr as $characteristic}
 																			<li class="characteristic">
-																				<strong>{$characteristic->getName()}</strong>:
+																				<strong>{$characteristic->getName()|escape:'html'}</strong>:
 																				<span class="values">
 																					{foreach $characteristic->getCharacteristicValues() as $characteristicValue}
 																						{if !$characteristicValue@first}, {/if}

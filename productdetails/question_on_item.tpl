@@ -3,7 +3,7 @@
         {$fehlendeAngaben = $fehlendeAngaben_fragezumprodukt}
     {/if}
     <div class="panel-wrap">
-        <form action="{if !empty($Artikel->cURLFull)}{$Artikel->cURLFull}{if $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'Y'}#tab-productquestion{/if}{else}index.php{/if}" method="post" id="article_question" class="jtl-validate">
+        <form action="{if !empty($Artikel->cURLFull)}{$Artikel->cURLFull}{if $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'Y'}#tab-productquestion{/if}{else}index.php{/if}" method="post" id="article_question" class="jtl-validate" addhoneypot=true>
             {$jtl_token}
             {block name='item-question-fieldset-contact-information'}
                 <fieldset class="panel">

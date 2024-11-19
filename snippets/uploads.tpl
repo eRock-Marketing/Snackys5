@@ -102,7 +102,7 @@
                                             }).on('filebatchuploaderror', function(event, data, msg) {
                                                 if(clientUploadErrorIsActive === false){
                                                     let msgField = $('#queue{$oUploadSchema@index} .current-upload');
-                                                    let message  = '{lang key='uploadError'}';
+                                                    let message  = '{lang key='uploadError' addslashes=true}';
                                                     let status;
                                                     try{
                                                         let response =JSON.parse(msg);
@@ -112,13 +112,13 @@
                                                     }
                                                     switch(status){
                                                         case 'reached_limit_per_hour':
-                                                            message = '{lang key='uploadErrorReachedLimitPerHour'}';
+                                                            message = '{lang key='uploadErrorReachedLimitPerHour' addslashes=true}';
                                                             break;
                                                         case 'filetype_forbidden':
-                                                            message = '{lang key='uploadErrorFiletypeForbidden'}';
+                                                            message = '{lang key='uploadErrorFiletypeForbidden' addslashes=true}';
                                                             break;
                                                         case 'extension_not_listed':
-                                                            message = '{lang key='uploadErrorExtensionNotListed'}';
+                                                            message = '{lang key='uploadErrorExtensionNotListed' addslashes=true}';
                                                             break;
                                                     }
                                                     msgField.html(message);
@@ -262,7 +262,7 @@
                                                                 msgField.html('<i class="check" aria-hidden="true"></i>' + data.response.cName + ' (' + data.response.cKB + ' KB)');
                                                             } else {
                                                                 msgField.removeClass('text-success').addClass('text-danger');
-                                                                msgField.html('{lang key='uploadError'}');
+                                                                msgField.html('{lang key='uploadError' addslashes=true}');
                                                                 msgField.removeClass('text-success').addClass('text-danger');
                                                                 $el.fileinput('clear');
                                                             }
@@ -293,13 +293,13 @@
 
                                                                 switch(status){
                                                                     case 'reached_limit_per_hour':
-                                                                        message = '{lang key='uploadErrorReachedLimitPerHour'}';
+                                                                        message = '{lang key='uploadErrorReachedLimitPerHour' addslashes=true}';
                                                                         break;
                                                                     case 'filetype_forbidden':
-                                                                        message = '{lang key='uploadErrorFiletypeForbidden'}';
+                                                                        message = '{lang key='uploadErrorFiletypeForbidden' addslashes=true}';
                                                                         break;
                                                                     case 'extension_not_listed':
-                                                                        message = '{lang key='uploadErrorExtensionNotListed'}';
+                                                                        message = '{lang key='uploadErrorExtensionNotListed' addslashes=true}';
                                                                         break;
                                                                 }
                                                                 msgField.html(message);
