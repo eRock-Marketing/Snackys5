@@ -236,6 +236,9 @@
 .prd .defaultlink.small{
     text-decoration: underline;
 }
+.col-qnt .choose_quantity{
+    max-width: 8rem;
+}
 /*
 .modal.konf-mod{
     justify-content: flex-end;

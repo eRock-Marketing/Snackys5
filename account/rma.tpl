@@ -1,85 +1,81 @@
 {block name='account-rma'}
-    {row class="rma-step-1"}
-        {col cols=12 md=7 lg=8 class='rma-form-wrapper'}
-            {block name='account-rma-items'}
-                {card no-body=true id="rma-items"}
-                    {cardheader}
-                        {block name='account-rma-items-header'}
-                            {row class="align-items-center-util"}
-                                {col}
-                                    <span class="h3">
-                                        {lang key='addItems' section='rma'}
-                                    </span>
-                                    <a href="#" class="float-right select_all"
-                                       data-lang-select="{lang key='addVisibleItems' section='rma'}"
-                                       data-lang-unselect="{lang key='removeVisibleItems' section='rma'}">
-                                        {lang key='addVisibleItems' section='rma'}
-                                    </a>
-                                {/col}
-                            {/row}
-                        {/block}
-                    {/cardheader}
-                    {cardbody}
-                        {block name='account-rma-items-body'}
-                            <div class="col-sm-12 col-md-4 dataTable-custom-filter">
-                                <label>
-                                    {select name="orders" aria=["label"=>"Bestellnummer"]
-                                    class="custom-select custom-select-sm form-control form-control-sm"}
-                                        <option value="" selected>{lang key='allOrders' section='rma'}</option>
-                                        {foreach $returnableOrders as $order}
-                                            <option value="{$order['orderNo']}">{$order['orderNo']} - {$order['orderDate']}</option>
-                                        {/foreach}
-                                    {/select}
-                                </label>
-                            </div>
-                            {include file='account/rma_table.tpl' returnableProducts=$returnableProducts
-                            rmaService=$rmaService}
-                        {/block}
-                    {/cardbody}
-                {/card}
-            {/block}
-        {/col}
-        {col cols=12 md=5 lg=4 class='rma-items-wrapper'}
-            {card no-body=true class="rma-step-1 sticky-card"}
-                <div id="rmaStickyItems">
-                    <div class="rmaItemContainer">
-                        {block name='account-rma-customer-include-rma-items'}
-                            {include file='account/rma_items.tpl' rmaItems=$rma->getRMAItems() rmaService=$rmaService}
-                        {/block}
-                    </div>
-                </div>
-                {block name='account-rma-customer-rmas'}
-                    {form method="post" id='rma' action="#" class="jtl-validate card p-2 mt-3" slide=true}
-                        {formgroup label="{lang key='returnAddress' section='rma'}"
-                        label-for="returnAddress"}
-                            <div class="input-group">
-                                {select name="returnAddress" id="returnAddress" class="custom-select"
-                                autocomplete="shipping Adress"}
-                                    {block name='account-rma-customer-include-returnaddress-form-option'}
-                                        {include file='account/returnaddress/form_option.tpl' returnAddresses=$shippingAddresses}
-                                    {/block}
-                                {/select}
-                                <div class="input-group-append">
-                                    {block name='account-rma-form-submit'}
-                                        {button type="submit" value="1" block=true variant="primary"}
-                                            {lang key='continueOrder' section='account data'}
-                                        {/button}
-                                    {/block}
-                                </div>
-                            </div>
-                        {/formgroup}
-                    {/form}
+{row class="rma-step-1"}
+    {col cols=12 md=7 lg=8 class='rma-form-wrapper'}
+        {block name='account-rma-card'}
+        {card no-body=true id="rma-items"}
+            {cardheader}
+                {block name='account-rma-card-header'}
+                {row class="align-items-center-util"}
+                    {col}
+                        <span class="h3">
+                            {lang key='addItems' section='rma'}
+                        </span>
+                        <a href="#" class="float-right select_all"
+                           data-lang-select="{lang key='addVisibleItems' section='rma'}"
+                           data-lang-unselect="{lang key='removeVisibleItems' section='rma'}">
+                            {lang key='addVisibleItems' section='rma'}
+                        </a>
+                    {/col}
+                {/row}
                 {/block}
-            {/card}
-        {/col}
-    {/row}
-    {block name='account-rma-summary'}
-        {row class="rma-step-2 d-none"}
-            {col}
-                <div id="rma-summary"></div>
-            {/col}
-        {/row}
-    {/block}
+            {/cardheader}
+            {cardbody}
+                {block name='account-rma-card-body'}
+                <div class="col-sm-12 col-md-4 dataTable-custom-filter">
+                    <label>
+                        {select name="orders" aria=["label"=>"Bestellnummer"]
+                        class="custom-select custom-select-sm form-control form-control-sm"}
+                            <option value="" selected>{lang key='allOrders' section='rma'}</option>
+                            {foreach $returnableOrders as $order}
+                                <option value="{$order['orderNo']}">{$order['orderNo']} - {$order['orderDate']}</option>
+                            {/foreach}
+                        {/select}
+                    </label>
+                </div>
+                {include file='account/rma_table.tpl' returnableProducts=$returnableProducts
+                rmaService=$rmaService}
+                {/block}
+            {/cardbody}
+        {/card}
+        {/block}
+    {/col}
+    {col cols=12 md=5 lg=4 class='rma-items-wrapper'}
+        {card no-body=true class="rma-step-1 sticky-card"}
+            <div id="rmaStickyItems">
+                <div class="rmaItemContainer">
+                    {include file='account/rma_itemlist.tpl' rmaItems=$rma->getRMAItems() rmaService=$rmaService}
+                </div>
+            </div>
+            {block name='account-rma-itemlist-form'}
+            {form method="post" id='rma' action="#" class="jtl-validate card p-2 mt-3" slide=true}
+                {formgroup label="{lang key='returnAddress' section='rma'}"
+                label-for="returnAddress"}
+                    <div class="input-group">
+                        {select name="returnAddress" id="returnAddress" class="custom-select"
+                        autocomplete="shipping Adress"}
+                            {include file='account/returnaddress/form_option.tpl' returnAddresses=$shippingAddresses}
+                        {/select}
+                        <div class="input-group-append">
+                            {block name='account-rma-itemlist-form-submit'}
+                            {button type="submit" value="1" block=true variant="primary"}
+                                {lang key='continueOrder' section='account data'}
+                            {/button}
+                            {/block}
+                        </div>
+                    </div>
+                {/formgroup}
+            {/form}
+            {/block}
+        {/card}
+    {/col}
+{/row}
+{block name='account-rma-summary'}
+{row class="rma-step-2 d-none"}
+    {col}
+        <div id="rma-summary"></div>
+    {/col}
+{/row}
+{/block}
 {/block}
 {block name='account-rma-return-address-modal'}
     {modal id="returnAddressModal" class="fade" title={lang key='newReturnAddress' section='rma'}}

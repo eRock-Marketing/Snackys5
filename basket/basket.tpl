@@ -316,7 +316,7 @@
 																<div id="cartitem-dropdown-menu{$smarty.foreach.positionen.index}" class="">
 																	<div class="panel-body text-center">
 																		<div class="form-inline flx-je">
-																			<div id="quantity-grp{$smarty.foreach.positionen.index}" class="choose_quantity input-group">
+																			<div id="quantity-grp{$smarty.foreach.positionen.index}" class="choose_quantity input-group w100">
 																				<input name="anzahl[{$smarty.foreach.positionen.index}]" id="quantity{$smarty.foreach.positionen.index}" 
 																				class="form-control quantity small form-control text-right" 
 																				size="3"

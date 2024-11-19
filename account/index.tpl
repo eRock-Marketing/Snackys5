@@ -242,9 +242,9 @@
 								{/if}
 							{/block}
 						{elseif $step === 'rmas'}
-							{block name='account-index-include-rmas'}
+							{block name='account-index-include-rmalist'}
 								{if $Einstellungen.global.global_rma_enabled === 'Y'}
-									{include file='account/rmas.tpl'}
+									{include file='account/rma_list.tpl'}
 								{/if}
 							{/block}
 						{/if}

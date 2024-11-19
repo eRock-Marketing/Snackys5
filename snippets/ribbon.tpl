@@ -73,12 +73,24 @@
             {assign var="rabatt" value=($Artikel->Preise->alterVKNetto-$Artikel->Preise->fVKNetto)/$Artikel->Preise->alterVKNetto*100}
             <span class="ov-t ov-t-2">- {$rabatt|round:0}%</span>
         {else}
-            <span class="ov-t
-                ov-t-{$Artikel->oSuchspecialBild->getType()}">
-                {block name='snippets-ribbon-content'}
-                    {lang key='ribbon-'|cat:$Artikel->oSuchspecialBild->getType() section='productOverview' printf=$sale|default:''|cat:'%'}
+            {if $Artikel->oSuchspecialBild->getType() === $smarty.const.SEARCHSPECIALS_CUSTOMBADGE}
+                {block name='snippets-ribbon-custom-outer'}
+                    {assign var=customBadge value=$Artikel->oSuchspecialBild->getCssAndText()}
+                    <span class="ov-t"{if $customBadge->style !== ''} style="{$customBadge->style}"{/if}>
+                        {block name='snippets-ribbon-custom'}
+                            {$customBadge->text}
+                        {/block}
+                    </span>
                 {/block}
-            </span>
+            {else}
+                {block name='snippets-ribbon-content-outer'}
+                    <span class="ov-t ov-t-{$Artikel->oSuchspecialBild->getType()}">
+                        {block name='snippets-ribbon-content'}
+                            {lang key='ribbon-'|cat:$Artikel->oSuchspecialBild->getType() section='productOverview' printf=$sale|default:''|cat:'%'}
+                        {/block}
+                    </span>
+                {/block}
+            {/if}
         {/if}
     {/block}
 {/block}
