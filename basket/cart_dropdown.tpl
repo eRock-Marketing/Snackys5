@@ -220,26 +220,12 @@
 					{/block}
 					{block name='sidebaket-price-shipping'}
 						{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND])}
-							{if isset($FavourableShipping)}
-								{if $NettoPreise}
-									{$shippingCosts = "`$FavourableShipping->cPriceLocalized[$NettoPreise]` {lang key='plus' section='basket'} {lang key='vat' section='productDetails'}"}
-								{else}
-									{$shippingCosts = $FavourableShipping->cPriceLocalized[$NettoPreise]}
-								{/if}
-								<hr class="invisible hr-xs">
-								<div class="card small text-muted shipping-costs flx-jb cols-sums">
-									<div class="panel w100">
-										{lang|sprintf:$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL():$shippingCosts:$FavourableShipping->country->getName() key='shippingInformationSpecific' section='basket'}
-									</div>
+							<hr class="invisible hr-xs">
+							<div class="card small text-muted shipping-costs flx-jb cols-sums">
+								<div class="panel w100">
+									{lang|sprintf:$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL() key='shippingInformation' section='basket'}
 								</div>
-							{elseif empty($FavourableShipping) && empty($smarty.session.Versandart)}
-								<hr class="invisible hr-xs">
-								<div class="card small text-muted shipping-costs flx-jb cols-sums">
-									<div class="panel w100">
-										{lang|sprintf:$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL() key='shippingInformation' section='basket'}
-									</div>
-								</div>
-							{/if}
+							</div>
 						{/if}
 					{/block}
 				</div>
