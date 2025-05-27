@@ -36,7 +36,7 @@
     {block name="shipping-estimated"}
         <div class="panel panel-default" id="shipping-estimated">
             <div class="panel-heading">
-                <h4 class="panel-title">{block name="shipping-estimated-title"}{lang key="estimateShippingCostsTo" section="checkout"} {$Versandland}, {lang key="plz" section="forgot password"} {$VersandPLZ}{/block}</h4>
+                <h2 class="panel-title h4">{block name="shipping-estimated-title"}{lang key="estimateShippingCostsTo" section="checkout"} {$Versandland}, {lang key="plz" section="forgot password"} {$VersandPLZ}{/block}</h2>
             </div>
             <div class="panel-body">
                 {block name="shipping-estimated-body"}
@@ -55,8 +55,13 @@
                         </table>
                     {/if}
                     {if !empty($Versandarten)}
-                        <table class="table table-striped">
-                            <caption>{lang key="shippingMethods" section="global"}:</caption>
+                        <table class="table table-striped m0">
+                            <caption class="sr-only">{lang key="shippingMethods" section="global"}:</caption>
+                            <thead>
+                                <tr>
+                                    <th>{lang key="shippingMethods"}</th>
+                                    <th class="text-right">{lang key="price"}</th>
+                            </thead>
                             <tbody>
                                 {foreach $Versandarten as $versandart}
                                     <tr id="shipment_{$versandart->kVersandart}">
@@ -99,7 +104,8 @@
                         {else}
                             {$link = $ShopURL|cat:'/?s='|cat:$Link->getID()}
                         {/if}
-                        <a href="{$link}" class="btn btn-default">{lang key="newEstimation" section="checkout"}</a>
+                        <hr class="invisible hr-xs">
+                        <a href="{$link}" class="btn btn-default btn-block">{lang key="newEstimation" section="checkout"}</a>
                     {else}
                         <div class="row">
                             {lang key="noShippingAvailable" section="checkout"}

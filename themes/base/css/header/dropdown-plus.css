@@ -1,4 +1,9 @@
 @media screen and (min-width: 768px){
+    .dd-toggle{
+        background: none;
+        border: 0;
+        box-shadow: none;
+    }
     #cat-ul > .dropdown-style > .dropdown-menu{
         max-height: 70vh;
         overflow-y: auto;

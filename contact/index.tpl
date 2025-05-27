@@ -50,7 +50,8 @@
 									{block name='contact-content-form-fieldset-information'}
 										<fieldset class="panel">
 											{block name='contact-content-form-fieldset-information-headline'}
-												<span class="block h4">{lang key="contact" section="global"}</span>
+												<legend class="h4">{lang key="contact" section="global"}</legend>
+												<div class="required-info small mb-xxs">{lang key='requiredInfo' section='custom'}</div>
 											{/block}
 											{block name='contact-content-form-fieldset-information-salutation'}
 												<div class="row">
@@ -168,7 +169,7 @@
 									{block name='contact-content-form-fieldset-message'}
 										<fieldset class="panel">
 											{block name='contact-content-form-fieldset-message-headline'}
-												<span class="h4 block">{lang key="message" section="contact"}</span>
+												<legend class="h4">{lang key="message" section="contact"}</legend>
 											{/block}
 											{block name='contact-content-form-fieldset-message-subject'}
 												{if $betreffs}
@@ -188,7 +189,7 @@
 																	{/foreach}
 																</select>
 																{if !empty($fehlendeAngaben.subject)}
-																	<div class="form-error-msg text-danger">
+																	<div class="form-error-msg text-danger" aria-live="assertive" role="alert" aria-atomic="true">
 																		{lang key="fillOut" section="global"}
 																	</div>
 																{/if}
@@ -204,7 +205,7 @@
 															<label for="message" class="control-label">{lang key="message" section="contact"}</label>
 															<textarea name="nachricht" class="form-control" rows="10" id="message" required>{if isset($Vorgaben->cNachricht)}{$Vorgaben->cNachricht}{/if}</textarea>
 															{if !empty($fehlendeAngaben.nachricht)}
-																<div class="form-error-msg text-danger">
+																<div class="form-error-msg text-danger" aria-live="assertive" role="alert" aria-atomic="true">
 																	{lang key="fillOut" section="global"}
 																</div>
 															{/if}
@@ -222,9 +223,6 @@
 									{/block}
 									<input type="hidden" name="kontakt" value="1" />
                 					{include file="snippets/zonen.tpl" id="opc_before_submit"}
-									{block name='contact-content-form-mandatory-info'}
-                						<p class="small text-muted">(* = {lang key='mandatoryFields'})</p>
-									{/block}
 									{block name='contact-content-form-privany-note'}
 										<p class="privacy text-muted">
 											<a href="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}{/if}" class="popup small tdu">

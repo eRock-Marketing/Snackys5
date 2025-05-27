@@ -96,7 +96,7 @@
 				{/block}
 				{block name="basket-content-right"}
     				{if $WarenkorbArtikelAnzahl > 0}
-    					<div class="col-12 col-md-5 col-lg-4{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-3{/if} right-boxes mt-xs">
+    					<div class="col-12 col-md-5 col-lg-4{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-3{/if} right-boxes">
 							{block name='basket-index-include-uploads'}
 								{if !empty($oUploadSchema_arr)}
 									<div id="fileupload-wrapper" class="panel mb-sm small">
@@ -104,39 +104,41 @@
 									</div>
 								{/if}
 							{/block}
+							{assign var="showCoupon" value=false}
+							{if $Einstellungen.kaufabwicklung.warenkorb_kupon_anzeigen === 'Y' && $KuponMoeglich == 1}
+								{block name="basket-coupon-outer"}
+									<div class="panel mb-sm">
+										{assign var="showCoupon" value=true}
+										{block name="basket-coupon-headline"}
+											<div class="panel-heading">
+												<h2 class="h5 m0 panel-title">{lang key="useCoupon" section="checkout"}</h2>
+											</div>
+										{/block}
+										{block name="basket-coupon-content"}
+											<div class="apply-coupon panel-body">
+												<form class="form-inline jtl-validate" id="basket-coupon-form" method="post" action="{$cartURL}#basket-coupon-form">
+													{$jtl_token}
+													{block name="basket-coupon"}
+														<div class="form-group m0 w100{if !empty($invalidCouponCode)} has-error{/if}">
+															<div class="input-group">
+																<input aria-label="{lang key='couponCode' section='account data'}" class="form-control" type="text" name="Kuponcode" id="couponCode" maxlength="32" placeholder="{lang key='couponCode' section='account data'}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
+																<span class="input-group-btn">
+																	<input class="btn btn-default" type="submit" value="&rsaquo;" />
+																</span>
+															</div>
+														</div>
+													{/block}
+												</form>
+											</div>
+										{/block}
+									</div>
+								{/block}
+							{/if}
 							{block name="basket-content-buybox"}			
         						<div class="cart-sum panel mb-sm">
 									{block name='basket-index-side-heading'}
-										<div class="h4">{lang key="orderOverview" section="account data"}</div>
+										<h2 class="h5">{lang key="orderOverview" section="account data"}</h2>
 									{/block}
-            						{assign var="showCoupon" value=false}
-            						{if $Einstellungen.kaufabwicklung.warenkorb_kupon_anzeigen === 'Y' && $KuponMoeglich == 1}
-                						{block name="basket-coupon-outer"}
-                    						{assign var="showCoupon" value=true}
-											{block name="basket-coupon-headline"}
-                    							<div class="panel-heading">
-                        							<h2 class="h5 m0 panel-title">{lang key="useCoupon" section="checkout"}</h2>
-                    							</div>
-											{/block}
-											{block name="basket-coupon-content"}
-                    							<div class="apply-coupon panel-body mb-xs">
-                        							<form class="form-inline jtl-validate" id="basket-coupon-form" method="post" action="{$cartURL}#basket-coupon-form">
-                            							{$jtl_token}
-                            							{block name="basket-coupon"}
-                                							<div class="form-group m0 w100{if !empty($invalidCouponCode)} has-error{/if}">
-                                    							<div class="input-group">
-                                        							<input aria-label="{lang key='couponCode' section='account data'}" class="form-control" type="text" name="Kuponcode" id="couponCode" maxlength="32" placeholder="{lang key='couponCode' section='account data'}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
-                                        							<span class="input-group-btn">
-                                            							<input class="btn btn-default" type="submit" value="&rsaquo;" />
-                                        							</span>
-                                    							</div>
-															</div>
-                            							{/block}
-                        							</form>
-												</div>
-                							{/block}
-										{/block}
-									{/if}
 									{block name="basket-prices-outer"}
             							<div class="panel-body">
                 							{block name="basket-prices"}
@@ -232,14 +234,14 @@
 										{inline_script} 
 											<script>
 												$(function () {
-													$('#freegift label[for^="gift"]').on('click', function () {
-														const $radio = $(this).find('input[type="radio"]');
-														if ($radio.length && !$radio.prop('disabled')) {
-															setTimeout(function () {
-																if ($radio.prop('checked')) {
-																	$('input[name="gratishinzufuegen"]').click();
-																}
-															}, 0);
+													let clickedByMouse = false;
+													$('#freegift label[for^="gift"]').on('mousedown', function () {
+														clickedByMouse = true;
+													});
+													$('#freegift input[type="radio"]').on('change', function () {
+														if (clickedByMouse) {
+															clickedByMouse = false;
+															$('input[name="gratishinzufuegen"]').click();
 														}
 													});
 												});
@@ -250,18 +252,17 @@
                 						<div id="freegift" class="panel mb-sm">
 											{block name="basket-freegift-headline"}
                     							<div class="panel-heading">
-                        							<div id="freeGiftsHeading" class="panel-title h4">
+                        							<h2 id="freeGiftsHeading" class="panel-title h4">
 														{block name="basket-freegift-title"}
 															{if !empty($oSpezialseiten_arr) && isset($oSpezialseiten_arr[$smarty.const.LINKTYP_GRATISGESCHENK])}
-																<a href="{$oSpezialseiten_arr[$smarty.const.LINKTYP_GRATISGESCHENK]->getURL()}"
-																	title="{lang key='freeGiftFromOrderValueBasket'}">
+																<a href="{$oSpezialseiten_arr[$smarty.const.LINKTYP_GRATISGESCHENK]->getURL()}">
 																	{lang key='freeGiftFromOrderValueBasket'}
 																</a>
 															{else}
 																{lang key='freeGiftFromOrderValueBasket'}
 															{/if}
 														{/block}
-													</div>
+													</h2>
                     							</div>
 											{/block}
 											{block name="basket-freegift-body-outer"}
@@ -270,6 +271,8 @@
                         							{block name="basket-freegift-body"}
                             							<form method="post" name="freegift" action="{$cartURL}">
                                 							{$jtl_token}
+															<fieldset>
+																<legend class="sr-only">{lang key='freeGiftFromOrderValueBasket'}</legend>
                                     						{foreach $freeGifts as $oArtikelGeschenk}
 																{if $Einstellungen.sonstiges.sonstiges_gratisgeschenk_noch_nicht_verfuegbar_anzeigen === 'N' && $oArtikelGeschenk->getStillMissingAmount() > 0}
 																	{continue}
@@ -277,7 +280,7 @@
 																{block name="basket-freegift-item"}
 																		<label class="thumbnail flx-ac flx-nw w100 mb-xs{if $oArtikelGeschenk->getStillMissingAmount() > 0} disabled{/if}" for="gift{$oArtikelGeschenk->productID}" role="button">
 																			{block name="basket-freegift-item-radio"}
-																				<input name="gratisgeschenk" type="radio" value="{$oArtikelGeschenk->productID}" id="gift{$oArtikelGeschenk->productID}"{if $oArtikelGeschenk->getStillMissingAmount() > 0} disabled{/if} />
+																				<input name="gratisgeschenk" class="sr-only" type="radio" value="{$oArtikelGeschenk->productID}" id="gift{$oArtikelGeschenk->productID}"{if $oArtikelGeschenk->getStillMissingAmount() > 0} disabled{/if} />
 																			{/block}
 																			{block name="basket-freegift-item-image"}
 																				<span class="img-w">
@@ -310,9 +313,10 @@
 																		</label>
 																{/block}
                                     						{/foreach}
+															</fieldset>
 															<div class="">
 																<input type="hidden" name="gratis_geschenk" value="1" />
-																<input name="gratishinzufuegen" type="submit" value="{lang key='addToCart'}" class="submit btn btn-block btn-primary" />
+																<input name="gratishinzufuegen" type="submit" value="{lang key='addToCart'}" class="submit btn btn-block btn-primary sr-only" />
 															</div>
 														</form>
 													{/block}

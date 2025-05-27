@@ -11,7 +11,7 @@
 					{$basketValue = $freeGiftProduct->availableFrom - $freeGiftProduct->getStillMissingAmount()}
 					{$isFreeGiftAvailableNow = $basketValue >= $freeGiftProduct->availableFrom}
 					<div class="col-6 text-center">
-						<a href="{$freeGiftProduct->getProduct()->cURLFull|cat:'?isfreegift=1'}">
+						<a href="{$freeGiftProduct->getProduct()->cURLFull|cat:'?isfreegift=1'}" class="block">
 							{block name='free-gift-image'}
 								<span class="img-ct mb-xs">
 									{include file='snippets/image.tpl'
@@ -23,7 +23,7 @@
 								</span>
 							{/block}
 							{block name='free-gift-name'}
-								<a href="{$freeGiftProduct->getProduct()->cURLFull|cat:'?isfreegift=1'}" class="mt-xxs title word-break block h4 m0">{$freeGiftProduct->getProduct()->cName}</s>
+								<span class="mt-xxs title word-break block h4 m0">{$freeGiftProduct->getProduct()->cName}</span>
 							{/block}
 							{block name='free-gift-ordervalue'}
 								<small class="block text-muted mt-xxs">{lang key="freeGiftFrom1"} {$freeGiftProduct->getProduct()->cBestellwert} {lang key="freeGiftFrom2"}</small>

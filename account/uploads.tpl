@@ -44,7 +44,7 @@
 												<form method="post" action="{get_static_route id='jtl.php'}">
 													{$jtl_token}
 													<input name="kUpload" type="hidden" value="{$oUpload->kUpload}" />
-													<button class="btn btn-blank btn-xs" name="{$oUpload->cName}">
+													<button class="btn btn-blank btn-xs" name="{$oUpload->cName}" aria-label="{lang key='view'}: {$oUpload->cName}">
 														<span class="img-ct icon">
 															<svg>
 															  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-show"></use>

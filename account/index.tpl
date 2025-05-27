@@ -13,7 +13,9 @@
 			{if (isset($nWarenkorb2PersMerge) && $nWarenkorb2PersMerge === 1)}
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">   
-						<div class="modal-header"><h4 class="modal-title">{lang key="basket" section="global" addslashes=true}</h4></div> 
+						<div class="modal-header">
+							<div class="modal-title h5">{lang key="basket" section="global" addslashes=true}</div>
+						</div> 
 						<section class="tmp-modal-content">
 							<div class="modal-body">
 								{lang key="basket2PersMerge" section="login" addslashes=true}
@@ -161,7 +163,7 @@
 									{block name="my-account-menu-logout"}
 										<hr class="invisible hr-sm">
 										<div class="panel-footer">
-											 <a href="{get_static_route id='jtl.php' secure=true}?logout=1" title="{lang key='logOut'}" class="btn btn-block">{lang key='logOut'}</a>
+											 <a href="{get_static_route id='jtl.php' secure=true}?logout=1" class="btn btn-block">{lang key='logOut'}</a>
 										</div>
 									{/block}
                 				</div>

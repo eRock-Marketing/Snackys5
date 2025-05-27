@@ -1,4 +1,7 @@
 {block name='checkout-step1-edit-customer-address'}
+	{block name='step1-h1'}
+		<h1 class="sr-only">{lang section='account data' key='billingAndDeliveryAddress'}</h1>
+	{/block}
 	{block name='step1-assigns'}
 		{if isset($editRechnungsadresse) && $editRechnungsadresse === 1 && JTL\Session\Frontend::getCustomer()->getID() > 0}
 			{assign var="unreg_form" value=0}

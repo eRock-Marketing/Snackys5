@@ -24,14 +24,16 @@
 									{/if}
 									<div class="flx-ac mb-xxs small" data-id="{$product->kArtikel}">
 										{block name='boxes-box-comparelist-dropdown-products-image-title'}
-											{block name='boxes-box-comparelist-dropdown-products-image'}
-												<a href="{$product->cURLFull}" class="img-ct icon ic-lg icon-wt">
-													{include file='snippets/image.tpl' item=$product square=false srcSize='xs' sizes='45px'}
-												</a>
-											{/block}
-											{block name='boxes-box-comparelist-dropdown-products-title'}
-												<a href="$product->cURLFull}" class="defaultlink">{$product->cName|truncate:40:'...'}</a>
-											{/block}
+											<a href="{$product->cURLFull}" class="flx-ac">
+												{block name='boxes-box-comparelist-dropdown-products-image'}
+													<span class="img-ct icon ic-lg icon-wt">
+														{include file='snippets/image.tpl' item=$product square=false srcSize='xs' sizes='45px'}
+													</span>
+												{/block}
+												{block name='boxes-box-comparelist-dropdown-products-title'}
+													<span class="defaultlink">{$product->cName|truncate:40:'...'}</span>
+												{/block}
+											</a>
 										{/block}
 										{block name='boxes-box-comparelist-dropdown-products-remove'}
 											{link href=$product->cURLDEL class="remove"
@@ -47,7 +49,6 @@
 												</span>
 											{/link}
 										{/block}
-									</td>
 									</div>
 								{/foreach}
 							{/block}

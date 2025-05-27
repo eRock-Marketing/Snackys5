@@ -15,9 +15,11 @@
     right: 0;
     max-height: 100%;
     z-index: 11;
+    visibility: hidden;
 }
 .cart-menu.open .c-dp > .inside{
     transform: translateX(0);
+    visibility: visible;
 }
 .c-dp .items-list{
     height: 100%;

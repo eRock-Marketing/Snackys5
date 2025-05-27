@@ -28,7 +28,7 @@
 }
 .accordion .card-link{
     position: relative;
-    padding-left: 2.6rem;
+    padding-right: 2.6rem;
 }
 .accordion .toggle,
 .accordion .card-header .btn:before{
@@ -36,7 +36,7 @@
     height: 0.8rem;
     transition: transform .2s ease;
     position: absolute;
-    left: 1.2rem;
+    right: 1.2rem;
     background-color: transparent;
     background-size: 90%;
     top: calc(50% - .4rem);

@@ -14,7 +14,7 @@
                     					<div class="modal-title h5">
                         					{lang key="yourConfiguration" section="global"}
                     					</div>
-                    					<button type="button" class="close-btn" data-dismiss="modal" aria-label="Close" id="close-configmodal"></button>
+                    					<button type="button" class="close-btn" aria-label="{lang key='close' section='account data'}" data-dismiss="modal"></button>
                 					</div>
                 					<div class="modal-body">
             				{/if}
@@ -31,13 +31,15 @@
 										{block name='config-container-content-group'}
                         					<div class="cfg-group panel{if $oGruppe->getMin() > 0} required{assign var="configRequired" value=true}{/if}{if $oGruppe@iteration == 1} seen{/if}" data-id="{$kKonfiggruppe}">
 												{block name='config-container-content-group-title'}
-													<div class="cfg-title h5 flx-ac m0" aria-expanded="{if $oGruppe@first}true{else}false{/if}" data-target="#cfg-grp-cllps-{$oGruppe@iteration}" data-toggle="collapse">
+													<button class="cfg-title h5 flx-ac m0" type="button" aria-expanded="{if $oGruppe@first}true{else}false{/if}" data-target="#cfg-grp-cllps-{$oGruppe@iteration}" data-toggle="collapse">
 														<span class="cfg-cntr">{$oGruppe@iteration}</span> {$oSprache->getName()}
 														<span class="cfg-cntr cfg-ar"><span class="ar ar-d"></span></span>
-													</div>
+													</button>
 												{/block}
 												{block name='config-container-content-group-body'}
                             						<div class="group panel-body collapse{if $oGruppe@first} show{/if}" id="cfg-grp-cllps-{$oGruppe@iteration}" data-parent="#cfg-container">
+														<fieldset>
+															<legend class="sr-only">{$oSprache->getName()}</legend>
 														{block name='config-container-content-group-body-infos'}
                                 							<div class="cfg-group-info sticky-top mb-sm">
                                     							{if !empty($oGruppe->getMin()) || !empty($oGruppe->getMax())}
@@ -176,6 +178,7 @@
 																											   id="item_quantity{$oItem->getKonfigitem()}"
 																											   name="item_quantity[{$oItem->getKonfigitem()}]"
 																											   value="{$itemQuantity}" autocomplete="off"
+																											   aria-label="{lang key='quantity'}: {$oItem->getName()}"
 																											   min="{$oItem->getMin()}" max="{$oItem->getMax()}" inputmode="numeric" pattern="[0-9]*" />
 																										</div>
 																									{/if}
@@ -201,6 +204,7 @@
 																									   id="item_quantity{$oItem->getKonfigitem()}"
 																									   name="item_quantity[{$oItem->getKonfigitem()}]"
 																									   value="{$itemQuantity}" autocomplete="off"
+																									   aria-label="{lang key='quantity'}: {$oItem->getName()}"
 																									   min="{$oItem->getMin()}" max="{$oItem->getMax()}" inputmode="numeric" pattern="[0-9]*" />
 																								</div>
 																							{/if}
@@ -225,6 +229,7 @@
 																</div>
 															{/if}
 														{/block}
+														</fieldset>
 													</div>
 												{/block}
 											</div>
@@ -234,7 +239,7 @@
 								{block name='config-container-modal-safe'}
 									{if $snackyConfig.configuratorMode == 0}
 										<hr class="invisible">
-										<label for="close-configmodal" class="btn btn-primary btn-lg w100 text-center pointer">{lang key="configSet" section="custom"}</label>
+										<button class="btn btn-primary btn-lg w100 text-center pointer" id="close-configmodal" data-dismiss="modal">{lang key="configSet" section="custom"}</button>
 									{/if}
 								{/block}
 							</div>
@@ -252,6 +257,12 @@
 						<div class="panel panel-primary no-margin">
 							{block name='config-summary-overview'}
 								<table class="table table-striped m0">
+									<thead>
+										<tr>
+											<th colspan="2">{lang key='product'}</th>
+											<th class="text-right">{lang key='price'}</th>
+										</tr>
+									</thead>
 									<tbody class="summary"></tbody>
 									<tfoot>
 										<tr>
@@ -271,7 +282,7 @@
 								<div class="panel-footer m0">
 									{block name='config-summary-modal-button'}
 										{if $snackyConfig.configuratorMode == 0}
-											<a href="#" data-toggle="modal" data-target="#config-popup" title="{lang key="configButton" section="custom" printf=$Artikel->oKonfig_arr|@count}" class="btn btn-block btn-info btn-config">
+											<a href="#" data-toggle="modal" data-target="#config-popup" class="btn btn-block btn-info btn-config">
 												{lang key="configButton" section="custom" printf=$Artikel->oKonfig_arr|@count}
 											</a>
 											<hr class="hr-xs invisible">
@@ -292,6 +303,7 @@
 												{/if}
 											{/foreach}
 											<div id="quantity-grp" class="choose_quantity flx">
+												<label for="quantity" class="sr-only">{lang key='quantity'}: {$Artikel->cName}</label>
 												<input type="{if $Artikel->cTeilbar === 'Y' && $Artikel->fAbnahmeintervall == 0}text{else}number{/if}"{if $Artikel->fAbnahmeintervall > 0} required step="{$Artikel->fAbnahmeintervall}"{/if} id="quantity"
 													   class="quantity form-control text-right" name="anzahl"
 													   value="{if $Artikel->fAbnahmeintervall > 0}{if $Artikel->fMindestbestellmenge > $Artikel->fAbnahmeintervall}{$Artikel->fMindestbestellmenge}{else}{$Artikel->fAbnahmeintervall}{/if}{elseif isset($fAnzahl)}{$fAnzahl}{else}1{/if}" />

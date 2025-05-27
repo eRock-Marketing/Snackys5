@@ -31,7 +31,7 @@
 													{block name='account-wishlists-item-buttons-inner'}
 														<span class="btn-group btn-group-sm">
 															{block name='account-wishlists-item-buttons-standard'}
-																<button class="btn-blank btn-sm btn flx-ac" name="wls" value="{$Wunschliste->kWunschliste}" title="{lang key="wishlistStandard" section="login"}">
+																<button class="btn-blank btn-sm btn flx-ac" name="wls" value="{$Wunschliste->kWunschliste}" aria-label="{lang key='wishlist'}: {lang key="wishlistStandard" section="login"}">
 																	<span class="img-ct icon {if $Wunschliste->nStandard != 1}inactive{else}active{/if}">
 																		<svg>
 																		  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-circle"></use>
@@ -41,7 +41,7 @@
 															{/block}
 															{if $Wunschliste->nOeffentlich == 1}
 																{block name='account-wishlists-item-buttons-public'}
-																	<button type="submit" class="btn-blank btn-sm btn flx-ac" name="wlAction" value="setPrivate" title="{lang key="wishlistPrivat" section="login"}">
+																	<button type="submit" class="btn-blank btn-sm btn flx-ac" name="wlAction" value="setPrivate" aria-label="{lang key="wishlistPrivat" section="login"}">
 																		<span class="img-ct icon">
 																			<svg>
 																			  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-hide"></use>
@@ -52,7 +52,7 @@
 															{/if}
 															{if $Wunschliste->nOeffentlich == 0}
 																{block name='account-wishlists-item-buttons-not-public'}
-																	<button type="submit" class="btn-blank btn-sm btn flx-ac" name="wlAction" value="setPublic" title="{lang key="wishlistNotPrivat" section="login"}">
+																	<button type="submit" class="btn-blank btn-sm btn flx-ac" name="wlAction" value="setPublic" aria-label="{lang key="wishlistNotPrivat" section="login"}">
 																		<span class="img-ct icon">
 																			<svg>
 																			  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-show"></use>
@@ -62,7 +62,7 @@
 																{/block}
 															{/if}
 															{block name='account-wishlists-item-buttons-delete'}
-																<button type="submit" class="btn-blank btn-sm btn flx-ac" name="wllo" value="{$Wunschliste->kWunschliste}" title="{lang key='wishlisteDelete' section='login'}">
+																<button type="submit" class="btn-blank btn-sm btn flx-ac" name="wllo" value="{$Wunschliste->kWunschliste}" aria-label="{lang key='wlDelete' section='wishlist'}">
 																	<span class="img-ct icon">
 																		<svg>
 																		  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>

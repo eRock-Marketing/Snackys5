@@ -11,6 +11,10 @@
             {/if}
         {/foreach}
     {/if}
+    {assign var='tabIndx' value=0}
+    {if isset($tplscope) && $tplscope=='list'}
+        {assign var='tabIndx' value=-1}
+    {/if}
     {block name='snippets-wishlist-button-main'}
         {if $buttonAndText|default:false}
             {block name='snippets-wishlist-button-button-text'}
@@ -19,6 +23,7 @@
                     variant="link"
                     class="{$classes|default:''} wishlist-button wishlist action-tip-animation-b {if $isOnWishList}on-list{/if}"
                     aria=["label" => {lang key='addToWishlist' section='productDetails'}]
+                    tabindex={$tabIndx}
                     data=["wl-pos" => $wishlistPos, "product-id-wl" => "{if isset($Artikel->kVariKindArtikel)}{$Artikel->kVariKindArtikel}{else}{$Artikel->kArtikel}{/if}"]}
                     <span class="wishlist-button-inner">
                         <span class="{if $isOnWishList}fas{else}far{/if} fa-heart wishlist-icon"></span>
@@ -32,6 +37,7 @@
                     type="submit"
                     class="{$classes|default:''} wishlist badge badge-circle-1 action-tip-animation-b {if $isOnWishList}on-list{/if}"
                     aria=["label" => {lang key='addToWishlist' section='productDetails'}]
+                    tabindex={$tabIndx}
                     title={lang key='addToWishlist' section='productDetails'}
                     data=[
                         "wl-pos" => $wishlistPos,

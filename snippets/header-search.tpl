@@ -1,6 +1,6 @@
 {block name='snippets-header-search'}
 {getPluginEdition cAssign="pluginEdition" plugin="km_snackys"}
-<form action="{$ShopURL}/search/" method="get" class="input-group" id="search-form">
+<form action="{$ShopURL}/search/" method="get" class="input-group" id="search-form" role="search">
 	<input id="{if !$isMobile}search-header{else}search-header-mobile-fixed{/if}" minlength="{$Einstellungen.artikeluebersicht.suche_min_zeichen}" name="qs" type="search" list="km-search-keys" class="form-control ac_input" placeholder="{lang key='search'}" autocomplete="off" aria-label="{lang key='search'}"/>
 	<button type="submit" name="search" id="search-submit-button" aria-label="{lang key='search'}">
 		<span class="img-ct icon ic-md">

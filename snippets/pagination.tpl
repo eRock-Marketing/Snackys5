@@ -91,6 +91,9 @@
             {/foreach}
             {if in_array('count', $parts)}
                 <div class="form-group items-per-page-group">
+                    <label for="{$oPagination->getId()}_nItemsPerPage" class="sr-only">
+                        {lang key='paginationEntriesPerPage' section='global'}
+                    </label>
                     <select class="form-control" name="{$oPagination->getId()}_nItemsPerPage"
                             id="{$oPagination->getId()}_nItemsPerPage" onchange="this.form.submit()"
                             title="{lang key='paginationEntriesPerPage' section='global'}">
@@ -108,6 +111,9 @@
             {/if}
             {if $oPagination->getSortByOptions()|count > 0 && in_array('sort', $parts)}
                 <div class="form-group filter-group">
+                    <label for="{$oPagination->getId()}_nSortByDir" class="sr-only">
+                        {lang key='sorting' section='productOverview'}
+                    </label>
                     <select class="form-control" name="{$oPagination->getId()}_nSortByDir"
                             id="{$oPagination->getId()}_nSortByDir" onchange="this.form.submit()"
                             title="{lang key='sorting' section='productOverview'}">

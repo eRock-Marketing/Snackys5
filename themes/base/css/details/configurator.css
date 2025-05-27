@@ -4,6 +4,7 @@
     width: 100% !important;
     margin-bottom: 1rem;
 }
+#product-configuration-sidebar thead,
 #product-configuration-sidebar table,
 #product-configuration-sidebar tbody,
 #product-configuration-sidebar tfoot{
@@ -13,11 +14,13 @@
     display: flex;
     border-bottom: 1px solid var(--hr-li);
 }
-#product-configuration-sidebar td{
+#product-configuration-sidebar td,
+#product-configuration-sidebar th{
     padding: .5rem .3rem .5rem 0;
     border: 0;
     background: var(--pan-b);
 }
+#product-configuration-sidebar th.text-right,
 #product-configuration-sidebar td.text-right{
     padding-right: 0;
     margin-left: auto;
@@ -62,8 +65,9 @@
     display: none;
     width: 100%;
 }
+#quantity-grp:focus-within .config-required-info,
 #quantity-grp .btn.submit[disabled]:hover .config-required-info{
-    display: block;
+    display: block !important;
 }
 #quantity-grp .btn.submit .config-required-info:before{
     content: '';
@@ -137,9 +141,12 @@ input:checked + .cfg-ct .check{
 }
 /* Group Title */
 #cfg-container .cfg-title{
+    border: 0;
     border-bottom: 1px solid var(--hr-li);
     padding: .8rem 0;
     cursor: pointer;
+    background: none;
+    width: 100%
 }
 .cfg-group [aria-expanded="true"] .ar-d{
     transform: rotate(-135deg);

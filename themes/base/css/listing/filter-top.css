@@ -56,6 +56,14 @@
     flex-grow: 1;
     justify-content: center;
 }
+#ftr-tg{
+    width: 100%;
+}
+.mobile #ftr-tg{
+    background: none;
+    border: 0;
+    padding: 0;
+}
 #ftr-tg .btn:first-letter{
     text-transform: uppercase;
 }

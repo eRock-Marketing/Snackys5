@@ -49,9 +49,6 @@
     -webkit-box-flex: 1;
     flex-grow: 1;
 }
-.consent-switch .consent-input{
-    display: none;
-}
 .consent-switch .consent-input:checked ~ .consent-label::before{
     background: var(--csm-sw-b-h);
 }
@@ -260,6 +257,7 @@
 .consent-banner-actions{
     margin-top: 1rem;
     width: 100%;
+    order: 2;
 }
 .consent-show-more{
     text-align: right;
@@ -290,7 +288,6 @@
     padding: 0.5rem;
     width: 2.5rem;
     height: 2.5rem;
-    outline: 0;
     transition: all 0.2s;
     cursor: pointer;
     transition: all 0.2s;

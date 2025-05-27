@@ -20,13 +20,16 @@
 						{block name="login-form-headline"}
 							<legend>{lang section="checkout" key="loginForRegisteredCustomers"}</legend>
 						{/block}
+						{block name="login-form-required-info"}
+							<div class="required-info small mt-xxs">{lang key='requiredInfo' section='custom'}</div>
+						{/block}
 						{block name="login-form-alerts"}
 							{if empty($cHinweis)}
 								<div class="alert alert-info">{lang key="loginDesc" section="login"} {if isset($oRedirect) && $oRedirect->cName}{lang key="redirectDesc1" section="global"} {$oRedirect->cName} {lang key="redirectDesc2" section="global"}.{/if}</div>
 							{elseif !$alertNote}
 								<div class="alert alert-info">{lang key='loginDesc' section='login'} {if isset($oRedirect) && $oRedirect->cName}{lang key='redirectDesc1'} {$oRedirect->cName} {lang key='redirectDesc2'}.{/if}</div>
 							{/if}
-						{/block}
+						{/block}	
 						{block name="login-form-mail"}
 							<div class="form-group required">
 								<label for="email" class="control-label">{lang key="emailadress" section="global"}</label>

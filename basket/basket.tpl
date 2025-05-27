@@ -1,6 +1,6 @@
 {block name='snackys-basket'}
 	{block name='order-items-presets'}
-		<input type="submit" name="fake" class="hidden">
+		<input type="submit" name="fake" class="hidden" aria-hidden="true" tabindex="-1">
 		{if !isset($tplscope)}
 			{assign var=tplscope value=""}
 		{/if}
@@ -53,7 +53,7 @@
 									{block name='oder-items-product-image'}
 										{if $Einstellungen.kaufabwicklung.warenkorb_produktbilder_anzeigen === 'Y'}
 											{if !empty($oPosition->Artikel->cVorschaubildURL)}
-												<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}">
+												<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}" aria-hidden="true" tabindex="-1">
 													<span class="img-ct">
 														{if isset($nSeitenTyp) && $nSeitenTyp == 37}
 															{include file='snippets/image.tpl'
@@ -80,7 +80,7 @@
 										<div class="prd">
 											{if $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL || $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_GRATISGESCHENK}
 												{block name='oder-items-product-data-name'}
-													<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}" class="prd-itm">{$oPosition->cName|transByISO}</a>
+													<a href="{$oPosition->Artikel->cURLFull}" class="prd-itm">{$oPosition->cName|transByISO}</a>
 												{/block}
 												{block name='oder-items-product-data-list'}
 													{assign "hasmore" 0}
@@ -132,7 +132,7 @@
 																	<span class="modal-title block h5">
 																		{$oPosition->cName|transByISO}
 																	</span>
-																	<button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
+																	<button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
 																	</button>
 																</div>
 																<div class="modal-body small">
@@ -221,7 +221,7 @@
 																		<span class="modal-title block h5">
 																			{$oPosition->cName|transByISO}
 																		</span>
-																		<button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
+																		<button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
 																		</button>
 																	</div>
 																	<div class="modal-body small">
@@ -296,8 +296,9 @@
 																	<div class="panel-body text-center">
 																		<div class="form-inline flx-je flx-ac">
 																			<span class="btn-group input-group">
+																				<label for="quantity{$smarty.foreach.positionen.index}" class="sr-only">{lang key='quantity' section='checkout'}:</label>
 																				<input name="anzahl[{$smarty.foreach.positionen.index}]" id="quantity{$smarty.foreach.positionen.index}" class="form-control quantity small form-control text-right" size="3" value="{$oPosition->nAnzahl}" readonly />
-																				<a class="btn btn-default btn-sm configurepos" href="{get_static_route id='index.php'}?a={$oPosition->kArtikel}&ek={$oPosition@index}">
+																				<a class="btn btn-default btn-sm configurepos" href="{get_static_route id='index.php'}?a={$oPosition->kArtikel}&ek={$oPosition@index}" aria-label="{lang key='edit'}: {$oPosition->cName|transByISO}">
 																					<span class="img-ct icon">
 																						<svg>
 																							<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-edit"></use>
@@ -317,6 +318,7 @@
 																	<div class="panel-body text-center">
 																		<div class="form-inline flx-je">
 																			<div id="quantity-grp{$smarty.foreach.positionen.index}" class="choose_quantity input-group w100">
+																				<label for="quantity{$smarty.foreach.positionen.index}" class="sr-only">{lang key='quantity' section='checkout'}:</label>
 																				<input name="anzahl[{$smarty.foreach.positionen.index}]" id="quantity{$smarty.foreach.positionen.index}" 
 																				class="form-control quantity small form-control text-right" 
 																				size="3"
@@ -383,7 +385,7 @@
 								{if $tplscope === 'cart'}
 									<div class="col-del">
 										{if $tplscope === 'cart' && $oPosition->nPosTyp == 1}
-											<button type="submit" name="dropPos" value="{$smarty.foreach.positionen.index}" title="{lang key='delete' section='global'}" class="btn btn-blank">
+											<button type="submit" name="dropPos" value="{$smarty.foreach.positionen.index}" aria-label="{lang key='delete' section='global'}: {$oPosition->cName|transByISO}" class="btn btn-blank">
 												&times;
 											</button>
 										{/if}
@@ -395,97 +397,95 @@
 					{block name='oder-items-item-moreinfo'}
 						{if $hasmore == 1}
 							<div class="collapse small" id="moreinfo{$smarty.foreach.positionen.index}">
-								<div class="inside">
-									<table class="m0">
-										{block name='order-items-item-infos-variations'}
-											{if $Einstellungen.kaufabwicklung.warenkorb_varianten_varikombi_anzeigen === 'Y' && isset($oPosition->WarenkorbPosEigenschaftArr) && !empty($oPosition->WarenkorbPosEigenschaftArr)}
-												{foreach name=variationen from=$oPosition->WarenkorbPosEigenschaftArr item=Variation}
-													<tr class="variation">
-														<td>{$Variation->cEigenschaftName|transByISO}:</td> 
-														<td>{$Variation->cEigenschaftWertName|transByISO}</td>
-													</tr>
-												{/foreach}
+								<div class="bskt-is">
+									{block name='order-items-item-infos-variations'}
+										{if $Einstellungen.kaufabwicklung.warenkorb_varianten_varikombi_anzeigen === 'Y' && isset($oPosition->WarenkorbPosEigenschaftArr) && !empty($oPosition->WarenkorbPosEigenschaftArr)}
+											{foreach name=variationen from=$oPosition->WarenkorbPosEigenschaftArr item=Variation}
+												<div class="row">
+													<div class="col-6">{$Variation->cEigenschaftName|transByISO}:</div> 
+													<div class="col-6">{$Variation->cEigenschaftWertName|transByISO}</div>
+												</div>
+											{/foreach}
+										{/if}
+									{/block}
+									{block name='order-items-item-infos-delivery'}
+										{if $Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|transByISO}
+											<div class="row">
+												<div class="col-6">{lang key="deliveryStatus" section="global"}:</div> 
+												<div class="col-6">{$oPosition->cLieferstatus|transByISO}</div>
+											</div>
+										{/if}
+									{/block}
+									{block name='order-items-item-infos-notices'}
+										{if !empty($oPosition->cHinweis)}
+											<div class="row">
+												<div class="col-12">{$oPosition->cHinweis}</div>
+											</div>
+										{/if}
+									{/block}
+									{block name='order-items-item-infos-manufacturer'}
+										{if $oPosition->Artikel->cHersteller && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen != "N"}
+											<div class="row">
+												<div class="col-6">{lang key="manufacturer" section="productDetails"}:</div>
+												<div class="col-6 values">
+													{$oPosition->Artikel->cHersteller}
+												</div>
+											</div>
+										{/if}
+									{/block}
+									{block name='order-items-item-infos-characteristics'}
+										{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelmerkmale == 'Y' && !empty($oPosition->Artikel->oMerkmale_arr)}
+											{foreach $oPosition->Artikel->oMerkmale_arr as $characteristic}
+												<div class="row">
+													<div class="col-6">{$characteristic->getName()|escape:'html'}:</div>
+													<div class="col-6">
+														{foreach $characteristic->getCharacteristicValues() as $characteristicValue}
+															{if !$characteristicValue@first}, {/if}
+															{$characteristicValue->getValue()}
+														{/foreach}
+													</div>
+												</div>
+											{/foreach}
+										{/if}
+									{/block}
+									{block name='order-items-item-infos-attributes'}
+										{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelattribute == 'Y' && !empty($oPosition->Artikel->Attribute)}
+											{foreach $oPosition->Artikel->Attribute as $oAttribute_arr}
+												<div class="row">
+													<div class="col-6">{$oAttribute_arr->cName}:</div>
+													<div class="col-6 values">
+														{$oAttribute_arr->cWert}
+													</div>
+												</div>
+											{/foreach}
+										{/if}
+									{/block}
+									{block name='order-items-item-infos-weight'}
+										{if $oPosition->istKonfigVater()}
+											{if isset($oPosition->getTotalConfigWeight()) && $Einstellungen.artikeldetails.artikeldetails_gewicht_anzeigen === 'Y' && $oPosition->getTotalConfigWeight() > 0}
+												<div class="row">
+													<div class="col-6">{lang key="shippingWeight" section="global"}: </div>
+													<div class="col-6">{$oPosition->getTotalConfigWeight()} {lang key="weightUnit" section="global"}</div>
+												</div>
 											{/if}
-										{/block}
-										{block name='order-items-item-infos-delivery'}
-											{if $Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|transByISO}
-												<tr class="delivery-status">
-													<td>{lang key="deliveryStatus" section="global"}:</td> 
-													<td>{$oPosition->cLieferstatus|transByISO}</td>
-												</tr>
+										{else}
+											{if isset($oPosition->Artikel->cGewicht) && $Einstellungen.artikeldetails.artikeldetails_gewicht_anzeigen === 'Y' && $oPosition->Artikel->fGewicht > 0}
+												<div class="row">
+													<div class="col-6">{lang key="shippingWeight" section="global"}: </div>
+													<div class="col-6 value">{$oPosition->Artikel->cGewicht} {lang key="weightUnit" section="global"}</div>
+												</div>
 											{/if}
-										{/block}
-										{block name='order-items-item-infos-notices'}
-											{if !empty($oPosition->cHinweis)}
-												<tr class="text-info notice">
-													<td colspan="2">{$oPosition->cHinweis}</td>
-												</tr>
+										{/if}
+									{/block}
+									{block name='order-items-item-infos-shortdesc'}                                    
+										{if !isset($isCheckout)}
+											{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelkurzbeschreibung == 'Y' && $oPosition->Artikel->cKurzBeschreibung|strlen > 0}
+												<div class="row shortdescription hidden-xs hidden-sm hidden-md w100">
+													<div class="col-12">{$oPosition->Artikel->cKurzBeschreibung|strip_tags}</div>
+												</div>
 											{/if}
-										{/block}
-										{block name='order-items-item-infos-manufacturer'}
-											{if $oPosition->Artikel->cHersteller && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen != "N"}
-													<tr class="manufacturer">
-													<td>{lang key="manufacturer" section="productDetails"}:</td>
-													<td class="values">
-														{$oPosition->Artikel->cHersteller}
-													</td>
-												</tr>
-											{/if}
-										{/block}
-										{block name='order-items-item-infos-characteristics'}
-											{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelmerkmale == 'Y' && !empty($oPosition->Artikel->oMerkmale_arr)}
-												{foreach $oPosition->Artikel->oMerkmale_arr as $characteristic}
-													<tr class="characteristic">
-														<td>{$characteristic->getName()|escape:'html'}:</td>
-														<td class="values">
-															{foreach $characteristic->getCharacteristicValues() as $characteristicValue}
-																{if !$characteristicValue@first}, {/if}
-																{$characteristicValue->getValue()}
-															{/foreach}
-														</td>
-													</tr>
-												{/foreach}
-											{/if}
-										{/block}
-										{block name='order-items-item-infos-attributes'}
-											{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelattribute == 'Y' && !empty($oPosition->Artikel->Attribute)}
-												{foreach $oPosition->Artikel->Attribute as $oAttribute_arr}
-													<tr class="attribute">
-														<td>{$oAttribute_arr->cName}:</td>
-														<td class="values">
-															{$oAttribute_arr->cWert}
-														</td>
-													</tr>
-												{/foreach}
-											{/if}
-										{/block}
-										{block name='order-items-item-infos-weight'}
-											{if $oPosition->istKonfigVater()}
-												{if isset($oPosition->getTotalConfigWeight()) && $Einstellungen.artikeldetails.artikeldetails_gewicht_anzeigen === 'Y' && $oPosition->getTotalConfigWeight() > 0}
-													<tr class="weight">
-														<td>{lang key="shippingWeight" section="global"}: </td>
-														<td class="value">{$oPosition->getTotalConfigWeight()} {lang key="weightUnit" section="global"}</td>
-													</tr>
-												{/if}
-											{else}
-												{if isset($oPosition->Artikel->cGewicht) && $Einstellungen.artikeldetails.artikeldetails_gewicht_anzeigen === 'Y' && $oPosition->Artikel->fGewicht > 0}
-													<tr class="weight">
-														<td>{lang key="shippingWeight" section="global"}: </td>
-														<td class="value">{$oPosition->Artikel->cGewicht} {lang key="weightUnit" section="global"}</td>
-													</tr>
-												{/if}
-											{/if}
-										{/block}
-										{block name='order-items-item-infos-shortdesc'}                                    
-											{if !isset($isCheckout)}
-												{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelkurzbeschreibung == 'Y' && $oPosition->Artikel->cKurzBeschreibung|strlen > 0}
-													<tr class="shortdescription hidden-xs hidden-sm hidden-md w100">
-														<td colspan="2">{$oPosition->Artikel->cKurzBeschreibung|strip_tags}</td>
-													</tr>
-												{/if}
-											{/if}
-										{/block}
-									</table>
+										{/if}
+									{/block}
 								</div>
 							</div>
 						{/if}

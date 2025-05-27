@@ -1,7 +1,7 @@
 {block name='productlist-filter-top-mobile'}
     {block name='filter-top-mobile-toggle'}
         {if $show_filters}
-            <div id="ftr-tg" class="mb-{if $NaviFilter->getFilterCount() > 0}xs{else}sm{/if}">
+            <button id="ftr-tg" class="mb-{if $NaviFilter->getFilterCount() > 0}xs{else}sm{/if}">
                 <div class="btn w100 flx-jb">
                     <div class="flx-ac">
                         <div class="img-ct icon ic-md mr-xxs">
@@ -13,7 +13,7 @@
                     </div>
                     {if $Suchergebnisse->getProductCount() >= 1}{$Suchergebnisse->getProductCount()} {lang key='products'}{/if}
                 </div>
-            </div>
+            </button>
         {/if}
     {/block}
     {block name='filter-top-mobile-active-filters'}

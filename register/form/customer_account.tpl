@@ -44,11 +44,11 @@
                                             <label for="password" class="control-label">{lang key="password" section="account data"}</label>
                                             <input type="password" name="pass" maxlength="255" id="password" class="form-control" placeholder="{lang key="password" section="account data"}" required autocomplete="off" aria-autocomplete="none">
                                             {if isset($fehlendeAngaben.pass_zu_kurz)}
-                                                <div class="form-error-msg text-danger">
+                                                <div class="form-error-msg text-danger" aria-live="assertive" role="alert" aria-atomic="true">
                                                     {lang key='passwordTooShort' section='login' printf=$Einstellungen.kunden.kundenregistrierung_passwortlaenge}
                                                 </div>                            
                                             {elseif isset($fehlendeAngaben.pass_zu_lang)}
-                                                <div class="form-error-msg text-danger">
+                                                <div class="form-error-msg text-danger" aria-live="assertive" role="alert" aria-atomic="true">
                                                     {lang key='passwordTooLong' section='login'}
                                                 </div>
                                             {/if}
@@ -61,7 +61,7 @@
                                             <label for="password2" class="control-label">{lang key="passwordRepeat" section="account data"}</label>
                                             <input type="password" name="pass2" maxlength="255" id="password2" class="form-control" placeholder="{lang key="passwordRepeat" section="account data"}" required data-must-equal-to="#create_account_data input[name='pass']" data-custom-message="{lang key="passwordsMustBeEqual" section="account data"}" autocomplete="off" aria-autocomplete="none">
                                             {if isset($fehlendeAngaben.pass_ungleich)}
-                                                <div class="form-error-msg text-danger"> {lang key="passwordsMustBeEqual" section="account data"}</div>
+                                                <div class="form-error-msg text-danger" aria-live="assertive" role="alert" aria-atomic="true"> {lang key="passwordsMustBeEqual" section="account data"}</div>
                                             {/if}
                                         </div>
                                     </div>

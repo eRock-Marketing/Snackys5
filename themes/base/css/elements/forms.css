@@ -30,7 +30,6 @@ input:focus,
 input:hover
 textarea:focus,
 textarea:hover{
-    outline: none;
     color: var(--inp-t-h);
     border: 1px solid var(--inp-r-h);
     background-color: var(--inp-b-h);
@@ -81,4 +80,9 @@ fieldset{
 }
 fieldset + fieldset{
     margin-top: 2.5rem;
+}
+legend.h4{
+    position: relative;
+    top: 1.8rem;
+    margin-bottom: 2rem;
 }

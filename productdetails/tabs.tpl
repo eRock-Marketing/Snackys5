@@ -176,7 +176,7 @@
                                 {if $useDescription}
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.description} show active{/if}" id="tab-description">
                                         {block name="tabs-desc-accordeon"}
-                                            <div class="panel-heading flx-jb flx-ac" data-toggle="collapse" href="#tab-description" role="button">
+                                            <button class="panel-heading flx-jb flx-ac" data-toggle="collapse" href="#tab-description" role="button">
                                                 <div class="panel-title h3 m0">
                                                     {block name='tab-description-title'}{lang key='description' section='productDetails'}{/block}
                                                 </div>
@@ -185,7 +185,7 @@
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-desc-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -250,14 +250,14 @@
                                 {if $snackyConfig.gpsr_shown != 0 && $snackyConfig.gpsr_position == 2}
                                     <div class="tab-ct tab-pane panel-default" id="tab-gpsr">
                                         {block name="tabs-gpsr-accordeon"}
-                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-gpsr" role="button">
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-gpsr" role="button">
                                                 <div class="panel-title h3 m0">{lang key='gpsrHeadline' section='custom'}</div>
                                                 <span class="img-ct icon">
                                                     <svg>
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-gpsr-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -273,14 +273,14 @@
                                 {if $useDownloads}
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.downloads} show active{/if}" id="tab-downloads">
                                         {block name="tabs-downloads-accordeon"}
-                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-downloads" role="button">
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-downloads" role="button">
                                                 <div class="panel-title h3 m0">{lang section="productDownloads" key="downloadSection"}</div>
                                                 <span class="img-ct icon">
                                                     <svg>
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-downloads-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -297,14 +297,14 @@
                                     {foreach $separatedTabs as $separatedTab}
                                         <div class="tab-ct tab-pane panel-default{if $setActiveClass.separatedTabs && $separatedTab@first} show active{/if}" id="tab-{$separatedTab.id}">
                                             {block name="tabs-separated-accordeon"}
-                                                <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-{$separatedTab.id}" role="button">
+                                                <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-{$separatedTab.id}" role="button">
                                                     <div class="panel-title h3 m0">{$separatedTab.name}</div>
                                                     <span class="img-ct icon">
                                                         <svg>
                                                         <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                         </svg>
                                                     </span>
-                                                </div>
+                                                </button>
                                             {/block}
                                             {block name="tabs-separated-body"}
                                                 <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -321,14 +321,14 @@
                                 {if $useVotes}
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.votes} show active{/if}" id="tab-votes">
                                         {block name="tabs-votes-accordeon"}
-                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-votes" role="button">
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-votes" role="button">
                                                 <div class="panel-title h3 m0">{lang key="Votes" section="global"} {if $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0}({$Artikel->Bewertungen->oBewertungGesamt->nAnzahl}){/if}</div>
                                                 <span class="img-ct icon">
                                                     <svg>
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-votes-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -344,14 +344,14 @@
                                 {if $useQuestionOnItem}
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.questionOnItem} show active{/if}" id="tab-questionOnItem">
                                         {block name="tabs-question-accordeon"}
-                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-questionOnItem" role="button">
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-questionOnItem" role="button">
                                                 <div class="panel-title h3 m0">{lang key="productQuestion" section="productDetails"}</div>
                                                 <span class="img-ct icon">
                                                     <svg>
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-question-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -367,14 +367,14 @@
                                 {if $usePriceFlow} 
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.priceFlow} show active{/if}" id="tab-priceFlow">
                                         {block name="tabs-priceflow-accordeon"}
-                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-priceFlow" role="button">
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-priceFlow" role="button">
                                                 <div class="panel-title h3 m0">{lang key="priceFlow" section="productDetails"}</div>
                                                 <span class="img-ct icon">
                                                     <svg>
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-priceflow-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -390,14 +390,14 @@
                                 {if $useAvailabilityNotification}
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.availabilityNotification} show active{/if}" id="tab-availabilityNotification">
                                         {block name="tabs-avail-note-accordeon"}
-                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-availabilityNotification" role="button">
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-availabilityNotification" role="button">
                                                 <div class="panel-title h3 m0">{lang key="notifyMeWhenProductAvailableAgain" section="global"}</div>
                                                 <span class="img-ct icon">
                                                     <svg>
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-avail-note-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -416,14 +416,14 @@
                                         {if $cMedienTypId !== 'videos'}
                                             <div class="tab-ct tab-pane panel-default{if $setActiveClass.mediaGroup && $mediaType@first} show active{/if}" id="tab-{$cMedienTypId}">
                                                 {block name="tabs-mediagroup-accordeon"}
-                                                    <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-{$cMedienTypId}" role="button">
+                                                    <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-{$cMedienTypId}" role="button">
                                                         <div class="panel-title h3 m0">{$mediaType->name}</div>
                                                         <span class="img-ct icon">
                                                             <svg>
                                                             <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                             </svg>
                                                         </span>
-                                                    </div>
+                                                    </button>
                                                 {/block}
                                                 {block name="tabs-mediagroup-body"}
                                                     <div class="panel-body">

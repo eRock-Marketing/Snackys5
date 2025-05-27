@@ -4,7 +4,7 @@
             <li>
                 {link rel="nofollow" href=$filterOption->getURL()}
                     <i class="fa {if $NaviFilter->getFilterValue($filter->getClassName()) == $filterOption->getValue()}fa-check-square-o{else}fa-square-o{/if} text-muted-util"></i>
-                    {$filterOption->getName()|escape:'html'}{badge}{$filterOption->getCount()}{/badge}
+                    {$filterOption->getName()|escape:'html'}{badge}{$filterOption->getCount()} <span class="sr-only">{lang key='products'} {lang key='found'}</span>{/badge}
                 {/link}
             </li>
         {/foreach}

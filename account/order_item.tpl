@@ -7,7 +7,7 @@
 						{block name='account-order-item-image'}
                 			<div class="img-col col-3 col-md-2">
                     			{if !empty($oPosition->Artikel->cVorschaubildURL)}
-									<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}" class="img-ct">
+									<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}" class="img-ct" tabindex="-1" aria-hidden="true">
 										{if isset($nSeitenTyp) && $nSeitenTyp == 37}
 											{include file='snippets/image.tpl'
 												fluid=false
@@ -35,7 +35,7 @@
                         				<div class="col-8 col-md-8 col-lg-9">
                              				{if $oPosition->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
 												{block name='account-order-item-content-information-name'}
-													<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}" class="block">
+													<a href="{$oPosition->Artikel->cURLFull}" class="block">
 														<strong class="title">{$oPosition->cName|transByISO}</strong>
 													</a>
 												{/block}

@@ -1,4 +1,7 @@
 {block name='checkout-step0-login-or-register'}
+	{block name='step0-h1'}
+		<h1 class="sr-only">{lang key='orderStep0Title' section='checkout'}</h1>
+	{/block}
 	{block name='step0-notice-missing-information'}
 		{if !empty($fehlendeAngaben) && !$alertNote}
 			<div class="alert alert-danger">{lang key='mandatoryFieldNotification' section='errorMessages'}</div>
@@ -90,35 +93,35 @@
 				<div class="col-12 mb-sm" id="choose-way">
 					<div class="row m0">
 						{block name='step0-choose-way-login'}
-							<div class="col-4 step-box flx-ac flx-jc login {$loginClass}{if $activeClass == 'login'} active{/if}">
+							<button class="col-4 step-box flx-ac flx-jc login {$loginClass}{if $activeClass == 'login'} active{/if}">
 								<span class="img-ct">
 									<svg>
 									  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-user-reg"></use>
 									</svg>
 								</span>
 								<span>{lang key="COlogin" section="custom"}</span>
-							</div>
+							</button>
 						{/block}
 						{block name='step0-choose-way-register'}
-							<div class="col-4 step-box flx-ac flx-jc nouser reg {$regClass}{if $activeClass == 'reg'} active{/if}">
+							<button class="col-4 step-box flx-ac flx-jc nouser reg {$regClass}{if $activeClass == 'reg'} active{/if}">
 								<span class="img-ct">
 									<svg>
 									  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-user-new"></use>
 									</svg>
 								</span>
 								<span>{lang key="COreg" section="custom"}</span>
-							</div>
+							</button>
 						{/block}
 						{block name='step0-choose-way-guest'}
 							{if $Einstellungen.kaufabwicklung.bestellvorgang_unregistriert === 'Y'}
-								<div class="col-4 step-box flx-ac flx-jc nouser guest {$guestClass}{if $activeClass == 'guest'} active{/if}" id="checkout-guest-btn">
+								<button class="col-4 step-box flx-ac flx-jc nouser guest {$guestClass}{if $activeClass == 'guest'} active{/if}" id="checkout-guest-btn">
 									<span class="img-ct">
 										<svg>
 										  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-user-guest"></use>
 										</svg>
 									</span>
 									<span>{lang key="COguest" section="custom"}</span>
-								</div>
+								</button>
 							{/if}
 						{/block}
 					</div>

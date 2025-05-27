@@ -12,7 +12,7 @@
                     <ul class="nav blanklist">
                         {foreach $oBox->getManufacturers() as $manufacturer}
                             <li class="nav-it">
-                                <a href="{$manufacturer->getURL()}" title="{$manufacturer->getName()|escape:'html'}" class="flx">
+                                <a href="{$manufacturer->getURL()}" class="flx">
                                     <span class="name">{$manufacturer->getName()|escape:'html'}</span>
                                 </a>
                             </li>

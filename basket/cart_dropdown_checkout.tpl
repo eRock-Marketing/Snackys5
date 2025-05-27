@@ -36,9 +36,7 @@
 													{block name='checkout-cart-item-article-name'}
 														<div class="cols-name{if $Einstellungen.kaufabwicklung.warenkorb_produktbilder_anzeigen != 'Y'} noimg{/if}">
 															{$oPosition->nAnzahl|replace_delim}{if $oPosition->Artikel->cEinheit} {$oPosition->Artikel->cEinheit}{else}&times;{/if}
-															<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:"html"}">
-																{$oPosition->cName|transByISO}
-															</a>
+															{$oPosition->cName|transByISO}
 														</div>
 													{/block}
 													{block name='checkout-cart-item-article-price'}
@@ -51,7 +49,7 @@
 														</div>
 													{/block}
 													{block name='checkout-cart-item-article-infobutton'}
-														<button class="editpos" type="button" data-toggle="collapse" data-target="#edit_{$oPosition@iteration}">
+														<button class="editpos" type="button" data-toggle="collapse" data-target="#edit_{$oPosition@iteration}" aria-label="{lang key='ts_info_classic_title'}: {$oPosition->cName|transByISO}">
 															<span class="img-ct icon icon">
 																<svg>
 																  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-info"></use>
@@ -195,7 +193,7 @@
 												</div>
 											{/block}
 											{block name='checkout-cart-item-other-placeholder'}
-												<button class="editpos invisible">
+												<button class="editpos invisible" tabindex="-1" aria-hidden="true">
 													<span class="img-ct icon icon">
 														<svg>
 														  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-info"></use>

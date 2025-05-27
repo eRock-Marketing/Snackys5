@@ -17,7 +17,7 @@
               <span class="modal-title block h5">
                   {lang key='availability' section='productDetails'}
               </span>
-              <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}"></button>
           </div>
           <div class="modal-body">
             <table class="table warehouse-table">

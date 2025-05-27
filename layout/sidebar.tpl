@@ -28,7 +28,7 @@
 					{include file="snippets/zonen.tpl" id="after_sidepanel" title="after_sidepanel"}
 				</div>
 				<div class="visible-xs visible-sm overlay-bg"></div>
-				<div class="visible-xs visible-sm close-sidebar close-btn"></div>
+				<button class="visible-xs visible-sm close-sidebar close-btn" aria-label="{lang key='rmaClose' section='rma'}: {lang key='filterBy'}"></button>
 			{/if}
 		</aside>
 	{/block}

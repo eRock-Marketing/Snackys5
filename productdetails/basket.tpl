@@ -34,13 +34,13 @@
 										{block name='basket-quantity-minus'}
 											{if $snackyConfig.quantityButtons == '1'}
 												<div class="btn-group qty-btns w100 m0">
-													<div class="btn btn-blank qty-sub">
+													<button class="btn btn-blank qty-sub" aria-label="{lang key='quantity' section='global'}: {lang key='less'}">
 														<span class="img-ct icon">
 															<svg>
 															  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-minus"></use>
 															</svg>
 														</span>
-													</div>
+													</button>
 											{/if}
 										{/block}
 										{block name='basket-quantity-defines'}
@@ -83,13 +83,13 @@
 										{/block}
 										{block name='basket-quantity-plus'}
 											{if $snackyConfig.quantityButtons == '1'}
-														<div class="btn btn-blank qty-add">
+														<button class="btn btn-blank qty-add" aria-label="{lang key='quantity' section='global'}: {lang key='more'}">
 															<span class="img-ct icon">
 																<svg>
 																  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-plus"></use>
 																</svg>
 															</span>
-														</div>
+														</button>
 													</div>
 												</div>
 												<hr class="hr-xs invisible w100">

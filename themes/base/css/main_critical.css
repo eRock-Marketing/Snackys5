@@ -272,14 +272,13 @@
     --rnd-frc: 5rem;
     --rnd-fll: 50%;
     --rnd-pop: .3rem;
+    /*Focus*/
+    --fcs: @focusColor;
 }
 *{
     -webkit-overflow-scrolling: touch;
 	scrollbar-width: thin;
 	box-sizing: border-box;
-}
-*:focus{
-    outline: none;
 }
 html{
     margin: 0;
@@ -556,7 +555,6 @@ dd{
     margin-left: 0;
 }
 .hidden,
-.sr-only,
 .visible-xxs,
 .d-none:not(#consent-manager){
     display: none;
@@ -653,6 +651,9 @@ video{
     display: block;
     text-align: center;
 }
+.hr-md{
+    margin: 15px 0
+}
 .hr-sm{
     margin: 10px 0;
 }
@@ -696,6 +697,9 @@ select{
     height: 1rem;  
     position: relative;
     top: 2px;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 0;
 }
 caption{
     text-align: left;
@@ -1154,7 +1158,7 @@ a.tag:visited{
         margin-top: .7rem
     }
 	.panel-slider .right .btn-primary .ar{
-		border-color: var(--sl-ar-i);
+		border-color: var(--btn-pr-t);
 		position: relative;
 		left: -2px;
 	}

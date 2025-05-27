@@ -359,6 +359,12 @@
 						{elseif $snackyConfig.designpreset == '2' && $pluginEdition != 'standard'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/presets/dark-chocolate.css'}
 						{/if}
+						{if $snackyConfig.css_titleLines != '0' && !empty($snackyConfig.css_titleLines) && $pluginEdition != 'standard'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productbox_special.css'}
+						{/if}
+						{if $snackyConfig.posConsent == '1' && $pluginEdition != 'standard'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/config/consent.css'}
+						{/if}
 						{if $pluginEdition == 'standard'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/colors.css'}
 						{/if}
@@ -453,6 +459,31 @@
 		{/if}
 	{/block}
 	{if !$bExclusive}
+		{block name="layout-header-skip-to-links"}
+			{if !$bAdminWartungsmodus}
+				<a href="#consent-manager" class="btn-skip-to" onclick="document.getElementById('consent-manager').focus();">
+					{lang key='skipToConsent' section='custom'}
+				</a>
+				<a href="#content-wrapper" class="btn-skip-to" onclick="document.getElementById('content-wrapper').focus();">
+					{lang key='skipToContent' section='custom'}
+				</a>
+				{if $nSeitenTyp != 11 && !$isMobile}
+					<a href="#search-header" class="btn-skip-to" onclick="document.getElementById('search-header').focus();">
+						{lang key='skipToSearch' section='custom'}
+					</a>
+					<a href="#" class="btn-skip-to" onclick="
+					{if $snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 6} document.getElementById('mob-nt').click();{/if}
+					const firstMenuLink = document.querySelector('#cat-ul > li > a');
+					if (firstMenuLink) firstMenuLink.focus();
+					return false;">
+						{lang key='skipToNav' section='custom'}
+					</a>
+				{/if}
+				<a href="#footer" class="btn-skip-to" onclick="document.getElementById('footer').focus();">
+					{lang key='skipToFooter' section='custom'}
+				</a>
+			{/if}
+		{/block}
 		{block name="header-maintenance-mode"}
 			{if $bAdminWartungsmodus && \JTL\Shop::isAdmin(true)}
 				<div id="maintenance-mode" class="navbar navbar-inverse">
@@ -526,14 +557,14 @@
 						<div class="mw-container flx-ac flx-w">
 							{block name="header-smallversion-basketlink"}
 								<div class="col-6 col-lg-4 xs-order-1">
-									<a href="{get_static_route id='warenkorb.php'}" title="{lang key="backToBasket" section="checkout"}" class="visible-xs pr">
+									<a href="{get_static_route id='warenkorb.php'}" aria-label="{lang key='backToBasket' section='checkout'}" class="visible-xs pr">
 									<span class="img-ct icon">
 										<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
 										  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-logout"></use>
 										</svg>
 									</span>
 									</a>
-									<a href="{get_static_route id='warenkorb.php'}" title="{lang key="backToBasket" section="checkout"}" class="btn text-muted hidden-xs">{lang key="backToBasket" section="checkout"}</a>
+									<a href="{get_static_route id='warenkorb.php'}" class="btn text-muted hidden-xs">{lang key="backToBasket" section="checkout"}</a>
 								</div>
 							{/block}
 							{block name="header-smallversion-shoplogo"}
@@ -592,22 +623,22 @@
 			{/if}
 		{/block}
 		{block name="content-wrapper-starttag"}
-			<div id="content-wrapper" class="mw-container">
+			<div id="content-wrapper" class="mw-container" tabindex="-1">
 		{/block}
 		{block name="content-container-starttag"}
 		{/block}
 		{block name="content-container-block-starttag"}
 		{/block}
-		{block name="product-pagination"}
+		{* block name="product-pagination"}
 			{if $Einstellungen.artikeldetails.artikeldetails_navi_blaettern === 'Y' && isset($NavigationBlaettern)}
-				<div class="visible-lg product-pagination next">
-					{if isset($NavigationBlaettern->naechsterArtikel) && $NavigationBlaettern->naechsterArtikel->kArtikel}<a href="{$NavigationBlaettern->naechsterArtikel->cURLFull}" title="{$NavigationBlaettern->naechsterArtikel->cName}"></a>{/if}
+				<div class="visible-lg product-pagination next" aria-hidden="true" tabindex="-1">
+					{if isset($NavigationBlaettern->naechsterArtikel) && $NavigationBlaettern->naechsterArtikel->kArtikel}<a href="{$NavigationBlaettern->naechsterArtikel->cURLFull}" aria-label="{$NavigationBlaettern->naechsterArtikel->cName}"></a>{/if}
 				</div>
-				<div class="visible-lg product-pagination previous">
-					{if isset($NavigationBlaettern->vorherigerArtikel) && $NavigationBlaettern->vorherigerArtikel->kArtikel}<a href="{$NavigationBlaettern->vorherigerArtikel->cURLFull}" title="{$NavigationBlaettern->vorherigerArtikel->cName}"></a>{/if}
+				<div class="visible-lg product-pagination previous" aria-hidden="true" tabindex="-1">
+					{if isset($NavigationBlaettern->vorherigerArtikel) && $NavigationBlaettern->vorherigerArtikel->kArtikel}<a href="{$NavigationBlaettern->vorherigerArtikel->cURLFull}" aria-label="{$NavigationBlaettern->vorherigerArtikel->cName}"></a>{/if}
 				</div>
 			{/if}
-		{/block}		
+		{/block *}		
 		{if !$bExclusive && !empty($boxes.left) && !empty($boxes.left|strip_tags|trim) && $nSeitenTyp == 2}
 			{assign var="hasFilters" value="true"}
 		{else}

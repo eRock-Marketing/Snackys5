@@ -40,11 +40,11 @@
                 <input type="hidden" name="twoFACustomerID" id="twoFACustomerID" value="{$Kunde->getID()}">
                 {block name='account-manage-two-fa-form-content'}
                     {lang key='enableTwoFA' section='account data' assign=lbl}
-                    <div class="h4 text-center">{$lbl}</div>
+                    <h2 class="h4 text-center">{$lbl}</h2>
                     <div class="form-group">
-                        {*<label for="b2FAauth" class="hidden">
+                        <label for="b2FAauth">
                             {$lbl}
-                        </label>*}
+                        </label>
                         <select id="b2FAauth" name="b2FAauth">
                             <option value="0"{if $Kunde->has2FA() === false} selected="selected"{/if}>{lang key='no'}</option>
                             <option value="1"{if $Kunde->has2FA() === true} selected="selected"{/if}>{lang key='yes'}</option>                    
@@ -68,8 +68,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <div class="modal-title block h5">{lang key='emergencyCodes' section='account data'}</div>
-                                            <button type="button" class="close" data-dismiss="modal">
-                                                <i class="fas fa-times"></i>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
                                             </button>
                                         </div>
                                         <div class="modal-body">

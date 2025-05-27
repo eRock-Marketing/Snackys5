@@ -95,7 +95,7 @@
                                         <span class="modal-title block h5">
                                             {lang key='information'}
                                         </span>
-                                        <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
                                         </button>
                                     </div>
                                     <div class="modal-body">

@@ -18,6 +18,8 @@
 			<form action="{if !empty($Artikel->cURLFull)}{$Artikel->cURLFull}{else}{$ShopURL}/{/if}" method="post" id="article_availability{$Artikel->kArtikel}" class="jtl-validate" addhoneypot=true>
 				{$jtl_token}
 				<fieldset>
+					<legend class="sr-only">{lang key="notifyMeWhenProductAvailableAgain" section="global"}</legend>
+					<div class="required-info small mb-xs">{lang key='requiredInfo' section='custom'}</div>
 					{block name='availability-form-firstname-lastname'}
 						{if $Einstellungen.$tplscope.benachrichtigung_abfragen_vorname !== 'N' || $Einstellungen.$tplscope.benachrichtigung_abfragen_nachname !== 'N'}
 							{block name='availability-form-firstname'}
@@ -84,9 +86,6 @@
 						isset($Einstellungen.$tplscope.benachrichtigung_abfragen_captcha) && $Einstellungen.$tplscope.benachrichtigung_abfragen_captcha !== 'N' && empty($smarty.session.Kunde->kKunde)}
 						{captchaMarkup getBody=true}
 					{/if}
-				{/block}
-				{block name='availability-form-mandatory-notice'}
-					<p class="small text-muted">(* = {lang key='mandatoryFields'})</p>
 				{/block}
 				{block name='availability-form-privacy-notice'}
 					<p class="privacy text-muted">

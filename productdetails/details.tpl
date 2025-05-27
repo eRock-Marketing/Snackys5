@@ -194,7 +194,7 @@
 														<span class="modal-title block h5">
 															{lang key='gpsrHeadline' section='custom'}
 														</span>
-														<button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
+														<button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
 														</button>
 													</div>
 													<div class="modal-body">
@@ -267,9 +267,7 @@
 																<strong class="block mb-xxs">{lang key="hotStock" section="custom" printf=$Artikel->fLagerbestand}</strong>
 																<div class="progress">
 																	{assign var="stock_percent" value=$Artikel->fLagerbestand / $snackyConfig.hotStock * 100}
-																	<div class="progress-bar" role="progressbar"
-																		aria-valuenow="{$stock_percent|round}" aria-valuemin="0"
-																		aria-valuemax="100" style="width: {$stock_percent|round}%;">
+																	<div class="progress-bar" style="width: {$stock_percent|round}%;">
 																		{$Artikel->fLagerbestand}
 																	</div>
 																</div>
@@ -319,12 +317,7 @@
 														<div class="payplan"></div>
 													{/block}
 												</div>
-											</div>           
-											{block name="details-buy-actions-wrapper"}
-												<div class="hidden">
-													{include file="productdetails/actions.tpl"}
-												</div>
-											{/block}
+											</div>
                     					{/block}
 										{if isset($varKombiJSON) && $varKombiJSON!= ''}
 											<script id="varKombiArr" type="application/json">{$varKombiJSON}</script>
@@ -350,8 +343,8 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="pp-question_on_item-label">{lang key='productQuestion' section='productDetails'}</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<div class="modal-title h5" id="pp-question_on_item-label">{lang key='productQuestion' section='productDetails'}</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
 								</button>
 							</div>
 							<div class="modal-body">
@@ -368,8 +361,8 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="pp-availability_notification-label">{lang key='requestNotification'}</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<div class="modal-title h5" id="pp-availability_notification-label">{lang key='requestNotification'}</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
 								</button>
 							</div>
 							<div class="modal-body">

@@ -3,6 +3,7 @@
 		<form method="post" action="{get_static_route id='bestellvorgang.php'}" class="form form-inline">
 			{$jtl_token}
 			<fieldset>
+				<legend class="sr-only">{lang key="credit" section="account data"}</legend>
 				<div class="row">
 					{block name='checkout-credit-form-left'}
 						<div class="col-12 col-sm-6">

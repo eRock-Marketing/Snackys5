@@ -15,6 +15,7 @@
 					{if $customer->getID() === 0}
 						{block name='boxes-box-login-form'}
 							{form action="{get_static_route id='jtl.php' secure=true}" method="post" class="form box_login jtl-validate" slide=true}
+								<div class="required-info small">{lang key='requiredInfo' section='custom'}</div>
 								{block name='boxes-box-login-form-data'}
 									{input type="hidden" name="login" value="1"}
 									{include file='snippets/form_group_simple.tpl'
@@ -37,18 +38,16 @@
 									{/block}
 								{/if}
 								{block name='boxes-box-login-form-submit'}
-									{formgroup}
-										{if !empty($oRedirect->cURL)}
-											{foreach $oRedirect->oParameter_arr as $oParameter}
-												{input type="hidden" name=$oParameter->Name value=$oParameter->Wert}
-											{/foreach}
-											{input type="hidden" name="r" value=$oRedirect->nRedirect}
-											{input type="hidden" name="cURL" value=$oRedirect->cURL}
-										{/if}
-										{button type="submit" name="speichern" value="1" variant="primary" block=true class="submit" size="sm"}
-											{lang key='login' section='checkout'}
-										{/button}
-									{/formgroup}
+									{if !empty($oRedirect->cURL)}
+										{foreach $oRedirect->oParameter_arr as $oParameter}
+											{input type="hidden" name=$oParameter->Name value=$oParameter->Wert}
+										{/foreach}
+										{input type="hidden" name="r" value=$oRedirect->nRedirect}
+										{input type="hidden" name="cURL" value=$oRedirect->cURL}
+									{/if}
+									{button type="submit" name="speichern" value="1" variant="primary" block=true class="submit form-group" size="sm"}
+										{lang key='login' section='checkout'}
+									{/button}
 								{/block}
 								{block name='boxes-box-login-form-links'}
 									<small class="block mb-xs">
@@ -68,7 +67,7 @@
 							<ul class="blanklist">
 								{block name='boxes-box-login-actions-myaccount'}
 									<li class="nav-it">
-										<a href="{get_static_route id='jtl.php' secure=true}" title="{lang key='myAccount'}" class="flx-ac flx-jb">
+										<a href="{get_static_route id='jtl.php' secure=true}" class="flx-ac flx-jb">
 											{lang key='myAccount'}
 											<span class="img-ct icon icon-wt">
 												<svg>
@@ -160,7 +159,7 @@
 							</ul>
 							{block name='boxes-box-login-actions-logout'}
 								<hr class="hr-sm invisible">
-								<a href="{get_static_route id='jtl.php' secure=true}?logout=1" title="{lang key='logOut'}" class="btn btn-block btn-sm">{lang key='logOut'}</a>
+								<a href="{get_static_route id='jtl.php' secure=true}?logout=1" class="btn btn-block btn-sm">{lang key='logOut'}</a>
 							{/block}
 						{/block}
 					{/if}

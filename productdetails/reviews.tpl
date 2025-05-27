@@ -95,7 +95,7 @@
                     {block name="productdetails-review-reviews-helpful"}
                         {if isset($Artikel->HilfreichsteBewertung->oBewertung_arr[0]->nHilfreich) && $Artikel->HilfreichsteBewertung->oBewertung_arr[0]->nHilfreich > 0}
                             <div class="review-wrapper reviews-mosthelpful panel mb-sm review">
-                                <form method="post" action="{get_static_route id='bewertung.php'}#tab-votes">
+                                <form method="post" action="{$Artikel->cURLFull}#tab-votes">
                                     {$jtl_token}
                                     {block name="productdetails-review-most-helpful"}
                                     <input name="bhjn" type="hidden" value="1" />

@@ -9,7 +9,7 @@
 					{block name="product-image-thumbs"}
 						{foreach $Artikel->Bilder as $image name="thumbnails"}
 							{strip}
-								<div class="img-w{if $smarty.foreach.thumbnails.first} active{/if}">
+								<div class="img-w{if $smarty.foreach.thumbnails.first} active{/if}" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" role="button" tabindex="0">
 									<div class="img-ct">
 										{image alt=$image->cAltAttribut|escape:'quotes'
 											class="product-image"
@@ -31,9 +31,9 @@
     		<div id="gallery" class="{if $Artikel->Bilder|count > 1 && !$isMobile}col-12 col-md-10 col-lg-10{else}col-12{/if}{if $snackyConfig.productZoom==1} zoom{/if}{if $Artikel->Bilder|count == 1 && $Artikel->Bilder[0]->cURLMini|strstr:'keinBild.gif'} no-lb{/if}">
 				{block name="product-image-mobile-prev"}
 					{if $Artikel->Bilder|count > 1 && $isMobile}
-						<div id="gallery-prev" class="sl-ar sl-pr">
+						<button id="gallery-prev" class="sl-ar sl-pr" aria-label="{lang key='sliderPrev' section='media'}">
 							<div class="ar ar-l"></div>
-						</div>
+						</button>
 					{/if}
 				{/block}
 				{block name="product-image-wrapper-inner"}
@@ -41,7 +41,7 @@
         				{block name="product-image"}
         					{foreach $Artikel->Bilder as $image name="gallery"}
             					{strip}
-                					<a href="#" data-href="{$image->cURLGross}"{if $smarty.foreach.gallery.first} class="active"{/if}>
+                					<a href="#" data-href="{$image->cURLGross}"{if $smarty.foreach.gallery.first} class="active"{/if}{if !$isMobile} tabindex="-1"{/if}>
                     					<div class="img-ct" data-src="{$image->cURLGross}">
 											{assign var="isLazy" value=true}
 											{if $smarty.foreach.gallery.first && $snackyConfig.nolazyloadProductdetails == 'Y'}
@@ -83,9 +83,9 @@
 				{/block}
 				{block name="product-image-mobile-next"}
 					{if $Artikel->Bilder|count > 1 && $isMobile}
-						<div id="gallery-next" class=" sl-ar sl-nx">
+						<button id="gallery-next" class=" sl-ar sl-nx" aria-label="{lang key='sliderNext' section='media'}">
 							<div class="ar ar-r"></div>
-						</div>
+						</button>
 					{/if}   
 				{/block}
 			</div>         

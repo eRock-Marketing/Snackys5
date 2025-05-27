@@ -46,6 +46,8 @@
 										{block name="newsletter-subscribe-form"}    
                         					<form method="post" action="{get_static_route id='newsletter.php'}" role="form" class="jtl-validate">
                             					<fieldset>
+													<legend class="sr-only">{lang key="newsletterSubscribe" section="newsletter"}</legend>
+													<div class="required-info small mb-xs">{lang key='requiredInfo' section='custom'}</div>
 													{block name="newsletter-subscribe-form-firstname"}
 														<div class="form-group float-label-control">
 															<label for="newsletterfirstname" class="control-label">{lang key="newsletterfirstname" section="newsletter"}</label>
@@ -93,9 +95,6 @@
 															<hr>
 														{/if}
 													{/block}
-													{block name="newsletter-subscribe-form-mandatory-info"}
-                                						<p class="small text-muted">(* = {lang key='mandatoryFields'})</p>
-													{/block}
 													{block name="newsletter-subscribe-form-privacy"}
 														{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}
 															<p class="privacy text-muted small">
@@ -140,6 +139,8 @@
 									{block name="newsletter-unsubscribe-form"}    
                     					<form method="post" action="{get_static_route id='newsletter.php'}" name="newsletterabmelden" class="jtl-validate">
                         					<fieldset>
+												<legend class="sr-only">{lang key="newsletterUnsubscribe" section="newsletter"}</legend>
+												<div class="required-info small mb-xs">{lang key='requiredInfo' section='custom'}</div>
 												{block name="newsletter-unsubscribe-form-mail"}
 													<div class="form-group float-label-control required{if !empty($oFehlendeAngaben->cUnsubscribeEmail)} has-error{/if}">
 														<label for="checkOut" class="control-label">{lang key="newsletteremail" section="newsletter"}</label>

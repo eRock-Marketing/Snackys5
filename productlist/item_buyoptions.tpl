@@ -15,13 +15,13 @@
                         {if ($snackyConfig.quantityButtons == 1 && $snackyConfig.listShowCart == 3 && $snackyConfig.listShowAmountCart == 2) || ($snackyConfig.quantityButtons == 1 && $listStyle)}
                             <div class="btn-group qty-btns w100 m0">
                                 {block name="productlist-add-basket-minus"}
-                                    <div class="btn btn-blank qty-sub">
+                                    <button class="btn btn-blank qty-sub" aria-label="{lang key='quantity' section='global'}: {lang key='less'}">
                                         <span class="img-ct icon">
                                             <svg>
                                             <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-minus"></use>
                                             </svg>
                                         </span>
-                                    </div>
+                                    </button>
                                 {/block}
                         {/if}
                         {block name="productlist-add-basket-input"}
@@ -29,6 +29,7 @@
                                 min="{if $Artikel->fMindestbestellmenge}{$Artikel->fMindestbestellmenge}{else}0{/if}"
                                 max="{$Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_MAXBESTELLMENGE]|default:''}"
                                 {if $Artikel->fAbnahmeintervall > 0}step="{$Artikel->fAbnahmeintervall}"{/if}
+                                aria-label="{lang key='quantity' section='global'}"
                                 size="2"
                                 id="quantity{$Artikel->kArtikel}"
                                 class="quantity form-control{if $snackyConfig.quantityButtons != 1} text-right{else} text-center{/if}"
@@ -38,13 +39,13 @@
                         {/block}
                         {if ($snackyConfig.quantityButtons == 1 && $snackyConfig.listShowCart == 3 && $snackyConfig.listShowAmountCart == 2) || ($snackyConfig.quantityButtons == 1 && $listStyle)}
                                 {block name="productlist-add-basket-plus"}
-                                    <div class="btn btn-blank qty-add">
+                                    <button class="btn btn-blank qty-add" aria-label="{lang key='quantity' section='global'}: {lang key='more'}">
                                         <span class="img-ct icon">
                                             <svg>
                                             <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-plus"></use>
                                             </svg>
                                         </span>
-                                    </div>
+                                    </button>
                                 {/block}
                             </div>
                             <hr class="hr-xxs invisible">
@@ -53,7 +54,7 @@
                         {/if}
                         {block name="productlist-add-basket-submit"}
                             <span class="input-group-btn">
-                                <button type="submit" class="btn btn-primary sn-addBasket btn-block" id="submit{$Artikel->kArtikel}" title="{lang key="addToCart" section="global"}">
+                                <button type="submit" class="btn btn-primary sn-addBasket btn-block" id="submit{$Artikel->kArtikel}" {if (($snackyConfig.listShowAmountCart == 2 && $snackyConfig.quantityButtons != 1) ||  $snackyConfig.listShowCart == 2) && !$listStyle}title="{lang key='addToCart' section='global'}" {/if}aria-label="{lang key='addToCart' section='global'}: {$Artikel->cKurzbezeichnung}">
                                     {if (($snackyConfig.listShowAmountCart == 2 && $snackyConfig.quantityButtons != 1) ||  $snackyConfig.listShowCart == 2) && !$listStyle}
                                         <span class="img-ct icon ic-w mauto">
                                             <svg>

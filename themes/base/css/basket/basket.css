@@ -73,14 +73,6 @@
     background: var(--tag-df-b);
 }
 /* Freegift */
-#freegift input[type="radio"],
-#freegift input[type="submit"]{
-    opacity: 0;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    position: absolute;
-}
 #freegift span.text-muted{
     font-weight: 400;
 }
@@ -97,6 +89,11 @@
 }
 #freegift label:hover strong{
     color: var(--bod-l-h);
+}
+/* Basket Quantity Hover */
+.choose_quantity button:hover .img-ct{
+    transform: rotate(360deg);
+    transition: 1s ease;
 }
 @media screen and (max-width: 991px){
     .basket-xsell{
@@ -222,6 +219,15 @@
     margin-right: 0;
     padding: 1rem 0;
     border-bottom: 1px solid var(--hr-li);
+    position: relative;
+}
+.bskt-l{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
 }
 .bskt:not(.itms){
     font-weight: bold;
@@ -260,15 +266,36 @@
 .col-prd .blanklist{
     margin-top: .25rem;
 }
-#cart-form .inside{
+#cart-form .bskt-is{
     padding: 1rem 0;
     border-bottom: 1px solid var(--hr-li);
 }
 .prd .defaultlink.small{
     text-decoration: underline;
+    position: relative;
+    z-index: 2;
 }
 .col-qnt .choose_quantity{
     max-width: 8rem;
+}
+.bskt-is .row{
+    margin: 0;
+    background: var(--tbl-b);
+    border: 1px solid var(--tbl-r);
+}
+.bskt-is .row:not(:last-child){
+    border-bottom: 0;
+}
+.bskt-is .row:nth-child(2n+1){
+    background: var(--tbl-b-2);
+}
+.bskt-is .col-6:first-child{
+    border-right: 1px solid var(--tbl-r);
+}
+.bskt-is .col-6,
+.bskt-is .col-12{
+    padding-top: .4rem;
+    padding-bottom: .4rem;;
 }
 /*
 .modal.konf-mod{

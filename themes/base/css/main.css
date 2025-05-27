@@ -1,3 +1,46 @@
+*:focus,
+#freegift label:focus-within,
+.custom-control:focus-within,
+.stc-checkbox:focus-within,
+.stc-radio:focus-within,
+.consent-switch .consent-input:focus + .consent-label:before,
+.cfg-group label:focus-within,
+.swatches .variation:focus-within,
+.var-it .bootstrap-select .variation.active,
+#cat-ul button.fa-caret-down:focus span{
+    outline: 2px solid var(--fcs);
+}
+#cat-ul button.fa-caret-down:focus,
+#content-wrapper:focus,
+#footer:focus,
+#cat-w:focus,
+.nav-tabs a:focus,
+#sp-l *:focus,
+#consent-manager:focus{
+    outline: none;
+}
+a:not(.btn):not(header a):not(.dropdown a):not(#cat-w a):not(.p-w a):not(.nav-it a):not(.pn-news a):not(.nav-item a):not(.prd a):not(.c-stp a):not(.answer a):not(.card-body a.item):not(#bc-w a):not(.tag):not(.sc-w a),
+.info-essential a{
+    text-decoration: underline;
+}
+#sp-l *:focus,
+.nav-tabs a:focus{
+    box-shadow: inset 0 0 0 2px var(--fcs);
+}
+a.btn-skip-to {
+    position: absolute;
+    top: 0.2rem;
+    left: 0.2rem;
+    z-index: 20;
+    background: white;
+    padding: 1rem;
+    transform: scale(0);
+    opacity: 0;
+}
+a.btn-skip-to:focus {
+    transform: scale(1);
+    opacity: 1;
+}
 /* Slide-In Animation */
 @keyframes slide-in{
 	from{
@@ -6,11 +49,6 @@
 	to{
 		transform: translateX(0);
 	}
-}
-/* Basket Quantity Hover */
-.choose_quantity button:hover .img-ct{
-    transform: rotate(360deg);
-    transition: 1s ease;
 }
 /* PayPal Express */
 .add-pays .paypal{
@@ -58,6 +96,11 @@
         opacity: 0;
         z-index: 10;
     }
+    body:not(.show-search) #search-submit-button,
+    body:not(.show-search) #search input,
+    body:not(.show-search) #sr-tg-m .close{
+        visibility: hidden;
+    }
     body.show-search .hdr-nav>li{
         pointer-events: none;
     }
@@ -72,4 +115,14 @@
         opacity: 1;
 		overflow: visible;
     }
+}
+
+/* Web Accessibility */
+.dropdown:focus-within .dropdown-menu{
+    display: block;
+}
+.mgm .mgm-fw:focus-within .dropdown-menu, 
+.mgm .dropdown-multi:focus-within .dropdown-menu {
+    transform: translateY(0);
+    transition-delay: .3s;
 }

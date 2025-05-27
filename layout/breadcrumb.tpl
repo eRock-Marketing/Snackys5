@@ -14,6 +14,7 @@
 											  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-home"></use>
 											</svg>
 										</span>
+										<span class="sr-only">{$oItem->getName()|escape:'html'}</span>
 									</a>
 								</li>
 							{/block}
@@ -38,7 +39,7 @@
 							{block name="bc-item"}              
 								<li class="separator">/</li>
 								<li class="bc-item" >
-									<a href="{$oItem->getURLFull()}" title="{$oItem->getName()|escape:'html'}">
+									<a href="{$oItem->getURLFull()}">
 										<span >{$oItem->getName()}</span>
 									</a>
 								</li>

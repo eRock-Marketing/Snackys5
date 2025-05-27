@@ -62,11 +62,12 @@ body.show-sidebar #content-wrapper{
     width: 100%;
 }
 #sp-l section:not(:last-child):not(:empty) {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 #sp-l .panel{
-    box-shadow: 0 0 0 0.25rem var(--pan-b);
-    padding: 1rem .7rem;
+    background: none;
+    border-radius: 0;
+    padding: 0;
 }
 #filter-collapsible{
     display: block;

@@ -1,9 +1,6 @@
 [hidden], template {
     display: none
 }
-a:active, a:hover {
-    outline: 0
-}
 img {
     border: 0;
     vertical-align: middle
@@ -301,9 +298,6 @@ hr {
 }
 .dropup, .dropdown, .ps-rel {
     position: relative
-}
-.dropdown-toggle:focus {
-    outline: 0
 }
 .dropdown-menu {
     position: absolute;
@@ -611,10 +605,9 @@ th.visible-lg, td.visible-lg {
 
 /* Panel */
 .panel{
-    padding: 1rem;
+    padding: 1.3rem;
     border-radius: var(--box-rnd);
     background: var(--pan-b);
-    box-shadow: 0 0 0 0.3rem var(--pan-b);
     border: 1px solid var(--pan-r);
     color: var(--pan-t);
 }
@@ -632,8 +625,7 @@ th.visible-lg, td.visible-lg {
 }
 @media screen and (max-width: 991px){
     .panel{
-        box-shadow: 0 0 0 0.25rem var(--pan-b);
-        padding: 1rem .7rem;
+        padding: 1rem;
     }
 }
 
@@ -673,4 +665,20 @@ th.visible-lg, td.visible-lg {
 }
 .popover-title{
     font-size: 1rem;
+}
+
+#snackys-tpl .sr-only,
+.consent-switch .consent-input{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.group-items input.hidden{
+    display: inline;
 }

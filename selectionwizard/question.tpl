@@ -2,12 +2,12 @@
     <div class="list-group-item selection-wizard-question {if $nQuestion > $AWA->getCurQuestion()}disabled{/if}">
         <hr class="hr-sm">
         {block name='selectionwizard-question-title'}
-            <h4 class="list-group-item-heading selection-wizard-question-heading flx-ac">
+            <div class="list-group-item-heading selection-wizard-question-heading flx-ac h4">
                 <span class="mr-xxs">{$oFrage->cFrage}</span>
                 {if $nQuestion < $AWA->getCurQuestion()}
                     <a href="#" onclick="return resetSelectionWizardAnswerJS({$nQuestion});" class="btn btn-sm">{lang key="edit"}</a>
                 {/if}
-            </h4>
+            </div>
         {/block}
         {if $nQuestion < $AWA->getCurQuestion()}
             {block name='selectionwizard-question-answer'}
@@ -51,7 +51,7 @@
                                     <span>{$oWert->getValue()}</span>
                                     {if $AWA->getConf('auswahlassistent_anzahl_anzeigen') === 'Y'}
                                         <span class="badge">
-                                        {$oWert->getCount()}
+                                        {$oWert->getCount()} <span class="sr-only"> {lang key='products'} {lang key='found'}</span>
                                         </span>
                                     {/if}
                                 {/if}

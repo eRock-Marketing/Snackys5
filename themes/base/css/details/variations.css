@@ -44,7 +44,8 @@
     color: var(--var-sw-t);
     border: 1px solid var(--var-sw-r);
 }
-.var-it .swatches .btn-default:not(.active):not(.btn-img):hover{
+.var-it .swatches .btn-default:not(.active):not(.btn-img):hover,
+.swatches .variation:focus-within{
     background: var(--var-sw-b-h);
     color: var(--var-sw-t-h);
     border: 1px solid var(--var-sw-r-h);
@@ -105,6 +106,12 @@
 }
 .var-it .bootstrap-select>.dropdown-menu{
     max-width: 100%;
+}
+.var-it .bootstrap-select.dropdown:not(.show):focus-within .dropdown-menu{
+    display: none;
+}
+.var-it .bootstrap-select li{
+    pointer-events: all;
 }
 @media screen and (max-width: 1800px){
     .var-it .swatches .btn-img.btn-default{

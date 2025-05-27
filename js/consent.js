@@ -51,6 +51,8 @@ class ConsentManager
         document.body.style.overflow = 'hidden';
         modal.classList.add('active');
         setTimeout(() => modal.classList.add('show'), 10);
+        let modalClose = document.querySelector('.' + this.options.prefix + '-modal.active .consent-modal-close');
+        setTimeout(() => modalClose.focus(), 100);
     }
 
     closeModal(event)

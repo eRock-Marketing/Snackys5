@@ -1,4 +1,7 @@
 {block name='checkout-step3-shipping-options'}
+	{block name='step3-h1'}
+		<h1 class="sr-only">{lang section='account data' key='shippingAndPaymentOptions'}</h1>
+	{/block}
 	<div class="row">
     	<div class="col-12">
         	{if !isset($Versandarten)}

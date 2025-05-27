@@ -1,3 +1,4 @@
+.p-w.hv-e:focus-within,
 .p-w.hv-e:hover{
 	position: relative;
 	z-index: 9;
@@ -5,6 +6,7 @@
     box-shadow: 0 0 0 .4rem var(--pbx-h-b), 0 0 0 300vw rgba(0,0,0,.3);
     border-radius: var(--box-rnd) var(--box-rnd) 0 0;
 }
+.p-w:focus-within .p-c.hv-e:after,
 .p-w:hover .p-c.hv-e:after{
 	content: '';
 	position: absolute;
@@ -32,6 +34,7 @@
 .p-c.hv-e .img-w:hover .img-ct{
 	box-shadow: none;
 }
+.p-w:focus-within .hv-e .exp,
 .p-w:hover .hv-e .exp{
 	display: block;
 	opacity: 1;
@@ -152,6 +155,9 @@
     margin-left: .2rem;
 }
 .var-it .fa{
+    display: none;
+}
+.var-it .bootstrap-select.dropdown:not(.show):focus-within .dropdown-menu{
     display: none;
 }
 @media screen and (max-width: 767px){

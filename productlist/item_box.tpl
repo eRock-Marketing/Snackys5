@@ -10,7 +10,7 @@
         <div id="{$idPrefix|default:''}result-wrapper_buy_form_{$Artikel->kArtikel}" data-wrapper="true"
 	        class="p-c {if $snackyConfig.hover_productlist === 'Y' && !$isMobile} hv-e{/if}{if isset($listStyle) && $listStyle === 'gallery'} active{/if}{if isset($class)} {$class}{/if}">
             {block name="productlist-image"}
-                <a class="img-w block{if isset($Artikel->Bilder[1]) && $isMobile} m-swipe no-scrollbar{/if}" href="{$Artikel->cURLFull}">
+                <a class="img-w block{if isset($Artikel->Bilder[1]) && $isMobile} m-swipe no-scrollbar{/if}" href="{$Artikel->cURLFull}" aria-hidden="true" tabindex="-1">
                     {block name="productlist-image-assigns"}
                         {if isset($Artikel->Bilder[0]->cAltAttribut)}
                             {assign var="alt" value=$Artikel->Bilder[0]->cAltAttribut|strip_tags|truncate:60|escape:"quotes"}
@@ -66,7 +66,7 @@
                     <a href="{$Artikel->cURLFull}" class="title block h4 m0">{$Artikel->cKurzbezeichnung}</a>
                     {block name="productlist-caption-rating"}
                         {if $Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->fDurchschnittsBewertung > 0}
-                            <a href="{$Artikel->cURLFull}#tab-votes" class="hidden-print block">
+                            <a href="{$Artikel->cURLFull}#tab-votes" class="hidden-print block" aria-hidden="true" tabindex="-1">
 			                    {include file='productdetails/rating.tpl' stars=$Artikel->fDurchschnittsBewertung}
                             </a>
                         {/if}

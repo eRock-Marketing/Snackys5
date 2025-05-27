@@ -31,7 +31,7 @@
 				<li class="nav-it{if $li->getIsActive() || (isset($activeParent) && $activeParent == $li->getID())} active{/if}">
 					<a href="{$li->getURL()}" class="flx{if $li->getChildLinks()->count() > 0 && isset($dropdownSupport)} nav-sub{/if}"{if $li->getNoFollow()} rel="nofollow"{/if}{if !empty($li->getTitle())} title="{$li->getTitle()}"{/if} data-ref="{$li->getID()}" target="{$li->getTarget()}">
 						<span class="name">{$li->getName()}</span>
-						{if $li->getChildLinks()->count() > 0 && isset($dropdownSupport) && (($i+1) < $limit)}<i class="fa fa-caret-down nav-toggle"></i>{/if}
+						{if $li->getChildLinks()->count() > 0 && isset($dropdownSupport) && (($i+1) < $limit)}<button class="fa fa-caret-down nav-toggle" aria-label="{lang key='toggleSubemenu' section='custom'}"></button>{/if}
 					</a>
 					{if $hasItems}
 						<ul class="nav">

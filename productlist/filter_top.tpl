@@ -99,14 +99,14 @@
                                         {if ($hasFilters) == true}
                                             <div class="col-12 col-sm-12 col-md-6 col-lg-4{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-3{/if} more-ftr">
                                                 <div class="form-group">
-                                                    <div class="btn flx-ac" id="ftr-tg">
+                                                    <button class="btn flx-ac" id="ftr-tg">
                                                         {lang key="moreFilters" section="custom"} 
                                                         <div class="img-ct icon ic-md"> 
                                                             <svg class="">
                                                                 <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-filter"></use>
                                                             </svg>
                                                         </div>
-                                                    </div>
+                                                    </button>
                                                 </div>
                                             </div>
                                         {/if}
@@ -126,7 +126,7 @@
     {elseif !$isMobile && !empty($boxes.left)}
         {block name='filter-top-filter-by'}
             <div class="visible-xs visible-sm mb-sm">
-                <div class="btn flx-ac flx-jb w100" id="ftr-tg">
+                <button class="btn flx-ac flx-jb w100" id="ftr-tg">
                     <div class="flx-ac">
                         <div class="img-ct icon ic-md mr-xxs"> 
                             <svg class="">
@@ -136,7 +136,7 @@
                         {lang key='filterBy'}
                     </div>
                     {if $Suchergebnisse->getProductCount() >= 1}{$Suchergebnisse->getProductCount()} {lang key='products'}{/if} 
-                </div>
+                </button>
             </div>
         {/block}
     {/if}

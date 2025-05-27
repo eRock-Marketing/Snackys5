@@ -47,7 +47,7 @@
                 {if $NaviFilter->getURL()->getUnsetAll() !== null}
                     {block name='er-active-filters-delete-all'}
                         {strip}
-                            <a href="{$NaviFilter->getURL()->getUnsetAll()}" title="{lang key='removeFilters'}" class="btn btn-sm">
+                            <a href="{$NaviFilter->getURL()->getUnsetAll()}" class="btn btn-sm">
                                 <div class="img-ct icon mr-xxs">
                                     <svg>
                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>

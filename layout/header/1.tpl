@@ -1,6 +1,6 @@
 {block name="km-header-1"}
 	{block name="header-branding-content"}
-		<header class="hidden-print" id="shop-nav">
+		<header class="hidden-print" id="shop-nav" role="banner">
 			<div class="mw-container flx-ac flx-w">
 				{block name="km-header-mobile"}
 					<div class="col-4 visible-xs">
@@ -8,14 +8,7 @@
 							{include file="snippets/mobilenav-toggle.tpl"}
 						{/block}
 						{block name="km-header-mobile-searchtoggle"}
-							<div id="sr-tg-m">
-								<span class="img-ct icon">
-									<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-									  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-search"></use>
-									</svg>
-								</span>
-								<span class="close close-btn"></span>
-							</div>
+							{include file="snippets/mobilesearch-toggle.tpl"}
 						{/block}
 					</div>
 				{/block}
@@ -35,7 +28,7 @@
 								</div>
 							{/block}
 							{block name="km-header-center-categorys"}
-								<div class="category-nav navbar-wrapper hidden-xs" id="cat-w">
+								<div class="category-nav navbar-wrapper hidden-xs" id="cat-w" role="navigation" tabindex="-1">
 									{include file="layout/header_category_nav.tpl"}
 								</div>
 							{/block}

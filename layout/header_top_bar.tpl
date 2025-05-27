@@ -6,10 +6,10 @@
                 {block name="top-bar-user-settings-currency"}
 					{if JTL\Session\Frontend::getCurrencies()|count > 1}
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle flx-ac" data-toggle="dropdown" title="{lang key='selectCurrency'}">
+							<a href="#" class="dropdown-toggle flx-ac" data-toggle="dropdown" title="{lang key='selectCurrency'}" aria-controls="currency-dropdown-menu" aria-expanded="false" aria-label="{lang key='currency'}">
 								{JTL\Session\Frontend::getCurrency()->getName()} <span class="caret"></span>
 							</a>
-							<ul class="dropdown-menu">
+							<ul class="dropdown-menu" id="currency-dropdown-menu">
 							{foreach JTL\Session\Frontend::getCurrencies() item=oWaehrung}
 								<li>
 									<a href="{$oWaehrung->getURL()}" rel="nofollow">{$oWaehrung->getName()}</a>

@@ -2,8 +2,8 @@
 	{$productCount = count(JTL\Session\Frontend::getCompareList()->oArtikel_arr)}
 	{if $Einstellungen.vergleichsliste.vergleichsliste_anzeigen === 'Y'}
 		<div class="hidden-xs compare-list-menu{if $productCount === 0} hidden{/if}">
-			<a href="{get_static_route id='vergleichsliste.php'}" title="{lang key="compare" sektion="global"}"{if $Einstellungen.vergleichsliste.vergleichsliste_target === 'blank'} target="_blank"{/if} 
-			class="hidden-xs{if $Einstellungen.vergleichsliste.vergleichsliste_target === 'popup'} popup{/if}">
+			<a href="{get_static_route id='vergleichsliste.php'}" title="{lang key='compare'}"{if $Einstellungen.vergleichsliste.vergleichsliste_target === 'blank'} target="_blank"{/if} 
+			class="hdr-l hidden-xs{if $Einstellungen.vergleichsliste.vergleichsliste_target === 'popup'} popup{/if}" aria-label="{lang key='goToCompareList' section='comparelist'}">
 				<span class="img-ct icon icon-xl">
 					<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
 					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-compare"></use>

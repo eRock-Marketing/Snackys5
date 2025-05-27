@@ -19,22 +19,24 @@
                                 {if $wishlistItem@iteration > $maxItems}{break}{/if}
                             <li class="flx-ac nav-it" data-id={$wishlistItem->getProductID()}>
                                 {block name='boxes-box-wishlist-dropdown-products-image-title'}
+                                    <a href="{$wishlistItem->Artikel->cURLFull}" class="flx-ac">
                                         {if $oBox->getShowImages()}
                                             {block name='boxes-box-wishlist-dropdown-products-image'}
-                                            <a href="{$wishlistItem->Artikel->cURLFull}" title="{$wishlistItem->getProductName()|escape:'quotes'}" class="img-ct icon ic-lg icon-wt">
-                                                    {include file='snippets/image.tpl'
-                                                        item=$wishlistItem->getProduct()
-                                                        square=false
-                                                        srcSize='xs'
-                                                        sizes='24px'}
-                                            </a>
+                                                <span class="img-ct icon ic-lg icon-wt">
+                                                        {include file='snippets/image.tpl'
+                                                            item=$wishlistItem->getProduct()
+                                                            square=false
+                                                            srcSize='xs'
+                                                            sizes='24px'}
+                                                </span>
                                             {/block}
                                         {/if}
                                         {block name='boxes-box-wishlist-dropdown-products-title'}
-                                            {link href=$wishlistItem->getProduct()->cURLFull title=$wishlistItem->getProductName()|escape:'quotes' class=defaultlink}
+                                            <span class="defaultlink">
                                                 {$wishlistItem->getQty()|replace_delim} &times; {$wishlistItem->getProductName()|truncate:40:'...'}
-                                            {/link}
+                                            </span>
                                         {/block}
+                                    </a>
                                 {/block}
                                 {block name='snippets-wishlist-dropdown-products-remove'}
                                     {link class="remove"

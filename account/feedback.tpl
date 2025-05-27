@@ -31,7 +31,7 @@
 								<div class="flx-jb mb-xs">
 									{$Bewertung->cText}
 									<div class="right ml-xs">
-										<a title="{lang key='edit' section='product rating'}" href="{get_static_route id='bewertung.php'}?a={$Bewertung->kArtikel}&bfa=1&token={$smarty.session.jtl_token}"} class="btn btn-ic">
+										<a title="{lang key='edit' section='product rating'}" aria-label="{lang key='edit' section='product rating'}" href="{get_static_route id='bewertung.php'}?a={$Bewertung->kArtikel}&bfa=1&token={$smarty.session.jtl_token}"} class="btn btn-ic">
 											<span class="img-ct icon">
 												<svg>
 												  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-edit"></use>

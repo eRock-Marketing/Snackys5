@@ -5,7 +5,7 @@
 				{block name="product-pagination-desktop-prev"}
 					<div class="visible-lg visible-md product-pagination previous">
 						{if isset($NavigationBlaettern->vorherigerArtikel) && $NavigationBlaettern->vorherigerArtikel->kArtikel}
-							<a href="{$NavigationBlaettern->vorherigerArtikel->cURLFull}" title="{$NavigationBlaettern->vorherigerArtikel->cName}" class="flx">
+							<a href="{$NavigationBlaettern->vorherigerArtikel->cURLFull}" title="{$NavigationBlaettern->vorherigerArtikel->cName}" aria-label="{lang key='details'}: {$NavigationBlaettern->vorherigerArtikel->cName}" class="flx">
 								<span class="button flx-ac flx-jc">
 									<span class="ar ar-l"></span>
 								</span>
@@ -22,7 +22,7 @@
 				{block name="product-pagination-desktop-next"}
 					<div class="visible-lg visible-md product-pagination next">
 						{if isset($NavigationBlaettern->naechsterArtikel) && $NavigationBlaettern->naechsterArtikel->kArtikel}
-							<a href="{$NavigationBlaettern->naechsterArtikel->cURLFull}" title="{$NavigationBlaettern->naechsterArtikel->cName}" class="flx">
+							<a href="{$NavigationBlaettern->naechsterArtikel->cURLFull}" title="{$NavigationBlaettern->naechsterArtikel->cName}" aria-label="{lang key='details'}: {$NavigationBlaettern->naechsterArtikel->cName}" class="flx">
 								<span class="img-ct">
 									{include file='snippets/image.tpl' item=$NavigationBlaettern->naechsterArtikel square=false srcSize='sm'}
 								</span>
@@ -41,7 +41,7 @@
 				{block name="product-pagination-mobile-prev"}
 					<div class="product-pagination previous">
 						{if isset($NavigationBlaettern->vorherigerArtikel) && $NavigationBlaettern->vorherigerArtikel->kArtikel}
-							<a href="{$NavigationBlaettern->vorherigerArtikel->cURLFull}" title="{$NavigationBlaettern->vorherigerArtikel->cName}" class="flx-ac">
+							<a href="{$NavigationBlaettern->vorherigerArtikel->cURLFull}" title="{$NavigationBlaettern->vorherigerArtikel->cName}" aria-label="{lang key='details'}: {$NavigationBlaettern->vorherigerArtikel->cName}" class="flx-ac">
 								<span class="ar ar-l"></span> {lang key="previous"}
 							</a>
 						{/if}
@@ -50,7 +50,7 @@
 				{block name="product-pagination-mobile-next"}
 					<div class="product-pagination next">
 						{if isset($NavigationBlaettern->naechsterArtikel) && $NavigationBlaettern->naechsterArtikel->kArtikel}
-							<a href="{$NavigationBlaettern->naechsterArtikel->cURLFull}" title="{$NavigationBlaettern->naechsterArtikel->cName}" class="flx-ac">
+							<a href="{$NavigationBlaettern->naechsterArtikel->cURLFull}" title="{$NavigationBlaettern->naechsterArtikel->cName}" aria-label="{lang key='details'}: {$NavigationBlaettern->naechsterArtikel->cName}" class="flx-ac">
 								{lang key="next"} <span class="ar ar-r"></span>
 							</a>
 						{/if}
