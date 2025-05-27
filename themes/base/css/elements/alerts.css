@@ -16,7 +16,6 @@
     color: var(--alrt-t);
     background: var(--alrt-b);
     border: 1px solid var(--alrt-r);
-    font-size: .95em;
     position: relative;
 }
 .alert .close{

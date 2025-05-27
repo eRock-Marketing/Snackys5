@@ -49,12 +49,6 @@
         min-width: 7rem;
         width: 7rem;
     }
-    .list .right .btn-block{
-        font-size: .85rem;
-    }
-    .list .product-info{
-        font-size: .85rem;
-    }
     .list .right{
         padding-top: .2rem;
         padding-left: 1rem;
@@ -62,9 +56,6 @@
     }
     .list .title{
         margin-top: .2rem;
-    }
-    .list .p-c .price{
-        font-size: 1.3rem;
     }
 }
 @media screen and (max-width: 767px){
@@ -82,9 +73,6 @@
     }
     .list .title{
         margin-bottom: .2rem;
-    }
-    .list .p-c .price {
-        font-size: 1.2rem;
     }
     .list .img-w {
         margin: 0 1.3rem 0 0;

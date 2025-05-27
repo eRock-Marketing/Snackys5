@@ -3,7 +3,6 @@
     min-width: 17.5rem;
     width: 17.5rem;
     margin-right: 2.5rem;
-    font-size: .92rem;
     line-height: 1.1;
 }
 #sp-l:empty{
@@ -106,7 +105,6 @@ a.filter-item.active:before,
         right: 0;
         background: var(--sdb-b);
         padding: 1.8rem 1.2rem;
-        font-size: .9rem;
         overflow: auto;
         z-index: 111;
         max-width: 320px;

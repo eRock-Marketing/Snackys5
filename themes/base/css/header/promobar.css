@@ -3,7 +3,6 @@
 	padding: .5rem 3rem;
 	font-weight: 400;
 	position: relative;
-	font-size: .9rem;
 	background-color: var(--pro-b);
 }
 #header-promo *:not(svg){

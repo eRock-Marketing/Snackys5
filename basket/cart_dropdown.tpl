@@ -30,7 +30,6 @@
 				{block name='sidebasket-versandfrei-hinweis'}
 					<div class="alert alert-info">
 						{$WarenkorbVersandkostenfreiHinweis|truncate:120:"..."}
-						<a class="popup" href="{if !empty($oSpezialseiten_arr) && isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL()}{else}#{/if}" data-toggle="tooltip"  data-placement="bottom" title="{lang section="login" key="shippingInfo"}"></a>
 					</div>
 					{include file="snippets/zonen.tpl" id="after_sidebasket_versandfrei" title="after_sidebasket_versandfrei"}
 				{/block}

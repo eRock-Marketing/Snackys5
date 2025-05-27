@@ -77,7 +77,6 @@ label.btn-block,
 }
 .btn-lg{
     padding: .85rem 1.2rem;   
-    font-size: 1.1rem;
 }
 .btn-ic{
     padding: .7rem;
@@ -190,7 +189,6 @@ label.btn-block,
 .btn-sm,
 .btn-xs{
     padding: .55rem 1rem;
-    font-size: .9rem;
 	text-align: center;
 }
 .btn-xs{

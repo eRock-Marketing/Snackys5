@@ -47,7 +47,6 @@
 }
 .hv-e .exp .var-it{
     margin: .4rem 0;
-    font-size: .9rem;
 }
 .hv-e .exp .var-it label{
     display: block;
@@ -113,7 +112,6 @@
 }
 .var-it .swatches .btn-default .label-info{
     display: block;
-    font-size: .8rem;
     margin-top: .5rem;
 }
 .var-it .swatches .btn-img.btn-default{
@@ -132,7 +130,6 @@
 }
 .var-it .textswatches .btn-default .label-info{
     display: block;
-    font-size: .8rem;
     margin-left: .5rem;
     margin-top: 0;
 }
@@ -144,12 +141,8 @@
     opacity: .5;
     cursor: not-allowed;
 }
-.var-it .tag{
-    font-size: .7rem;
-}
 .var-it .bootstrap-select > .btn.dropdown-toggle{
     padding: 0.7rem 2rem .7rem .8rem;
-    font-size: .9rem;
 }
 .var-it .label-variation + .tag{
     margin-left: .2rem;

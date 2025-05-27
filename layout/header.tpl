@@ -4,7 +4,6 @@
 	{block name="head"}
 		<head>
 			{block name="layout-header-head"}
-				{getPluginEdition cAssign="pluginEdition" plugin="km_snackys"}
 				{block name='head-base'}{/block}
 				{snackys_content id="html_head_start" title="html_head_start"}
 				{block name="head-manifest"}
@@ -338,7 +337,7 @@
 						{if $snackyConfig.liveSearch == 'Y'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/livesearch.css'}
 						{/if}
-						{if $Einstellungen.bilder.container_verwenden == 'N'}
+						{if $snackyConfig.images_fit == '1'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/images-contain.css'}
 						{/if}
 						{if \JTL\Shop::isAdmin(true)}
@@ -354,19 +353,19 @@
 						)) && !$isMobile && $nSeitenTyp == '2'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productlist.css'}
 						{/if}
-						{if $snackyConfig.designpreset == '1' && $pluginEdition != 'standard'}
+						{if $snackyConfig.designpreset == '1'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/presets/toasty.css'}
-						{elseif $snackyConfig.designpreset == '2' && $pluginEdition != 'standard'}
+						{elseif $snackyConfig.designpreset == '2'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/presets/dark-chocolate.css'}
 						{/if}
-						{if $snackyConfig.css_titleLines != '0' && !empty($snackyConfig.css_titleLines) && $pluginEdition != 'standard'}
+						{if $snackyConfig.css_titleLines != '0' && !empty($snackyConfig.css_titleLines)}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productbox_special.css'}
 						{/if}
-						{if $snackyConfig.posConsent == '1' && $pluginEdition != 'standard'}
+						{if $snackyConfig.posConsent == '1'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/config/consent.css'}
 						{/if}
-						{if $pluginEdition == 'standard'}
-							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/colors.css'}
+						{if $snackyConfig.images_nocopy == '1'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/config/img-nocopy.css'}
 						{/if}
 					{/block}
 					{if $opc->isEditMode() === false && $opc->isPreviewMode() === false && \JTL\Shop::isAdmin(true)}
@@ -379,9 +378,11 @@
 						{loadCSS css=$cssArray cPageType=$nSeitenTyp}
 					{/block}			
 					{block name="image-sizes-tpl"}
-						<style id="imgsizescss">
-							{include file="snippets/imagesizes.tpl"}
-						</style>
+						{if $snackyConfig.images_format == '1'}
+							<style id="imgsizescss">
+								{include file="snippets/imagesizes.tpl"}
+							</style>
+						{/if}
 					{/block}
 					{block name="head-rss"}
 						{if isset($Einstellungen.rss.rss_nutzen) && $Einstellungen.rss.rss_nutzen === 'Y'}

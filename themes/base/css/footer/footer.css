@@ -10,7 +10,6 @@
 }
 #footer-boxes{
     padding: 4.5rem 0;
-    font-size: .95rem;
     border-top: 1px solid var(--foo-hr);
     border-bottom: 1px solid var(--foo-hr);
 }

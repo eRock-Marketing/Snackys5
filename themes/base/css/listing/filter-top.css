@@ -1,6 +1,3 @@
-#nav-ft{
-    font-size: .92rem;
-}
 #nav-ft .no-dropdown li{
     margin: 0;
 }
@@ -133,7 +130,6 @@
     padding: 7px 9px;
     margin: 10px 0 0 0 !important;
     outline: none;
-    font-size: .85rem;
     margin-left: 12px;
     border-radius: 5px !important;
     text-align: center;
@@ -149,7 +145,6 @@
 .PRwrapper .price-input .separator {
     width: 130px;
     display: flex;
-    font-size: .85rem;
     align-items: center;
     justify-content: center;
 }

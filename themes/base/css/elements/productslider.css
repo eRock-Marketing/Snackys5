@@ -147,6 +147,25 @@
         padding: 0;
     }
 }
+@media screen and (max-width: 499px){
+    #freegift .col-6,
+    #p-l .p-w,
+	.p-sl .p-w,
+	.ar-ct-m .ar-ct,
+    .sc-w .col-6{
+        width: calc(100% / @listElmXxs);
+        min-width: calc(100% / @listElmXxs);
+    }
+	.p-sl .p-w:nth-child(@listElmXxsn + 1){
+		scroll-snap-align: start;
+	}
+	.panel-slider .ar-ct.show-xs{
+		display: flex;
+	} 
+    .ar-ct-m{
+        padding: 0;
+    }
+}
 
 /* Productslider in Box */
 .b-sl .p-sl .p-w{
@@ -163,10 +182,4 @@
 }
 .b-sl .ar-ct{
 	display: block;
-}
-.b-sl .title{
-	font-size: 1rem;
-}
-.b-sl .price-note{
-	font-size: .8rem;
 }

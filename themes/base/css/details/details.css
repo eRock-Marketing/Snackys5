@@ -23,7 +23,6 @@
 
 /* Preisanzeige */
 .buy-wrapper .price{
-    font-size: 2.2rem;
     line-height: 1;
     display: block;
     margin-bottom: .25rem;
@@ -59,9 +58,6 @@
 #result-wrapper > .alert .fa,
 #result-wrapper > .alert.hidden{
     display: none
-}
-#result-wrapper > .alert > button{
-    font-size: 1rem;
 }
 
 .updatingStockInfo{
@@ -102,7 +98,6 @@
 }
 .bundle-price .label-warning{
 	margin-top: .25rem;
-	font-size: smaller;
 }
 /* Paypal/Amazon */
 .buy-wrapper .add-pays,
@@ -145,13 +140,6 @@
     margin-top: 1rem;
 }
 /* Sonderpreis bis */
-.sale-wp{
-    color: var(--bod-s);
-}
-.sale-wp .ct-it{
-    font-size: 2.6rem;
-    font-weight: bold;
-}
 .sale-wp .ct-un{
     text-transform: uppercase;
 }
@@ -185,13 +173,6 @@
     }
 }
 @media screen and (max-width: 1099px){
-    .sale-wp .ct-it{
-        font-size: 2.3rem;
-        font-weight: bold;
-    }
-    .sale-wp .ct-un{
-        font-size: .9rem;
-    }
     .sale-wp .ct-wp{
         padding: 0 .4rem;
     }
@@ -230,15 +211,6 @@
     }
     #result-wrapper>.alert{
         margin: 0 0 1.5rem 0;
-    }
-}
-@media screen and (max-width: 549px){
-    .sale-wp .ct-it{
-        font-size: 2.1rem;
-        font-weight: bold;
-    }
-    .sale-wp .ct-un{
-        font-size: .75rem;
     }
 }
 @media screen and (max-width: 369px){

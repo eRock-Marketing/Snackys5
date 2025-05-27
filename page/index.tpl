@@ -1,4 +1,9 @@
 {block name='page-index'}
+    {block name="hidden-h1"}
+        {if $snackyConfig.hidden_h1 == 1}
+			<h1 class="sr-only">{$Einstellungen.global.global_shopname}</h1>
+		{/if}
+    {/block}
     {include file="snippets/zonen.tpl" id="start-under-slider" title="Startseite: Unter dem Slider"}
 	{block name='page-index-errors'}
 		{if !empty($cFehler)}

@@ -16,7 +16,6 @@
         box-shadow: none;
         display: none;
         padding-left: .5rem;
-        font-size: .9rem;
     }
     #cat-ul .dropdown-style .dropdown-menu:not(.first).show,
     #cat-ul .dropdown-style .mm-mainlink.tapped + .dropdown-menu:not(.first){

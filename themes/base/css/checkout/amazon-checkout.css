@@ -12,12 +12,8 @@ h1{
     max-width: 60rem;
     margin: 3rem auto 0 auto;
 }
-.lpa-checkout-wrapper h3{
-    font-size: 1.2rem;
-}
 #lpaChangeAddressButton,
 #lpaChangePaymentButton{
-    font-size: .9rem;
     color: var(--brand);
     text-decoration: underline;
 }

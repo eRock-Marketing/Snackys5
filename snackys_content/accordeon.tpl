@@ -1,6 +1,4 @@
 {block name='snackys-content-accordeon'}
-	{getPluginEdition cAssign="pluginEdition" plugin="km_snackys"}
-	{if $pluginEdition != 'standard'}
 	<div class="accordion  {$entry->cClass}" id="accordeon-{$entry->id}">
 		{foreach from=$entry->subs item="sub" name="accordeon"}
 			<div class="card">
@@ -21,5 +19,4 @@
 			</div>
 		{/foreach}
 	</div>
-	{/if}
 {/block}

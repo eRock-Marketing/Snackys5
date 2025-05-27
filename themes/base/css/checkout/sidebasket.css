@@ -19,9 +19,6 @@
     display: inline-block;
     width: 30%;
 }
-.sc-item .small{
-    font-size: .8rem;
-}
 .sc-item li{
     padding: .1rem 0;
 }

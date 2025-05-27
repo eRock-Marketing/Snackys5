@@ -27,13 +27,11 @@
     margin-top: auto;
 }
 .p-c .price{
-    font-size: 1.4rem;
     color: var(--pbx-pr);
     white-space: normal;
 }
 .p-c .footnote-reference{
     font-weight: 400;
-    font-size: 0.75em;
     position: relative;
     top: -0.35em;
     left: -0.2em;
@@ -58,7 +56,6 @@
     left: 0;
     bottom: 2rem;
     padding: .4rem .6rem;
-    font-size: .85rem;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: .5px;
@@ -89,7 +86,6 @@
 }
 #product-offer .price_label,
 .p-c .price_label{
-    font-size: .85rem;
     display: inline-flex;
 }
 .p-c .delivery-status{
@@ -157,18 +153,9 @@ body.edge a:hover .second-img{
     text-transform: none;
     letter-spacing: 0;
 }
-@media screen and (max-width: 767px){
-    .p-c .price{
-        font-size: 1.2rem;
-    }
-}
 @media screen and (max-width: 450px){
     .ov-t{
         bottom: 1.5rem;
-        font-size: .7rem;
-    }
-    .ov-t.ov-t-sp{
-        font-size: .7rem;
     }
     .ov-t~.ov-t {
         bottom: 3.5rem;

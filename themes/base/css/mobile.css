@@ -28,7 +28,7 @@
 		font-weight: 400;
 		padding-top: 0.5rem;
 		padding-bottom: 0.5rem;
-		font-size: 1rem;
+		font-size: var(--bd-lg);
 	}
 }
 /* Mobile-Menu Full-Click */

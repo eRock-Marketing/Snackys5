@@ -184,7 +184,19 @@
 									{/if}
 								{/block}
 								{block name="productdetails-info-gpsr-wrapper"}
-									{if $snackyConfig.gpsr_shown != 0 && $snackyConfig.gpsr_position == 3}
+									{if isset($Artikel->FunktionsAttribute.gpsr_manufacturer_homepage) 
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_email)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_country)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_state)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_city)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_postalcode)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_housenumber)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_street)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_name)
+									}
+										{assign var="hasGPSR" value=true}
+									{/if}
+									{if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 3}
 										{block name="productdetails-gpsr-description"}
 											<strong class="block">{lang key='gpsrHeadline' section='custom'}</strong>
 											<a href="#" data-toggle="modal" data-target="#gpsr-popup" title="{lang key='gpsrHeadline' section='custom'}"><u>{lang key='gpsrLink' section='custom'}</u></a>

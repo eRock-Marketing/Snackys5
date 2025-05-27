@@ -45,6 +45,18 @@
             || isset($smarty.get.ratings_nItemsPerPage)
             || isset($smarty.get.ratings_nSortByDir)
             || isset($smarty.get.btgsterne)}
+        {if isset($Artikel->FunktionsAttribute.gpsr_manufacturer_homepage) 
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_email)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_country)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_state)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_city)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_postalcode)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_housenumber)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_street)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_name)
+        }
+            {assign var="hasGPSR" value=true}
+        {/if}
         {section name=iterator start=1 loop=11}
             {$tab = tab}
             {$tabname = $tab|cat:$smarty.section.iterator.index|cat:" name"}
@@ -90,7 +102,7 @@
                                 {/if}
                             {/block}
                             {block name="tab-nav-block-gpsr"}
-                                {if $snackyConfig.gpsr_shown != 0 && $snackyConfig.gpsr_position == 2}
+                                {if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 2}
                                     <li role="presentation" class="nav-item">
                                         <a class="nav-link" aria-controls="tab-gpsr" role="tab" data-toggle="tab" href="#tab-gpsr">
                                             {lang key='gpsrHeadline' section='custom'}
@@ -218,7 +230,7 @@
                                                         {include file="snippets/zonen.tpl" id="opc_after_desc"}
                                                     {/block}
                                                     {block name="tab-description-gpsr-before"}
-                                                        {if $snackyConfig.gpsr_shown != 0 && $snackyConfig.gpsr_position == 0}
+                                                        {if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 0}
                                                             {include file='snippets/gpsr.tpl'}
                                                         {/if}
                                                     {/block}
@@ -233,7 +245,7 @@
                                                         {include file="snippets/zonen.tpl" id="opc_after_desc_attributes"}
                                                     {/block}
                                                     {block name="tab-description-gpsr-after"}
-                                                        {if $snackyConfig.gpsr_shown != 0 && $snackyConfig.gpsr_position == 1}
+                                                        {if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 1}
                                                             {if (!empty($Artikel->cBeschreibung) || $useDescriptionWithMediaGroup) && $showAttributesTable}
                                                                 <hr>
                                                             {/if}
@@ -247,7 +259,7 @@
                                 {/if}
                             {/block}
                             {block name="tabs-gpsr"}
-                                {if $snackyConfig.gpsr_shown != 0 && $snackyConfig.gpsr_position == 2}
+                                {if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 2}
                                     <div class="tab-ct tab-pane panel-default" id="tab-gpsr">
                                         {block name="tabs-gpsr-accordeon"}
                                             <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-gpsr" role="button">

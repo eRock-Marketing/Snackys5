@@ -56,7 +56,6 @@
 }
 .var-it .swatches .btn-default .label-info{
     display: block;
-    font-size: .8rem;
     margin-top: .5rem;
 }
 .var-it .swatches .btn-default.btn-img{
@@ -73,7 +72,6 @@
 .var-it .btn-img .tag{
     margin-top: .3rem;
     margin-left: 0;
-    font-size: .7rem;
     text-align: center;
 }
 .var-it .swatches .btn-img .img-ct{
@@ -85,7 +83,6 @@
 }
 .var-it .textswatches .btn-default .label-info{
     display: block;
-    font-size: .8rem;
     margin-left: .5rem;
     margin-top: 0;
 }

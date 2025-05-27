@@ -104,9 +104,6 @@
     }
 }
 @media screen and (max-width: 767px){
-    #content .price {
-        font-size: 1rem;
-    }
     .c-it .price-block{
         margin: .5rem 0;
     }
@@ -208,7 +205,6 @@
     margin-right: 1em;
 }
 #shipping-estimated table p {
-    font-size: 1rem;
     margin: 0;
 }
 
@@ -331,7 +327,6 @@
 
 @media screen and (max-width: 1599px){
     .bskt .col-nbr{
-        font-size: .85rem;
         width: 7rem;
         min-width: 7rem;
     }
@@ -372,7 +367,6 @@
     }
     .bskt .col-nbr{
         min-width: 0;
-        font-size: 1rem;
     }
     .bskt .qty-wrapper .flx-je{
         justify-content: flex-start;
@@ -389,10 +383,5 @@
     }
     .bskt.total .col-qnt{
         display: none;
-    }
-}
-@media screen and (max-width: 499px){
-    .bskt .col-nbr{
-        font-size: .85rem;
     }
 }

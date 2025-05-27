@@ -120,7 +120,6 @@ label[data-target="#create_account_data"]{
 	border-radius: var(--btn-rnd-sm);
 	color: var(--tag-df-t);
 	margin-left: 0.2rem;
-	font-size: 90%;
 	position: relative;
 	top: -.1rem;
 }
@@ -165,7 +164,6 @@ label[data-target="#create_account_data"]{
 #checkout .lpa-alternate-checkout-snippet .panel-body > div{
 	padding: 0;
 	width: 100%;
-	font-size: .9rem;
 }
 #checkout .lpa-alternate-checkout-snippet .panel-body:before{
 	content: '';
@@ -309,7 +307,6 @@ label.stc-radio{
   background: var(--bod-b);
 }
 #jtl_vouchers .card-header .h3{
-  font-size: 1rem; 
   margin:0;
 }
 #jtl_vouchers .btn{
@@ -318,15 +315,11 @@ label.stc-radio{
 #jtl_vouchers .btn i{
   display: none;
 }
-#jtl_vouchers .card-body{
-  font-size: .9rem;
-}
 #voucher-cloud-modal .form-row{
     display: flex;
     flex-wrap: wrap;
 }
 #voucher-cloud-modal .modal-title h3{
-  font-size: 1rem;
   margin: .5rem 0 0 0;
 }
 #voucher-cloud-modal .col-md-12{
@@ -345,7 +338,6 @@ label.stc-radio{
   margin: 0;
 }
 #fieldset-payment div.h3{
-    font-size: 1.2rem;
     margin: 1rem 0 0 0; 
 }
 /* PayPal Checkout */
@@ -548,9 +540,6 @@ label.stc-radio{
     }
     #check-payment-shipping{
         margin-top: 2rem;
-    }
-    .c-it:not(.sb-it) .price{
-        font-size: 1rem;
     }
     .c-it>.row>div:not(.pr)>.row:last-child > .text-right{
         margin-left: auto;

@@ -71,6 +71,13 @@
                             </a>
                         {/if}
                     {/block}
+                    {block name="productlist-caption-shortdesc"}
+                        {if $snackyConfig.show_shortdesc == 'Y' && !empty($Artikel->cKurzBeschreibung)}
+                            <div class="small mt-xxs">
+                                {$Artikel->cKurzBeschreibung}
+                            </div>
+                        {/if}
+                    {/block}
                     {block name="productlist-caption-price"}
                         <div>
                             {include file="productdetails/price.tpl" Artikel=$Artikel tplscope=$tplscope}

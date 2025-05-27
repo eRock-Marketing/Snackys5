@@ -22,7 +22,6 @@ body.show-sidebar #content-wrapper{
     right: 0;
     background: var(--sdb-b);
     padding: 1.8rem 1.2rem;
-    font-size: .9rem;
     overflow: auto;
     z-index: 111;
     max-width: 320px;

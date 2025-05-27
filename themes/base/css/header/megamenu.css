@@ -15,7 +15,6 @@
 	position: static;
 }
 #cat-w .mm-mainlink{
-    font-size: 1.1rem;
     padding: .7rem 1.25rem;
     font-weight: 600;
     display: block;
@@ -180,7 +179,6 @@
 	.dropdown-style .dropdown-link{
 		padding: 0.4rem 1.5rem;
 		background: none;
-		font-size: .95rem;
 		display: flex;
 		justify-content: space-between;
 		white-space: normal;
@@ -263,7 +261,6 @@
 }
 @media screen and (max-width: 1400px) and (min-width: 768px){
 	#cat-w .mm-mainlink{
-		font-size: 1.1rem;
 		padding: 0.6rem 1rem;
 	}
 	.mgm .home-icon svg{
@@ -276,7 +273,6 @@
 		padding: 2rem;
 	}
 	#cat-w .mm-mainlink{
-		font-size: 1rem;
 		padding: 0.6rem .8rem;
 	}
 	.mgm .home-icon svg{
@@ -317,7 +313,6 @@
 	#cat-w .mm-mainlink,
 	#cat-w a{
 		color: var(--meg-l);
-		font-size: 1rem;
 		position: relative;
 		padding: .7rem 2.5rem .7rem 1.25rem;
 		white-space: normal;

@@ -82,7 +82,7 @@
 						{/block}
 						{block name='blog-overview-category-info'}
             				{if !empty($oNewsCat->getPreviewImage()) || !empty($oNewsCat->getDescription())}
-                				<div class="row mb-lg">
+                				<div class="row mb-lg blog-cat">
                     				{if !empty($oNewsCat->getPreviewImage())}
 										{block name='blog-overview-category-text-image'}
 											{block name='blog-overview-category-text-image-text'}

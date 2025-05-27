@@ -20,6 +20,9 @@
     margin: auto;
     fill: var(--icon)
 }
+.panel.wishlists .w100 a{
+    display: block;
+}
 @media screen and (min-width: 992px){
     .al-wp > .panel{
         margin-right: 2rem;

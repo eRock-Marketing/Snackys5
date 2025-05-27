@@ -118,7 +118,6 @@
 }
 @media screen and (max-width: 991px){  
     header .badge{
-        font-size: .85rem;
         line-height: 1.25rem;
         min-width: 1.25rem;
         padding: 0 .25rem;

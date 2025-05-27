@@ -47,7 +47,6 @@ textarea{
 .form-group label{
     display: block;
     margin-bottom: .15rem;
-    font-size: .85rem;
     font-weight: 700;
 }
 .form-group.has-error input,
@@ -63,7 +62,6 @@ textarea{
     padding: 0 .3rem;
     background: var(--inp-b);
     margin: 0;
-    font-size: .75rem;
 	color: var(--txt-da);
 }
 .form-group.required label:after,

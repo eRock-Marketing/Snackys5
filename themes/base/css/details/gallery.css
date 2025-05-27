@@ -32,8 +32,8 @@
 #gallery a:not(.active){
     display: none;
 }
-#gallery-thumbs img,
-#gallery img{
+.lightbox-shown #gallery-thumbs img,
+.lightbox-shown #gallery img{
     object-fit: contain;
 }
 #gallery .sl-ar{

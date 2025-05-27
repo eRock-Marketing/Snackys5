@@ -16,7 +16,8 @@
 #cat-w:focus,
 .nav-tabs a:focus,
 #sp-l *:focus,
-#consent-manager:focus{
+#consent-manager:focus,
+.bc-item.first a:focus{
     outline: none;
 }
 a:not(.btn):not(header a):not(.dropdown a):not(#cat-w a):not(.p-w a):not(.nav-it a):not(.pn-news a):not(.nav-item a):not(.prd a):not(.c-stp a):not(.answer a):not(.card-body a.item):not(#bc-w a):not(.tag):not(.sc-w a),
@@ -24,18 +25,9 @@ a:not(.btn):not(header a):not(.dropdown a):not(#cat-w a):not(.p-w a):not(.nav-it
     text-decoration: underline;
 }
 #sp-l *:focus,
-.nav-tabs a:focus{
+.nav-tabs a:focus,
+.bc-item.first a:focus .img-ct{
     box-shadow: inset 0 0 0 2px var(--fcs);
-}
-a.btn-skip-to {
-    position: absolute;
-    top: 0.2rem;
-    left: 0.2rem;
-    z-index: 20;
-    background: white;
-    padding: 1rem;
-    transform: scale(0);
-    opacity: 0;
 }
 a.btn-skip-to:focus {
     transform: scale(1);

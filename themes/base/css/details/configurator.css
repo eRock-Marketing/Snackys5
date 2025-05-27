@@ -31,7 +31,6 @@
 #product-configuration-sidebar table{
     padding: 0 1rem;
     background: var(--pan-b);
-    font-size: .95rem;
 }
 #product-configuration-sidebar tfoot tr:last-child{
     border-bottom: 0;
@@ -49,7 +48,6 @@
     padding: .8rem 1rem;
     border-radius: var(--frm-rnd);
     margin-bottom: 1rem;
-    font-size: .85rem;
 }
 #quantity-grp .btn.submit .config-required-info{
     position: absolute;
@@ -61,7 +59,6 @@
     padding: .4rem .5rem;
     border-radius: var(--rnd-frc);
     margin-top: .2rem;
-    font-size: .8rem;
     display: none;
     width: 100%;
 }
@@ -182,7 +179,6 @@ input:checked + .cfg-ct .check{
 }
 .cfg-ct .text{
     position: relative;
-    font-size: .9rem;
 }
 #cfg-container .list-group-item{
     background: none;
@@ -210,7 +206,6 @@ a.desc-tgl{
     border-radius: var(--rnd-fll);
     text-align: center;
     line-height: 1.2rem;
-    font-size: .8rem;
     color: var(--btn-pr-t);
     display: inline-block;
     position: relative;
@@ -382,6 +377,14 @@ a.desc-tgl{
 .no-pop-tg .price_wrapper{
     display: none;
 }
+.group-items input.hidden{
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    position: absolute;
+}
 @media screen and (max-width: 1499px){
     .no-pop .list-group-item.col-lg-3{
         width: calc(100% / 2);
@@ -435,9 +438,6 @@ a.desc-tgl{
 @media screen and (max-width: 549px){
     .cfg-group .list-group-item.col-6{
         width: 100%;
-    }
-    #cfg-container .cfg-title{
-        font-size: .9rem;
     }
     .cfg-cntr{
         width: 1.7rem;
