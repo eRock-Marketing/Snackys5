@@ -13,12 +13,15 @@
 					{block name='blog-details-article-content'}
         				<div id="nw-ct">
 							{block name='blog-details-article-headline'}
+								{include file="snippets/zonen.tpl" id="opc_before_news_headline"}
             					<h1 class="text-center">
                 					{$oNewsArchiv->getTitle()}
             					</h1>
+								{include file="snippets/zonen.tpl" id="opc_after_news_headline"}
 							{/block}
             				{block name='blog-details-author'}
 								<div class="author-meta text-center">
+									{include file="snippets/zonen.tpl" id="opc_before_news_meta"}
 									{block name='blog-details-author-date'}
 										{if empty($newsItem->getDateValidFrom())}
 											{assign var=dDate value=$newsItem->getDateCreated()->format('d.m.Y')}
@@ -63,11 +66,13 @@
 											</a>
 										{/if}
 									{/block}
+									{include file="snippets/zonen.tpl" id="opc_after_news_meta"}
 								</div>
 							{/block}
 							{block name='blog-details-image-outer'}
             					{if $newsItem->getPreviewImage() !== ''}
                 					{block name='blog-details-image'}
+										{include file="snippets/zonen.tpl" id="opc_before_news_image"}
 										<div class="img-ct rt4x3 mt-sm mb-sm">
 											{include file='snippets/image.tpl'
 												item=$newsItem
@@ -76,25 +81,30 @@
 												class="blog-details-image"
 												alt="{$newsItem->getTitle()|escape:'quotes'} - {$newsItem->getMetaTitle()|escape:'quotes'}"}
 										</div>
+										{include file="snippets/zonen.tpl" id="opc_after_news_image"}
 									{/block}
             					{/if}
 							{/block}
 							{block name='blog-details-text'}
 								<div class="mb-sm">
+									{include file="snippets/zonen.tpl" id="opc_before_news_text"}
 									{if $snackyConfig.optimize_news == "Y"}
 										{$oNewsArchiv->getContent()|optimize}
 									{else}
 										{$oNewsArchiv->getContent()}
 									{/if}
+									{include file="snippets/zonen.tpl" id="opc_after_news_text"}
 								</div>
 							{/block}
 							{block name='blog-details-subcats'}
 								{if isset($Einstellungen.news.news_kategorie_unternewsanzeigen) && $Einstellungen.news.news_kategorie_unternewsanzeigen === 'Y' && !empty($oNewsKategorie_arr)}
+									{include file="snippets/zonen.tpl" id="opc_before_news_categories"}
 									<div class="newscats mb-sm">
 										{foreach $oNewsKategorie_arr as $newsCategory}
 											<a href="{$newsCategory->getURL()}" title="{$newsCategory->getDescription()|strip_tags|escape:'html'|truncate:60}" class="btn btn-xs">{$newsCategory->getName()}</a>
 										{/foreach}
 									</div>
+									{include file="snippets/zonen.tpl" id="opc_after_news_categories"}
 								{/if}
 							{/block}
         				</div>
@@ -102,6 +112,7 @@
 					{block name='blog-details-article-comments'}
         				{if isset($Einstellungen.news.news_kommentare_nutzen) && $Einstellungen.news.news_kommentare_nutzen === 'Y'}
         					<div id="nw-cmt">
+								{include file="snippets/zonen.tpl" id="opc_before_news_comments"}
 								{block name='blog-details-article-comments-list'}
             						{if $comments|count > 0}
                 						{if !empty($oNewsArchiv->getSeo())}
@@ -171,6 +182,7 @@
 										{/block}
 									{/if}
 								{/block}
+								{include file="snippets/zonen.tpl" id="opc_after_news_comments"}
 							</div>
         				{/if}
 					{/block}

@@ -72,6 +72,32 @@
 .qty .badge{
     background: var(--tag-df-b);
 }
+/* Freegift */
+#freegift input[type="radio"],
+#freegift input[type="submit"]{
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+}
+#freegift span.text-muted{
+    font-weight: 400;
+}
+#freegift .img-w{
+    width: 4rem;
+    min-width: 4rem;
+    margin-right: 1rem;
+    margin-bottom: 0;
+}
+#freegift .img-w .badge{
+    position: absolute;
+    top: -.5rem;
+    right: -.5rem;
+}
+#freegift label:hover strong{
+    color: var(--bod-l-h);
+}
 @media screen and (max-width: 991px){
     .basket-xsell{
         display: none;
@@ -133,6 +159,11 @@
     }
     .c-it .img-col{
         width: 8rem;
+    }
+    #freegift .img-w{
+        width: 3rem;
+        min-width: 3rem;
+        margin-right: .75rem;
     }
 }
 /* Cross-Selling Sliders */

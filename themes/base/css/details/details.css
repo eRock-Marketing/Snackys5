@@ -161,6 +161,20 @@
 .sale-wp .h4{
     text-transform: uppercase;
 }
+/* HotStock */
+.alert-hotstock .progress,
+.alert-hotstock .progress-bar{
+    border-radius: var(--rnd-frc);
+    font-size: 0;
+    height: .75rem;
+    background: var(--det-hot-b);
+}
+.alert-hotstock .progress-bar{
+    background: var(--det-hot-t);
+}
+.alert-hotstock .progress{
+    flex-grow: 1;
+}
 /* PayPal Checkout JTL-Bug: Z-Index Fix */
 #snackys-tpl #paypal-button-productDetails-container iframe{
     z-index: 2;

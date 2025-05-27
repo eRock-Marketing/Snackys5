@@ -275,17 +275,21 @@
 		</div>
 	{/block}
 	{block name='sidebasket-addbuybuttons'}
-		<div class="add-pays cart-dropdown-buttons">
-			<div class="paypal"></div>
-			<div class="amazon"></div>
-		</div>
-		<div class="payplan"></div>
+		{if $cartPositions|count > 0}
+			<div class="add-pays cart-dropdown-buttons">
+				<div class="paypal"></div>
+				<div class="amazon"></div>
+			</div>
+			<div class="payplan"></div>
+		{/if}
 		{include file="snippets/zonen.tpl" id="after_sidebasket_buybuttons" title="after_sidebasket_buybuttons"}
 	{/block}
 	{block name='basket-cart-dropdown-shipping-include-free-hint'}
-		<div class="alert alert-info alert-fg">
-			{include file='basket/freegift_hint.tpl'}
-		</div>
+		{if $cartPositions|count > 0}
+			<div class="alert alert-info alert-fg">
+				{include file='basket/freegift_hint.tpl'}
+			</div>
+		{/if}
 	{/block}
 	{block name='sidebasket-legallinks'}
 		{getLink nLinkart=12 cAssign="linkdatenschutz"}

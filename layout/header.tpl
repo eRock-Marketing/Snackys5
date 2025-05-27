@@ -4,6 +4,7 @@
 	{block name="head"}
 		<head>
 			{block name="layout-header-head"}
+				{getPluginEdition cAssign="pluginEdition" plugin="km_snackys"}
 				{block name='head-base'}{/block}
 				{snackys_content id="html_head_start" title="html_head_start"}
 				{block name="head-manifest"}
@@ -353,6 +354,14 @@
 						)) && !$isMobile && $nSeitenTyp == '2'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productlist.css'}
 						{/if}
+						{if $snackyConfig.designpreset == '1' && $pluginEdition != 'standard'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/presets/toasty.css'}
+						{elseif $snackyConfig.designpreset == '2' && $pluginEdition != 'standard'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/presets/dark-chocolate.css'}
+						{/if}
+						{if $pluginEdition == 'standard'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/colors.css'}
+						{/if}
 					{/block}
 					{if $opc->isEditMode() === false && $opc->isPreviewMode() === false && \JTL\Shop::isAdmin(true)}
 						<link type="text/css" href="{$ShopURL}/admin/opc/css/startmenu.css" rel="stylesheet">
@@ -418,7 +427,6 @@
 			{if $snackyConfig.fwSlider == 1 && $nSeitenTyp == 18} boxed-slider{/if}
 			{if $snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 5 || $snackyConfig.headerType == 5.5} full-head{/if}
 			{if $snackyConfig.productBorder == 1} product-border{/if}
-			{if $isMobile} mobile{/if}
 			{if $isTablet} tablet{/if}
 			{if !empty($hinweis)}{if isset($bWarenkorbHinzugefuegt) && $bWarenkorbHinzugefuegt} basked-added sidebasket-open{/if}{/if}
 			{if $snackyConfig.sidepanelEverywhere == 'Y'} sidebar-overall{/if}
@@ -446,7 +454,7 @@
 	{/block}
 	{if !$bExclusive}
 		{block name="header-maintenance-mode"}
-			{if $bAdminWartungsmodus}
+			{if $bAdminWartungsmodus && \JTL\Shop::isAdmin(true)}
 				<div id="maintenance-mode" class="navbar navbar-inverse">
 					<div class="container">
 						<div class="navbar-text text-center">

@@ -27,6 +27,9 @@
 #plh .mw-container > .mb-sm:last-child{
     margin-bottom: 0;
 }
+#plh:has(.mw-container:empty) {
+    padding: 0;
+}
 @media screen and (max-width: 991px){
     .pl-heading{
         padding-top: 1.5rem;

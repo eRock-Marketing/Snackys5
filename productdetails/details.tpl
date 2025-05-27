@@ -263,8 +263,16 @@
 												<div class="col-12{if $Artikel->bHasKonfig}{elseif $snackyConfig.css_maxPageWidth >= 1600} col-xl-6{/if} buy-col">
 													{block name="details-wenig-bestand-wrapper"}
 														{if $snackyConfig.hotStock > 0 && $Artikel->cLagerBeachten === 'Y' && $Artikel->cLagerKleinerNull === 'N' && $Artikel->fLagerbestand <= $snackyConfig.hotStock && $Artikel->fLagerbestand > 0}
-															<div class="mb-xxs">
-																<div class="alert alert-hotstock m0 text-center"><strong>{lang key="hotStock" section="custom" printf=$Artikel->fLagerbestand}</strong></div>
+															<div class="alert-hotstock text-center mb-xs">
+																<strong class="block mb-xxs">{lang key="hotStock" section="custom" printf=$Artikel->fLagerbestand}</strong>
+																<div class="progress">
+																	{assign var="stock_percent" value=$Artikel->fLagerbestand / $snackyConfig.hotStock * 100}
+																	<div class="progress-bar" role="progressbar"
+																		aria-valuenow="{$stock_percent|round}" aria-valuemin="0"
+																		aria-valuemax="100" style="width: {$stock_percent|round}%;">
+																		{$Artikel->fLagerbestand}
+																	</div>
+																</div>
 															</div>
 														{/if}
 													{/block}

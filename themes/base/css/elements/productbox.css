@@ -99,7 +99,13 @@
     display: none;
 }
 .second-img {
-    opacity: 0; transition: .3s ease;
+    opacity: 0; 
+    transition: .3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 .second-img img {
     background: var(--bod-b);

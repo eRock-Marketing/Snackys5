@@ -211,8 +211,42 @@
         						</div>
 							{/block}
 							{block name="basket-freegift-outer"}
-								{if $freeGifts->count() > 0}
-            						{block name="basket-freegift"}
+								{block name='check-for-freegifts'}
+									{assign var="hasFreeGifts" value=false}
+									{foreach $freeGifts as $oArtikelGeschenk}
+										{if $Einstellungen.sonstiges.sonstiges_gratisgeschenk_noch_nicht_verfuegbar_anzeigen === 'N' && $oArtikelGeschenk->getStillMissingAmount() > 0}
+											{continue}
+										{/if}
+										{assign var="hasFreeGifts" value=true}
+										{break}
+									{/foreach}
+									{$selectedFreegift=0}
+									{foreach JTL\Session\Frontend::getCart()->PositionenArr as $oPosition}
+										{if $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_GRATISGESCHENK}
+											{$selectedFreegift=$oPosition->Artikel->kArtikel}
+										{/if}
+									{/foreach}
+								{/block}
+								{if $freeGifts->count() > 0 && isset($hasFreeGifts) && $hasFreeGifts}
+									{block name="basket-freegift-js"}
+										{inline_script} 
+											<script>
+												$(function () {
+													$('#freegift label[for^="gift"]').on('click', function () {
+														const $radio = $(this).find('input[type="radio"]');
+														if ($radio.length && !$radio.prop('disabled')) {
+															setTimeout(function () {
+																if ($radio.prop('checked')) {
+																	$('input[name="gratishinzufuegen"]').click();
+																}
+															}, 0);
+														}
+													});
+												});
+											</script>
+										{/inline_script}
+									{/block}
+             						{block name="basket-freegift"}
                 						<div id="freegift" class="panel mb-sm">
 											{block name="basket-freegift-headline"}
                     							<div class="panel-heading">
@@ -234,20 +268,20 @@
                     							<div class="panel-body">
 
                         							{block name="basket-freegift-body"}
-                            							<form method="post" name="freegift" action="{$cartURL}#freegift">
+                            							<form method="post" name="freegift" action="{$cartURL}">
                                 							{$jtl_token}
                                     						{foreach $freeGifts as $oArtikelGeschenk}
+																{if $Einstellungen.sonstiges.sonstiges_gratisgeschenk_noch_nicht_verfuegbar_anzeigen === 'N' && $oArtikelGeschenk->getStillMissingAmount() > 0}
+																	{continue}
+																{/if}
 																{block name="basket-freegift-item"}
-																	<div class="row mb-xs">
-																		<label class="thumbnail flx-ac flx-nw w100" for="gift{$oArtikelGeschenk->productID}" role="button">
+																		<label class="thumbnail flx-ac flx-nw w100 mb-xs{if $oArtikelGeschenk->getStillMissingAmount() > 0} disabled{/if}" for="gift{$oArtikelGeschenk->productID}" role="button">
 																			{block name="basket-freegift-item-radio"}
-																				<div class="col-1">
-																					<input name="gratisgeschenk" type="radio" value="{$oArtikelGeschenk->productID}" id="gift{$oArtikelGeschenk->productID}" />
-																				</div>
+																				<input name="gratisgeschenk" type="radio" value="{$oArtikelGeschenk->productID}" id="gift{$oArtikelGeschenk->productID}"{if $oArtikelGeschenk->getStillMissingAmount() > 0} disabled{/if} />
 																			{/block}
 																			{block name="basket-freegift-item-image"}
-																				<div class="col-3 col-sm-2 col-md-3">
-																					<div class="img-ct">
+																				<span class="img-w">
+																					<span class="img-ct">
 																						{include file='snippets/image.tpl'
 																							fluid=false
 																							item=$oArtikelGeschenk->getProduct()
@@ -255,22 +289,30 @@
 																							srcSize='xs'
 																							sizes='45px'
 																							class='image'}
-																					</div>
-																				</div>
+																					</span>
+																					{if $selectedFreegift===$oArtikelGeschenk->productID}
+																						<span class="badge">&#10003;</span>
+																						{/if}
+																				</span>
 																			{/block}
 																			{block name="basket-freegift-item-name"}
-																				<div class="caption col-8 col-sm-9 col-md-8">
-																					<p class="m0">{$oArtikelGeschenk->getProduct()->cName}</p>
-																					<p class="small text-muted m0">{lang key='freeGiftFrom1'} {$oArtikelGeschenk->getProduct()->cBestellwert} {lang key='freeGiftFrom2'}</p>
-																				</div>
+																				<span class="caption block">
+																					<strong class="block">{$oArtikelGeschenk->getProduct()->cName}</strong>
+																					<span class="small text-muted block">
+																						{if $oArtikelGeschenk->getStillMissingAmount() > 0}
+																							{lang section='basket' key='freeGiftsStillMissingAmount' printf=JTL\Catalog\Product\Preise::getLocalizedPriceString($oArtikelGeschenk->getStillMissingAmount())}
+																						{else}
+																							{lang key='freeGiftFrom1'} {$oArtikelGeschenk->getProduct()->cBestellwert} {lang key='freeGiftFrom2'}
+																						{/if}
+																					</span>																					
+																				</span>
 																			{/block}
 																		</label>
-																	</div>
 																{/block}
                                     						{/foreach}
 															<div class="">
 																<input type="hidden" name="gratis_geschenk" value="1" />
-																<input name="gratishinzufuegen" type="submit" value="{lang key='addToCart'}" class="submit btn btn-block" />
+																<input name="gratishinzufuegen" type="submit" value="{lang key='addToCart'}" class="submit btn btn-block btn-primary" />
 															</div>
 														</form>
 													{/block}

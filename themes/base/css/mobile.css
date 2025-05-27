@@ -39,3 +39,18 @@
 	justify-content: flex-end;
 	padding-right: 1.2rem;
 }
+/* Second Image on mobile */
+.p-c .m-swipe{
+	display: flex;
+	max-width: 100%;
+	overflow: auto;
+	scroll-snap-type: x mandatory;
+}
+.p-c .m-swipe .img-ct{
+	scroll-snap-align: start;
+	min-width: 100%;
+}
+.p-c .m-swipe .img-ct.second-img{
+	opacity: 1;
+	position: relative;
+}

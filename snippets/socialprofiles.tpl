@@ -99,5 +99,16 @@
 				</li>
 			{/if}
 		{/block}
+		{block name='social-tiktok'}
+			{if !empty($snackyConfig.tiktok)}
+				<li>
+					<a href="{if strpos($snackyConfig.tiktok, 'http') !== 0}https://{/if}{$snackyConfig.tiktok}" class="{if isset($tplscope) && $tplscope == 'footer'}btn-social flx-ac flx-jc{else}img-ct{/if} icon btn-tiktok" title="TikTok" target="_blank" rel="noopener">
+						<svg class="{if $darkHead == 'true' || $darkMode == 'true' || (isset($tplscope) && $tplscope == 'footer')}icon-darkmode{/if}">
+							<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-tiktok"></use>
+						</svg>
+					</a>
+				</li>
+			{/if}
+		{/block}
 	</ul>
 {/block}

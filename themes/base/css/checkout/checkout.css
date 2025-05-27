@@ -124,6 +124,9 @@ label[data-target="#create_account_data"]{
 	position: relative;
 	top: -.1rem;
 }
+.checkout-payment-method-badge span{
+    display: none;
+}
 .checkout-payment-method-note{
     display: block;
     font-weight: 400;
@@ -351,6 +354,9 @@ label.stc-radio{
 }
 .paypal-buttons-label-buynow{
     margin: 0 auto;
+}
+.ppc-checkout-payment-method .funding-name{
+    display: none;
 }
 /* DHL Wunschpaket */
 #jtl_pack_optionen{

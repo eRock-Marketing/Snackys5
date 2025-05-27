@@ -20,6 +20,9 @@
 									{lang key="billingAdress" section="checkout"}
 								</div>
 								{$Bestellung->oRechnungsadresse->cVorname} {$Bestellung->oRechnungsadresse->cNachname|entferneFehlerzeichen}
+								{if isset($Bestellung->oRechnungsadresse->cFirma) && $Bestellung->oRechnungsadresse->cFirma !== ''}
+									<br>{$Bestellung->oRechnungsadresse->cFirma}
+								{/if}
 								<br>{$Bestellung->oRechnungsadresse->cStrasse|entferneFehlerzeichen} {$Bestellung->oRechnungsadresse->cHausnummer}
 								<br>{$Bestellung->oRechnungsadresse->cPLZ} {$Bestellung->oRechnungsadresse->cOrt}
 								<br>{$Bestellung->oRechnungsadresse->angezeigtesLand}
@@ -33,6 +36,9 @@
 								</div>
 								{if $Bestellung->kLieferadresse != 0}
 									{$Bestellung->Lieferadresse->cVorname} {$Bestellung->Lieferadresse->cNachname|entferneFehlerzeichen}
+									{if isset($Bestellung->Lieferadresse->cFirma) && $Bestellung->Lieferadresse->cFirma !== ''}
+										<br>{$Bestellung->Lieferadresse->cFirma}
+									{/if}
 									<br>{$Bestellung->Lieferadresse->cStrasse|entferneFehlerzeichen} {$Bestellung->Lieferadresse->cHausnummer}
 									<br>{$Bestellung->Lieferadresse->cPLZ} {$Bestellung->Lieferadresse->cOrt}
 									<br>{$Bestellung->Lieferadresse->angezeigtesLand}

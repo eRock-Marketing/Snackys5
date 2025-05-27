@@ -6,6 +6,12 @@
 	font-size: .9rem;
 	background-color: var(--pro-b);
 }
+#header-promo *:not(svg){
+	color: var(--pro-t);
+}
+#header-promo a{
+	text-decoration: underline;
+}
 #header-promo-close{
 	color: var(--pro-i);
 	position: absolute;

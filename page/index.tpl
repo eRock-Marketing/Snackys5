@@ -29,7 +29,9 @@
                         {lang key='showAllBestsellers' section='global' assign='moreTitle'}
                     {/if}
                     {assign var='moreLink' value=$Box->cURL}
+					{include file="snippets/zonen.tpl" id="opc_before_box_{$Box->name|lower}"}
                     {include file='snippets/product_slider.tpl' productlist=$Box->Artikel->elemente title=$title hideOverlays=true moreLink=$moreLink moreTitle=$moreTitle}
+					{include file="snippets/zonen.tpl" id="opc_after_box_{$Box->name|lower}"}
                 {/if}
             {/foreach}
         {/if}

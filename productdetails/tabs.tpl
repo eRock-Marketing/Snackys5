@@ -72,7 +72,7 @@
                 && !$useQuestionOnItem && !$usePriceFlow && !$useAvailabilityNotification)
         ]}
     {/block}
-    {block name='productdetails-tabs-inner'}
+    {block name='productdetails-tabs-wrapper'}
         {if $useDescription || $useDownloads || $useDescriptionWithMediaGroup || $useVotes || $useQuestionOnItem || $usePriceFlow
             || $useAvailabilityNotification || $useMediaGroup || !empty($separatedTabs)}
 	        {include file="snippets/zonen.tpl" id="opc_before_tabs"}

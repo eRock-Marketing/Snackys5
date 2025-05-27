@@ -1,0 +1,36 @@
+:root {
+    --dro-b: #ffffff;
+    --dro-r: #ffffff;
+    --dro-t: var(--bod-t);
+    --dro-l: var(--bod-t);
+    --dro-l-h: var(--brand);
+    --drbtn-b: #ffffff;
+    --drbtn-b-h: #ffffff;
+    --drbtn-t: #555555;
+    --drbtn-t-h: #555555;
+    --drbtn-r: #eeeeee;
+    --drbtn-r-h: #eeeeee;
+    --inp-b: #ffffff;
+    --inp-b-h: #ffffff;
+    --inp-r: #dddddd;
+    --inp-r-h: #dddddd;
+    --inp-t: #555555;
+    --inp-t-h: #555555;
+    --lab-t: #333333;
+    --scb-tr: #eeeeee;
+    --scb-tb: #666666;
+    --bad-b: var(--brand);
+    --bad-t: #ffffff;
+    --con-b: #ffffff;
+    --con-b-h: var(--brand);
+    --con-r: #dddddd;
+    --con-i: #f6f6f6;
+    --prg-b: #DDDDDD;
+    --prg-b-h: #666666;
+    --sl-ar-b: #EEEEEE;
+    --sl-ar-b-h: #DDDDDD;
+    --sl-ar-i: #333333;
+    --cls-b: #EEEEEE;
+    --cls-b-h: #EEEEEE;
+    --cls-i: #ffffff;
+}
