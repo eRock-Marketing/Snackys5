@@ -8,8 +8,12 @@
             {else}
                 {image fluid=true lazy=true src=$oImageMap->cBildPfad alt=$oImageMap->cTitel width=$oImageMap->fWidth height=$oImageMap->fHeight}
                 {foreach $oImageMap->oArea_arr as $oImageMapArea}
+                    {assign var="hasInsideContent" value=false}
+                    {if $oImageMapArea->oArtikel || $oImageMapArea->cBeschreibung|strlen > 0}
+                        {assign var="hasInsideContent" value=true}
+                    {/if}
                     {strip}
-                    <{if !$isMobile}a href="{$oImageMapArea->cUrl}"{else}span{/if} class="area {$oImageMapArea->cStyle}" style="left:{math equation="(100/bWidth)*posX" bWidth=$oImageMap->fWidth posX=$oImageMapArea->oCoords->x}%;top:{math equation="(100/bHeight)*posY" bHeight=$oImageMap->fHeight posY=$oImageMapArea->oCoords->y}%;width:{math equation="(100/bWidth)*aWidth" bWidth=$oImageMap->fWidth aWidth=$oImageMapArea->oCoords->w}%;height:{math equation="(100/bHeight)*aHeight" bHeight=$oImageMap->fHeight aHeight=$oImageMapArea->oCoords->h}%" title="{$oImageMapArea->cTitel|strip_tags|escape:'html'|escape:'quotes'}">
+                    <{if $isMobile && $hasInsideContent}span{else}a href="{$oImageMapArea->cUrl}"{/if} class="area {$oImageMapArea->cStyle}" style="left:{math equation="(100/bWidth)*posX" bWidth=$oImageMap->fWidth posX=$oImageMapArea->oCoords->x}%;top:{math equation="(100/bHeight)*posY" bHeight=$oImageMap->fHeight posY=$oImageMapArea->oCoords->y}%;width:{math equation="(100/bWidth)*aWidth" bWidth=$oImageMap->fWidth aWidth=$oImageMapArea->oCoords->w}%;height:{math equation="(100/bHeight)*aHeight" bHeight=$oImageMap->fHeight aHeight=$oImageMapArea->oCoords->h}%" title="{$oImageMapArea->cTitel|strip_tags|escape:'html'|escape:'quotes'}">
                         {if $oImageMapArea->oArtikel || $oImageMapArea->cBeschreibung|strlen > 0}
                             {assign var="oArtikel" value=$oImageMapArea->oArtikel}
                             <{if $isMobile}a href="{$oImageMapArea->cUrl}"{else}div{/if} class="area-desc">
@@ -33,7 +37,7 @@
                                 </div>
                             {if $isMobile}</a>{else}</div>{/if}
                         {/if}
-                    {if !$isMobile}</a>{else}</span>{/if}
+                    {if $isMobile && $hasInsideContent}</span>{else}</a>{/if}
                     {/strip}
                 {/foreach}
             {/if}

@@ -467,8 +467,8 @@
 										{lang key='ustIDError200' section='global'}{$errorinfo[1]}
 									{elseif $fehlendeAngaben.ustid == 5}
 										{lang key="ustIDCaseFive" section="global"}
-									{elseif $fehlendeAngaben.ustid == 6}
-										{lang key='ustIDErrorMaxRequests' section='global'}
+									{* elseif $fehlendeAngaben.ustid == 6}
+										{lang key='ustIDErrorMaxRequests' section='global' *}
 									{/if}
 								</div>
 								{/if}

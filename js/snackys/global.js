@@ -811,35 +811,6 @@ $(document).ready(function () {
     if ($('.cart-menu').hasClass('open')) {
         $('.c-dp .close-btn').focus();
     }
-    
-    $('.video-transcript').each(function() {
-        let container = $(this);
-        container.find('[data-toggle="collapse"]').on('click', function() {
-            $(this).attr('aria-expanded', function(i, attr) {
-                return attr === 'true' ? 'false' : 'true'
-            });
-            container.find('.collapse').collapse('toggle');
-        }).on('focus', function() {
-            $(this).parent('.video-transcript').toggleClass('focus');
-        })
-    });
-    $('[data-video-transcript]').each(function() {
-        let transcriptElement = $(this);
-        
-        transcriptElement.on('click', function (e) {
-            e.preventDefault();
-            let content = transcriptElement.data('video-transcript');
-            if (content !== '') {
-                let popup = window.open(
-                    '',
-                    'TranscriptWindow',
-                    'width=600, height=400, scrollbars=yes'
-                );
-                $(popup.document.body).html(content);
-            }
-        });
-    });
-
 });
 
 // Basket Tab-Loop
