@@ -15,7 +15,7 @@
 #search input{
     border: 0;
     padding: 1rem 3.125rem 1rem 1rem;
-    border-radius: .5rem;
+    border-radius: var(--btn-rnd);
     background: var(--ser-b);
     border: 1px solid var(--ser-r);
     color: var(--ser-t);
@@ -77,20 +77,26 @@
 .hdr-nav a:hover > .caret{
     border-top-color: var(--hed-i-h);
 }
+.hdr-l{
+    display: block;
+}
 /* Nav Toggle */
 #mob-nt{
 	width: 1.8rem;
 	height: 1.8rem;
 	position: relative;
 	cursor: pointer;
+    background: none;
+    border: 0;
 }
 .burger-line{
 	width: 100%;
 	height: .15rem;
 	background: var(--hed-i);
 	position: absolute;
-	border-radius: .2rem;
-	top: .2rem
+	border-radius: var(--rnd-frc);
+	top: .2rem;
+    left: 0;
 }
 #mob-nt:hover .burger-line{
     background: var(--hed-i-h);
@@ -112,7 +118,6 @@
 }
 @media screen and (max-width: 991px){  
     header .badge{
-        font-size: .85rem;
         line-height: 1.25rem;
         min-width: 1.25rem;
         padding: 0 .25rem;
@@ -141,6 +146,9 @@
     #sr-tg-m .img-ct{
         width: 1.6rem;
         min-width: 1.6rem;
+        border: 0;
+        padding: 0;
+        background: none;
     }
     #sr-tg-m svg{
         fill: var(--hed-i);

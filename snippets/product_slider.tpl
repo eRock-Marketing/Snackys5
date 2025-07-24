@@ -9,7 +9,11 @@
             <div class="panel-title{if !isset($isBox)} flx-ac flx-jb mb-xs{/if}{if $tplscope == 'box'} h5 m0 flx-ac flx-jb{/if}">
                 {if isset($title) && $title|strlen > 0}   
                     {if $tplscope !== 'box'}
-                        <span class="{if !isset($isBox)}h2 m0 block{else}h5 block{/if}">{$title}</span>
+                        {if !isset($isBox)}
+                            <h2 class="m0">{$title}</h2>
+                        {else}
+                            <span class="h5 block">{$title}</span>
+                        {/if}
                     {else}
                         {$title}
                     {/if}
@@ -21,12 +25,12 @@
                 <div class="right">
                     {if !$isMobile}
                         <div class="ar-ct btn-group{if $productlist|@count > $snackyConfig.css_listElmXl} show-xl{/if}{if $productlist|@count > $snackyConfig.css_listElmLg} show-lg{/if}{if $productlist|@count > $snackyConfig.css_listElmMd} show-md{/if}{if $productlist|@count > $snackyConfig.css_listElmSm} show-sm{/if}{if $productlist|@count > $snackyConfig.css_listElmXs} show-xs{/if}">
-                            <span class="sl-ar sl-pr btn inactive">
+                            <button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}">
                                 <span class="ar ar-l"></span>
-                            </span>
-                            <span class="sl-ar sl-nx btn">
+                            </button>
+                            <button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}">
                                 <span class="ar ar-r"></span>
-                            </span>
+                            </button>
                         </div>
                     {/if}
                     {if !empty($moreLink)}
@@ -35,7 +39,7 @@
                             {lang key="showAll" section="global"}
                             </span>
                             <span class="visible-xs">
-                                <span class="ar ar-r"></span>
+                                <span class="ar ar-r"></span> <span class="sr-only">{lang key="showAll" section="global"}</span>
                             </span>
                         </a>
                     {/if}
@@ -50,12 +54,12 @@
 			{if $isMobile || $tplscope === 'box'}
 			<div class="row ar-ct-m">
 				<div class="col-12 ar-ct{if $productlist|@count > $snackyConfig.css_listElmXl} show-xl{/if}{if $productlist|@count > $snackyConfig.css_listElmLg} show-lg{/if}{if $productlist|@count > $snackyConfig.css_listElmMd} show-md{/if}{if $productlist|@count > $snackyConfig.css_listElmSm} show-sm{/if}{if $productlist|@count > $snackyConfig.css_listElmXs} show-xs{/if}">
-					<span class="sl-ar sl-pr btn inactive">
+					<button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}">
 						<span class="ar ar-l"></span>
-					</span>
-					<span class="sl-ar sl-nx btn">
+					</button>
+					<button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}">
 						<span class="ar ar-r"></span>
-					</span>
+					</button>
 				</div>
 			</div>
 			{/if}

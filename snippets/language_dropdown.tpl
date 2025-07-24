@@ -23,7 +23,7 @@
                                     }
                                 {/if}
                             </span>
-                            {if (isset($isFooter) && $isFooter) || (isset($isMobileMenu) && $isMobileMenu)}<span class="name">{$language->getDisplayLanguage()}</span>{/if}
+                            <span class="name{if (isset($isFooter) && $isFooter) || (isset($isMobileMenu) && $isMobileMenu)}{else} sr-only{/if}">{$language->getDisplayLanguage()}</span>
                         {/block}
                     {/if}
                 {/foreach}

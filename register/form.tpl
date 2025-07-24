@@ -14,9 +14,6 @@
         <input type="hidden" name="form" value="1">
         <input type="hidden" name="editRechnungsadresse" value="{$editRechnungsadresse}">
         {include file="snippets/zonen.tpl" id="opc_before_submit"}
-        {block name='register-form-mandatory-notice'}
-            <p class="small text-muted">(* = {lang key='mandatoryFields'})</p>
-        {/block}
         {block name='register-form-privacy-notice'}
             <p class="privacy text-muted">
                 <a href="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}{/if}" class="popup small tdu">

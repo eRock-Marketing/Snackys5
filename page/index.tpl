@@ -1,4 +1,9 @@
 {block name='page-index'}
+    {block name="hidden-h1"}
+        {if $snackyConfig.hidden_h1 == 1}
+			<h1 class="sr-only">{$Einstellungen.global.global_shopname}</h1>
+		{/if}
+    {/block}
     {include file="snippets/zonen.tpl" id="start-under-slider" title="Startseite: Unter dem Slider"}
 	{block name='page-index-errors'}
 		{if !empty($cFehler)}
@@ -29,7 +34,9 @@
                         {lang key='showAllBestsellers' section='global' assign='moreTitle'}
                     {/if}
                     {assign var='moreLink' value=$Box->cURL}
+					{include file="snippets/zonen.tpl" id="opc_before_box_{$Box->name|lower}"}
                     {include file='snippets/product_slider.tpl' productlist=$Box->Artikel->elemente title=$title hideOverlays=true moreLink=$moreLink moreTitle=$moreTitle}
+					{include file="snippets/zonen.tpl" id="opc_after_box_{$Box->name|lower}"}
                 {/if}
             {/foreach}
         {/if}
@@ -41,19 +48,19 @@
 					<div class="panel-heading">
 						<div class="panel-title flx-ac flx-jb mb-xs">
 							{block name="index-manuslider-heading-title"}
-						   		<span class="h2 m0 block">{lang key="manufacturers" section="global"}</span>
+						   		<h2 class="m0 block">{lang key="manufacturers" section="global"}</h2>
 							{/block}
 							{block name="index-manuslider-heading-arrows-more"}
 								<div class="right">
 									{block name="index-manuslider-heading-desktop-arrows"}
 										{if !$isMobile}
 											<div class="ar-ct btn-group{if $manufacturers|@count > 8} show-xl{/if}{if $manufacturers|@count > 6} show-lg{/if}{if $manufacturers|@count > 4} show-md{/if}{if $manufacturers|@count > 4} show-sm{/if}{if $manufacturers|@count > 3} show-xs{/if}{if $manufacturers|@count > 2} show-xxs{/if}">
-												<span class="sl-ar sl-pr btn inactive">
+												<button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}">
 													<span class="ar ar-l"></span>
-												</span>
-												<span class="sl-ar sl-nx btn">
+												</button>
+												<button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}">
 													<span class="ar ar-r"></span>
-												</span>
+												</button>
 											</div>
 										{/if}
 									{/block}
@@ -82,12 +89,12 @@
 							{if $isMobile || (isset($tplscope) && $tplscope === 'box')}
 								<div class="row ar-ct-m">
 									<div class="col-12 ar-ct{if $manufacturers|@count > 8} show-xl{/if}{if $manufacturers|@count > 6} show-lg{/if}{if $manufacturers|@count > 4} show-md{/if}{if $manufacturers|@count > 4} show-sm{/if}{if $manufacturers|@count > 3} show-xs{/if}{if $manufacturers|@count > 2} show-xxs{/if}">
-										<span class="sl-ar sl-pr btn inactive">
+										<button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}">
 											<span class="ar ar-l"></span>
-										</span>
-										<span class="sl-ar sl-nx btn">
+										</button>
+										<button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}">
 											<span class="ar ar-r"></span>
-										</span>
+										</button>
 									</div>
 								</div>
 							{/if}
@@ -98,25 +105,25 @@
 									{block name="index-manuslider-body-slider-item"}
 										{if !empty($hst->getImage())}
 											<div class="col-lg-2 p-w">
-												<div class="p-c">
+												<a href="{$hst->getURL()}" class="p-c">
 													{block name="index-manuslider-body-slider-item-image"}
 														<div class="img-w text-center">
-															<a href="{$hst->getURL()}" class="img-ct">
+															<div class="img-ct">
 																{image fluid=true lazy=true webp=true
 																src=$hst->getImage(\JTL\Media\Image::SIZE_MD)
 																alt=$hst->getName()|escape:'html'
 																class="image"}
-															</a>
+																</div>
 														</div>
 													{/block}
 													{block name="index-manuslider-body-slider-item-caption"}
 														{if !$isMobile}
-															<a href="{$hst->getURL()}" class="caption text-center block">
+															<div class="caption text-center block">
 																<strong>{$hst->getName()}</strong>
-															</a>
+															</div>
 														{/if}
 													{/block}
-												</div>
+												</a>
 											</div>
 										{/if}
 									{/block}
@@ -135,7 +142,7 @@
 				<section class="mb-lg" id="news-overview">
 					{block name="index-blog-heading"}
 						<div class="flx-ac flx-jb mb-sm">
-							<span class="block h2 m0">{lang key="news" section="news"}</span>
+							<h2 class="block m0">{lang key="news" section="news"}</h2>
 							<a href="{get_static_route id='news.php'}" title="{lang key="news" section="news"}" class="btn btn-primary">
 								{lang key="showAll" section="global"}
 							</a>

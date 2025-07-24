@@ -235,7 +235,7 @@
                 return $('<div class="modal fade" tabindex="-1">' +
                     '<div class="modal-dialog modal-dialog-centered">' +
                     '<div class=modal-content>' +
-                    ' <div class=modal-header><span class=modal-title></span><button type=button class="x close" data-dismiss=modal aria-label="Close"><span aria-hidden="true" class="fas fa-times"></span></button></div>' +
+                    ' <div class=modal-header><span class=modal-title></span><button type=button class="x close" data-dismiss=modal aria-label="Close"></button></div>' +
                     '</div>' +
                     '</div>' +
                     '</div>')

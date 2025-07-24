@@ -10,7 +10,7 @@
 							{lang key='hello'} {$smarty.session.Kunde->cVorname} {$smarty.session.Kunde->cNachname|entferneFehlerzeichen}
 						{/if}
 					</span>
-					<button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
+					<button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
 					</button>
 				</div>
 			{/block}
@@ -55,13 +55,13 @@
 							</form>
 							{block name='user-form-forgot-password'}
 								<div class="text-center">
-									<a href="{get_static_route id='pass.php'}" rel="nofollow" title="{lang key='forgotPassword'}" class="link-underline">{lang key='forgotPassword'}?</a>
+									<a href="{get_static_route id='pass.php'}" rel="nofollow" class="link-underline">{lang key='forgotPassword'}?</a>
 								</div>
 							{/block}
 							{block name='user-form-new-here'}							
 								<hr>
 								<span class="text-center block h4">{lang key='newHere'}</span>
-								<a href="{get_static_route id='registrieren.php'}" title="{lang key='registerNow'}" class="btn btn-block btn-lg">{lang key='registerNow'}</a>
+								<a href="{get_static_route id='registrieren.php'}" class="btn btn-block btn-lg">{lang key='registerNow'}</a>
             				{/block}
             			{/block}
 					{else}
@@ -69,7 +69,7 @@
 							<div class="nav blanklist">
                 				{block name='layout-header-shopnav-user-user'}
                 					{get_static_route id='jtl.php' secure=true assign='secureAccountURL'}
-									<a href="{$secureAccountURL}" title="{lang key='myAccount'}" class="flx-ac flx-jb nav-it defaultlink">
+									<a href="{$secureAccountURL}" class="flx-ac flx-jb nav-it defaultlink">
 										{lang key='myAccount'}
 										<span class="img-ct icon icon-wt ic-md">
 											<svg>
@@ -152,7 +152,7 @@
 			{block name='shopnav-user-modal-footer'}
 				{if JTL\Session\Frontend::getCustomer()->getID() !== 0}
 					<div class="modal-footer">            
-						<a href="{$secureAccountURL}?logout=1" title="{lang key='logOut'}" class="btn btn-block">{lang key='logOut'}</a>
+						<a href="{$secureAccountURL}?logout=1" class="btn btn-block">{lang key='logOut'}</a>
 					</div>
 				{/if}
 			{/block}

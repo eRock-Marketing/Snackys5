@@ -1,5 +1,5 @@
 {block name='layout-gtag-tracking'}
-    <script type="text/javascript">
+    <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){
             dataLayer.push(arguments);
@@ -15,9 +15,6 @@
                 'wait_for_update': 1000
             });
         {/if}
-	</script>
-	<script async src="https://www.googletagmanager.com/gtag/js?id={if !empty($snackyConfig.google_analytics_four|trim)}{$snackyConfig.google_analytics_four|trim}{else}{$snackyConfig.google_ads|trim}{/if}"></script>
-    <script type="text/javascript">
 
         {if !empty($snackyConfig.google_analytics_four|trim)}
             gtag( 'config', '{$snackyConfig.google_analytics_four|trim}');
@@ -43,7 +40,8 @@
                 'currency': '{$smarty.session.Waehrung->getCode()}'
                 {if $snackyConfig.gads_enhanced_conversions == 'Y'}
                     ,'email': '{$Bestellung->oKunde->cMail}'
-                {/if}
+                {/if},
+				'transaction_id': '{$Bestellung->cBestellNr}'
             });
             {/if}
         {/if}
@@ -136,7 +134,7 @@
         });
         {/if}
         {* Begin Checkout *}
-        {if !(isset($bWarenkorbHinzugefuegt) && $bWarenkorbHinzugefuegt) && ($nSeitenTyp == 3 || ($nSeitenTyp == 11 && ($bestellschritt[1] == 1 || $bestellschritt[2] == 1)))}
+        {if $nSeitenTyp == 11}
         {assign var="activeStep" value=1}	{*Schritt 1 = Warenkorb, Checkout dann weiterführend: 2=Adresse,3=Zahlung,4=Übersicht *}
         {if $nSeitenTyp == 11}
         {if $bestellschritt[1] == 1 || $bestellschritt[2] == 1}
@@ -152,7 +150,7 @@
             value: {$Warensumme|number_format:2:".":""},
             items: [
                 {foreach from=$smarty.session.Warenkorb->PositionenArr item="prodid" name="prodid"}
-                {if $prodid->nPosTyp == $C_WARENKORBPOS_TYP_ARTIKEL}
+                {if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
                 {if !$smarty.foreach.prodid.first},{/if}
                 {
                     item_id: "{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}",
@@ -180,7 +178,7 @@
             currency: "{$smarty.session.Waehrung->getCode()}",
             items: [
                 {foreach from=$Bestellung->Positionen item="prodid" name="prodid"}
-                {if $prodid->nPosTyp == $C_WARENKORBPOS_TYP_ARTIKEL}
+                {if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
                 {if !$smarty.foreach.prodid.first},{/if}
                 {
                     item_id: "{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}",
@@ -204,4 +202,5 @@
         {/if}
 
     </script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id={if !empty($snackyConfig.google_analytics_four|trim)}{$snackyConfig.google_analytics_four|trim}{else}{$snackyConfig.google_ads|trim}{/if}"></script>
 {/block}

@@ -34,7 +34,7 @@
                         {/if}
                         <span class="word-break">{$attributeValue->getValue()|escape:'html'}</span>
                         {if $showFilterCount}
-                            <span class="ctr">{$attributeValue->getCount()}</span>
+                            <span class="ctr">{$attributeValue->getCount()} <span class="sr-only">{lang key='products'} {lang key='found'}</span></span>
                         {/if}
                 {/dropdownitem}
             </li>
@@ -45,12 +45,7 @@
                     {block name='snippets-filter-characteristics-nav-text'}
                         {if $attributeValue->getCount() > 0}
                         <li class="nav-it">
-                        {link
-                            class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac"
-                            href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}{else}#{/if}"
-                            title="{$attributeValue->getValue()|escape:'html'}"
-							rel="nofollow"
-                        }
+                            <a class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac" href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}{else}#{/if}" title="{$attributeValue->getValue()|escape:'html'}" rel="nofollow" aria-label="{lang key='filterBy'}: {$attributeValue->getValue()|escape:'html'}">
                                 {if !empty($attributeImageURL)}
                                     {image lazy=true webp=true
                                         src=$attributeImageURL
@@ -60,9 +55,9 @@
                                 {/if}
                                 <span class="word-break">{$attributeValue->getValue()|escape:'html'}</span>
                                 {if $showFilterCount}
-                                    <span class="ctr">{$attributeValue->getCount()}</span>
+                                    <span class="ctr">{$attributeValue->getCount()} <span class="sr-only">{lang key='products'} {lang key='found'}</span></span>
                                 {/if}
-                        {/link}
+                            </a>
                         </li>
                         {/if}
                     {/block}
@@ -106,7 +101,7 @@
                                 {$attributeValue->getValue()|escape:'html'}
                             </span>
                             {if $showFilterCount}
-                                <span class="ctr">{$attributeValue->getCount()}</span>
+                                <span class="ctr">{$attributeValue->getCount()} <span class="sr-only">{lang key='products'} {lang key='found'}</span></span>
                             {/if}
                             {/link}
                         </li>

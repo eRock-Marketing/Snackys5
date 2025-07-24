@@ -15,7 +15,7 @@
             {$activeId = 0}
         {/if}
     {/if}
-    {assign var=max_subsub_items value=5}
+    {assign var=max_subsub_items value=$snackyConfig.megamenu_subcats}
 {/block}
 {if $snackyConfig.megaHome == 0}
 <li class="is-lth{if $nSeitenTyp == 18} active{/if}">

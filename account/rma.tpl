@@ -122,7 +122,7 @@
 
                     $tableWrapper.find('.dataTables_length').parent()
                         .removeClass('col-sm-12 col-md-6').addClass('col-4 col-sm-4 col-md-4 col-lg-2');
-
+                    $tableWrapper.find('.dataTables_length .custom-select')[0].setAttribute('aria-label', '{lang section='aria' key='numberProductsShown' addslashes=true}' )
                     $tableWrapper.find('.dataTables_filter').parent()
                         .removeClass('col-sm-12 col-md-6').addClass('col-sm-12 col-md-12 col-lg-6');
 

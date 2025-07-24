@@ -70,7 +70,7 @@
                                                     cname:      "{$Artikel->cName|replace:" ":"_"}_{$oUploadSchema->cName|replace:" ":"_"}"
                                                     {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)},
                                                     variation:  "{strip}
-                                                    {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|trans|replace:" ":"_"}{/foreach}
+                                                    {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|transByISO|replace:" ":"_"}{/foreach}
                                                         "{/strip}
                                                     {/if}
                                                 },
@@ -158,7 +158,7 @@
         </div>
         {elseif $tplscope === 'basket'}
             {block name='snippets-uploads-subheading'}
-                <div class="h5 section-heading">{lang key='uploadHeadline'}</div>
+                <h2 class="h5 section-heading">{lang key='uploadHeadline'}</h2>
             {/block}
             {block name='snippets-uploads-schemes'}
                 {foreach $oUploadSchema_arr as $oUploadSchema}
@@ -169,7 +169,7 @@
                                 {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)}
                                     <small>
                                         {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}
-                                            - {$Variation->cEigenschaftName|trans}: {$Variation->cEigenschaftWertName|trans}
+                                            - {$Variation->cEigenschaftName|transByISO}: {$Variation->cEigenschaftWertName|transByISO}
                                         {/foreach}
                                     </small>
                                 {/if}
@@ -204,8 +204,7 @@
                                                 <div class="text-center-util {if isset($smarty.get.fillOut) && $smarty.get.fillOut == 12 && ($oUpload->nPflicht
                                                 && !$oUpload->bVorhanden)} upload-error{/if}"
                                                      id="upload-{$oUploadSchema@index}{$oUpload@index}">
-                                                    <input id="fileinput{$oUploadSchema@index}{$oUpload@index}"
-                                                           type="file" class="file-upload file-loading"/>
+                                                    <input id="fileinput{$oUploadSchema@index}{$oUpload@index}" type="file" class="file-upload file-loading" aria-hidden="true" tabindex="-1"/>
                                                     <div id="kv-error-{$oUploadSchema@index}{$oUpload@index}"
                                                          style="margin-top:10px; display:none;"></div>
                                                 </div>
@@ -241,7 +240,7 @@
                                                                 cname:      "{$oUpload->cName|replace:" ":"_"}"
                                                                 {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)},
                                                                 variation: "{strip}
-                                                                {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|trans|replace:" ":"_"}{/foreach}
+                                                                {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|transByISO|replace:" ":"_"}{/foreach}
                                                                     "{/strip}
                                                                 {/if}
                                                             },

@@ -20,7 +20,7 @@
 												{/block}
 											{else}
 												{block name='productdetails-attributes-characteristics-value-image'}
-													<a {if !$inQuickView}href="{$characteristicValue->getURL()}"{/if} data-toggle="tooltip" data-placement="top" title="{$characteristicValue->getValue()|escape:'html'}">
+													<a {if !$inQuickView}href="{$characteristicValue->getURL()}"{/if} title="{$characteristicValue->getValue()|escape:'html'}" aria-label="{$characteristicValue->getValue()|escape:'html'}">
 														{$img = $characteristicValue->getImage(\JTL\Media\Image::SIZE_XS)}
 														{if $img !== null && strpos($img, $smarty.const.BILD_KEIN_MERKMALBILD_VORHANDEN) === false
 														&& strpos($img, $smarty.const.BILD_KEIN_ARTIKELBILD_VORHANDEN) === false}

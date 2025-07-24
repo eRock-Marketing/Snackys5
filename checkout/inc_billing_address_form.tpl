@@ -2,13 +2,14 @@
 	{block name='address-form-adress-info'}
 		<fieldset class="panel">
 			{block name='address-form-adress-info-title'}
-				<span class="h4 block">
+				<legend class="h4 block">
 					{if isset($checkout)}
 						{lang key="proceedNewCustomer" section="checkout"}
 					{else}
 						{lang key="address" section="account data"}
 					{/if}
-				</span>
+				</legend>
+				<div class="required-info small mb-xxs">{lang key='requiredInfo' section='custom'}</div>
 			{/block}
 			{block name='address-form-salutation-title'}
 				<div class="row">
@@ -26,7 +27,7 @@
 										<option value="m" {if isset($cPost_var['anrede']) && $cPost_var['anrede'] === 'm'}selected="selected"{elseif isset($Kunde->cAnrede) && $Kunde->cAnrede === 'm'}selected="selected"{/if}>{lang key='salutationM'}</option>
 									</select>
 									{if isset($fehlendeAngaben.anrede)}
-										<div class="form-error-msg text-danger">
+										<div class="form-error-msg text-danger" aria-live="assertive" role="alert" aria-atomic="true">
 											{lang key="fillOut" section="global"}
 										</div>
 									{/if}
@@ -174,31 +175,21 @@
 					{block name='address-form-firmtext'}
 						{if $Einstellungen.kunden.kundenregistrierung_abfragen_firmazusatz !== 'N'}
 							<div class="col-12 col-md-6">
-								{if isset($cPost_var['firmazusatz'])}
-									{assign var='inputVal_firmext' value=$cPost_var['firmazusatz']}
-								{elseif isset($Kunde->cZusatz)}
-									{assign var='inputVal_firmext' value=$Kunde->cZusatz|entferneFehlerzeichen}
-								{/if}
-								<div class="form-group float-label-control{if isset($fehlendeAngaben.firmazusatz)} has-error{/if}{if $Einstellungen.kunden.kundenregistrierung_abfragen_firmazusatz === 'Y'} required{/if}">
-									<label for="firmext" class="control-label">{lang key="firmext" section="account data"}</label>
-									<input 
-									type="text" 
-									name="firmazusatz" 
-									value="{$inputVal_firmext|default:null}"
-									id="firmext"
-									class="form-control" 
-									placeholder="{lang key="firmext" section="account data"}"
-									{if $Einstellungen.kunden.kundenregistrierung_abfragen_firmazusatz === 'Y'} required{/if}
-									spellcheck="false" 
-									autocorrect="off" 
-									maxlength="60" 
-									/>
-									{if isset($fehlendeAngaben.firmazusatz)}
-										<div class="form-error-msg text-danger">
-											{lang key="fillOut" section="global"}
-										</div>
-									{/if}
-								</div>
+                                {if isset($cPost_var['firmazusatz'])}
+                                    {assign var=inputVal_firmext value=$cPost_var['firmazusatz']}
+                                {elseif isset($Kunde->cZusatz)}
+                                    {assign var=inputVal_firmext value=$Kunde->cZusatz}
+                                {/if}
+                                {block name='checkout-inc-billing-address-form-company-additional'}
+                                    {include file='snippets/form_group_simple.tpl'
+                                        options=[
+                                            'text', 'firmext', 'firmazusatz',
+                                            {$inputVal_firmext|default:null}, {lang key='firmext' section='account data'},
+                                            $Einstellungen.kunden.kundenregistrierung_abfragen_firmazusatz, null,
+                                            'billing organization ext', null, 60
+                                        ]
+                                    }
+                                {/block}
 							</div>
 						{/if}
 					{/block}
@@ -314,7 +305,7 @@
 					{block name='address-form-country'}
 						<div class="col-12 col-md-6">
 							<div class="form-group float-label-control required{if isset($fehlendeAngaben.land)} has-error{/if}">
-								<label class="control-label" for="country">{lang key="country" section="account data"}</label>
+								<label class="control-label" for="billing_address-country">{lang key="country" section="account data"}</label>
 								<select name="land" id="billing_address-country" class="country_input form-control js-country-select" required
 								 autocomplete="billing country">
 								<option value="" disabled>{lang key="country" section="account data"}</option>
@@ -325,7 +316,7 @@
 								{/foreach}
 								</select>
 								{if isset($fehlendeAngaben.land)}
-									<div class="form-error-msg text-danger">
+									<div class="form-error-msg text-danger" aria-live="assertive" role="alert" aria-atomic="true">
 										{lang key="fillOut" section="global"}
 									</div>
 								{/if}
@@ -343,7 +334,7 @@
 							{/if}
 							<div class="col-12 col-md-6">
 								<div class="form-group float-label-control{if isset($fehlendeAngaben.bundesland)} has-error{/if}{if $Einstellungen.kunden.kundenregistrierung_abfragen_bundesland === 'Y'} required{/if}">
-									<label class="control-label" for="state">{lang key="state" section="account data"}<span class="state-optional optional {if $Einstellungen.kunden.kundenregistrierung_abfragen_bundesland === 'Y' || $selectedCountry->isRequireStateDefinition()}hidden{/if}"> - {lang key='optional'}</span></label>
+									<label class="control-label" for="billing_address-state">{lang key="state" section="account data"}<span class="state-optional optional {if $Einstellungen.kunden.kundenregistrierung_abfragen_bundesland === 'Y' || $selectedCountry->isRequireStateDefinition()}hidden{/if}"> - {lang key='optional'}</span></label>
 									{if !empty($selectedCountry)}
 										<select
 										title="{lang key=pleaseChoose}"
@@ -373,7 +364,7 @@
 										>
 									{/if}
 									{if isset($fehlendeAngaben.bundesland)}
-										<div class="form-error-msg text-danger">
+										<div class="form-error-msg text-danger" aria-live="assertive" role="alert" aria-atomic="true">
 											{lang key="fillOut" section="global"}
 										</div>
 									{/if}
@@ -387,7 +378,7 @@
 				<div class="row">
 					{block name='address-form-zip'}
 						<div class="col-12 col-md-6">
-							<div class="form-group float-label-control{if isset($fehlendeAngaben.plz)} has-error{/if} required">
+							<div class="form-group float-label-control typeahead-required{if isset($fehlendeAngaben.plz)} has-error{/if} required">
 								<label class="control-label" for="postcode">{lang key="plz" section="account data"}</label>
 								<input 
 								type="text" 
@@ -404,7 +395,7 @@
 								maxlength="20"
 								>
 								{if isset($fehlendeAngaben.plz)}
-									<div class="form-error-msg text-danger">
+									<div class="form-error-msg text-danger" aria-live="assertive" role="alert" aria-atomic="true">
 										{if $fehlendeAngaben.plz >= 2}
 											{lang key="checkPLZCity" section="checkout"}
 										{else}
@@ -417,14 +408,14 @@
 					{/block}
 					{block name='address-form-city'}
 						<div class="col-12 col-md-6">
-							<div class="form-group float-label-control required{if isset($fehlendeAngaben.ort)} has-error{/if}">
+							<div class="form-group float-label-control required typeahead-required{if isset($fehlendeAngaben.ort)} has-error{/if}">
 								<label class="control-label" for="city">{lang key="city" section="account data"}</label>
 								<input 
 								type="text" 
 								name="ort" 
 								value="{if isset($cPost_var['ort'])}{$cPost_var['ort']}{elseif isset($Kunde->cOrt)}{$Kunde->cOrt}{/if}"
 								id="city" 
-								class="city_input form-control typeahead"
+								class="city_input form-control"
 								placeholder="{lang key="city" section="account data"}" 
 								required 
 								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternOrt)}pattern="{$snackyConfig.patternOrt}"{/if}
@@ -433,12 +424,8 @@
 								autocomplete="billing address-level2"
 								>
 								{if isset($fehlendeAngaben.ort)}
-									<div class="form-error-msg text-danger">
-										{if $fehlendeAngaben.ort==3}
-											 {lang key="cityNotNumeric" section="account data"}
-										{else}
-											{lang key="fillOut" section="global"}
-										{/if}
+									<div class="form-error-msg text-danger" aria-live="assertive" role="alert" aria-atomic="true">
+										{lang key="fillOut" section="global"}
 									</div>
 								{/if}
 							</div>
@@ -466,7 +453,7 @@
 								maxlength="20"
 								>
 								{if isset($fehlendeAngaben.ustid)}
-								<div class="form-error-msg text-danger">
+								<div class="form-error-msg text-danger" aria-live="assertive">
 									{if $fehlendeAngaben.ustid == 1}
 										{lang key="fillOut" section="global"}
 									{elseif $fehlendeAngaben.ustid == 2}
@@ -480,6 +467,8 @@
 										{lang key='ustIDError200' section='global'}{$errorinfo[1]}
 									{elseif $fehlendeAngaben.ustid == 5}
 										{lang key="ustIDCaseFive" section="global"}
+									{* elseif $fehlendeAngaben.ustid == 6}
+										{lang key='ustIDErrorMaxRequests' section='global' *}
 									{/if}
 								</div>
 								{/if}
@@ -493,7 +482,7 @@
 	{block name='address-form-contact-info'}
 		<fieldset class="panel">
 			{block name='address-form-contact-info-title'}
-		   		<span class="h4 block">{lang key="contactInformation" section="account data"}</span>
+		   		<legend class="h4 block">{lang key="contactInformation" section="account data"}</legend>
 			{/block}
 			{block name='address-form-mail'}
 				<div class="row">
@@ -739,6 +728,9 @@
 	{block name='address-form-custom-customer-fields'}
 		{if $Einstellungen.kundenfeld.kundenfeld_anzeigen === 'Y' && $oKundenfeld_arr->count() > 0}
 			<fieldset class="panel">
+				{block name='address-form-custom-customer-fields-title'}
+					   <legend class="h4 block">{lang key="customerFields" section="custom"}</legend>
+				{/block}
 				<div class="row">
 					<div class="col-12 col-md-6">
 						{if $step === 'formular' || $step === 'edit_customer_address' || $step === 'Lieferadresse' || $step === 'rechnungsdaten'}
@@ -773,7 +765,7 @@
 											{/block}
 										{else}
 											{block name='address-form-custom-customer-fields-forms-select'}
-												<select name="custom_{$kKundenfeld}" class="form-control{if $oKundenfeld->isRequired()} required{/if}" 
+												<select name="custom_{$kKundenfeld}" id="custom_{$kKundenfeld}" class="form-control{if $oKundenfeld->isRequired()} required{/if}" 
 												{if !$isKundenattributEditable}disabled{/if}{if $oKundenfeld->isRequired()} required{/if}>
 													<option value="" selected disabled>{lang key="pleaseChoose" section="global"}</option>
 													{foreach $oKundenfeld->getValues() as $oKundenfeldWert}
@@ -785,7 +777,7 @@
 									{/block}
 									{block name='address-form-custom-customer-fields-forms-missing'}
 										{if isset($fehlendeAngaben.custom[$kKundenfeld])}
-											<div class="form-error-msg text-danger">
+											<div class="form-error-msg text-danger" aria-live="assertive"><i class="fas fa-exclamation-triangle">
 												{if $fehlendeAngaben.custom[$kKundenfeld] === 1}
 													{lang key="fillOut" section="global"}
 												{elseif $fehlendeAngaben.custom[$kKundenfeld] === 2}
@@ -816,6 +808,7 @@
 		{hasCheckBoxForLocation nAnzeigeOrt=$nAnzeigeOrt cPlausi_arr=$fehlendeAngaben cPost_arr=$cPost_arr bReturn="bHasCheckbox"}
 		{if $bHasCheckbox}
 			<fieldset class="panel">
+				<legend class="h4 block">{lang key="checkboxFields" section="custom"}</legend>
 				{include file='snippets/checkbox.tpl' nAnzeigeOrt=$nAnzeigeOrt cPlausi_arr=$fehlendeAngaben cPost_arr=$cPost_arr}
 			</fieldset>
 		{/if}

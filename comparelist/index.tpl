@@ -47,7 +47,7 @@
 											{/block}
 										</a>
 										{block name='comparelist-content-list-delete'}
-											<a href="{$oArtikel->cURLDEL}" data-id="{$oArtikel->kArtikel}" class="close-btn">
+											<a href="{$oArtikel->cURLDEL}" data-id="{$oArtikel->kArtikel}" class="close-btn" aria-label="{lang key='removeFromCompareList'}">
 											</a>
 										{/block}
 									</div>
@@ -87,7 +87,7 @@
                 						{foreach $oVergleichsliste->oArtikel_arr as $oArtikel}
                     						<div class="col-">
                         						{if $oArtikel@index == 0}
-                        							<div class="{if isset($bAjaxRequest) && $bAjaxRequest}h4{else}h3{/if} m0">{$row['name']}</div>
+                        							<h2 class="{if isset($bAjaxRequest) && $bAjaxRequest}h4{else}h3{/if} m0">{$row['name']}</h2>
                         						{/if}
                     						</div>
                 						{/foreach}
@@ -156,7 +156,7 @@
 												{foreach $oVergleichsliste->oArtikel_arr as $oArtikel}
 													<div class="col-">
 														{if $oArtikel@index == 0}
-															<div class="{if isset($bAjaxRequest) && $bAjaxRequest}h4{else}h3{/if} m0">{$characteristic->getName()|default:$characteristic->getName($fallback)|escape:'html'}</div>
+															<h2 class="{if isset($bAjaxRequest) && $bAjaxRequest}h4{else}h3{/if} m0">{$characteristic->getName()|default:$characteristic->getName($fallback)|escape:'html'}</h2>
 														{/if}
 													</div>
 												{/foreach}

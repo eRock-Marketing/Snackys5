@@ -72,6 +72,29 @@
 .qty .badge{
     background: var(--tag-df-b);
 }
+/* Freegift */
+#freegift span.text-muted{
+    font-weight: 400;
+}
+#freegift .img-w{
+    width: 4rem;
+    min-width: 4rem;
+    margin-right: 1rem;
+    margin-bottom: 0;
+}
+#freegift .img-w .badge{
+    position: absolute;
+    top: -.5rem;
+    right: -.5rem;
+}
+#freegift label:hover strong{
+    color: var(--bod-l-h);
+}
+/* Basket Quantity Hover */
+.choose_quantity button:hover .img-ct{
+    transform: rotate(360deg);
+    transition: 1s ease;
+}
 @media screen and (max-width: 991px){
     .basket-xsell{
         display: none;
@@ -81,9 +104,6 @@
     }
 }
 @media screen and (max-width: 767px){
-    #content .price {
-        font-size: 1rem;
-    }
     .c-it .price-block{
         margin: .5rem 0;
     }
@@ -134,6 +154,11 @@
     .c-it .img-col{
         width: 8rem;
     }
+    #freegift .img-w{
+        width: 3rem;
+        min-width: 3rem;
+        margin-right: .75rem;
+    }
 }
 /* Cross-Selling Sliders */
 @media screen and (min-width: 1600px){
@@ -180,7 +205,6 @@
     margin-right: 1em;
 }
 #shipping-estimated table p {
-    font-size: 1rem;
     margin: 0;
 }
 
@@ -191,6 +215,15 @@
     margin-right: 0;
     padding: 1rem 0;
     border-bottom: 1px solid var(--hr-li);
+    position: relative;
+}
+.bskt-l{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
 }
 .bskt:not(.itms){
     font-weight: bold;
@@ -229,15 +262,36 @@
 .col-prd .blanklist{
     margin-top: .25rem;
 }
-#cart-form .inside{
+#cart-form .bskt-is{
     padding: 1rem 0;
     border-bottom: 1px solid var(--hr-li);
 }
 .prd .defaultlink.small{
     text-decoration: underline;
+    position: relative;
+    z-index: 2;
 }
 .col-qnt .choose_quantity{
     max-width: 8rem;
+}
+.bskt-is .row{
+    margin: 0;
+    background: var(--tbl-b);
+    border: 1px solid var(--tbl-r);
+}
+.bskt-is .row:not(:last-child){
+    border-bottom: 0;
+}
+.bskt-is .row:nth-child(2n+1){
+    background: var(--tbl-b-2);
+}
+.bskt-is .col-6:first-child{
+    border-right: 1px solid var(--tbl-r);
+}
+.bskt-is .col-6,
+.bskt-is .col-12{
+    padding-top: .4rem;
+    padding-bottom: .4rem;;
 }
 /*
 .modal.konf-mod{
@@ -273,7 +327,6 @@
 
 @media screen and (max-width: 1599px){
     .bskt .col-nbr{
-        font-size: .85rem;
         width: 7rem;
         min-width: 7rem;
     }
@@ -314,7 +367,6 @@
     }
     .bskt .col-nbr{
         min-width: 0;
-        font-size: 1rem;
     }
     .bskt .qty-wrapper .flx-je{
         justify-content: flex-start;
@@ -331,10 +383,5 @@
     }
     .bskt.total .col-qnt{
         display: none;
-    }
-}
-@media screen and (max-width: 499px){
-    .bskt .col-nbr{
-        font-size: .85rem;
     }
 }

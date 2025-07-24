@@ -64,7 +64,7 @@
                 {foreach name=auswahlfrage from=$oAuswahlAssistent->oAuswahlAssistentFrage_arr key=nFrage item=oAuswahlAssistentFrage}
                     <li id="question_{$oAuswahlAssistentFrage->kAuswahlAssistentFrage}" class="list-group-item{if $smarty.session.AuswahlAssistent->nFrage != $nFrage}{if $Einstellungen.auswahlassistent.auswahlassistent_allefragen === 'Y' || $smarty.session.AuswahlAssistent->nFrage > $nFrage} disabled{elseif $Einstellungen.auswahlassistent.auswahlassistent_allefragen === 'N' && $smarty.session.AuswahlAssistent->nFrage < $nFrage} closed{/if}{/if}">
                         {block name='productwizard-questions-question'}
-                            <h4 style="margin-bottom: 0;" class="question">{$oAuswahlAssistentFrage->cFrage}</h4>
+                            <div style="margin-bottom: 0;" class="question h4">{$oAuswahlAssistentFrage->cFrage}</div>
                         {/block}
                         {block name='productwizard-questions-answers'}
                             <div class="answers" id="answer_{$oAuswahlAssistentFrage->kAuswahlAssistentFrage}">

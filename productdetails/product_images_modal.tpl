@@ -4,7 +4,7 @@
             <div class="modal-content">
                 {block name='productdetails-product-images-modal-header'}
                     <div class="modal-header">
-                        <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
                         </button>
                     </div>
                 {/block}

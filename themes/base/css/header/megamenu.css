@@ -15,7 +15,6 @@
 	position: static;
 }
 #cat-w .mm-mainlink{
-    font-size: 1.1rem;
     padding: .7rem 1.25rem;
     font-weight: 600;
     display: block;
@@ -68,7 +67,10 @@
 #cat-w .subsub li{
     padding-left: .5rem;
     position: relative;
-    margin: .2rem 0;
+    margin: .4rem 0;
+}
+#cat-w .subsub li a{
+	display: block;
 }
 .mgm .dropdown-menu{
     right: 0;
@@ -88,7 +90,9 @@
     min-width: 0;
 }
 .mgm .mgm-fw:hover .dropdown-menu,
-.mgm .dropdown-multi:hover .dropdown-menu{
+.mgm .mgm-fw:focus-within .dropdown-menu,
+.mgm .dropdown-multi:hover .dropdown-menu,
+.mgm .dropdown-multi:focus-within .dropdown-menu{
     transform: translateY(0);
     transition-delay: .3s;
 }
@@ -106,7 +110,7 @@
 	overflow: auto;
 	padding-top: 3rem;
 	padding-bottom: 3rem;
-    border-radius: 0 0 1rem 1rem;
+    border-radius: 0 0 var(--box-rnd-lg) var(--box-rnd-lg);
 }
 .mgm .mgm-c a{
 	color: var(--meg-l);
@@ -127,7 +131,9 @@
 }
 
 .mgm .mgm-fw:hover .mgm-c,
-.mgm .dropdown-multi:hover .mgm-c{
+.mgm .mgm-fw:focus-within .mgm-c,
+.mgm .dropdown-multi:hover .mgm-c,
+.mgm .dropdown-multi:focus-within .mgm-c{
     transform: translateY(0);
     opacity: 1;
     transition: .3s ease;
@@ -176,7 +182,6 @@
 	.dropdown-style .dropdown-link{
 		padding: 0.4rem 1.5rem;
 		background: none;
-		font-size: .95rem;
 		display: flex;
 		justify-content: space-between;
 		white-space: normal;
@@ -206,7 +211,7 @@
 		right: auto;
 	}
 	.dropdown-style .dropdown-menu > li > .dropdown-menu{
-		border-radius: .3rem;
+		border-radius: var(--box-rnd-sm);
 	}
 	.dropdown-style .dropdown-menu .dropdown-menu{
 		display: none;
@@ -217,7 +222,8 @@
         left: auto;
         right: 100%;
     }
-	.dropdown-style li:hover > .dropdown-menu{
+	.dropdown-style li:hover > .dropdown-menu,
+	.dropdown-style li:focus-within > .dropdown-menu{
 		display: block;
 	}
 	.dropdown-style{
@@ -237,6 +243,9 @@
         transform: translateY(0);
         transition-delay: .3s;
     }
+	#cat-ul > li > a .ar{
+		border-color: var(--nav-l);
+	}
 }
 
 @media screen and (min-width: 1600px){
@@ -255,7 +264,6 @@
 }
 @media screen and (max-width: 1400px) and (min-width: 768px){
 	#cat-w .mm-mainlink{
-		font-size: 1.1rem;
 		padding: 0.6rem 1rem;
 	}
 	.mgm .home-icon svg{
@@ -268,7 +276,6 @@
 		padding: 2rem;
 	}
 	#cat-w .mm-mainlink{
-		font-size: 1rem;
 		padding: 0.6rem .8rem;
 	}
 	.mgm .home-icon svg{
@@ -300,14 +307,15 @@
 		transform: translateX(-120%);
 		transition: transform .3s ease;
 		display: block;
+		visibility: hidden;
 	}
 	.shw-sb #cat-w{
 		transform: none;
+		visibility: visible;
 	}
 	#cat-w .mm-mainlink,
 	#cat-w a{
 		color: var(--meg-l);
-		font-size: 1rem;
 		position: relative;
 		padding: .7rem 2.5rem .7rem 1.25rem;
 		white-space: normal;
@@ -401,6 +409,7 @@
 	#cat-w .subsub{
 		transform: translateX(-100%);
 		transition: .3s ease;
+		visibility: hidden;
 	}
 	#cat-w .menu-title{
 		position: absolute;
@@ -418,6 +427,7 @@
 		transform: none;
 		max-height: 100%;
 		overflow: auto;
+		visibility: visible;
 	}
 	#cat-w .open > .mm-mainlink,
 	#cat-w .open > .defaultlink.title{
@@ -502,5 +512,8 @@
     }
 	#cat-ul{
 		overflow-x: hidden;
+	}
+	#cat-ul > li:first-child{
+		margin-top: 3px;
 	}
 }

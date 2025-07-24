@@ -10,7 +10,7 @@
             {/if}
         {/block}
         {block name="productdetails-rating-main"}
-            <div class="rating flx-ac flx-nw" title="{$ratingLabelText}: {$stars}/5">
+            <div class="rating flx-ac flx-nw" title="{$ratingLabelText}: {$stars}/5" aria-label="{lang key='Votes'}"{if $tplscope=='list'} tabindex="-1"{/if}>
                 {strip}
                 {block name='productdetails-rating-star1'}
                     <div class="img-ct icon op1">

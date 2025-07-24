@@ -14,13 +14,13 @@
 						{input aria=["label"=>"{lang key='quickBuy'}"] type="text" placeholder="{lang key='productNoEAN'}"
 							   name="ean" id="quick-purchase" class="small"}
 						<div class="input-group-btn">
-							{button type="submit" variant="secondary" title="{lang key='intoBasket'}"}
+							<button type="submit" title="{lang key='intoBasket'}" aria-label="{lang key='intoBasket'}" class="btn">
 								<span class="img-ct icon">
 									<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
 									  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}"></use>
 									</svg>
 								</span>
-							{/button}
+							</button>
 						</div>
 					{/inputgroup}
 				{/form}

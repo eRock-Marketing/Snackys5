@@ -7,9 +7,6 @@
 .consent-no-space{
     margin: 0 !important;
 }
-.consent-btn{
-    font-size: .8rem;
-}
 .consent-btn-helper{
     margin: -.25rem;
     display: flex;
@@ -34,7 +31,6 @@
 }
 .consent-btn-sm{
     padding: .5rem .9rem;
-    font-size: 0.8rem;
 }
 .consent-btn-holder{
     display: flex;
@@ -48,9 +44,6 @@
 .consent-btn-holder > div:first-child{
     -webkit-box-flex: 1;
     flex-grow: 1;
-}
-.consent-switch .consent-input{
-    display: none;
 }
 .consent-switch .consent-input:checked ~ .consent-label::before{
     background: var(--csm-sw-b-h);
@@ -142,7 +135,6 @@
 #consent-manager{
     @fontfamily;
     color: var(--csm-t);
-    font-size: 0.8rem;
     position: fixed;
     z-index: 100000;
     bottom: 2rem;
@@ -182,7 +174,6 @@
 }
 .consent-help{
     color: var(--csm-t);
-    font-size: .9em;
     margin-top: .5rem;
     display: block;
 }
@@ -193,15 +184,6 @@
     color: var(--csm-tt);
     margin-bottom: .5rem;
     display: block;
-}
-.consent-display-1{
-    font-size: 1.25rem;
-}
-.consent-display-2{
-    font-size: 1rem;
-}
-.consent-display-3{
-    font-size: 0.85rem;
 }
 #consent-banner{
     border: 1px solid var(--csm-r);
@@ -260,6 +242,7 @@
 .consent-banner-actions{
     margin-top: 1rem;
     width: 100%;
+    order: 2;
 }
 .consent-show-more{
     text-align: right;
@@ -290,7 +273,6 @@
     padding: 0.5rem;
     width: 2.5rem;
     height: 2.5rem;
-    outline: 0;
     transition: all 0.2s;
     cursor: pointer;
     transition: all 0.2s;
@@ -359,9 +341,6 @@
     .consent-modal-icon{
         margin-top: -2rem;
     }
-    .consent-display-1{
-        font-size: 1.5rem;
-    }
     .consent-banner-body{
         flex-direction: row;
     }
@@ -399,11 +378,7 @@
         display: flex;
         -webkit-box-align: center;
         align-items: center;
-        font-size: 0.8rem;
         margin: 1rem 0;
-    }
-    #consent-manager p{
-        font-size: .8rem;
     }
 }
 @media screen and (max-width: 767px){

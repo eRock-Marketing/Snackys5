@@ -30,7 +30,8 @@
             <dd class="var-body form-group">
                 {if $Variation->cTyp === 'SELECTBOX'}
                     {block name='productdetails-info-variation-select'}
-                    <select data-site="10" class="form-control" title="{if isset($smallView) && $smallView}{$Variation->cName} - {/if}{lang key='pleaseChooseVariation' section='productDetails'}" name="eigenschaftwert[{$Variation->kEigenschaft}]"{if !$showMatrix} required{/if}>
+                    <label class="sr-only" for="s-{$Variation->kEigenschaft}">{$Variation->cName}</label>
+                    <select data-site="10" id="s-{$Variation->kEigenschaft}" class="form-control" title="{if isset($smallView) && $smallView}{$Variation->cName} - {/if}{lang key='pleaseChooseVariation' section='productDetails'}" name="eigenschaftwert[{$Variation->kEigenschaft}]"{if !$showMatrix} required{/if}>
                         {foreach name=Variationswerte from=$Variation->Werte key=y item=Variationswert}
                             {assign var="bSelected" value=false}
                             {if isset($oVariationKombi_arr[$Variationswert->kEigenschaft])}
@@ -151,6 +152,7 @@
                                                name="eigenschaftwert[{$Variation->kEigenschaft}]"
                                                id="{if $modal}modal-{elseif isset($smallView) && $smallView}a-{$Artikel->kArtikel}{/if}vt{$Variationswert->kEigenschaftWert}"
                                                value="{$Variationswert->kEigenschaftWert}"
+                                               aria-label="{$Variationswert->cName}"
                                                {if $bSelected}checked="checked"{/if}
                                                {if $smarty.foreach.Variationswerte.index === 0 && !$showMatrix} required{/if}
                                                />
@@ -171,8 +173,10 @@
                     </div>
                 {elseif $Variation->cTyp === 'FREIFELD' || $Variation->cTyp === 'PFLICHT-FREIFELD'}
                     {block name='productdetails-info-variation-text'}
+                    <label for="t-{$Variation->kEigenschaft}" value="{$Variationswert->kEigenschaftWert}"" class="sr-only">{$Variation->cName}</label>
                     <input type="text"
                        class="form-control"
+                       id="t-{$Variation->kEigenschaft}"
                        name="eigenschaftwert[{$Variation->kEigenschaft}]"
                        value="{if isset($oEigenschaftWertEdit_arr[$Variation->kEigenschaft])}{$oEigenschaftWertEdit_arr[$Variation->kEigenschaft]->cEigenschaftWertNameLocalized}{/if}"
                        data-key="{$Variation->kEigenschaft}"{if $Variation->cTyp === 'PFLICHT-FREIFELD'} required{/if} maxlength=255>

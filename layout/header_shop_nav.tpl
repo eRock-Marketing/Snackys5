@@ -14,7 +14,7 @@
 			{block name="navbar-productsearch-outer"}
 				{if $snackyConfig.headerType == 1 || $snackyConfig.headerType == 2 || $snackyConfig.headerType == 3 || $snackyConfig.headerType == 4 || $snackyConfig.headerType == 5 || $snackyConfig.headerType == 6 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 5.5 || $snackyConfig.headerType == 7}
 					{block name="navbar-productsearch"}
-						<div class="sr-tg hidden-xs">
+						<button class="sr-tg hidden-xs" aria-label="{lang key='find'}">
 							<span class="img-ct icon icon-xl">
 								<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
 								  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-search"></use>
@@ -25,14 +25,14 @@
 								  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-close"></use>
 								</svg>
 							</span>
-						</div>
+						</button>
 					{/block}
 				{/if}
 			{/block}
 			{block name="navbar-top-user"}
 				{block name="navbar-top-user-account"}
 					<div class="dropdown">
-						<a href="#" data-toggle="modal" data-target="#login-popup" {if empty($smarty.session.Kunde->kKunde)}title="{lang key='login'}"{else}title="{lang key='myAccount'}"{/if}>
+						<a href="#" data-toggle="modal" class="hdr-l" data-target="#login-popup" {if empty($smarty.session.Kunde->kKunde)}title="{lang key='login'}"{else}title="{lang key='myAccount'}"{/if} {if empty($smarty.session.Kunde->kKunde)}aria-label="{lang key='login'}"{else}aria-label="{lang key='myAccount'}"{/if}>
 							<span class="img-ct icon icon-xl">
 								<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
 								  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-user"></use>

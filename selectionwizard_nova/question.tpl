@@ -58,7 +58,7 @@
                                                 {$characteristicValue->getValue()}
                                                 {if $AWA->getConf('auswahlassistent_anzahl_anzeigen') === 'Y'}
                                                     {badge variant="outline-secondary"}
-                                                        {$characteristicValue->getCount()}
+                                                        {$characteristicValue->getCount()} <span class="sr-only"> {lang key='products'} {lang key='found'}</span>
                                                     {/badge}
                                                 {/if}
                                             </span>

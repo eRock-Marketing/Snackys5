@@ -178,7 +178,8 @@
                                 <input type="hidden" name="kWunschliste" value="{$CWunschliste->getID()}"/>
                                 {$jtl_token}
                                 <div class="input-group">
-                                    <input name="cWunschlisteName" type="text" class="form-control input-sm" placeholder="{lang key="wishlistAddNew" section="login"}" size="25" />
+                                    <label for="new_wishlist" class="sr-only">{lang key="wishlistAddNew" section="login"}</label>
+                                    <input name="cWunschlisteName" id="new_wishlist" type="text" class="form-control input-sm" placeholder="{lang key="wishlistAddNew" section="login"}" size="25" />
                                     <span class="input-group-btn">
                                         <button type="submit" class="btn btn-default btn-sm" name="action" value="createNew">{lang key="wishlistSaveNew" section="login"}</button>
                                     </span>
@@ -251,7 +252,8 @@
                                                         {/if}
                                                     {/foreach}
                                                 </div>
-                                                <textarea{if $isCurrenctCustomer !== true} readonly="readonly"{/if} class="form-control mb-xxs small" rows="4" name="Kommentar_{$CWunschlistePos->getID()}" placeholder="{lang key="yourNote"}">{$CWunschlistePos->cKommentar}</textarea>
+                                                <label for="Kommentar_{$CWunschlistePos->getID()}" class="sr-only">{lang key="yourNote"}</label>
+                                                <textarea{if $isCurrenctCustomer !== true} readonly="readonly"{/if} class="form-control mb-xxs small" rows="4" name="Kommentar_{$CWunschlistePos->getID()}" id="Kommentar_{$CWunschlistePos->getID()}" placeholder="{lang key="yourNote"}">{$CWunschlistePos->cKommentar}</textarea>
                                                 {if $CWunschlistePos->getProduct()->Preise->fVKNetto == 0 && $Einstellungen.global.global_preis0 === "N"}
                                                     <button name="remove" value="{$CWunschlistePos->getID()}"
                                                        class="close-btn"
@@ -259,13 +261,17 @@
                                                     </button>
                                                 {else}
                                                     <div class="w100 btn-group">
+                                                        {$minOrderQTY = $CWunschlistePos->getProduct()->fMindestbestellmenge|default:0}
+                                                        {$maxOrderQTY = $CWunschlistePos->getProduct()->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_MAXBESTELLMENGE]|default:''}
+                                                        <label for="Anzahl_{$CWunschlistePos->getID()}" class="sr-only">{lang key="quantity"}</label>
                                                         <input{if $isCurrenctCustomer !== true} readonly="readonly"{/if}
                                                             type="{if $CWunschlistePos->getProduct()->cTeilbar === 'Y' && $CWunschlistePos->getProduct()->fAbnahmeintervall == 0}text{else}number{/if}"
                                                             name="Anzahl_{$CWunschlistePos->getID()}"
+                                                            id="Anzahl_{$CWunschlistePos->getID()}"
                                                             class="wunschliste_anzahl form-control text-right" type="text"
                                                             size="1"
-                                                            min="{if $CWunschlistePos->getProduct()->fMindestbestellmenge}{$CWunschlistePos->getProduct()->fMindestbestellmenge}{else}0{/if}"
-                                                            max="{$CWunschlistePos->getProduct()->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_MAXBESTELLMENGE]|default:''}"
+                                                            min="{$minOrderQTY}"
+                                                            max="{$maxOrderQTY}"
                                                             {if $CWunschlistePos->getProduct()->fAbnahmeintervall > 0}
                                                                 step="{$CWunschlistePos->getProduct()->fAbnahmeintervall}"
                                                             {/if}
@@ -343,6 +349,7 @@
                                         {/block}
                                         {block name='snippets-wishlist-form-content-rename-submit'}
                                             <div class="input-group form-group">
+                                                <label for="wishlist-name" class="sr-only">{lang key='rename'}</label>
                                                 {input id="wishlist-name" type="text" placeholder="name" name="WunschlisteName" value=$CWunschliste->getName()}
                                                 <div class="input-group-btn">
                                                     {input type="submit" value="{lang key="saveConfiguration" section="productDetails"}" class="btn btn-block"}
@@ -361,7 +368,8 @@
                                         {$jtl_token}
                                         <input type="hidden" name="kWunschliste" value="{$CWunschliste->getID()}"/>
                                         <div class="form-group input-group">
-                                            <input type="text" name="wishlist-url" readonly="readonly"
+                                            <label for="wishlist-url" class="sr-only">{lang key='wishlistURL' section='login'}</label>
+                                            <input type="text" name="wishlist-url" id="wishlist-url" readonly="readonly"
                                                    value="{$wishlistURL}?wlid={$CWunschliste->getURL()}"
                                                    class="form-control">
                                             <span class="input-group-btn pr">

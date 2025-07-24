@@ -43,8 +43,8 @@
 					<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="impressumModalLabel">{$linkimpressum->getTitle()}</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<div class="modal-title h5" id="impressumModalLabel">{$linkimpressum->getTitle()}</div>
+							<button type="button" class="close" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>

@@ -3,17 +3,29 @@
 	padding: .5rem 3rem;
 	font-weight: 400;
 	position: relative;
-	font-size: .9rem;
 	background-color: var(--pro-b);
+}
+#header-promo *:not(svg){
+	color: var(--pro-t);
+}
+#header-promo a{
+	text-decoration: underline;
 }
 #header-promo-close{
 	color: var(--pro-i);
 	position: absolute;
 	right: 1rem;
 	top: 0;
-	font-size: 1.3rem;
 	bottom: 0;
 	width: 1.5rem;
 	cursor: pointer;
 	font-family:  "Courier New", Courier, 'Arial';
+}
+#header-promo-close button{
+	-webkit-appearance: none;
+    appearance: none;
+    background: 0 0;
+    border: 0;
+    font-size: 1.3rem;
+    margin-top: -0.3rem;
 }

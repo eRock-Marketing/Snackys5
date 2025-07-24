@@ -2,13 +2,13 @@
 	position: relative;
 }
 .banner > img{
-	border-radius: .8rem;
+	border-radius: var(--img-rnd);
 	width: 100%;
 }
 .banner .area{
 	position: absolute;
 	border: .35rem solid rgba(255,255,255,.6);
-	border-radius: .3rem;
+	border-radius: var(--btn-rnd-sm);
 	transition: .3s ease;
 	opacity: 0;
 }
@@ -30,7 +30,7 @@
 	justify-content: center;
 	z-index: 100;
 	background: #fff;
-	border-radius: .3rem;
+	border-radius: var(--btn-rnd-sm);
 	padding: 1rem;
 	box-shadow: 0 0 20px 0 rgba(0,0,0,.25);
     margin-top: 1rem;

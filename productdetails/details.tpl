@@ -88,6 +88,13 @@
 																	</li>
 																{/if}
 															{/block}                                
+															{block name="productdetails-info-han"}
+																{if !empty($Artikel->cHAN) && ($Einstellungen.artikeldetails.han_display === 'details' || $Einstellungen.artikeldetails.han_display === 'always')}
+																	<li class="nav-it">
+																		<strong>{lang key='han'}: </strong><span>{$Artikel->cHAN}</span>
+																	</li>
+																{/if}
+															{/block}                                
 															{block name="productdetails-info-isbn-wrapper"}
 																{if !empty($Artikel->cISBN) && ($Einstellungen.artikeldetails.isbn_display === 'D' || $Einstellungen.artikeldetails.isbn_display === 'DL')}
 																	<li class="nav-it">
@@ -176,6 +183,40 @@
 										{/block}
 									{/if}
 								{/block}
+								{block name="productdetails-info-gpsr-wrapper"}
+									{if isset($Artikel->FunktionsAttribute.gpsr_manufacturer_homepage) 
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_email)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_country)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_state)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_city)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_postalcode)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_housenumber)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_street)
+										|| isset($Artikel->FunktionsAttribute.gpsr_manufacturer_name)
+									}
+										{assign var="hasGPSR" value=true}
+									{/if}
+									{if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 3}
+										{block name="productdetails-gpsr-description"}
+											<strong class="block">{lang key='gpsrHeadline' section='custom'}</strong>
+											<a href="#" data-toggle="modal" data-target="#gpsr-popup" title="{lang key='gpsrHeadline' section='custom'}"><u>{lang key='gpsrLink' section='custom'}</u></a>
+											<div class="modal modal-dialog blanklist" tabindex="-1" id="gpsr-popup">
+												<div class="modal-content">
+													<div class="modal-header">
+														<span class="modal-title block h5">
+															{lang key='gpsrHeadline' section='custom'}
+														</span>
+														<button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
+														</button>
+													</div>
+													<div class="modal-body">
+														{include file="snippets/gpsr.tpl" hideTitle=true}
+													</div>
+												</div>
+											</div>
+										{/block}
+									{/if}
+								{/block}
                 				{block name="productdetails-info-product-offer"}
                 					<div class="product-offer">
                     					<hr>
@@ -234,8 +275,14 @@
 												<div class="col-12{if $Artikel->bHasKonfig}{elseif $snackyConfig.css_maxPageWidth >= 1600} col-xl-6{/if} buy-col">
 													{block name="details-wenig-bestand-wrapper"}
 														{if $snackyConfig.hotStock > 0 && $Artikel->cLagerBeachten === 'Y' && $Artikel->cLagerKleinerNull === 'N' && $Artikel->fLagerbestand <= $snackyConfig.hotStock && $Artikel->fLagerbestand > 0}
-															<div class="mb-xxs">
-																<div class="alert alert-hotstock m0 text-center"><strong>{lang key="hotStock" section="custom" printf=$Artikel->fLagerbestand}</strong></div>
+															<div class="alert-hotstock text-center mb-xs">
+																<strong class="block mb-xxs">{lang key="hotStock" section="custom" printf=$Artikel->fLagerbestand}</strong>
+																<div class="progress">
+																	{assign var="stock_percent" value=$Artikel->fLagerbestand / $snackyConfig.hotStock * 100}
+																	<div class="progress-bar" style="width: {$stock_percent|round}%;">
+																		{$Artikel->fLagerbestand}
+																	</div>
+																</div>
 															</div>
 														{/if}
 													{/block}
@@ -282,12 +329,7 @@
 														<div class="payplan"></div>
 													{/block}
 												</div>
-											</div>           
-											{block name="details-buy-actions-wrapper"}
-												<div class="hidden">
-													{include file="productdetails/actions.tpl"}
-												</div>
-											{/block}
+											</div>
                     					{/block}
 										{if isset($varKombiJSON) && $varKombiJSON!= ''}
 											<script id="varKombiArr" type="application/json">{$varKombiJSON}</script>
@@ -313,8 +355,8 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="pp-question_on_item-label">{lang key='productQuestion' section='productDetails'}</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<div class="modal-title h5" id="pp-question_on_item-label">{lang key='productQuestion' section='productDetails'}</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
 								</button>
 							</div>
 							<div class="modal-body">
@@ -331,8 +373,8 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="pp-availability_notification-label">{lang key='requestNotification'}</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<div class="modal-title h5" id="pp-availability_notification-label">{lang key='requestNotification'}</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
 								</button>
 							</div>
 							<div class="modal-body">

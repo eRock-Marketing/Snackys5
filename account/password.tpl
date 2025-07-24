@@ -21,13 +21,14 @@
             			{block name="password-reset-form-body"}
             				<form id="passwort_vergessen" action="{get_static_route id='pass.php'}{if $bExclusive === true}?exclusive_content=1{/if}" method="post" class="panel jtl-validate" addhoneypot=true>
                 				{$jtl_token}
-								{block name="password-reset-form-legend"}
-                					<legend>{lang key="createNewPassword" section="forgot password"}</legend>
-								{/block}
-								{block name="password-reset-form-alert"}
-                					{$alertList->displayAlertByKey('forgotPasswordDesc')}
-								{/block}
+								<div class="required-info">{lang key='requiredInfo' section='custom'}</div>
 								<fieldset>
+									{block name="password-reset-form-legend"}
+										<legend>{lang key="createNewPassword" section="forgot password"}</legend>
+									{/block}
+									{block name="password-reset-form-alert"}
+										{$alertList->displayAlertByKey('forgotPasswordDesc')}
+									{/block}
 									{block name="password-reset-form-mail"}
 										<div class="form-group float-label-control required">
 											<label for="email" class="control-label">{lang key="emailadress" section="global"}</label>
@@ -81,7 +82,11 @@
 						{block name="password-reset-confirm-body"}
 							<form id="passwort_vergessen" action="{get_static_route id='pass.php'}{if $bExclusive === true}?exclusive_content=1{/if}" method="post" class="panel jtl-validate">
 								{$jtl_token}
+								<div class="required-info">{lang key='requiredInfo' section='custom'}</div>
 								<fieldset>
+									{block name="password-reset-legend"}
+										<legend>{lang key="createNewPassword" section="forgot password"}</legend>
+									{/block}
 									{block name="password-reset-password"}
 										<div class="form-group required">
 											<label for="pw_new" class="control-label">{lang key='password' section='account data'}</label>

@@ -133,7 +133,7 @@
                         {/block}
                         {block name="top-top-scroller"}
                             {if $Suchergebnisse->getProducts()|@count >= 20}
-                                <a href="#top" id="nfity-scroll" class="flx-ac flx-jc">
+                                <a href="#top" id="nfity-scroll" class="flx-ac flx-jc" aria-label="{lang key='goTop'}">
                                     <span class="ar ar-u"></span>
                                 </a>
                             {/if}
@@ -175,7 +175,7 @@
                                                 </div>
                                             {else}
                                                 <div class="el-sc endless-scrolling text-center flx-ac flx-jc w100">
-                                                    <button id="view-next" class="btn btn-xs" data-url="{$oNaviSeite_arr.vor->getURL()}"></button>
+                                                    <button id="view-next" class="btn btn-xs" data-url="{$oNaviSeite_arr.vor->getURL()}" aria-label="{lang key='loadNext' section='custom' printf=$anzMore}"></button>
                                                 </div>
                                             {/if}
                                         {/if}

@@ -5,12 +5,10 @@
     {foreach $NaviFilter->searchFilterCompat->getOptions() as $searchFilter}
         {block name='snippets-filter-search-navitem'}
             <li>
-            {link nofollow=true
-                href=$searchFilter->getURL()
-                class="filter-item {if $searchFilter->isActive()}active{/if}"}
+                <a rel="nofollow" href="{$searchFilter->getURL()}" class="filter-item {if $searchFilter->isActive()}active{/if}" aria-label="{lang key='filterBy'}: {$searchFilter->getName()|escape:'html'}">
                     <span class="value">{$searchFilter->getName()}</span>
-                    {badge variant="outline-secondary"}{$searchFilter->getCount()}{/badge}
-            {/link}
+                    {badge variant="outline-secondary"}{$searchFilter->getCount()} <span class="sr-only">{lang key='products'} {lang key='found'}</span>{/badge}
+                </a>
             </li>
         {/block}
     {/foreach}

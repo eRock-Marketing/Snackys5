@@ -1,13 +1,13 @@
 {block name='register-form-customer-login'}
     {block name='login-mail'}
         <div class="form-group float-label-control required">
-            <label for="email" class="control-label">{lang key="email" section="account data"}</label>
+            <label for="login_email" class="control-label">{lang key="email" section="account data"}</label>
             <input type="text" name="email" id="login_email" class="form-control" placeholder="{lang key="email" section="account data"}" required />
         </div>
     {/block}
     {block name='login-password'}
         <div class="form-group float-label-control required">
-            <label for="password" class="control-label">{lang key="password" section="account data"}</label>
+            <label for="login_password" class="control-label">{lang key="password" section="account data"}</label>
             <input type="password" name="passwort" id="login_password" class="form-control" placeholder="{lang key="password" section="account data"}" required />
             <a class="small" href="{get_static_route id='pass.php'}"> {lang key="forgotPassword" section="global"}</a>
         </div>

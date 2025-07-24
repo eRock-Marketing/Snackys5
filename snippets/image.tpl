@@ -110,59 +110,43 @@
     {/block}
 
     {block name='snippets-image-main'}
-        {if $square}
-        <div class="square square-image {$squareClass}">
-            <div class="inner">
-        {/if}
+        {block name='snippets-image-main-image'}
+            {image fluid=$fluid lazy=$lazy webp=$webp center=$center
+                src=$item->getImage($srcSize)
+                srcset="{$item->getImage(\JTL\Media\Image::SIZE_XS)} {$mini}w,
+                        {$item->getImage(\JTL\Media\Image::SIZE_SM)} {$klein}w,
+                        {$item->getImage(\JTL\Media\Image::SIZE_MD)} {$normal}w,
+                        {$item->getImage(\JTL\Media\Image::SIZE_LG)} {$gross}w"
+                alt=$alt|strip_tags|escape:'quotes'
+                sizes=$sizes
+                class=$class
+            }
+        {/block}
+		{if isset($second) && !$isMobile}
             {block name='snippets-image-main-image'}
+            {if strpos($item->getImage($srcSize), 'keinBild.gif') !== false}
+                {image fluid=$fluid lazy=$lazy webp=$webp center=$center
+                    src=$item->getImage($srcSize)
+                    alt=$alt|strip_tags|escape:'quotes'|escape:'html'
+                    width=$maxWidth|default:130
+                    height=$maxHeight|default:130
+                    class=$class
+                }
+            {else}
                 {image fluid=$fluid lazy=$lazy webp=$webp center=$center
                     src=$item->getImage($srcSize)
                     srcset="{$item->getImage(\JTL\Media\Image::SIZE_XS)} {$mini}w,
                             {$item->getImage(\JTL\Media\Image::SIZE_SM)} {$klein}w,
                             {$item->getImage(\JTL\Media\Image::SIZE_MD)} {$normal}w,
                             {$item->getImage(\JTL\Media\Image::SIZE_LG)} {$gross}w"
-                    alt=$alt|strip_tags|escape:'quotes'
+                    alt=$alt|strip_tags|escape:'quotes'|escape:'html'
                     sizes=$sizes
+                    width=$maxWidth|default:$width
+                    height=$maxHeight|default:$height
                     class=$class
                 }
+            {/if}
             {/block}
-        {if $square}
-            </div>
-        </div>
-        {/if}
-		{if isset($second) && !$isMobile}
-			{if $square}
-			<div class="square square-image {$squareClass}">
-				<div class="inner">
-			{/if}
-				{block name='snippets-image-main-image'}
-                {if strpos($item->getImage($srcSize), 'keinBild.gif') !== false}
-                    {image fluid=$fluid lazy=$lazy webp=$webp center=$center
-                        src=$item->getImage($srcSize)
-                        alt=$alt|strip_tags|escape:'quotes'|escape:'html'
-                        width=$maxWidth|default:130
-                        height=$maxHeight|default:130
-                        class=$class
-                    }
-                {else}
-                    {image fluid=$fluid lazy=$lazy webp=$webp center=$center
-                        src=$item->getImage($srcSize)
-                        srcset="{$item->getImage(\JTL\Media\Image::SIZE_XS)} {$mini}w,
-                                {$item->getImage(\JTL\Media\Image::SIZE_SM)} {$klein}w,
-                                {$item->getImage(\JTL\Media\Image::SIZE_MD)} {$normal}w,
-                                {$item->getImage(\JTL\Media\Image::SIZE_LG)} {$gross}w"
-                        alt=$alt|strip_tags|escape:'quotes'|escape:'html'
-                        sizes=$sizes
-                        width=$maxWidth|default:$width
-                        height=$maxHeight|default:$height
-                        class=$class
-                    }
-                {/if}
-				{/block}
-			{if $square}
-				</div>
-			</div>
-			{/if}
 		{/if}
     {/block}
     {/if}

@@ -12,7 +12,7 @@
 }
 #dt-upload .btn-file,
 #fileupload-wrapper .btn-file{
-    border-radius: .5rem;
+    border-radius: var(--btn-rnd);
     background: var(--btn-pr-b);
     border: 1px solid var(--btn-pr-r);
     justify-content: center;

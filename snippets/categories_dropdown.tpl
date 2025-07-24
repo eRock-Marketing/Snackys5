@@ -21,6 +21,7 @@
 <li class="is-lth{if $nSeitenTyp == 18} active{/if}">
 	<a href="{$ShopURL}" title="{$Einstellungen.global.global_shopname}" class="home-icon mm-mainlink">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 26.25"><path d="M3.75 26.25h9.37v-7.5h3.76v7.5h9.37V15H30L15 0 0 15h3.75z"/></svg>
+        <span class="sr-only">{lang key="linkHome" section="custom"}</span>
 	</a>
 </li>
 {elseif $snackyConfig.megaHome == 1}
@@ -72,9 +73,9 @@
 					{/if}
                 </a>   
                 {if $snackyConfig.dropdown_plus == 1 && $isDropdown && $category->hasChildren() && $snackyConfig.drodownMaincat == 1}
-                    <span class="hidden-xs dd-toggle" type="button" data-toggle="collapse" data-target="#mm-{$category->getID()}" aria-expanded="false" aria-controls="mm-{$category->getID()}">
+                    <button class="hidden-xs dd-toggle" type="button" data-toggle="collapse" data-target="#mm-{$category->getID()}" aria-expanded="false" aria-controls="mm-{$category->getID()}">
                         <span class="ar ar-d"></span>
-                    </span>
+                    </button>
                 {/if}
                 {if $isDropdown && $category->hasChildren()}
                     <ul class="dropdown-menu keepopen{if $snackyConfig.drodownMaincat != 1} first{/if}"{if $snackyConfig.dropdown_plus == 1 && $snackyConfig.drodownMaincat == 1} id="mm-{$category->getID()}"{/if}>
@@ -101,9 +102,9 @@
 										{/if}
 									</a>
                                     {if $snackyConfig.dropdown_plus == 1 && $show_subcategories && $sub->hasChildren()}
-                                        <span class="hidden-xs dd-toggle" type="button" data-toggle="collapse" data-target="#mm-{$sub->getID()}" aria-expanded="false" aria-controls="mm-{$sub->getID()}">
+                                        <button class="hidden-xs dd-toggle" type="button" data-toggle="collapse" data-target="#mm-{$sub->getID()}" aria-expanded="false" aria-controls="mm-{$sub->getID()}">
                                             <span class="ar ar-d"></span>
-                                        </span>
+                                        </button>
                                     {/if}
 									{if $show_subcategories && $sub->hasChildren()}
 										<ul class="dropdown-menu keepopen"{if $snackyConfig.dropdown_plus == 1} id="mm-{$sub->getID()}"{/if}>

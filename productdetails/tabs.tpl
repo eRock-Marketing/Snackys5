@@ -13,6 +13,13 @@
         {/if}
         {$dimension = $Artikel->getDimension()}
         {$funcAttr = $Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_ATTRIBUTEANHAENGEN]|default:0}
+        {if $snackyConfig.gpsr_shown == 2}
+            {assign var="splitManuDesc" value="####"|explode:$Artikel->cHerstellerBeschreibung}
+            {if count($splitManuDesc)>1}
+                {assign var="hasSplitManu" value=true}
+            {/if}
+        {/if}
+        {$showGPSR = isset($Artikel->cHerstellerBeschreibung) && ($snackyConfig.gpsr_position == 0 || $snackyConfig.gpsr_position == 1) && ($snackyConfig.gpsr_shown == 1 || ($snackyConfig.gpsr_shown == 2 && isset($hasSplitManu)))}
         {$showAttributesTable = ($Einstellungen.artikeldetails.merkmale_anzeigen === 'Y'
             && !empty($Artikel->oMerkmale_arr) || $showProductWeight || $showShippingWeight
             || $Einstellungen.artikeldetails.artikeldetails_abmessungen_anzeigen === 'Y'
@@ -24,7 +31,7 @@
         {$useDescriptionWithMediaGroup = ((($Einstellungen.artikeldetails.mediendatei_anzeigen === 'YA'
             && $Artikel->cMedienDateiAnzeige !== 'tab') || $Artikel->cMedienDateiAnzeige === 'beschreibung')
             && !empty($Artikel->getMediaTypes()))}
-        {$useDescription = (($Artikel->cBeschreibung|strlen > 0) || $useDescriptionWithMediaGroup || $showAttributesTable)}
+        {$useDescription = (($Artikel->cBeschreibung|strlen > 0) || $useDescriptionWithMediaGroup || $showAttributesTable || $showGPSR)}
         {$useDownloads = (isset($Artikel->oDownload_arr) && $Artikel->oDownload_arr|count > 0)}
         {$useVotes = $Einstellungen.bewertung.bewertung_anzeigen === 'Y'}
         {$useQuestionOnItem = $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'Y'}
@@ -38,6 +45,18 @@
             || isset($smarty.get.ratings_nItemsPerPage)
             || isset($smarty.get.ratings_nSortByDir)
             || isset($smarty.get.btgsterne)}
+        {if isset($Artikel->FunktionsAttribute.gpsr_manufacturer_homepage) 
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_email)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_country)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_state)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_city)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_postalcode)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_housenumber)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_street)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_name)
+        }
+            {assign var="hasGPSR" value=true}
+        {/if}
         {section name=iterator start=1 loop=11}
             {$tab = tab}
             {$tabname = $tab|cat:$smarty.section.iterator.index|cat:" name"}
@@ -65,7 +84,7 @@
                 && !$useQuestionOnItem && !$usePriceFlow && !$useAvailabilityNotification)
         ]}
     {/block}
-    {block name='productdetails-tabs-inner'}
+    {block name='productdetails-tabs-wrapper'}
         {if $useDescription || $useDownloads || $useDescriptionWithMediaGroup || $useVotes || $useQuestionOnItem || $usePriceFlow
             || $useAvailabilityNotification || $useMediaGroup || !empty($separatedTabs)}
 	        {include file="snippets/zonen.tpl" id="opc_before_tabs"}
@@ -78,6 +97,15 @@
                                     <li role="presentation" class="nav-item">
                                         <a class="nav-link{if $setActiveClass.description} active{/if}" aria-controls="tab-description" role="tab" data-toggle="tab" href="#tab-description">
                                             {block name='tab-description-title'}{lang key='description' section='productDetails'}{/block}
+                                        </a>
+                                    </li>
+                                {/if}
+                            {/block}
+                            {block name="tab-nav-block-gpsr"}
+                                {if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 2}
+                                    <li role="presentation" class="nav-item">
+                                        <a class="nav-link" aria-controls="tab-gpsr" role="tab" data-toggle="tab" href="#tab-gpsr">
+                                            {lang key='gpsrHeadline' section='custom'}
                                         </a>
                                     </li>
                                 {/if}
@@ -160,7 +188,7 @@
                                 {if $useDescription}
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.description} show active{/if}" id="tab-description">
                                         {block name="tabs-desc-accordeon"}
-                                            <div class="panel-heading flx-jb flx-ac" data-toggle="collapse" href="#tab-description" role="button">
+                                            <button class="panel-heading flx-jb flx-ac" data-toggle="collapse" href="#tab-description" role="button">
                                                 <div class="panel-title h3 m0">
                                                     {block name='tab-description-title'}{lang key='description' section='productDetails'}{/block}
                                                 </div>
@@ -169,7 +197,7 @@
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-desc-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -201,6 +229,11 @@
                                                         </div>
                                                         {include file="snippets/zonen.tpl" id="opc_after_desc"}
                                                     {/block}
+                                                    {block name="tab-description-gpsr-before"}
+                                                        {if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 0}
+                                                            {include file='snippets/gpsr.tpl'}
+                                                        {/if}
+                                                    {/block}
                                                     {block name="tab-description-attributes"}
                                                         {if (!empty($Artikel->cBeschreibung) || $useDescriptionWithMediaGroup) && $showAttributesTable}
                                                             <hr>
@@ -211,7 +244,38 @@
                                                             dimension=$dimension showAttributesTable=$showAttributesTable}
                                                         {include file="snippets/zonen.tpl" id="opc_after_desc_attributes"}
                                                     {/block}
+                                                    {block name="tab-description-gpsr-after"}
+                                                        {if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 1}
+                                                            {if (!empty($Artikel->cBeschreibung) || $useDescriptionWithMediaGroup) && $showAttributesTable}
+                                                                <hr>
+                                                            {/if}
+                                                            {include file='snippets/gpsr.tpl'}
+                                                        {/if}
+                                                    {/block}
                                                 </div>
+                                            </div>
+                                        {/block}
+                                    </div>
+                                {/if}
+                            {/block}
+                            {block name="tabs-gpsr"}
+                                {if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 2}
+                                    <div class="tab-ct tab-pane panel-default" id="tab-gpsr">
+                                        {block name="tabs-gpsr-accordeon"}
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-gpsr" role="button">
+                                                <div class="panel-title h3 m0">{lang key='gpsrHeadline' section='custom'}</div>
+                                                <span class="img-ct icon">
+                                                    <svg>
+                                                    <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        {/block}
+                                        {block name="tabs-gpsr-body"}
+                                            <div class="panel-body{if !$tabanzeige} mb-md{/if}">
+                                                {include file="snippets/zonen.tpl" id="opc_before_gpsr"}
+                                                {include file="snippets/gpsr.tpl" hideTitle=true}
+                                                {include file="snippets/zonen.tpl" id="opc_after_gpsr"}
                                             </div>
                                         {/block}
                                     </div>
@@ -221,14 +285,14 @@
                                 {if $useDownloads}
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.downloads} show active{/if}" id="tab-downloads">
                                         {block name="tabs-downloads-accordeon"}
-                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-downloads" role="button">
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-downloads" role="button">
                                                 <div class="panel-title h3 m0">{lang section="productDownloads" key="downloadSection"}</div>
                                                 <span class="img-ct icon">
                                                     <svg>
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-downloads-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -245,14 +309,14 @@
                                     {foreach $separatedTabs as $separatedTab}
                                         <div class="tab-ct tab-pane panel-default{if $setActiveClass.separatedTabs && $separatedTab@first} show active{/if}" id="tab-{$separatedTab.id}">
                                             {block name="tabs-separated-accordeon"}
-                                                <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-{$separatedTab.id}" role="button">
+                                                <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-{$separatedTab.id}" role="button">
                                                     <div class="panel-title h3 m0">{$separatedTab.name}</div>
                                                     <span class="img-ct icon">
                                                         <svg>
                                                         <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                         </svg>
                                                     </span>
-                                                </div>
+                                                </button>
                                             {/block}
                                             {block name="tabs-separated-body"}
                                                 <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -269,14 +333,14 @@
                                 {if $useVotes}
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.votes} show active{/if}" id="tab-votes">
                                         {block name="tabs-votes-accordeon"}
-                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-votes" role="button">
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-votes" role="button">
                                                 <div class="panel-title h3 m0">{lang key="Votes" section="global"} {if $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0}({$Artikel->Bewertungen->oBewertungGesamt->nAnzahl}){/if}</div>
                                                 <span class="img-ct icon">
                                                     <svg>
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-votes-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -292,14 +356,14 @@
                                 {if $useQuestionOnItem}
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.questionOnItem} show active{/if}" id="tab-questionOnItem">
                                         {block name="tabs-question-accordeon"}
-                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-questionOnItem" role="button">
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-questionOnItem" role="button">
                                                 <div class="panel-title h3 m0">{lang key="productQuestion" section="productDetails"}</div>
                                                 <span class="img-ct icon">
                                                     <svg>
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-question-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -315,14 +379,14 @@
                                 {if $usePriceFlow} 
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.priceFlow} show active{/if}" id="tab-priceFlow">
                                         {block name="tabs-priceflow-accordeon"}
-                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-priceFlow" role="button">
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-priceFlow" role="button">
                                                 <div class="panel-title h3 m0">{lang key="priceFlow" section="productDetails"}</div>
                                                 <span class="img-ct icon">
                                                     <svg>
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-priceflow-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -338,14 +402,14 @@
                                 {if $useAvailabilityNotification}
                                     <div class="tab-ct tab-pane panel-default{if $setActiveClass.availabilityNotification} show active{/if}" id="tab-availabilityNotification">
                                         {block name="tabs-avail-note-accordeon"}
-                                            <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-availabilityNotification" role="button">
+                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-availabilityNotification" role="button">
                                                 <div class="panel-title h3 m0">{lang key="notifyMeWhenProductAvailableAgain" section="global"}</div>
                                                 <span class="img-ct icon">
                                                     <svg>
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </button>
                                         {/block}
                                         {block name="tabs-avail-note-body"}
                                             <div class="panel-body{if !$tabanzeige} mb-md{/if}">
@@ -364,14 +428,14 @@
                                         {if $cMedienTypId !== 'videos'}
                                             <div class="tab-ct tab-pane panel-default{if $setActiveClass.mediaGroup && $mediaType@first} show active{/if}" id="tab-{$cMedienTypId}">
                                                 {block name="tabs-mediagroup-accordeon"}
-                                                    <div class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-{$cMedienTypId}" role="button">
+                                                    <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-{$cMedienTypId}" role="button">
                                                         <div class="panel-title h3 m0">{$mediaType->name}</div>
                                                         <span class="img-ct icon">
                                                             <svg>
                                                             <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
                                                             </svg>
                                                         </span>
-                                                    </div>
+                                                    </button>
                                                 {/block}
                                                 {block name="tabs-mediagroup-body"}
                                                     <div class="panel-body">

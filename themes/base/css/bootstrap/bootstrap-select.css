@@ -19,7 +19,7 @@
 }
 .bootstrap-select > .btn.dropdown-toggle{
     display: flex;
-    border-radius: .3rem;
+    border-radius: var(--frm-rnd);
     font-weight: 400;
     width: 100%;
     text-align: left;

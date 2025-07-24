@@ -22,11 +22,12 @@
 		<div id="select_shipping_address" class="mt-md{if $showShippingAddress || isset($smarty.get.editLieferadresse)} collapse show{/if}"{if $showShippingAddress || isset($smarty.get.editLieferadresse)} style="display:block;"{/if}>
     		{block name="checkout-enter-shipping-address-body"}
     			{if JTL\Session\Frontend::getCustomer()->getID() > 0 && isset($Lieferadressen) && $Lieferadressen|count > 0}
+					<fieldset>
 					{block name='ship-address-choose-headline'}
-        				<div class="h4">{lang key="deviatingDeliveryAddress" section="account data"}</div>
+        				<legend class="h4">{lang key="deviatingDeliveryAddress" section="account data"}</legend>
 					{/block}
 					{block name='ship-address-choose-address'}
-        				<div class="card mt-sm sa-card">
+        				<div class="card mt-xs sa-card">
             				<div class="card-body">
             					{foreach $Lieferadressen as $adresse}
 									{block name='ship-address-choose-address-item'}
@@ -39,7 +40,7 @@
                             								<div class="modal-title h5">
                                 								{lang key="shippingAdress" section="account data"}
                             								</div>
-                            								<button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
+                            								<button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
                             								</button>
                         								</div>
 													{/block}
@@ -75,7 +76,7 @@
 													</label>
 												{/block}
 												{block name='ship-address-choose-address-item-modal-toggle'}
-													<a href="" class="btn btn-blank btn-sm" data-toggle="modal" data-target="#shipadress{$adresse@iteration}">
+													<a href="" class="btn btn-blank btn-sm" data-toggle="modal" data-target="#shipadress{$adresse@iteration}" aria-label="{lang key='view'}: {lang key='shippingAdress' section='checkout'}">
 														<span class="img-ct icon">
 															<svg>
 															  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-info"></use>
@@ -84,7 +85,7 @@
 													</a>
 												{/block}
 												{block name='ship-address-choose-address-item-edit'}
-													<a class="btn btn-blank btn-sm" href="{get_static_route id='jtl.php' params=['editLieferadresse' => 1, 'editAddress' => {$adresse->kLieferadresse}, 'fromCheckout'=>1]}">
+													<a class="btn btn-blank btn-sm" href="{get_static_route id='jtl.php' params=['editLieferadresse' => 1, 'editAddress' => {$adresse->kLieferadresse}, 'fromCheckout'=>1]}" aria-label="{lang key='modifyShippingAdress' section='checkout'}">
 														<span class="img-ct icon">
 															<svg>
 															  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-edit"></use>
@@ -112,9 +113,10 @@
             				</div>
         				</div>
 					{/block}
+					</fieldset>
 					{block name='ship-address-new-address-form'}
 						<fieldset id="register_shipping_address" class="mt-sm panel checkout-register-shipping-address collapse collapse-non-validate {if $kLieferadresse == -1 && !isset($shippingAddressPresetID)} show{/if}" aria-expanded="{if $kLieferadresse == -1 && !isset($smarty.session.shippingAddressPresetID)}true{else}false{/if}">
-							<span class="h4 block">{lang key="createNewShippingAdress" section="account data"}</span>
+							<legend class="h4 block">{lang key="createNewShippingAdress" section="account data"}</legend>
 							{include file="checkout/customer_shipping_address.tpl" prefix="register" fehlendeAngaben=$fehlendeAngabenShipping}
 							{include file="checkout/customer_shipping_contact.tpl" prefix="register" fehlendeAngaben=$fehlendeAngabenShipping}
 						</fieldset>
@@ -122,7 +124,7 @@
     			{else}
 					{block name='ship-address-new-address-form-single'}
 						<fieldset class="panel">
-							<span class="h4 block">{lang key="createNewShippingAdress" section="account data"}</span>
+							<legend class="h4 block">{lang key="createNewShippingAdress" section="account data"}</legend>
 							{include file="checkout/customer_shipping_address.tpl" prefix="register" fehlendeAngaben=$fehlendeAngabenShipping}
 							{include file="checkout/customer_shipping_contact.tpl" prefix="register" fehlendeAngaben=$fehlendeAngabenShipping}
 						</fieldset>

@@ -75,7 +75,18 @@
                             {if $Einstellungen.navigationsfilter.hersteller_beschreibung_anzeigen === 'Y'
                             && $oNavigationsinfo->getManufacturer() !== null
                             && $oNavigationsinfo->getManufacturer()->getDescription()|strlen > 0}
-                                <div class="item_desc custom_content">{if $snackyConfig.optimize_kategorie == "Y"}{$oNavigationsinfo->getManufacturer()->getDescription()|optimize}{else}{$oNavigationsinfo->getManufacturer()->getDescription()}{/if}</div>
+                                <div class="item_desc custom_content">
+                                    {assign var="manuDesc" value=$oNavigationsinfo->getManufacturer()->getDescription()}
+                                    {if $snackyConfig.gpsr_shown == 2}
+                                        {assign var="splitManuDesc" value="####"|explode:$manuDesc}
+                                        {assign var="manuDesc" value=$splitManuDesc[0]}
+                                    {/if}
+                                    {if $snackyConfig.optimize_kategorie == "Y"}
+                                        {$manuDesc|optimize}
+                                    {else}
+                                        {$manuDesc}
+                                    {/if}
+                                </div>
                             {/if}
                             {if $Einstellungen.navigationsfilter.merkmalwert_beschreibung_anzeigen === 'Y'
                             && $oNavigationsinfo->getCharacteristicValue() !== null

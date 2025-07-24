@@ -28,6 +28,14 @@
             {col tag='dd' cols=6}{$Artikel->cBarcode}{/col}
         {/block}
     {/if}
+    {if !empty($Artikel->cHAN)
+        && ($Einstellungen.artikeldetails.han_display === 'lists'
+        || $Einstellungen.artikeldetails.han_display === 'always')}
+        {block name='productlist-item-details-han'}
+            {col tag='dt' cols=6}{lang key='han'}:{/col}
+            {col tag='dd' cols=6}{$Artikel->cHAN}{/col}
+        {/block}
+    {/if}
     {if !empty($Artikel->cISBN)
     && ($Einstellungen.artikeldetails.isbn_display === 'L'
     || $Einstellungen.artikeldetails.isbn_display === 'DL')}

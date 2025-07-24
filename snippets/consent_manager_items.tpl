@@ -80,24 +80,14 @@
 			{
 				if (bingLoaded == false && detail !== null && typeof detail.km_bing !== 'undefined' && detail.km_bing === true) {
 					bingLoaded = true;
-					(function(w,d,t,r,u)
-					{
-						var f,n,i;
-						w[u]=w[u]||[],f=function()
+					window.uetq = window.uetq || [];
+					window.uetq.push(
+						'consent',
+						'update', 
 						{
-							var o={
-								ti:"{$snackyConfig.bing_ads|trim}"
-							};
-							o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")
-						},
-						n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function()
-						{
-							var s=this.readyState;
-							s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)
-						},
-						i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)
-					})
-					(window,document,"script","//bat.bing.com/bat.js","uetq");
+							'ad_storage':'granted'
+						}
+					);
 				}
 
 			}

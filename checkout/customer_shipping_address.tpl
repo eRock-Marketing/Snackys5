@@ -15,7 +15,7 @@
 								<option value="m"{if isset($Lieferadresse->cAnrede) && $Lieferadresse->cAnrede === 'm'} selected="selected"{/if}>{lang key='salutationM'}</option>
 							</select>
 							{if !empty($fehlendeAngaben.anrede)}
-								<div class="alert alert-danger">{lang key="fillOut" section="global"}</div>
+								<div class="alert alert-danger" aria-live="assertive" role="alert" aria-atomic="true">{lang key="fillOut"}</div>
 							{/if}
 						</div>
 					</div>
@@ -88,13 +88,14 @@
 			{block name='shipping-address-firmtext'}
 				{if $Einstellungen.kunden.lieferadresse_abfragen_firmazusatz !== 'N'}
 					<div class="col-12 col-md-6">
-						<div class="form-group float-label-control{if !empty($fehlendeAngaben.firmazusatz)} has-error{/if}{if $Einstellungen.kunden.lieferadresse_abfragen_firmazusatz === 'Y'} required{/if}">
-							<label for="{$prefix}-{$name}-firmext" class="control-label">{lang key="firmext" section="account data"}</label>
-							<input type="text" name="{$prefix}[{$name}][firmazusatz]" value="{if isset($Lieferadresse->cZusatz)}{$Lieferadresse->cZusatz|entferneFehlerzeichen}{/if}" id="{$prefix}-{$name}-firmext" class="form-control" placeholder="{lang key="firmext" section="account data"}"{if $Einstellungen.kunden.lieferadresse_abfragen_firmazusatz === 'Y'} required{/if} spellcheck="false"  autocorrect="off" maxlength="60">
-							{if !empty($fehlendeAngaben.firmazusatz)}
-								<div class="alert alert-danger">{lang key="fillOut" section="global"}</div>
-							{/if}
-						</div>
+						{include file='snippets/form_group_simple.tpl'
+                            options=[
+                                "text", "{$prefix}-{$name}-firmext", "{$prefix}[{$name}][firmazusatz]",
+                                {$Lieferadresse->cZusatz|default:null}, {lang key='firmext' section='account data'},
+                                $Einstellungen.kunden.lieferadresse_abfragen_firmazusatz, null, "shipping organization ext",
+                                null, 60
+                            ]
+                        }
 					</div>
 				{/if}
 			{/block}
@@ -215,7 +216,7 @@
 									autocomplete="shipping address-level1">
 							{/if}
 							{if !empty($fehlendeAngaben.bundesland)}
-								<div class="alert alert-danger">{lang key="fillOut" section="global"}</div>
+								<div class="form-error-msg" aria-live="assertive" role="alert" aria-atomic="true">{lang key='fillOut'}</div>
 							{/if}
 						</div>
 					</div>
@@ -227,14 +228,14 @@
 		<div class="row">
 			{block name='shipping-address-zip'}
 				<div class="col-12 col-md-6">
-					<div class="form-group float-label-control{if !empty($fehlendeAngaben.plz)} has-error{/if} required">
+					<div class="form-group float-label-control typeahead-required{if !empty($fehlendeAngaben.plz)} has-error{/if} required">
 						<label class="control-label" for="{$prefix}-{$name}-postcode">{lang key="plz" section="account data"}</label>
 						<input
 							type="text"
 							name="{$prefix}[{$name}][plz]"
 							value="{if isset($Lieferadresse->cPLZ)}{$Lieferadresse->cPLZ}{/if}"
 							id="{$prefix}-{$name}-postcode"
-							class="postcode_input form-control"
+							class="postcode_input form-control typeahead bg-typeahead-fix"
 							placeholder="{lang key="plz" section="account data"}"
 							data-toggle="postcode" data-city="#{$prefix}-{$name}-city" data-country="#{$prefix}-{$name}-country"
 							required {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternPLZ)}pattern="{$snackyConfig.patternPLZ}"{/if}
@@ -244,7 +245,7 @@
 							maxlength="20"
 							>
 						{if isset($fehlendeAngaben.plz)}
-							<div class="alert alert-danger">
+							<div class="alert alert-danger" aria-live="assertive" role="alert" aria-atomic="true">
 								{if $fehlendeAngaben.plz >= 2}
 									{lang key='checkPLZCity' section='checkout'}
 								{else}
@@ -256,30 +257,42 @@
 			{/block}
 			{block name='shipping-address-city'}
 				<div class="col-12 col-md-6">
-					<div class="form-group float-label-control{if !empty($fehlendeAngaben.ort)} has-error{/if} required">
+					<div class="form-group float-label-control typeahead-required{if !empty($fehlendeAngaben.ort)} has-error{/if} required">
 						<label class="control-label" for="{$prefix}-{$name}-city">{lang key="city" section="account data"}</label>
 						<input type="text" name="{$prefix}[{$name}][ort]" value="{if isset($Lieferadresse->cOrt)}{$Lieferadresse->cOrt}{/if}" id="{$prefix}-{$name}-city" 
-						class="city_input form-control" placeholder="{lang key="city" section="account data"}" required 
+						class="city_input form-control" placeholder="{lang key='city' section='account data'}" required 
 						{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternOrt)}pattern="{$snackyConfig.patternOrt}"{/if} 
 						spellcheck="false"  autocorrect="off"
 						autocomplete="shipping address-level2"
 						>
 						{if isset($fehlendeAngaben.ort)}
 							{if $fehlendeAngaben.ort == 3}
-								<div class="alert alert-danger">{lang key="cityNotNumeric" section="account data"}</div>
+								<div class="alert alert-danger" aria-live="assertive" role="alert" aria-atomic="true">{lang key="cityNotNumeric" section="account data"}</div>
 							{else}
-								<div class="alert alert-danger">
-									{if $fehlendeAngaben.ort==3}
-										{lang key='cityNotNumeric' section='account data'}
-									{else}
-										{lang key='fillOut' section='global'}
-									{/if}
+								<div class="alert alert-danger" aria-live="assertive" role="alert" aria-atomic="true">
+									{lang key='fillOut' section='global'}
 								</div>
 							{/if}
 						{/if}
 					</div>
 				</div>
 			{/block}
+			{* block name='checkout-customer-shipping-address-is-default-wrap'}
+				{if empty($Kunde->kKunde) === false && $Kunde->isLoggedIn()}
+					{col cols=12 md=12 class="mt-xxs"}
+						{block name='checkout-customer-shipping-address-is-default'}
+							{checkbox
+							id="checkout_register_set-shipping-address-as-default"
+							name="{$prefix}[{$name}][isDefault]"
+							value="1"
+							checked=isset($Lieferadresse->nIstStandardLieferadresse) && $Lieferadresse->nIstStandardLieferadresse === 1
+							}
+								{lang key='shippingAdress' section='checkout'}: {lang key='setAsStandard' section='account data'}
+							{/checkbox}
+						{/block}
+					{/col}
+				{/if}
+			{/block *}
 			{block name='checkout-customer-shipping-address-save-preset-wrap'}
 				{if $step == 'Lieferadresse' || $step == 'edit_customer_address'}
 					{col cols=12 md=12}

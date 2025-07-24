@@ -5,7 +5,7 @@
 			<div class="col-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h4 class="panel-title">{lang key='topsearch'}{$Einstellungen.sonstiges.sonstiges_livesuche_all_top_count}</h4>
+						<div class="panel-title h4">{lang key='topsearch'}{$Einstellungen.sonstiges.sonstiges_livesuche_all_top_count}</div>
 					</div>
 					<div class="panel-body">
 						<ul class=list-unstyled>
@@ -26,7 +26,7 @@
 			<div class="col-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h4 class="panel-title">{lang key='lastsearch'}</h4>
+						<div class="panel-title h4">{lang key='lastsearch'}</div>
 					</div>
 					<div class="panel-body">
 						<ul class="list-unstyled">

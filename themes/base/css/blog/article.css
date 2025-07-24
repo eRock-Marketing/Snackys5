@@ -15,5 +15,5 @@
 }
 .newscats .btn-xs{
     margin: 0.2rem 0.2rem 0.2rem 0;
-    border-radius: .3rem;
+    border-radius: var(--btn-rnd-sm);
 }

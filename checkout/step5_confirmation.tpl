@@ -1,4 +1,7 @@
 {block name='checkout-step5-confirmation'}
+	{block name='step5-h1'}
+		<h1 class="sr-only">{lang section='checkout' key='summary'}</h1>
+	{/block}
 	<div id="order-confirm">
 		{block name='step5-alerts'}
 			{if !empty($smarty.get.mailBlocked)}
@@ -93,7 +96,7 @@
 												{block name='step5-overview-shipping-title'}
 													<p>
 														<strong class="title">{lang key="shippingOptions" section="global"}: </strong>
-														{$smarty.session.Versandart->angezeigterName|trans}
+														{$smarty.session.Versandart->angezeigterName|transByISO}
 													</p>
 												{/block}
 												{block name='step5-overview-shipping-estimated'}
@@ -137,7 +140,7 @@
 												{block name='step5-overview-payment-title'}
 													<p>
 														<strong class="title">{lang key="paymentOptions" section="global"}: </strong>
-														{$smarty.session.Zahlungsart->angezeigterName|trans}
+														{$smarty.session.Zahlungsart->angezeigterName|transByISO}
 													</p>
 												{/block}
 												{block name='step5-overview-payment-notice'}
@@ -196,7 +199,8 @@
 								<div class="panel-body">
 									{block name="checkout-confirmation-comment-body"}
 										{lang assign="orderCommentsTitle" key="orderComments" section="shipping payment"}
-										<textarea class="form-control" title="{$orderCommentsTitle|escape:"html"}" name="kommentar" cols="50" rows="3" id="comment" placeholder="{lang key="comment" section="product rating"}">{if isset($smarty.session.kommentar)}{$smarty.session.kommentar}{/if}</textarea>
+										<label for="comment" class="sr-only">{lang key="orderComments" section="shipping payment"}</label>
+										<textarea class="form-control" title="{$orderCommentsTitle|escape:"html"}" name="kommentar" cols="50" rows="3" id="comment" placeholder="{$orderCommentsTitle|escape:"html"}">{if isset($smarty.session.kommentar)}{$smarty.session.kommentar}{/if}</textarea>
 									{/block}
 								</div>
 							{/block}

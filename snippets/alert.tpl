@@ -4,6 +4,9 @@
         data-fade-out="{$alert->getFadeOut()}"
         data-key="{$alert->getKey()}"
         {if $alert->getId()}id="{$alert->getId()}"{/if}
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
     >
         {if $alert->getIcon()}<i class="fa fa-{$alert->getIcon()}"></i>{/if}
         {if $alert->getDismissable()}<div class="close"></div>{/if}

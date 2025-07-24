@@ -1,6 +1,5 @@
 {block name='account-rma-summary'}
 {assign var="returnReturn" value=true}
-{assign var="showButtons" value=!isset($showButtons)}
 <div class="row">
     <div class="col col-12{if isset($rmaHistory) && count($rmaHistory) > 0} col-md-auto{/if}">
         {block name='account-rma-summary-title'}
@@ -189,7 +188,7 @@
 {/foreach}
 {/block}
 {block name='account-rma-summary-buttons'}
-    {if $showButtons}
+    {if $showButtons|default:true}
         <div class="row mt-3">
             <div class="col col-md-6">
                 <a href="#" id="goBackOneStep" class="btn btn-outline-primary float-left">

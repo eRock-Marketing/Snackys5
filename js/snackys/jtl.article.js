@@ -127,6 +127,7 @@
 				},150);
 			});
 			
+			$('.qty-sub').off();
 			$('.qty-sub').click(function(e){
 				var quantity = $(this).closest('.btn-group').find('input[name=anzahl]');
 				if(quantity)
@@ -145,6 +146,8 @@
 					e.preventDefault();
 				}
 			});
+			
+			$('.qty-add').off();
 			$('.qty-add').click(function(e){
 				var quantity = $(this).closest('.btn-group').find('input[name=anzahl]');
 				if(quantity)

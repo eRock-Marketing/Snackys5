@@ -41,7 +41,7 @@
                                                id="switch-{$itemUniqueID}"
                                                name="returnItem"
                                                {if $rmaItem->id > 0}checked{/if}
-                                               aria-label="Lorem ipsum">
+                                               aria-label="{lang section='rma' key='selectProductForReturn'}">
                                         <label class="custom-control-label"
                                                for="switch-{$itemUniqueID}">
                                         </label>

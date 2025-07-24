@@ -31,10 +31,11 @@
                                                 </span>
                                             {/block}
                                             {block name='review-form-description'}
-                                                <div class="alert alert-info">{lang key='shareYourRatingGuidelines' section='product rating'}</div>
+                                                <div class="required-info small mt-xs mb-xs">{lang key='requiredInfo' section='custom'}</div>
                                             {/block}
                                             {block name='review-form-stars'}
                                                 <div class="form-group required">
+                                                    <label for="stars">{lang key="productRating" section="product rating"}</label>
                                                     <select name="nSterne" id="stars" class="form-control" required>
                                                         <option value="" disabled>{lang key='starPlural' section='product rating'}</option>
                                                         {$ratings = [5,4,3,2,1]}
@@ -64,9 +65,6 @@
                                                 </div>
                                             {/block}
                                         </div>
-                                    {/block}
-                                    {block name='review-form-mandatory'}
-                                        <p class="small text-muted">(* = {lang key='mandatoryFields'})</p>
                                     {/block}
                                     {block name='review-form-submit'}
                                         <input name="bfh" type="hidden" value="1">

@@ -13,7 +13,7 @@
 		<form id="frm_filter" name="frm_filter" action="{$routeURL}" method="post" class="flx-w mb-md">
     		{$jtl_token}
 			{block name='blog-overview-filter-sort'}
-				<select name="nSort" onchange="this.form.submit();" aria-label="{lang key='newsSort' section='news'}">
+				<select name="nSort" aria-label="{lang key='newsSort' section='news'}">
 					<option value="-1"{if $nSort === -1} selected{/if}>{lang key='newsSort' section='news'}</option>
 					<option value="1"{if $nSort === 1} selected{/if}>{lang key='newsSortDateDESC' section='news'}</option>
 					<option value="2"{if $nSort === 2} selected{/if}>{lang key='newsSortDateASC' section='news'}</option>
@@ -24,7 +24,7 @@
 				</select>
 			{/block}
 			{block name='blog-overview-filter-datum'}
-    			<select name="cDatum" onchange="this.form.submit();" aria-label="{lang key='newsDateFilter' section='news'}">
+    			<select name="cDatum" aria-label="{lang key='newsDateFilter' section='news'}">
         			<option value="-1"{if $cDatum == -1} selected{/if}>{lang key='newsDateFilter' section='news'}</option>
 					{if !empty($oDatum_arr)}
 						{foreach $oDatum_arr as $oDatum}
@@ -40,7 +40,7 @@
     			{else}
         			{assign var='kNewsKategorie' value=$kNewsKategorie|default:0}
     			{/if}
-				<select name="nNewsKat" onchange="this.form.submit();" aria-label="{lang key='newsCategorie' section='news'}">
+				<select name="{$smarty.const.QUERY_PARAM_NEWS_CATEGORY}" aria-label="{lang key='newsCategorie' section='news'}">
 					<option value="-1"{if $kNewsKategorie === -1} selected{/if}>{lang key='newsCategorie' section='news'}</option>
 					{if !empty($oNewsKategorie_arr)}
 						{assign var='selectedCat' value=$kNewsKategorie}
@@ -49,7 +49,7 @@
 				</select>
 			{/block}
 			{block name='blog-overview-filter-newspersite'}
-    			<select name="{$oPagination->getId()}_nItemsPerPage" id="{$oPagination->getId()}_nItemsPerPage" onchange="this.form.submit();" aria-label="{lang key='newsPerSite' section='news'}">
+    			<select name="{$oPagination->getId()}_nItemsPerPage" id="{$oPagination->getId()}_nItemsPerPage" aria-label="{lang key='newsPerSite' section='news'}">
         			<option value="-1" {if $oPagination->getItemsPerPage() == 0} selected{/if}>
             			{lang key='newsPerSite' section='news'}
         			</option>
@@ -82,7 +82,7 @@
 						{/block}
 						{block name='blog-overview-category-info'}
             				{if !empty($oNewsCat->getPreviewImage()) || !empty($oNewsCat->getDescription())}
-                				<div class="row mb-lg">
+                				<div class="row mb-lg blog-cat">
                     				{if !empty($oNewsCat->getPreviewImage())}
 										{block name='blog-overview-category-text-image'}
 											{block name='blog-overview-category-text-image-text'}

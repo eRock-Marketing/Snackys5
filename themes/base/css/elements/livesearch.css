@@ -4,7 +4,7 @@
 	background: var(--dro-b);
 	color: var(--dro-t);
 	padding: 2rem;
-	border-radius: .5rem;
+	border-radius: var(--box-rnd);
 	z-index: 11;
 	box-shadow: 0 16px 16px rgba(0,0,0,.1);
 	max-height: 60vh;
@@ -23,7 +23,7 @@
 }
 #km_snackys_search .img-ct,
 #km_snackys_search img{
-	border-radius: .3rem;
+	border-radius: var(--img-rnd-sm);
 }
 @media screen and (min-width: 768px){
 	#km_snackys_search{

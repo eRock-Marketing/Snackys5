@@ -11,6 +11,14 @@
                             {lang key='myReturns' section='rma'}
                         </span>
                     {/col}
+
+                    {col class="col-auto" aria=["label"=>{lang key='manageReturns' section='rma'}]}
+                        {link class="" href="$cCanonicalURL?newRMA=0"
+                        title="{lang key='createRetoure' section='rma'}"
+                        aria=["label"=>{lang key='createRetoure' section='rma'}]}
+                            {lang key='createRetoure' section='rma'}
+                        {/link}
+                    {/col}
                 {/row}
                 {/block}
             {/cardheader}
@@ -58,9 +66,9 @@
                                         <div class="modal-dialog modal-dialog-centered modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="rmaAdditional{$rma->id}Label">{lang key='rmaItemsModalTitle' section='rma'}{if isset($rma->rmaNr)} {$rma->rmaNr}{/if}</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="{lang key='rmaClose' section='rma'}">
-                                                        <span aria-hidden="true">&times;</span>
+                                                    <div class="modal-title h5" id="rmaAdditional{$rma->id}Label">{lang key='rmaItemsModalTitle' section='rma'}{if isset($rma->rmaNr)} {$rma->rmaNr}{/if}</div>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
+                                                        <i class="fa fa-times"></i>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body p-0">
@@ -84,7 +92,7 @@
                                                                             {block name='account-rmalist-card-body-table-body-modal-table-item-image'}
                                                                             {if isset($product->kArtikel)}
                                                                                 {col class="col-auto"}
-                                                                                    {link href=$item->getSeo() title=$item->name|trans|escape:'html'}
+                                                                                    {link href=$item->getSeo() title=$item->name|transByISO|escape:'html'}
                                                                                         {include file='snippets/image.tpl'
                                                                                         fluid=false
                                                                                         item=$product
@@ -101,7 +109,7 @@
                                                                             {block name='account-rmalist-card-body-table-body-modal-table-item-desc'}
                                                                             {col}
                                                                                 {if $item->getSeo() !== ''}
-                                                                                    {link href=$item->getSeo() title=$item->name|trans|escape:'html'}
+                                                                                    {link href=$item->getSeo() title=$item->name|transByISO|escape:'html'}
                                                                                         {$item->name|trans}
                                                                                     {/link}
                                                                                 {else}
@@ -143,7 +151,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{lang key='rmaClose' section='rma'}</button>
-                                                    <a href="{get_static_route id='jtl.php' params=['showRMA' => $rma->id]}" class="btn btn-primary" target="_blank">
+                                                    <a href="{get_static_route id='jtl.php' params=['showRMA' => $rma->id]}" class="btn btn-primary">
                                                         {lang key='rmaDetails' section='rma'}
                                                     </a>
                                                 </div>
@@ -156,7 +164,7 @@
                                         <button type="button" class="btn btn-secondary btn-sm mr-2" data-toggle="modal" data-target="#rmaAdditional{$rma->id}" title="{lang key='showItems' section='rma'}">
                                             <span class="fas fa-list-ol"></span>
                                         </button>
-                                        <a href="{get_static_route id='jtl.php' params=['showRMA' => $rma->id]}" class="btn btn-secondary btn-sm" target="_blank" title="{lang key='rmaDetails' section='rma'}">
+                                        <a href="{get_static_route id='jtl.php' params=['showRMA' => $rma->id]}" class="btn btn-secondary btn-sm" title="{lang key='rmaDetails' section='rma'}">
                                             <span class="far fa-eye"></span>
                                         </a>
                                     {/buttongroup}

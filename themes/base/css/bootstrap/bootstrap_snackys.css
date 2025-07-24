@@ -1,9 +1,6 @@
 [hidden], template {
     display: none
 }
-a:active, a:hover {
-    outline: 0
-}
 img {
     border: 0;
     vertical-align: middle
@@ -16,7 +13,6 @@ pre {
 }
 code, kbd, pre, samp {
     font-family: monospace, monospace;
-    font-size: 1em
 }
 button, html input[type="button"], input[type="reset"], input[type="submit"] {
     -webkit-appearance: button;
@@ -302,9 +298,6 @@ hr {
 .dropup, .dropdown, .ps-rel {
     position: relative
 }
-.dropdown-toggle:focus {
-    outline: 0
-}
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -316,7 +309,7 @@ hr {
     background-color: var(--dro-b);
     border: 1px solid var(--dro-r);
     color: var(--dro-t);
-    border-radius: .3rem;
+    border-radius: var(--box-rnd-sm);
     box-shadow: 0 0.25rem 0.5625rem -0.0625rem rgba(0,0,0,0.03), 0 0.275rem 1.25rem -0.0625rem rgba(0,0,0,0.05);
     z-index: 11;
     margin-top: .5rem;
@@ -354,7 +347,6 @@ hr {
 .dropdown-header {
     display: block;
     padding: 3px 20px;
-    font-size: 12px;
     line-height: 1.42857143;
     color: var(--dro-t);
     white-space: nowrap
@@ -611,17 +603,16 @@ th.visible-lg, td.visible-lg {
 
 /* Panel */
 .panel{
-    padding: 1rem;
-    border-radius: .5rem;
+    padding: 1.3rem;
+    border-radius: var(--box-rnd);
     background: var(--pan-b);
-    box-shadow: 0 0 0 0.3rem var(--pan-b);
     border: 1px solid var(--pan-r);
     color: var(--pan-t);
 }
-.panel a{
+.panel a:not(.btn){
     color: var(--pan-l);
 }
-.panel a:hover{
+.panel a:not(.btn):hover{
     color: var(--pan-l-h);
 }
 .panel-heading{
@@ -632,15 +623,14 @@ th.visible-lg, td.visible-lg {
 }
 @media screen and (max-width: 991px){
     .panel{
-        box-shadow: 0 0 0 0.25rem var(--pan-b);
-        padding: 1rem .7rem;
+        padding: 1rem;
     }
 }
 
 /* Cards */
 .card{
     border: 1px solid var(--crd-r);
-    border-radius: .5rem;
+    border-radius: var(--box-rnd);
 }
 .card-header,
 .card-body{
@@ -648,7 +638,7 @@ th.visible-lg, td.visible-lg {
 }
 .card-header{
     background: var(--crd-b);
-    border-radius: .5rem .5rem 0 0;
+    border-radius: var(--box-rnd) var(--box-rnd) 0 0;
 }
 .panel .item:not(:last-child),
 .card .item:not(:last-child){
@@ -664,13 +654,25 @@ th.visible-lg, td.visible-lg {
     position: absolute;
     z-index: 1060;
     max-width: 20rem;
-    font-size: .875rem;
     background-color: var(--bod-b);
     border: 1px solid var(--hr);
-    border-radius: .3rem;
+    border-radius: var(--box-rnd-sm);
     padding: 1rem;
     white-space: normal;
 }
-.popover-title{
-    font-size: 1rem;
+
+#snackys-tpl .sr-only,
+.consent-switch .consent-input{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.group-items input.hidden{
+    display: inline;
 }

@@ -12,11 +12,10 @@
 }
 .alert{
     padding: .75rem 1rem;
-    border-radius: .25rem;
+    border-radius: var(--frm-rnd);
     color: var(--alrt-t);
     background: var(--alrt-b);
     border: 1px solid var(--alrt-r);
-    font-size: .95em;
     position: relative;
 }
 .alert .close{
@@ -61,10 +60,6 @@
     background: var(--succ-b);
     border: 1px solid var(--succ-r);
     color: var(--succ-t);
-}
-.alert-hotstock{
-    background: var(--det-hot-b);
-    color: var(--det-hot-t);
 }
 .alert *:not(a){
     color: currentColor;

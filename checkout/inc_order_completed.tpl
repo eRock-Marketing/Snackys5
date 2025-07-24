@@ -1,7 +1,7 @@
 {block name='checkout-inc-order-completed'}
-{if empty($smarty.get.payAgain) && JTL\Session\Frontend::getCustomer()->getID() !== 0}
 	<div id="order-confirmation">
 		{block name="checkout-order-confirmation"}
+		{if empty($smarty.get.payAgain) && JTL\Session\Frontend::getCustomer()->getID() !== 0}
 			<div class="row">
 				{block name="confirmation-details"}
 					<div class="col-12 col-md-4 col-lg-3 al-wp">
@@ -16,6 +16,9 @@
 									{lang key="billingAdress" section="checkout"}
 								</div>
 								{$Bestellung->oRechnungsadresse->cVorname} {$Bestellung->oRechnungsadresse->cNachname|entferneFehlerzeichen}
+								{if isset($Bestellung->oRechnungsadresse->cFirma) && $Bestellung->oRechnungsadresse->cFirma !== ''}
+									<br>{$Bestellung->oRechnungsadresse->cFirma}
+								{/if}
 								<br>{$Bestellung->oRechnungsadresse->cStrasse|entferneFehlerzeichen} {$Bestellung->oRechnungsadresse->cHausnummer}
 								<br>{$Bestellung->oRechnungsadresse->cPLZ} {$Bestellung->oRechnungsadresse->cOrt}
 								<br>{$Bestellung->oRechnungsadresse->angezeigtesLand}
@@ -29,6 +32,9 @@
 								</div>
 								{if $Bestellung->kLieferadresse != 0}
 									{$Bestellung->Lieferadresse->cVorname} {$Bestellung->Lieferadresse->cNachname|entferneFehlerzeichen}
+									{if isset($Bestellung->Lieferadresse->cFirma) && $Bestellung->Lieferadresse->cFirma !== ''}
+										<br>{$Bestellung->Lieferadresse->cFirma}
+									{/if}
 									<br>{$Bestellung->Lieferadresse->cStrasse|entferneFehlerzeichen} {$Bestellung->Lieferadresse->cHausnummer}
 									<br>{$Bestellung->Lieferadresse->cPLZ} {$Bestellung->Lieferadresse->cOrt}
 									<br>{$Bestellung->Lieferadresse->angezeigtesLand}
@@ -88,19 +94,19 @@
 					</div>
 				{/block}
 			</div>
+		{else}
+			{card id="order-confirmation"}
+				{block name='checkout-inc-order-completed-alert'}
+					<p class="order-confirmation-note">{lang key='orderConfirmationPost' section='checkout'}</p>
+				{/block}
+				{block name='checkout-inc-order-completed-id-payment'}
+					<ul class="blanklist order-confirmation-details">
+						<li><strong>{lang key='yourOrderId' section='checkout'}:</strong> {$Bestellung->cBestellNr}</li>
+						<li><strong>{lang key='yourChosenPaymentOption' section='checkout'}:</strong> {$Bestellung->cZahlungsartName}</li>
+					</ul>
+				{/block}
+			{/card}
+		{/if}
 		{/block}
 	</div>
-{else}
-    {card id="order-confirmation"}
-        {block name='checkout-inc-order-completed-alert'}
-            <p class="order-confirmation-note">{lang key='orderConfirmationPost' section='checkout'}</p>
-        {/block}
-        {block name='checkout-inc-order-completed-id-payment'}
-            <ul class="list-unstyled order-confirmation-details">
-                <li><strong>{lang key='yourOrderId' section='checkout'}:</strong> {$Bestellung->cBestellNr}</li>
-                <li><strong>{lang key='yourChosenPaymentOption' section='checkout'}:</strong> {$Bestellung->cZahlungsartName}</li>
-            </ul>
-        {/block}
-    {/card}
-{/if}
 {/block}

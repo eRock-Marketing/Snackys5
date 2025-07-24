@@ -4,6 +4,14 @@
     display: flex;
     flex-direction: column;
 }
+.p-c-l{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1
+}
 .p-c{
     height: 100%;
     width: 100%;
@@ -19,13 +27,11 @@
     margin-top: auto;
 }
 .p-c .price{
-    font-size: 1.4rem;
     color: var(--pbx-pr);
     white-space: normal;
 }
 .p-c .footnote-reference{
     font-weight: 400;
-    font-size: 0.75em;
     position: relative;
     top: -0.35em;
     left: -0.2em;
@@ -50,7 +56,6 @@
     left: 0;
     bottom: 2rem;
     padding: .4rem .6rem;
-    font-size: .85rem;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: .5px;
@@ -81,7 +86,6 @@
 }
 #product-offer .price_label,
 .p-c .price_label{
-    font-size: .85rem;
     display: inline-flex;
 }
 .p-c .delivery-status{
@@ -93,13 +97,18 @@
 }*/
 .p-c .caption{
     position: relative;
-    z-index: 3;
 }
 .p-c .updatingStockInfo{
     display: none;
 }
 .second-img {
-    opacity: 0; transition: .3s ease;
+    opacity: 0; 
+    transition: .3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 .second-img img {
     background: var(--bod-b);
@@ -125,7 +134,7 @@ body.edge a:hover .second-img{
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     padding: .4rem .3rem;
-    border-radius: 0 0 .8rem .8rem;
+    border-radius: 0 0 var(--img-rnd) var(--img-rnd);
     color: var(--pbx-ct-t);
 }
 .sale-ct .ct-un{
@@ -144,18 +153,9 @@ body.edge a:hover .second-img{
     text-transform: none;
     letter-spacing: 0;
 }
-@media screen and (max-width: 767px){
-    .p-c .price{
-        font-size: 1.2rem;
-    }
-}
 @media screen and (max-width: 450px){
     .ov-t{
         bottom: 1.5rem;
-        font-size: .7rem;
-    }
-    .ov-t.ov-t-sp{
-        font-size: .7rem;
     }
     .ov-t~.ov-t {
         bottom: 3.5rem;

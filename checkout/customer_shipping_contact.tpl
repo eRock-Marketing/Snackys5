@@ -15,7 +15,7 @@
 						{if $Einstellungen.kunden.lieferadresse_abfragen_email !== 'N'}
 							<div class="col-12 col-md-6">
 								<div class="form-group float-label-control{if $Einstellungen.kunden.lieferadresse_abfragen_email === 'Y'} required{/if}{if isset($fehlendeAngaben.email)} has-error{/if}">
-									<label class="control-label" for="email">{lang key="email" section="account data"}</label>
+									<label class="control-label" for="{$prefix}-{$name}-email">{lang key="email" section="account data"}</label>
 									<input
 											type="email"
 											name="{$prefix}[{$name}][email]"
@@ -48,7 +48,7 @@
 						{if $Einstellungen.kunden.lieferadresse_abfragen_mobil !== 'N'}
 							<div class="col-12 col-md-6">
 								<div class="form-group float-label-control{if isset($fehlendeAngaben.mobil)} has-error{/if}{if $Einstellungen.kunden.lieferadresse_abfragen_mobil === 'Y'} required{/if} ">
-									<label class="control-label" for="mobile">{lang key="mobile" section="account data"}</label>
+									<label class="control-label" for="{$prefix}-{$name}-mobile">{lang key="mobile" section="account data"}</label>
 									<input
 											type="tel"
 											name="{$prefix}[{$name}][mobil]"
@@ -81,7 +81,7 @@
 						{if $Einstellungen.kunden.lieferadresse_abfragen_tel !== 'N'}
 							<div class="col-12 col-md-6">
 								<div class="form-group float-label-control{if isset($fehlendeAngaben.tel)} has-error{/if}{if $Einstellungen.kunden.lieferadresse_abfragen_tel === 'Y'} required{/if}">
-									<label class="control-label" for="tel">{lang key="tel" section="account data"}</label>
+									<label class="control-label" for="{$prefix}-{$name}-tel">{lang key="tel" section="account data"}</label>
 									<input
 											type="tel"
 											name="{$prefix}[{$name}][tel]"
@@ -108,7 +108,7 @@
 						{if $Einstellungen.kunden.lieferadresse_abfragen_fax !== 'N'}
 							<div class="col-12 col-md-6">
 								<div class="form-group float-label-control{if isset($fehlendeAngaben.fax)} has-error{/if}{if $Einstellungen.kunden.lieferadresse_abfragen_fax === 'Y'} required{/if}">
-									<label class="control-label" for="fax">{lang key="fax" section="account data"}</label>
+									<label class="control-label" for="{$prefix}-{$name}-fax">{lang key="fax" section="account data"}</label>
 									<input
 											type="tel"
 											name="{$prefix}[{$name}][fax]"

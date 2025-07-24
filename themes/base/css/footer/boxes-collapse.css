@@ -10,6 +10,7 @@
     #footer-boxes .col-6:not(.open-show) .panel-body{
         display: none;
     }
+    #footer-boxes .panel:focus-within .panel-body,
     #footer-boxes .col-6 .panel-slider.open-show .panel-body{
         display: block;
     }

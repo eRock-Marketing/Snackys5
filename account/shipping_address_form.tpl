@@ -17,6 +17,7 @@
 					<div class="h4 mt-xxs">{lang key="createNewShippingAdress" section="account data"}</div>
 				{/if}
 			{/block}
+			<div class="required-info small">{lang key='requiredInfo' section='custom'}</div>
 			{block name='account-shipping-address-form-include-customer-shipping-address'}
 				{include file='checkout/customer_shipping_address.tpl' prefix="register" fehlendeAngaben=null}
 			{/block}
@@ -76,7 +77,7 @@
 													<div class="modal-title h5">
 														{lang key="shippingAdress" section="account data"}
 													</div>
-													<button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
+													<button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
 													</button>
 												</div>
 											{/block}
@@ -105,7 +106,7 @@
 											</span>	
 										{/block}
 										{block name='account-shipping-address-item-card-popup'}
-											<button class="btn btn-blank" data-toggle="modal" data-target="#shipadress{$address@iteration}">
+											<button class="btn btn-blank" data-toggle="modal" data-target="#shipadress{$address@iteration}" aria-label="{lang key='view'}: {lang key='shippingAdress' section='account data'}">
 												<span class="img-ct icon">
 													<svg>
 													  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-info"></use>
@@ -114,7 +115,7 @@
 											</button>
 										{/block}
 										{block name='account-shipping-address-item-card-edit'}
-											<a class="btn btn-blank" href="{get_static_route id='jtl.php'}?editLieferadresse=1&editAddress={$address->kLieferadresse}">
+											<a class="btn btn-blank" href="{get_static_route id='jtl.php'}?editLieferadresse=1&editAddress={$address->kLieferadresse}" aria-label="{lang key='editShippingAddress' section='account data'}">
 												<span class="img-ct icon">
 													<svg>
 													  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-edit"></use>
@@ -123,7 +124,7 @@
 											</a>
 										{/block}
 										{block name='account-shipping-address-item-card-delete'}
-											<a class="btn btn-blank" href="{get_static_route id='jtl.php'}?editLieferadresse=1&deleteAddress={$address->kLieferadresse}">
+											<a class="btn btn-blank" href="{get_static_route id='jtl.php'}?editLieferadresse=1&deleteAddress={$address->kLieferadresse}" aria-label="{lang key='deleteAddress' section='account data'}">
 												<span class="img-ct icon">
 													<svg>
 													  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>

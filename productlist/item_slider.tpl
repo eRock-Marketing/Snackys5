@@ -9,7 +9,7 @@
     {block name='item-slider-wrapper'}
         <div class="p-c {if isset($class)} {$class}{/if} thumbnail pr">
             {block name='item-slider-image'}
-                <a class="img-w block" href="{$Artikel->cURLFull}">
+                <a href="{$Artikel->cURLFull}" class="img-w" aria-hidden="true" tabindex="-1">
                     {block name='item-slider-image-assigns'}
                         {if isset($Artikel->Bilder[0]->cAltAttribut)}
                             {assign var="alt" value=$Artikel->Bilder[0]->cAltAttribut|truncate:60}
@@ -63,7 +63,7 @@
             {block name='item-slider-caption'}
                 {if empty($noCaptionSlider)}
                     <div class="caption">
-                        <a href="{$Artikel->cURLFull}" class="title word-break block h4 m0">
+                        <a href="{$Artikel->cURLFull}" class="title word-break h4 m0 block">
                             {block name='item-slider-caption-partlist'}
                                 {if isset($showPartsList) && $showPartsList === true && isset($Artikel->fAnzahl_stueckliste)}
                                     <span class="article-bundle-info">
@@ -75,6 +75,13 @@
                                 {$Artikel->cKurzbezeichnung}
                             {/block}
                         </a>
+                        {block name="productlist-caption-shortdesc"}
+                            {if $snackyConfig.show_shortdesc == 'Y' && !empty($Artikel->cKurzBeschreibung)}
+                                <div class="small mt-xxs">
+                                    {$Artikel->cKurzBeschreibung}
+                                </div>
+                            {/if}
+                        {/block}
                         {block name='item-slider-price'}
                             <div class="item-slider-price">
                                 {include file="productdetails/price.tpl" Artikel=$Artikel price_image=null tplscope=$tplscope}

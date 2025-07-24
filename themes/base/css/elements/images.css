@@ -4,24 +4,23 @@ img[data-srcset]:not(.lazyloaded){
 img{
     max-width: 100%;
 }
-.img-fluid,
-.img-responsive,
-img[style*="width"]:not(.zoomImg),
-img[width]:not(.zoomImg):not([width="auto"]),
-img[style*="height"]:not(.zoomImg),
-img[height]:not(.zoomImg):not([height="auto"]){
+.img-responsive:not(.p-c img),
+img[style*="width"]:not(.zoomImg):not(.p-c img),
+img[width]:not(.zoomImg):not([width="auto"]):not(.p-c img),
+img[style*="height"]:not(.zoomImg):not(.p-c img),
+img[height]:not(.zoomImg):not([height="auto"]):not(.p-c img){
     max-width: 100%;
     height: auto !important;
 }
 .img-ct,
 .embed-responsive{
     position: relative;
-    border-radius: .8rem;
+    border-radius: var(--img-rnd);
 	display: flex;
 	overflow: hidden;
 }
 .img-ct:not(.icon) img{
-    border-radius: .8rem;
+    border-radius: var(--img-rnd);
 }
 .img-w{
     margin-bottom: .9rem;
@@ -77,7 +76,10 @@ img[height]:not(.zoomImg):not([height="auto"]){
 svg.icon-darkmode {
     fill:#fff;
 }
-.img-ct.contain img,
+#cat-ul .mm-manu img,
+#manu-row img,
+#man-sl img,
+.img-manu img,
 .img-ct > svg{
 	object-fit: contain;
 }

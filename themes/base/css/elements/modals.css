@@ -20,7 +20,7 @@ body .modal .modal-dialog{
 .modal-content{
     background: var(--mod-b);
     padding: 0;
-    border-radius: 1rem;
+    border-radius: var(--box-rnd-lg);
     overflow: hidden;
     max-width: 60rem;
 	min-width: 25rem;
@@ -128,7 +128,7 @@ body .modal .modal-dialog{
     .modal #account .wl-ac .btn{
         width: 100%;
         margin: .2rem 0;
-        border-radius: .3rem;
+        border-radius: var(--btn-rnd-sm);
         justify-content: center;
     }
     .modal-body{

@@ -2,7 +2,7 @@
 	{block name='index-viewportimages'}
 		{if !isset($viewportImages)}{assign var="viewportImages" value=0}{/if}
 	{/block}
-	{if isset($nFullscreenTemplate) && $nFullscreenTemplate == 1}
+	{if isset($nFullscreenTemplate) && $nFullscreenTemplate == 1 && isset($cPluginTemplate)}
     	{include file=$cPluginTemplate}
 	{else}
 		{block name="header"}
@@ -122,7 +122,7 @@
 					{block name="content-freegift"}
 						{include file='page/free_gift.tpl'}
 					{/block}
-				{elseif $Link->getLinkType() == $smarty.const.LINKTYP_PLUGIN && empty($nFullscreenTemplate)}
+				{elseif $Link->getLinkType() === $smarty.const.LINKTYP_PLUGIN && empty($nFullscreenTemplate) && isset($cPluginTemplate)}
 					{block name="content-plugin"}
 						{include file="$cPluginTemplate"}
 					{/block}

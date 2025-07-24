@@ -53,7 +53,7 @@
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">{lang key="basket" section="global"}</h4>
+							<div class="modal-title h5">{lang key="basket" section="global"}</div>
 						</div>
 						<section class="tmp-modal-content">
 							<div class="modal-body">

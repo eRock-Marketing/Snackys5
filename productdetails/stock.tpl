@@ -53,14 +53,26 @@
                                             {if $Artikel->nMinDeliveryDays < $Artikel->nMaxDeliveryDays}
                                                 - {getDeliveryDate calculateDays=$snackyConfig.daysForDeliverCalculation days=$Artikel->nMaxDeliveryDays saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
                                             {/if}
-                                            <span class="estimated-delivery-info">{lang key='shippingInfoIcon' section='productDetails' printf=$selectedCountry->getISO()}</span>
+                                            {if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND])}
+                                                <a href="#" data-toggle="modal" data-target="#shipinfo-popup">
+                                                    <span class="estimated-delivery-info">{lang key='shippingInfoIcon' section='productDetails' printf=$selectedCountry->getISO()}</span>
+                                                </a>
+                                            {else}
+                                                <span class="estimated-delivery-info">{lang key='shippingInfoIcon' section='productDetails' printf=$selectedCountry->getISO()}</span>
+                                            {/if}
                                         {/block}
                                     {else}
                                         {block name='productdetails-stock-snackys-deliverytime'}
                                             {if !isset($availability) && !isset($shippingTime)}<strong>{lang key='shippingTime'}: </strong>{/if}
                                             <span class="a{$Artikel->Lageranzeige->nStatus} text-nowrap">
                                                 {$Artikel->cEstimatedDelivery}
-                                                <span class="estimated-delivery-info">{lang key='shippingInfoIcon' section='productDetails' printf=$selectedCountry->getISO()}</span>
+                                                {if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND])}
+                                                    <a href="#" data-toggle="modal" data-target="#shipinfo-popup">
+                                                        <span class="estimated-delivery-info">{lang key='shippingInfoIcon' section='productDetails' printf=$selectedCountry->getISO()}</span>
+                                                    </a>
+                                                {else}
+                                                    <span class="estimated-delivery-info">{lang key='shippingInfoIcon' section='productDetails' printf=$selectedCountry->getISO()}</span>
+                                                {/if}
                                             </span>
                                         {/block}
                                     {/if}
@@ -75,6 +87,24 @@
                             </div>
                         {/if}
                     {/if}
+                    {block name="shipping-info-modal"}
+                        {if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND])}
+                            <div class="modal modal-dialog blanklist" tabindex="-1" id="shipinfo-popup">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <span class="modal-title block h5">
+                                            {lang key='information'}
+                                        </span>
+                                        <button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {if $selectedCountry !== null}{lang key='shippingInformation' section='productDetails' assign=silv}{sprintf($silv, $selectedCountry->getName(), $oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL(), $oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL())}{/if}
+                                    </div>
+                                </div>
+                            </div>
+                        {/if}
+                    {/block}
                 {/block}
             {/block}
         </div>

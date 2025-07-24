@@ -32,14 +32,13 @@
             {/if}
         </a>
     {elseif $video->getType() === \JTL\Media\Video::TYPE_FILE}
-        <video class="product-detail-video mw-100" controls
+        <video class="product-detail-video mw-100" controls preload="metadata"
                {if !empty($video->getWidth())}width="{$video->getWidth()}"{/if}
                {if !empty($video->getHeight())}height="{$video->getHeight()}"{/if}
                {if !$video->isAllowFullscreen()}controlslist="nofullscreen"{/if}>
-            <source src="{$video->getEmbedUrl()}"
+               <source src="{$video->getEmbedUrl()}#t=0.001"
                     type="video/{$video->getFileFormat()}">
             {lang key='videoTagNotSupported' section='errorMessages'}
         </video>
     {/if}
-</div>
 </div>

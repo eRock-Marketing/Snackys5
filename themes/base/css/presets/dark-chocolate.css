@@ -1,0 +1,30 @@
+.fa-caret-down, .bootstrap-select>.btn.dropdown-toggle, select{
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4Ni42IDQ1LjMiPjxwYXRoIGQ9Ik00My4zIDQ1LjMgODYuNiAwSDBsNDMuMyA0NS4zWiIgc3R5bGU9ImZpbGw6I2ZmZiIvPjwvc3ZnPg==");
+    background-repeat: no-repeat;
+    background-position: right .95rem center;
+    background-size: .5rem auto;
+}
+.fa-caret-down{
+    background-position: center center;
+}
+#snackys-tpl #ftr-tp{
+    padding: 0;
+    background: none;
+    border: 0;
+}
+#sp-l .panel {
+    padding: 0;
+    background: 0 0;
+    border: 0;
+    box-shadow: none;
+    border-bottom: 1px solid var(--hr);
+    padding-bottom: 1.8rem;
+    border-radius: 0;
+    margin-bottom: 1.8rem !important;
+}
+#sp-l .panel:last-child{
+    border-bottom: 0;
+}
+#fieldset-payment .paypal-mark{
+    background: var(--bod-b);
+}

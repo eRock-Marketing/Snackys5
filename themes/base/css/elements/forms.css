@@ -14,7 +14,7 @@ textarea{
     padding: .75rem 1rem;
     display: block;
     transition: .3s ease;   
-    border-radius: .3rem;
+    border-radius: var(--frm-rnd);
     box-shadow: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -30,7 +30,6 @@ input:focus,
 input:hover
 textarea:focus,
 textarea:hover{
-    outline: none;
     color: var(--inp-t-h);
     border: 1px solid var(--inp-r-h);
     background-color: var(--inp-b-h);
@@ -48,7 +47,6 @@ textarea{
 .form-group label{
     display: block;
     margin-bottom: .15rem;
-    font-size: .85rem;
     font-weight: 700;
 }
 .form-group.has-error input,
@@ -64,7 +62,6 @@ textarea{
     padding: 0 .3rem;
     background: var(--inp-b);
     margin: 0;
-    font-size: .75rem;
 	color: var(--txt-da);
 }
 .form-group.required label:after,
@@ -81,4 +78,9 @@ fieldset{
 }
 fieldset + fieldset{
     margin-top: 2.5rem;
+}
+legend.h4{
+    position: relative;
+    top: 1.8rem;
+    margin-bottom: 2rem;
 }

@@ -62,12 +62,12 @@ body:not(.no-pd){
 }
 #choose-way .step-box.first{
 	right: -1px;
-    border-radius: .3rem 0 0 .3rem;
+    border-radius: var(--btn-rnd-sm) 0 0 var(--btn-rnd-sm);
 	order: 0;
 }
 #choose-way .step-box.last{
 	left: -1px;
-    border-radius: 0 .3rem .3rem 0;
+    border-radius: 0 var(--btn-rnd-sm) var(--btn-rnd-sm) 0;
 	order: 2;
 }
 #choose-way .img-ct{
@@ -117,12 +117,14 @@ label[data-target="#create_account_data"]{
 .checkout-payment-method-badge{
 	padding: .05rem .4rem;
 	background: var(--tag-df-b);
-	border-radius: .3rem;
+	border-radius: var(--btn-rnd-sm);
 	color: var(--tag-df-t);
 	margin-left: 0.2rem;
-	font-size: 80%;
 	position: relative;
 	top: -.1rem;
+}
+.checkout-payment-method-badge span{
+    display: none;
 }
 .checkout-payment-method-note{
     display: block;
@@ -162,7 +164,6 @@ label[data-target="#create_account_data"]{
 #checkout .lpa-alternate-checkout-snippet .panel-body > div{
 	padding: 0;
 	width: 100%;
-	font-size: .9rem;
 }
 #checkout .lpa-alternate-checkout-snippet .panel-body:before{
 	content: '';
@@ -238,7 +239,7 @@ label.stc-radio{
 	position: relative;
 	background: var(--con-b);
 	border: 1px solid var(--con-r);
-	border-radius: 50%;
+	border-radius: var(--rnd-fll);
 	box-sizing: border-box;
 }
 .checkout-payment-method .custom-control > label:before{
@@ -248,7 +249,7 @@ label.stc-radio{
 	transform: translateY(-50%);
 }
 .stc-checkbox .stc-checkbox-btn{
-	border-radius: 3px;
+	border-radius: var(--frm-rnd-sm);
 }
 .stc-radio input:checked + .stc-radio-btn,
 #checkout .lpa-alternate-checkout-snippet .panel-body:hover:before,
@@ -306,7 +307,6 @@ label.stc-radio{
   background: var(--bod-b);
 }
 #jtl_vouchers .card-header .h3{
-  font-size: 1rem; 
   margin:0;
 }
 #jtl_vouchers .btn{
@@ -315,15 +315,11 @@ label.stc-radio{
 #jtl_vouchers .btn i{
   display: none;
 }
-#jtl_vouchers .card-body{
-  font-size: .9rem;
-}
 #voucher-cloud-modal .form-row{
     display: flex;
     flex-wrap: wrap;
 }
 #voucher-cloud-modal .modal-title h3{
-  font-size: 1rem;
   margin: .5rem 0 0 0;
 }
 #voucher-cloud-modal .col-md-12{
@@ -342,7 +338,6 @@ label.stc-radio{
   margin: 0;
 }
 #fieldset-payment div.h3{
-    font-size: 1.2rem;
     margin: 1rem 0 0 0; 
 }
 /* PayPal Checkout */
@@ -351,6 +346,9 @@ label.stc-radio{
 }
 .paypal-buttons-label-buynow{
     margin: 0 auto;
+}
+.ppc-checkout-payment-method .funding-name{
+    display: none;
 }
 /* DHL Wunschpaket */
 #jtl_pack_optionen{
@@ -372,7 +370,7 @@ label.stc-radio{
     cursor: pointer;
     color: #292929;
     background: #fecf3b;
-    border-radius: .5rem;
+    border-radius: var(--btn-rnd);
 }
 #wunschpaket_options .dhl-wunschtag:checked+.button-label {
     background: #d10d1e;
@@ -413,7 +411,7 @@ label.stc-radio{
 	border: 1px solid var(--inp-r);
 	padding: .7em 1.2rem;
 	margin-bottom: .3rem;
-	border-radius: .3rem;
+	border-radius: var(--frm-rnd);
 }
 #acdc_card .card_field iframe{
 	height: 1.2rem !important;
@@ -455,6 +453,9 @@ label.stc-radio{
 }
 #order-additional-payment .skip-mollie-components > .col{
 	padding: 0;
+}
+#complete_order hr + hr{
+    display: none;
 }
 @media screen and (max-width: 1600px){
     body:not(.no-pd){
@@ -539,9 +540,6 @@ label.stc-radio{
     }
     #check-payment-shipping{
         margin-top: 2rem;
-    }
-    .c-it:not(.sb-it) .price{
-        font-size: 1rem;
     }
     .c-it>.row>div:not(.pr)>.row:last-child > .text-right{
         margin-left: auto;

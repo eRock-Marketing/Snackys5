@@ -9,7 +9,7 @@
     {block name='item-list-wrapper'}
         <div id="{$idPrefix|default:''}result-wrapper_buy_form_{$Artikel->kArtikel}" data-wrapper="true" class="p-c{if isset($listStyle) && $listStyle === 'gallery'} active{/if}{if isset($class)} {$class}{/if}">
             {block name="productlist-image"}
-                <a class="img-w block" href="{$Artikel->cURLFull}">
+                <a class="img-w block" href="{$Artikel->cURLFull}" aria-hidden="true" tabindex="-1">
                     {block name="productlist-image-assigns"}
                         {if isset($Artikel->Bilder[0]->cAltAttribut)}
                             {assign var="alt" value=$Artikel->Bilder[0]->cAltAttribut|strip_tags|truncate:60|escape:"html"}
@@ -71,7 +71,7 @@
                                     {/block}
                                     {block name='product-title-rating'}
                                         {if $Einstellungen.bewertung.bewertung_anzeigen === 'Y'}
-                                            <a href="{$Artikel->cURLFull}#tab-votes" class="hidden-print block">
+                                            <a href="{$Artikel->cURLFull}#tab-votes" class="hidden-print block" aria-hidden="true" tabindex="-1">
                                                 {include file='productdetails/rating.tpl' stars=$Artikel->fDurchschnittsBewertung}
                                             </a>
                                         {/if}
@@ -101,6 +101,13 @@
                                                             || $Einstellungen.artikeldetails.gtin_display === 'always')}
                                                         <li>
                                                             <strong>{lang key='ean'}: </strong> <span>{$Artikel->cBarcode}</span>
+                                                        </li>
+                                                    {/if}
+                                                {/block}
+                                                {block name='product-info-infos-han'}
+                                                    {if !empty($Artikel->cHAN) && ($Einstellungen.artikeldetails.han_display === 'lists' || $Einstellungen.artikeldetails.han_display === 'always')}
+                                                        <li>
+                                                            <strong>{lang key='han'}: </strong> <span>{$Artikel->cHAN}</span>
                                                         </li>
                                                     {/if}
                                                 {/block}

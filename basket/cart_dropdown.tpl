@@ -30,7 +30,6 @@
 				{block name='sidebasket-versandfrei-hinweis'}
 					<div class="alert alert-info">
 						{$WarenkorbVersandkostenfreiHinweis|truncate:120:"..."}
-						<a class="popup" href="{if !empty($oSpezialseiten_arr) && isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL()}{else}#{/if}" data-toggle="tooltip"  data-placement="bottom" title="{lang section="login" key="shippingInfo"}"></a>
 					</div>
 					{include file="snippets/zonen.tpl" id="after_sidebasket_versandfrei" title="after_sidebasket_versandfrei"}
 				{/block}
@@ -64,8 +63,8 @@
 												{block name='sidebasket-items-warenkorbartikel-name'}
 													<div class="cols-name">
 														{$oPosition->nAnzahl|replace_delim}{if $oPosition->Artikel->cEinheit} {$oPosition->Artikel->cEinheit}{else}&times;{/if}
-														<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:"html"}">
-															{$oPosition->cName|trans}
+														<a href="{$oPosition->Artikel->cURLFull}">
+															{$oPosition->cName|transByISO}
 														</a>
 													</div>
 												{/block}
@@ -80,7 +79,7 @@
 												{/block}
 												{block name='sidebasket-items-warenkorbartikel-editbutton'}
 													{if $snackyConfig.editSidebasket == 2}
-														<button class="editpos" type="button" data-toggle="collapse" data-target="#edit_{$oPosition@iteration}_wrap">
+														<button class="editpos" type="button" data-toggle="collapse" data-target="#edit_{$oPosition@iteration}_wrap" aria-label="{lang key='edit'}: {$oPosition->cName|transByISO}">
 															<span class="img-ct icon icon">
 																<svg>
 																	<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-edit"></use>
@@ -107,8 +106,8 @@
 																	{block name='sidebasket-items-warenkorbartikel-edit-quantity-amount'}
 																		<div class="form-inline flx-je">
 																			<div class="input-group" role="group">
-																				<input name="anzahl[{$smarty.foreach.positionen.index}]" class="btn-group form-control quantity text-right" size="3" value="{$oPosition->nAnzahl}" />
-																				<button type="submit" class="btn btn-default btn-xs" title="{lang key='refresh' section='checkout'}">
+																				<input aria-label="{lang key='quantity'}" name="anzahl[{$smarty.foreach.positionen.index}]" class="btn-group form-control quantity text-right" size="3" value="{$oPosition->nAnzahl}" />
+																				<button type="submit" class="btn btn-default btn-xs" aria-label="{lang key='refresh' section='checkout'}">
 																					<span class="img-ct icon">
 																						<svg>
 																							<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-refresh"></use>
@@ -120,7 +119,7 @@
 																	{/block}
 																{/if}
 																{block name='sidebasket-items-warenkorbartikel-edit-delete'}
-																	<button type="submit" class="droppos btn btn-xs flx-ac btn-flex btn-danger" name="dropPos" value="{$smarty.foreach.positionen.index}" title="{lang key="delete" section="global"}">
+																	<button type="submit" class="droppos btn btn-xs flx-ac btn-flex btn-danger" name="dropPos" value="{$smarty.foreach.positionen.index}" aria-label="{lang key='delete'}: {$oPosition->cName|transByISO}">
 																		<span class="img-ct icon op1">
 																			<svg class="icon-darkmode">
 																				<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>
@@ -153,7 +152,7 @@
 											{/block}
 											{block name='sidebasket-items-nichtwarenkorbartikel-name'}
 												<div class="cols-name" colspan="2">
-													{$oPosition->nAnzahl|replace_delim}&times;&nbsp;{$oPosition->cName|trans|escape:"htmlall"}
+													{$oPosition->nAnzahl|replace_delim}&times;&nbsp;{$oPosition->cName|transByISO|escape:"htmlall"}
 												</div>
 											{/block}
 											{block name='sidebasket-items-nichtwarenkorbartikel-price'}
@@ -162,7 +161,7 @@
 												</div>
 											{/block}
 											{block name='sidebasket-items-nichtwarenkorbartikel-edit'}
-												<button class="editpos invisible">
+												<button class="editpos invisible" aria-hidden="true" tabindex="-1">
 													<span class="img-ct icon icon">
 														<svg>
 															<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-info"></use>
@@ -265,7 +264,7 @@
 	{block name='sidebasket-buybuttons'}
 		<div class="fixed-btn-group{if $snackyConfig.shopBButton == 1} one-button{/if}">
 			{block name='sidebasket-buybuttons-to-basket'}
-				<a href="{get_static_route id='warenkorb.php'}" class="btn btn-block{if $snackyConfig.shopBButton == 1} btn-primary btn-lg{/if}" title="{lang key='gotoBasket'}"> {lang key='gotoBasket'}</a>
+				<a href="{get_static_route id='warenkorb.php'}" class="btn btn-block{if $snackyConfig.shopBButton == 1} btn-primary btn-lg{/if}"> {lang key='gotoBasket'}</a>
 			{/block}
 			{block name='sidebasket-buybuttons-to-checkout'}
 				{if $snackyConfig.shopBButton == 0}
@@ -275,12 +274,21 @@
 		</div>
 	{/block}
 	{block name='sidebasket-addbuybuttons'}
-		<div class="add-pays cart-dropdown-buttons">
-			<div class="paypal"></div>
-			<div class="amazon"></div>
-		</div>
-		<div class="payplan"></div>
+		{if $cartPositions|count > 0}
+			<div class="add-pays cart-dropdown-buttons">
+				<div class="paypal"></div>
+				<div class="amazon"></div>
+			</div>
+			<div class="payplan"></div>
+		{/if}
 		{include file="snippets/zonen.tpl" id="after_sidebasket_buybuttons" title="after_sidebasket_buybuttons"}
+	{/block}
+	{block name='basket-cart-dropdown-shipping-include-free-hint'}
+		{if $cartPositions|count > 0}
+			<div class="alert alert-info alert-fg">
+				{include file='basket/freegift_hint.tpl'}
+			</div>
+		{/if}
 	{/block}
 	{block name='sidebasket-legallinks'}
 		{getLink nLinkart=12 cAssign="linkdatenschutz"}

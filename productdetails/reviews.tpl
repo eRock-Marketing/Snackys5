@@ -25,7 +25,9 @@
                                                 {assign var=int1 value=5}
                                                 {math equation='x - y' x=$int1 y=$i assign='schluessel'}
                                                 {assign var=int2 value=100}
-                                                {math equation='(a/b)*c' a=$nSterne b=$ratingCount c=$int2 assign='percent'}
+												{if $nSterne > 0 && $Artikel->Bewertungen->oBewertungGesamt->nAnzahl}
+													{math equation='(a/b)*c' a=$nSterne b=$Artikel->Bewertungen->oBewertungGesamt->nAnzahl c=$int2 assign='percent'}
+												{/if}
                                                 <div class="flx-ac">
                                                     {block name="productdetails-review-overview-progress-text"}
                                                         <div class="text">
@@ -93,7 +95,7 @@
                     {block name="productdetails-review-reviews-helpful"}
                         {if isset($Artikel->HilfreichsteBewertung->oBewertung_arr[0]->nHilfreich) && $Artikel->HilfreichsteBewertung->oBewertung_arr[0]->nHilfreich > 0}
                             <div class="review-wrapper reviews-mosthelpful panel mb-sm review">
-                                <form method="post" action="{get_static_route id='bewertung.php'}#tab-votes">
+                                <form method="post" action="{$Artikel->cURLFull}#tab-votes">
                                     {$jtl_token}
                                     {block name="productdetails-review-most-helpful"}
                                     <input name="bhjn" type="hidden" value="1" />

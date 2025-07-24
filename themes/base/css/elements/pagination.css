@@ -12,6 +12,6 @@
     line-height: 2rem;
     min-width: 2rem;
     padding: 0 .5rem;
-    border-radius: 5rem;
+    border-radius: var(--rnd-frc);
     justify-content: center;
 }

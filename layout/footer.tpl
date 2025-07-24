@@ -72,7 +72,7 @@
 			{/block}
 			{block name="footer-wrapper"}
 				{include file="snippets/zonen.tpl" id="before_footer" title="before_footer"}
-				<footer id="footer" class="mt-md">
+				<footer id="footer" class="mt-md" tabindex="-1" role="contentinfo">
 					{block name="footer-boxes"}
 						{if (!isset($smallversion) || !$smallversion) && (!isset($maintenance) || !$maintenance)}
 							{getBoxesByPosition position='bottom' assign='footerBoxes'}
@@ -123,7 +123,9 @@
 																				<form method="post" action="{get_static_route id='newsletter.php'}" class="form">
 																					<fieldset>
 																						{$jtl_token}
+																						<legend class="sr-only">{lang key="newsletter" section="newsletter"} {lang key="newsletterSendSubscribe" section="newsletter"}</legend>
 																						<input type="hidden" name="abonnieren" value="2"/>
+																						<label for="newsletter_email" class="sr-only">{lang key='newsletter' section='newsletter'} {lang key='newsletterSendSubscribe' section='newsletter'}</label>
 																						<input type="email" size="20" name="cEmail" id="newsletter_email" class="form-control" placeholder="{lang key='emailadress'}">
 																						<p class="privacy text-muted">
 																							<a href="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}{/if}" class="popup small tdu">
@@ -175,7 +177,7 @@
 																			{if (!isset($smallversion) || !$smallversion)}
 																				{if JTL\Session\Frontend::getCurrencies()|count > 1}
 																					<div class="dropdown">
-																						<a href="#" class="dropdown-toggle btn btn-block btn-sm" data-toggle="dropdown" title="{lang key='selectCurrency'}">
+																						<a href="#" class="dropdown-toggle btn btn-block btn-sm" data-toggle="dropdown" title="{lang key='selectCurrency'}" aria-controls="currency-dropdown" aria-expanded="false" aria-label="{lang key='currency'}">
 																							{JTL\Session\Frontend::getCurrency()->getName()}
 																							<span class="caret"></span>
 																						</a>
@@ -338,7 +340,7 @@
 									{checkCopyfree cAssign="snackysCopyfree"}
 									{if !$snackysCopyfree}
 										<li id="template-copyright">
-											Made with <span class="color-brand">&hearts;</span> by <a href="https://www.erock-marketing.de/" title="eCommerce Agency - eRock marketing">eRock Marketing</a>
+											Made with <span class="color-brand">&hearts;</span> by <a href="https://www.erock-creations.de/" title="eCommerce Agency - eRock Creations" target="_blank">eRock Creations</a>
 										</li>
 									{/if}
 								</ul>

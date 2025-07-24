@@ -798,7 +798,46 @@ function mainEventListener()
             return false;
         }
     });
+
 }
+
+// Add tab-dfuction to footer boxes
+document.querySelectorAll('#footer-boxes .panel-heading').forEach(el => {
+    el.setAttribute('tabindex', '0');
+});
+
+// Set Focus on basket
+$(document).ready(function () {
+    if ($('.cart-menu').hasClass('open')) {
+        $('.c-dp .close-btn').focus();
+    }
+});
+
+// Basket Tab-Loop
+$(document).on('keydown', function (e) {
+    if (!$('body').hasClass('sidebasket-open') && !$('.cart-menu').hasClass('open')) return;
+      
+    const $basket = $('.c-dp');
+    if ($basket.length === 0) return;
+  
+    const $focusables = $basket.find(
+      'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if ($focusables.length === 0) return;
+  
+    const first = $focusables[0];
+    const last = $focusables[$focusables.length - 1];
+  
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        $(last).focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        $(first).focus();
+      }
+    }
+});
 
 $(document).ready(function () {
 	

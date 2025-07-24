@@ -10,7 +10,7 @@
     width: 2.1rem;
     height: 2.1rem;
     border: 5px solid var(--bod-b-l);
-    border-radius: 50%;
+    border-radius: var(--rnd-fll);
     padding: 0;
     border-top-color: var(--brand);
 	animation: 1.2s ease-in-out 0s infinite both spin;
@@ -38,7 +38,7 @@
     background: var(--btn-df-b);
     width: 3rem;
     height: 3rem;
-    border-radius: 50%;
+    border-radius: var(--rnd-fll);
     z-index: 4;
 }
 #nfity-scroll:hover{

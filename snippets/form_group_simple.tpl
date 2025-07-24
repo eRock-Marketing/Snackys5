@@ -32,9 +32,10 @@
 
 <div class="form-group{if $hasError} has-error{/if}{if $isRequired} required{/if}">
     <label for="{$inputId}" class="control-label">{$label}{* {if $isRequired}<span class="indication"></span>{else}<span class="indication">({lang section='checkout' key="conditionalFillOut"})</span>{/if} *}</label>
-    <input type="{if isset($inputType)}{$inputType}{else}text{/if}" name="{$inputName}" value="{if isset($inputValue)}{$inputValue}{/if}" id="{$inputId}" class="form-control small" placeholder="{if isset($placeholder)}{$placeholder}{else}{$label}{/if}"{if $isRequired} required{/if} maxlength="{$maxLength}">
+    <input type="{if isset($inputType)}{$inputType}{else}text{/if}" name="{$inputName}" value="{if isset($inputValue)}{$inputValue}{/if}" id="{$inputId}" class="form-control small" placeholder="{if isset($placeholder)}{$placeholder}{else}{$label}{/if}"{if $isRequired} required{/if} maxlength="{$maxLength}" aria-required="{if $isRequired}true{else}false{/if}"
+    >
     {if isset($invalidReason) && $invalidReason|strlen > 0}
-        <div class="form-error-msg text-danger">{$invalidReason}</div>
+        <div class="form-error-msg text-danger" aria-live="assertive" role="alert" aria-atomic="true">{$invalidReason}</div>
     {/if}
 </div>
 {/block}

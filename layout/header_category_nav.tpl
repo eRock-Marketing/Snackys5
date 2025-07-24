@@ -11,7 +11,7 @@
 				{block name='category-nav-mobile-elements'}
 					<div class="hidden-sm hidden-md hidden-lg menu-title flx-ac flx-jb nowrap">
 						<span class="m0 notextov block h3">{lang key="menu" section="custom"}</span>
-						<button class="close-btn"></button>
+						<button class="close-btn" aria-label="{lang key='mobileNavigationClose' section='custom'}"></button>
 					</div>
 				{/block}
 				{block name='category-nav-menu'}
@@ -20,7 +20,7 @@
 							{if $snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 6}
 								<div class="flx-ac flx-jb nowrap fullscreen-title">
 									<span class="m0 notextov block h3">{lang key="menu" section="custom"}</span>
-									<button class="close-btn"></button>
+									<button class="close-btn" aria-label="{lang key='mobileNavigationClose' section='custom'}"></button>
 								</div>
 							{/if}
 						{/block}

@@ -4,7 +4,6 @@
 }
 .p-c .exp .btn{
     margin: 0;
-    font-size: .95rem;
 }
 .exp.flo-bt input.quantity,
 .exp.hide-qty input.quantity{
@@ -33,5 +32,5 @@
 	right: .8rem;
 	bottom: .8rem;
 	pointer-events: all;
-    border-radius: 50%;
+    border-radius: var(--rnd-fll);
 }

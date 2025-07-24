@@ -19,7 +19,7 @@
 	<hr class="invisible">
 	{block name="my-orders-overview"}
 		{block name="my-orders-overview-headline"}
-			<div class="h4">{lang key='myOrders'}</div>
+			<h2 class="h4">{lang key='myOrders'}</h2>
 		{/block}
 		{block name="my-orders-overview-content"}
 			<div class="card">
@@ -70,7 +70,7 @@
 		<hr class="invisible">
 		{block name="my-personal-data"}
 			{block name="my-personal-data-headline"}
-				<span class="h4 block">{lang key="myPersonalData"}</span>
+				<h2 class="h4">{lang key="myPersonalData"}</h2>
 			{/block}
 			{block name="my-personal-data-content"}
 				<div class="card">
@@ -78,7 +78,7 @@
 						{block name="my-personal-data-address"}
 							<a href="{$cCanonicalURL}?editRechnungsadresse=1" class="flx-ac item">
 								<span class="w100">
-									<strong class="block">{lang key='billingAdress' section='account data'}</strong>
+									<strong class="block">{lang key='billingAdress' section='account data'}, {lang key='contactInformation' section='account data'} {lang key='and'} {lang key='email' section='account data'}</strong>
 									<small class="text-muted">{$Kunde->cStrasse|entferneFehlerzeichen} {$Kunde->cHausnummer}, {$Kunde->cPLZ} {$Kunde->cOrt}, {$Kunde->cLand}</small>
 								</span>
 								<span class="img-ct icon icon-wt">
@@ -89,17 +89,7 @@
 							</a>
 						{/block}
 						{block name="my-personal-data-contactdata"}
-							<a href="{$cCanonicalURL}?editRechnungsadresse=1" class="flx-ac item">
-								<span class="w100">
-									<strong class="block">{lang key='contactInformation' section='account data'} {lang key='and'} {lang key='email' section='account data'}</strong>
-									<small class="text-muted">{$Kunde->cMail}</small>
-								</span>
-								<span class="img-ct icon icon-wt">
-									<svg>
-									  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-edit"></use>
-									</svg>
-								</span>
-							</a>
+							{* Removed in 5.4.4 due to redundant link *}
 						{/block}
 						{block name="my-personal-data-shippingaddresses"}
 							<a href="{$cCanonicalURL}?editLieferadresse=1" class="flx-ac item">
@@ -122,6 +112,18 @@
 									</svg>
 								</span>
 							</a>
+						{/block}
+						{block name="my-personal-data-twofa"}
+							{if $twoFAEnabled === true}
+								<a class="flx-ac item" href="{get_static_route id='jtl.php' params=['twofa' => 1]}">
+									<strong class="w100">{lang key='twoFactorAuthentication' section='account data'}</strong>
+									<span class="img-ct icon icon-wt">
+										<svg>
+										<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-edit"></use>
+										</svg>
+									</span>
+								</a>
+							{/if}
 						{/block}
     				</div>
 				</div>

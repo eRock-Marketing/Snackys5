@@ -3,7 +3,7 @@
 	    {block name='account-downloads-order'}
             <hr class="invisible">
             {block name='account-downloads-order-headline'}
-                <span class="h4 block">{lang key='yourDownloads'}</span>
+                <h2 class="h4">{lang key='yourDownloads'}</h2>
             {/block}
             {block name='account-downloads-order-body'}
                 <div class="card" role="tablist">
@@ -51,7 +51,7 @@
 	    {block name='account-downloads-account'}
             <hr class="invisible">
             {block name='account-downloads-account-headline'}
-                <span class="h4 block">{lang key='yourDownloads'}</span>
+                <h2 class="h4">{lang key='yourDownloads'}</h2>
             {/block}
             {block name='account-downloads-account-body'}
                 <div class="card" role="tablist">

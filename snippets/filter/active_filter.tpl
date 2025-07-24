@@ -13,7 +13,12 @@
                                         rel="nofollow"
                                         title="{lang key='deleteFilter'}"
                                         class="btn btn-outline-secondary btn-sm filter-type-{$activeFilter->getNiceName()} snippets-filter-item js-filter-item"}
-                                        {$filterOption->getFrontendName()}<span class="fa fa-times snippets-filter-item-icon-left"></span>
+                                        {if $Einstellungen.navigationsfilter.merkmal_label_anzeigen === 'Y' 
+                                        && $activeFilter->getNiceName() === 'Characteristic'}
+                                            {$activeFilter->getFilterName()}:
+                                        {/if}
+                                        {$filterOption->getFrontendName()}
+                                        <span class="fa fa-times snippets-filter-item-icon-left"></span>
                                     {/link}
                                 {/block}
                             {/foreach}
@@ -23,7 +28,12 @@
                                     rel="nofollow"
                                     title="{lang key='deleteFilter'}"
                                     class="btn btn-outline-secondary btn-sm filter-type-{$activeFilter->getNiceName()} snippets-filter-item js-filter-item"}
-                                    {$activeValues->getFrontendName()}<span class="fa fa-times snippets-filter-item-icon-left"></span>
+                                    {if $Einstellungen.navigationsfilter.merkmal_label_anzeigen === 'Y' 
+                                    && $activeFilter->getNiceName() === 'Characteristic'}
+                                        {$activeFilter->getFilterName()}:
+                                    {/if}
+                                    {$activeValues->getFrontendName()}
+                                    <span class="fa fa-times snippets-filter-item-icon-left"></span>
                                 {/link}
                             {/block}
                         {/if}

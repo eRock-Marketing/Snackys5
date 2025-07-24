@@ -7,7 +7,7 @@
 						{block name='account-order-item-image'}
                 			<div class="img-col col-3 col-md-2">
                     			{if !empty($oPosition->Artikel->cVorschaubildURL)}
-									<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:'html'}" class="img-ct">
+									<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}" class="img-ct" tabindex="-1" aria-hidden="true">
 										{if isset($nSeitenTyp) && $nSeitenTyp == 37}
 											{include file='snippets/image.tpl'
 												fluid=false
@@ -15,14 +15,14 @@
 												square=false
 												lazy=false
 												class='img-responsive-width'
-												alt=$oPosition->cName|trans|escape:'html'}
+												alt=$oPosition->cName|transByISO|escape:'html'}
 										{else}
 											{include file='snippets/image.tpl'
 												fluid=false
 												item=$oPosition->Artikel
 												square=false
 												class='img-responsive-width'
-												alt=$oPosition->cName|trans|escape:'html'}
+												alt=$oPosition->cName|transByISO|escape:'html'}
 										{/if}
 									</a>
                     			{/if}
@@ -35,8 +35,8 @@
                         				<div class="col-8 col-md-8 col-lg-9">
                              				{if $oPosition->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
 												{block name='account-order-item-content-information-name'}
-													<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:'html'}" class="block">
-														<strong class="title">{$oPosition->cName|trans}</strong>
+													<a href="{$oPosition->Artikel->cURLFull}" class="block">
+														<strong class="title">{$oPosition->cName|transByISO}</strong>
 													</a>
 												{/block}
 												{block name='account-order-item-content-information-details'}
@@ -53,25 +53,18 @@
 																</li>
 															{/if}
 														{/block}
-														{block name='account-order-item-content-information-baseprice'}
-															{if $oPosition->Artikel->cLocalizedVPE && $oPosition->Artikel->cVPE !== 'N' && $oPosition->nPosTyp != $C_WARENKORBPOS_TYP_GRATISGESCHENK}
-																<li class="baseprice">
-																	<strong>{lang key="basePrice" section="global"}:</strong> {$oPosition->Artikel->cLocalizedVPE[$NettoPreise]}
-																</li>
-															{/if}
-														{/block}
 														{block name='account-order-item-content-information-variations'}
 															{if $Einstellungen.kaufabwicklung.warenkorb_varianten_varikombi_anzeigen === 'Y' && isset($oPosition->WarenkorbPosEigenschaftArr) && !empty($oPosition->WarenkorbPosEigenschaftArr)}
 																{foreach name=variationen from=$oPosition->WarenkorbPosEigenschaftArr item=Variation}
 																	<li class="variation">
-																		<strong>{$Variation->cEigenschaftName|trans}:</strong> {$Variation->cEigenschaftWertName|trans} {if !empty($Variation->cAufpreisLocalized[$NettoPreise])}&raquo;
+																		<strong>{$Variation->cEigenschaftName|transByISO}:</strong> {$Variation->cEigenschaftWertName|transByISO} {if !empty($Variation->cAufpreisLocalized[$NettoPreise])}&raquo;
 																		{if substr($Variation->cAufpreisLocalized[$NettoPreise], 0, 1) !== '-'}+{/if}{$Variation->cAufpreisLocalized[$NettoPreise]} {/if}
 																	</li>
 																{/foreach}
 															{/if}
 														{/block}
 														{block name='account-order-item-content-information-delivery'}
-															{if $Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|trans}                                        
+															{if $Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|transByISO}                                        
 																<li class="delivery-status">{lang key='orderStatus' section='login'}:
 																	<strong>
 																		{if $oPosition->bAusgeliefert}
@@ -140,19 +133,19 @@
 												{/block}
 											{else}
 												{block name='account-order-item-content-information-name2'}
-                                					<strong>{$oPosition->cName|trans}{if isset($oPosition->discountForArticle)}{$oPosition->discountForArticle|trans}{/if}</strong>
+                                					<strong>{$oPosition->cName|transByISO}{if isset($oPosition->discountForArticle)}{$oPosition->discountForArticle|transByISO}{/if}</strong>
 												{/block}
 												{block name='account-order-item-content-information-nameaffix'}
 													{if isset($oPosition->cArticleNameAffix)}
 														{if is_array($oPosition->cArticleNameAffix)}
 															<ul class="small text-muted">
 																{foreach $oPosition->cArticleNameAffix as $cArticleNameAffix}
-																	<li>{$cArticleNameAffix|trans}</li>
+																	<li>{$cArticleNameAffix|transByISO}</li>
 																{/foreach}
 															</ul>
 														{else}
 															<ul class="small text-muted">
-																<li>{$oPosition->cArticleNameAffix|trans}</li>
+																<li>{$oPosition->cArticleNameAffix|transByISO}</li>
 															</ul>
 														{/if}
 													{/if}
@@ -171,7 +164,7 @@
 																{if $oPosition->cUnique == $KonfigPos->cUnique && $KonfigPos->kKonfigitem > 0}
 																	<li>
 																		<span class="qty">{if !(is_string($oPosition->cUnique) && !empty($oPosition->cUnique) && (int)$oPosition->kKonfigitem === 0)}{$KonfigPos->nAnzahlEinzel}{else}1{/if}x</span>
-																		{$KonfigPos->cName|trans} &raquo;<br/>
+																		{$KonfigPos->cName|transByISO} &raquo;<br/>
 																		<span class="price_value">
 																			{if substr($KonfigPos->cEinzelpreisLocalized[$NettoPreise], 0, 1) !== '-'}+{/if}{$KonfigPos->cEinzelpreisLocalized[$NettoPreise]}
 																			{lang key='pricePerUnit' section='checkout'}
@@ -189,7 +182,7 @@
 														{foreach $oPosition->Artikel->oStueckliste_arr as $partListItem}
 															<li>
 																<span class="qty">{$partListItem->fAnzahl_stueckliste}x</span>
-																{$partListItem->cName|trans}
+																{$partListItem->cName|transByISO}
 															</li>
 														{/foreach}
 													</ul>

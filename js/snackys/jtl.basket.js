@@ -135,6 +135,7 @@
 				{
 					document.getElementsByClassName('cart-menu')[0].classList.add('open');
 					document.body.classList.add('sidecart-open');
+                    document.querySelector('.c-dp .close-btn')?.focus();
 				}
             });
 			

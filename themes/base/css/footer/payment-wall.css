@@ -7,9 +7,8 @@
 }
 #pay-f li.text{
 	padding: .5rem .8rem;
-	border-radius: .3rem;
+	border-radius: var(--btn-rnd-sm);
 	border: 1px solid var(--hr);
-	font-size: 0.95rem;
 	color: var(--bod-t);
 }
 #pay-f li:empty{
@@ -17,4 +16,5 @@
 }
 #pay-f li.img img{
 	max-width: 150px;
+	max-height: 50px;
 }
