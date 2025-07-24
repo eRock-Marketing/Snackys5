@@ -137,3 +137,25 @@
   background-color: #000;
   border-radius: 0.25rem;
 }
+
+
+.dropper-box::before {
+  content: "' . ($_SESSION['AdminAccount']->language == 'de-DE' ? '🎯 Klicken zum Auswählen' : '🎯 Click to select') . '";
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1001;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.dropper-box:hover::before {
+  opacity: 1;
+}

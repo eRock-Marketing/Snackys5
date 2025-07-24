@@ -61,10 +61,10 @@
                 {assign var='isDropdown' value=true}
             {/if}
             {assign var="catFunctions" value=$category->getFunctionalAttributes()}
-            <li class="{if $isDropdown && $category->hasChildren()}mgm-fw dropdown-style{/if}{if $category->getID() == $activeId || (isset($activeParents[0]) && $activeParents[0]->getID() == $category->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}{if $snackyConfig.dropdown_plus == 1 && $isDropdown && $category->hasChildren() && $snackyConfig.drodownMaincat == 1} dd-plus{/if}">
+            <li class="{if isset($isDropdown) && $isDropdown && $category->hasChildren()}mgm-fw dropdown-style{/if}{if $category->getID() == $activeId || (isset($activeParents[0]) && $activeParents[0]->getID() == $category->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}{if $snackyConfig.dropdown_plus == 1 && isset($isDropdown) && $isDropdown && $category->hasChildren() && $snackyConfig.drodownMaincat == 1} dd-plus{/if}">
                 <a href="{$category->getURL()}" class="{if $snackyConfig.drodownMaincat == 0}mm-mainlink{else}dropdown-link defaultlink{/if}">
                     <span class="notextov">{$category->getShortName()}</span>
-                    {if $isDropdown && $category->hasChildren()}
+                    {if isset($isDropdown) && $isDropdown && $category->hasChildren()}
 						{if $snackyConfig.drodownMaincat == 0}
 						<span class="caret hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}
 						{else}
@@ -72,12 +72,12 @@
 						{/if}
 					{/if}
                 </a>   
-                {if $snackyConfig.dropdown_plus == 1 && $isDropdown && $category->hasChildren() && $snackyConfig.drodownMaincat == 1}
+                {if $snackyConfig.dropdown_plus == 1 && isset($isDropdown) && $isDropdown && $category->hasChildren() && $snackyConfig.drodownMaincat == 1}
                     <button class="hidden-xs dd-toggle" type="button" data-toggle="collapse" data-target="#mm-{$category->getID()}" aria-expanded="false" aria-controls="mm-{$category->getID()}">
                         <span class="ar ar-d"></span>
                     </button>
                 {/if}
-                {if $isDropdown && $category->hasChildren()}
+                {if isset($isDropdown) && $isDropdown && $category->hasChildren()}
                     <ul class="dropdown-menu keepopen{if $snackyConfig.drodownMaincat != 1} first{/if}"{if $snackyConfig.dropdown_plus == 1 && $snackyConfig.drodownMaincat == 1} id="mm-{$category->getID()}"{/if}>
 						{if $category->hasChildren()}
 							{if !empty($category->getChildren())}

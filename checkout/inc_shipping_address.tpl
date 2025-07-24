@@ -31,7 +31,13 @@
             				<div class="card-body">
             					{foreach $Lieferadressen as $adresse}
 									{block name='ship-address-choose-address-item'}
-                						{$checkAddress = (isset($shippingAddressPresetID) && ($shippingAddressPresetID == $adresse->kLieferadresse)) || (!isset($shippingAddressPresetID) && ($kLieferadresse == $adresse->kLieferadresse || ($kLieferadresse != -1 && $kLieferadresse != $adresse->kLieferadresse && $adresse->nIstStandardLieferadresse == 1)))}
+										{$checkAddress = (isset($shippingAddressPresetID) && ($shippingAddressPresetID == $adresse->kLieferadresse))
+											|| (!isset($shippingAddressPresetID) && (
+												$kLieferadresse == $adresse->kLieferadresse
+												|| ($kLieferadresse != -1 && $kLieferadresse != $adresse->kLieferadresse &&
+												$adresse->nIstStandardLieferadresse == 1)
+											)
+										)}
 										{block name='ship-address-choose-address-itemmodal'}
                 							<div class="modal modal-dialog" id="shipadress{$adresse@iteration}" tabindex="-1">
                     							<div class="modal-content">
@@ -62,7 +68,7 @@
 													<label class="flx-ac m0 stc-radio w100" for="delivery{$adresse->kLieferadresse}" data-toggle="collapse" data-target="#register_shipping_address.show">
 														{block name='ship-address-choose-address-item-radio'}
 															<span class="stc-input mr-xxs">
-																<input class="radio-checkbox" type="radio" name="kLieferadresse" value="{$adresse->kLieferadresse}" id="delivery{$adresse->kLieferadresse}" {if $kLieferadresse == $adresse->kLieferadresse}checked{/if}>
+																<input class="radio-checkbox" type="radio" name="kLieferadresse" value="{$adresse->kLieferadresse}" id="delivery{$adresse->kLieferadresse}" {if $checkAddress}checked{/if}>
 																<span class="stc-radio-btn"></span>
 															</span>
 														{/block}
@@ -149,5 +155,234 @@
 				{/literal}
 			{/inline_script}
 		{/if}
+		{inline_script}
+			{literal}
+				<script type="text/javascript">
+					$(document).ready(function () {
+						var $shippingForm = $('#register_shipping_address');
+						var $shippingRadios = $('input[name="kLieferadresse"]');
+						var $shippingCheckbox = $('#checkout_register_shipping_address');
+						var $shippingFieldsets = $('#select_shipping_address fieldset');
+						var formShouldStayOpen = false;
+						
+						// Funktion um disabled Fieldsets zu reaktivieren
+						function enableShippingFieldsets() {
+							$shippingFieldsets.each(function() {
+								var $fieldset = $(this);
+								if ($fieldset.prop('disabled')) {
+									$fieldset.prop('disabled', false);
+									// Reaktiviere auch alle Radio-Buttons im Fieldset
+									$fieldset.find('input[name="kLieferadresse"]').prop('disabled', false);
+								}
+							});
+						}
+						
+						// Funktion um disabled Felder im Adressformular zu reaktivieren
+						function enableAddressFormFields() {
+							$shippingForm.find('input, select, textarea').each(function() {
+								var $field = $(this);
+								if ($field.prop('disabled') && !$field.hasClass('keep-disabled')) {
+									$field.prop('disabled', false);
+								}
+							});
+						}
+						
+						// Funktion um korrekte Lieferadresse basierend auf Formulardaten zu finden
+						function findMatchingAddress() {
+							// Hole die aktuellen Werte aus dem "neue Adresse" Formular
+							var formData = {
+								vorname: $('#register-shipping_address-firstName').val(),
+								nachname: $('#register-shipping_address-lastName').val(),
+								strasse: $('#register-shipping_address-street').val(),
+								hausnummer: $('#register-shipping_address-streetnumber').val(),
+								plz: $('#register-shipping_address-postcode').val(),
+								ort: $('#register-shipping_address-city').val()
+							};
+							
+							// Überprüfe, ob die Formulardaten mit einer bestehenden Adresse übereinstimmen
+							var $matchingAddress = null;
+							$shippingRadios.each(function() {
+								var $radio = $(this);
+								var value = $radio.val();
+								
+								// Überspringe "neue Adresse" Optionen
+								if (value === '-1' || $radio.is('[data-jtlpack]') || $radio.is('[data-type="jtlpack"]')) {
+									return;
+								}
+								
+								// Hole die Adressdaten aus dem Label-Text
+								var $label = $radio.closest('.item').find('.payship-content');
+								if ($label.length > 0) {
+									var labelText = $label.text().trim();
+									var hasName = formData.vorname && formData.nachname && 
+												 labelText.includes(formData.vorname) && labelText.includes(formData.nachname);
+									var hasStreet = formData.strasse && labelText.includes(formData.strasse);
+									var hasPlz = formData.plz && labelText.includes(formData.plz);
+									var hasOrt = formData.ort && labelText.includes(formData.ort);
+									
+									// Wenn mindestens 3 der 4 wichtigsten Felder übereinstimmen
+									var matches = (hasName ? 1 : 0) + (hasStreet ? 1 : 0) + (hasPlz ? 1 : 0) + (hasOrt ? 1 : 0);
+									if (matches >= 3) {
+										$matchingAddress = $radio;
+										return false; // break loop
+									}
+								}
+							});
+							
+							return $matchingAddress;
+						}
+						
+						// Funktion um den korrekten Adress-State zu reparieren
+						function fixAddressState() {
+							// Prüfe, ob "neue Adresse" ausgewählt ist, aber Formulardaten vorhanden sind
+							var $newAddressRadio = $('#delivery_new');
+							var isNewAddressSelected = $newAddressRadio.prop('checked');
+							
+							if (isNewAddressSelected) {
+								// Überprüfe, ob es sich um vorausgefüllte Daten einer bestehenden Adresse handelt
+								var $matchingAddress = findMatchingAddress();
+								
+								if ($matchingAddress && $matchingAddress.length > 0) {
+									// Wähle die passende bestehende Adresse aus
+									console.log('Repariere Adress-State: Wähle bestehende Adresse aus');
+									$matchingAddress.prop('checked', true).trigger('change');
+									
+									// Leere das Formular, da es jetzt eine bestehende Adresse ist
+									setTimeout(function() {
+										$shippingForm.find('input[type="text"], input[type="email"], textarea').val('');
+										$shippingForm.find('select').prop('selectedIndex', 0);
+									}, 100);
+								} else {
+									// Es ist wirklich eine neue Adresse - reaktiviere die Felder
+									enableAddressFormFields();
+								}
+							}
+						}
+						
+						// Überwache Änderungen am DOM (falls Fieldsets oder Felder nachträglich disabled werden)
+						var observer = new MutationObserver(function(mutations) {
+							mutations.forEach(function(mutation) {
+								if (mutation.type === 'attributes' && mutation.attributeName === 'disabled') {
+									enableShippingFieldsets();
+									enableAddressFormFields();
+								}
+							});
+						});
+						
+						// Starte die Überwachung für alle Fieldsets
+						$shippingFieldsets.each(function() {
+							observer.observe(this, { 
+								attributes: true, 
+								attributeFilter: ['disabled'] 
+							});
+						});
+						
+						// Überwache auch das Adressformular
+						if ($shippingForm.length > 0) {
+							observer.observe($shippingForm[0], { 
+								attributes: true, 
+								attributeFilter: ['disabled'],
+								subtree: true
+							});
+						}
+						
+						// Reaktiviere Fieldsets beim Laden der Seite
+						enableShippingFieldsets();
+						
+						// Repariere den Adress-State beim Laden
+						setTimeout(function() {
+							fixAddressState();
+						}, 200);
+						
+						// Funktion um die erste verfügbare Lieferadresse auszuwählen
+						function selectFirstShippingAddress() {
+							// Stelle sicher, dass Fieldsets aktiviert sind
+							enableShippingFieldsets();
+							
+							// Aktualisiere die Radio-Button-Referenz für den Fall, dass neue hinzugekommen sind
+							$shippingRadios = $('input[name="kLieferadresse"]');
+							
+							// Finde die erste Lieferadresse (nicht "neue Adresse" Optionen)
+							var $firstAddress = $shippingRadios.filter(function() {
+								var $this = $(this);
+								var value = $this.val();
+								var isNewAddressOption = value === '-1' || 
+														$this.is('[data-jtlpack]') || 
+														$this.is('[data-type="jtlpack"]') ||
+														$this.attr('id') === 'delivery_new' ||
+														$this.attr('id') === 'packstation' ||
+														$this.attr('id') === 'postfiliale';
+								return !isNewAddressOption && value && value !== '' && !$this.prop('disabled');
+							}).first();
+							
+							if ($firstAddress.length > 0) {
+								$firstAddress.prop('checked', true).trigger('change');
+							}
+						}
+						
+						// Überwache Checkbox-Änderungen für "Lieferadresse entspricht Rechnungsadresse"
+						$shippingCheckbox.on('change', function() {
+							var isChecked = $(this).prop('checked');
+							
+							// Wenn Checkbox deaktiviert wird (Lieferadresse ≠ Rechnungsadresse)
+							if (!isChecked) {
+								// Kurze Verzögerung, damit das Collapse-Event vollständig abgeschlossen ist
+								setTimeout(function() {
+									// Repariere erst den State, dann wähle die erste Adresse
+									fixAddressState();
+									setTimeout(function() {
+										selectFirstShippingAddress();
+									}, 100);
+								}, 100);
+							}
+						});
+						
+						// Überwache Radio-Button-Änderungen
+						$shippingRadios.on('change', function() {
+							var selectedValue = $(this).val();
+							var selectedElement = $(this);
+							
+							// Prüfe ob es sich um eine "neue Adresse"-Option handelt
+							// (value="-1" oder spezielle data-Attribute für Packstation/Postfiliale)
+							var isNewAddressOption = selectedValue === '-1' || 
+													selectedElement.is('[data-jtlpack]') || 
+													selectedElement.is('[data-type="jtlpack"]') ||
+													selectedElement.attr('id') === 'delivery_new' ||
+													selectedElement.attr('id') === 'packstation' ||
+													selectedElement.attr('id') === 'postfiliale';
+													
+							if (isNewAddressOption) {
+								// Formular sollte geöffnet bleiben oder geöffnet werden
+								formShouldStayOpen = true;
+								if (!$shippingForm.hasClass('show') && !$shippingForm.hasClass('in')) {
+									$shippingForm.addClass('show in').attr('aria-expanded', 'true').show();
+								}
+							} else {
+								// Bestehende Adresse ausgewählt - Formular kann geschlossen werden
+								formShouldStayOpen = false;
+								if ($shippingForm.hasClass('show') || $shippingForm.hasClass('in')) {
+									$shippingForm.removeClass('show in').attr('aria-expanded', 'false').hide();
+								}
+							}
+						});
+						
+						// Verhindere automatisches Schließen des Formulars durch Bootstrap
+						$(document).on('hide.bs.collapse', function (e) {
+							if ($(e.target).attr('id') === 'register_shipping_address' && formShouldStayOpen) {
+								e.preventDefault();
+								e.stopImmediatePropagation();
+								return false;
+							}
+						});
+						
+						// Stelle sicher, dass das Formular korrekt initialisiert wird
+						var $checkedRadio = $shippingRadios.filter(':checked');
+						if ($checkedRadio.length > 0) {
+							$checkedRadio.trigger('change');
+						}
+					});
+				</script>
+			{/literal}
+		{/inline_script}
 	{/block}
 {/block}

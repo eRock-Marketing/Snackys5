@@ -73,6 +73,31 @@
     background: var(--tag-df-b);
 }
 /* Freegift */
+#freegift .check{
+    width: 2rem;
+    min-width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    background: var(--con-b);
+    border: 1px solid var(--con-r);
+    color: transparent
+}
+#freegift label:hover .check,
+#freegift label.active .check{
+    background: var(--con-b-h);
+    border-color: var(--con-b-h);
+    color: var(--con-i);
+}
+#freegift .caption{
+    margin-right: 1rem;
+}
+#freeGiftsHeading a:not(:hover){
+    text-decoration: none !important;
+} 
 #freegift span.text-muted{
     font-weight: 400;
 }
@@ -89,6 +114,9 @@
 }
 #freegift label:hover strong{
     color: var(--bod-l-h);
+}
+#freegift .thumbnail:last-child{
+    margin-bottom: 0;
 }
 /* Basket Quantity Hover */
 .choose_quantity button:hover .img-ct{

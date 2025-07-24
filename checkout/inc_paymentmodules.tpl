@@ -122,7 +122,7 @@
 					</div>
 				{/block}
 			</div>
-		{else}
+			{else}
 
 			{assign var=cModulId value=$Bestellung->Zahlungsart->cModulId}
 			{if ($method === null || $Bestellung->Zahlungsart->cModulId !== $method->getModuleID())
@@ -167,7 +167,7 @@
 					{/if}
 				</div>
 			{/block}
-		{/if}
+			{/if}
 		{/block}
 	{/if}
 {/block}

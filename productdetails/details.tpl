@@ -346,6 +346,11 @@
                 </div>
 				</div>
 			</div>
+			{if $snackyConfig.stickyBasket == 'Y'}
+				{block name="sticky-basket-bar"}
+					{include file="productdetails/sticky-basket-bar.tpl"}
+				{/block}
+			{/if}
 		</form>
 	{/block}
 	{block name="details-question-availability-modals"}

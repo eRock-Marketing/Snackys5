@@ -1,7 +1,4 @@
 {block name='checkout-step5-confirmation'}
-	{block name='step5-h1'}
-		<h1 class="sr-only">{lang section='checkout' key='summary'}</h1>
-	{/block}
 	<div id="order-confirm">
 		{block name='step5-alerts'}
 			{if !empty($smarty.get.mailBlocked)}

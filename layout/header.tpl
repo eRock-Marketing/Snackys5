@@ -367,6 +367,9 @@
 						{if $snackyConfig.images_nocopy == '1'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/config/img-nocopy.css'}
 						{/if}
+						{if $snackyConfig.stickyBasket == 'Y'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/sticky-basket.css'}
+						{/if}
 					{/block}
 					{if $opc->isEditMode() === false && $opc->isPreviewMode() === false && \JTL\Shop::isAdmin(true)}
 						<link type="text/css" href="{$ShopURL}/admin/opc/css/startmenu.css" rel="stylesheet">
@@ -557,19 +560,19 @@
 					<div id="shop-nav">
 						<div class="mw-container flx-ac flx-w">
 							{block name="header-smallversion-basketlink"}
-								<div class="col-6 col-lg-4 xs-order-1">
-									<a href="{get_static_route id='warenkorb.php'}" aria-label="{lang key='backToBasket' section='checkout'}" class="visible-xs pr">
-									<span class="img-ct icon">
-										<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-										  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-logout"></use>
-										</svg>
-									</span>
+								<div class="col-4">
+									<a href="{get_static_route id='warenkorb.php'}" aria-label="{lang key='backToBasket' section='checkout'}" class="show-sm">
+										<span class="img-ct icon icon-xl back">
+											<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
+											<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-logout"></use>
+											</svg>
+										</span>
 									</a>
-									<a href="{get_static_route id='warenkorb.php'}" class="btn text-muted hidden-xs">{lang key="backToBasket" section="checkout"}</a>
+									<a href="{get_static_route id='warenkorb.php'}" class="btn hide-sm">{lang key="backToBasket" section="checkout"}</a>
 								</div>
 							{/block}
 							{block name="header-smallversion-shoplogo"}
-								<div class="col-6 col-lg-4" id="logo">
+								<div class="col-4" id="logo">
 									{block name="logo"}
 										<a href="{$ShopURL}" title="{$Einstellungen.global.global_shopname}" class="pr">
 											{if !empty($snackyConfig.svgLogo)}
@@ -585,7 +588,17 @@
 									{/block}
 								</div>
 							{/block}
-							{block name="header-branding-shop-nav"}
+							{block name="header-smallversion-secure"}
+								<div class="col-4">
+									<span class="flx-ac flx-je">
+										<span class="img-ct icon icon-xl mr-xxs">
+											<svg>
+												<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-secure"></use>
+											</svg>
+										</span>
+										<span class="hide-sm">{lang key='secureCheckout' section='checkout'}</span>
+									</span>
+								</div>
 							{/block}
 						</div>
 					</div>

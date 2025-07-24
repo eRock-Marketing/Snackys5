@@ -33,6 +33,64 @@ a.btn-skip-to:focus {
     transform: scale(1);
     opacity: 1;
 }
+
+/* Freegift Progress */
+.gifthint .icon{
+    width: 2.5rem;
+    margin-right: .75rem;
+    background: var(--bod-b-l);
+    border-radius: 50%;
+    border: 1px solid var(--hr);
+}
+.gifthint .icon svg{
+    transform: scale(.5);
+}
+.gifthint .progress{
+    margin-bottom: .25rem;
+    margin-top: 7px;
+}
+.gifthint .progress,
+.gifthint .progress-bar{
+    background: var(--prg-b);
+    height: .6rem;
+    border-radius: var(--rnd-frc);
+}
+.gifthint .progress-bar{
+    display: block !important;
+    background-image: repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.15) 0,
+            rgba(255, 255, 255, 0.15) 10px,
+            transparent 10px,
+            transparent 20px
+    );
+    background-color: var(--prg-b-h);
+    background-size: 40px 40px;
+    animation: eRock-barGrow 1.2s ease-out forwards, eRock-stripes 1s linear infinite;
+    height: 100%;
+    width: 0%;
+    border-radius: 16px 0 0 16px;
+}
+.gifthint a{
+    text-decoration: underline;
+}
+@keyframes eRock-barGrow {
+    from {
+        width: 0%;
+    }
+    to {
+        width: var(--progress-width);
+    }
+}
+@keyframes eRock-stripes {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 40px 0;
+    }
+}
+
 /* Slide-In Animation */
 @keyframes slide-in{
 	from{

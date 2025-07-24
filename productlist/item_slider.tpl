@@ -35,8 +35,12 @@
                                 {if isset($Artikel->Bilder[1]) && !$isMobile}
                                     <div class="second-img">
                                         {$image2 = $Artikel->Bilder[1]}
-
-                                        {image alt=$alt fluid=true webp=true lazy=true
+                                        {if isset($Artikel->Bilder[1]->cAltAttribut)}
+                                            {assign var="alt2" value=$Artikel->Bilder[1]->cAltAttribut|truncate:60}
+                                        {else}
+                                            {assign var="alt2" value=$Artikel->cName}
+                                        {/if}
+                                        {image alt=$alt2 fluid=true webp=true lazy=true
                                             src="{$image2->cURLKlein}"
                                             srcset="{$image2->cURLMini} {$image2->imageSizes->xs->size->width}w,
                                                     {$image2->cURLKlein} {$image2->imageSizes->sm->size->width}w,

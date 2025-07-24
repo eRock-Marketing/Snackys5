@@ -240,12 +240,13 @@
             if (($bulkPrice.length > 0 && $config.length === 0) || $('#product-list').length > 0) {
                 $('#quantity, [data-bulk="1"] .quantity', $wrapper)
                     .each(function(i, item) {
-                        var $item   = $(item),
+                        let $item   = $(item),
                             wrapper = '#' + $item.closest('form').closest('div[data-wrapper="true"]').attr('id');
 
                         $item.on('change', function () {
                             that.variationPrice($(this), true, wrapper);
                         });
+                        that.variationPrice($(this), true, wrapper);
                     });
             }
         },

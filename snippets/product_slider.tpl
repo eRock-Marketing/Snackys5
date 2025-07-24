@@ -25,10 +25,10 @@
                 <div class="right">
                     {if !$isMobile}
                         <div class="ar-ct btn-group{if $productlist|@count > $snackyConfig.css_listElmXl} show-xl{/if}{if $productlist|@count > $snackyConfig.css_listElmLg} show-lg{/if}{if $productlist|@count > $snackyConfig.css_listElmMd} show-md{/if}{if $productlist|@count > $snackyConfig.css_listElmSm} show-sm{/if}{if $productlist|@count > $snackyConfig.css_listElmXs} show-xs{/if}">
-                            <button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}">
+                            <button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}" tabindex="-1">
                                 <span class="ar ar-l"></span>
                             </button>
-                            <button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}">
+                            <button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}" tabindex="-1">
                                 <span class="ar ar-r"></span>
                             </button>
                         </div>
@@ -54,10 +54,10 @@
 			{if $isMobile || $tplscope === 'box'}
 			<div class="row ar-ct-m">
 				<div class="col-12 ar-ct{if $productlist|@count > $snackyConfig.css_listElmXl} show-xl{/if}{if $productlist|@count > $snackyConfig.css_listElmLg} show-lg{/if}{if $productlist|@count > $snackyConfig.css_listElmMd} show-md{/if}{if $productlist|@count > $snackyConfig.css_listElmSm} show-sm{/if}{if $productlist|@count > $snackyConfig.css_listElmXs} show-xs{/if}">
-					<button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}">
+					<button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}" tabindex="-1">
 						<span class="ar ar-l"></span>
 					</button>
-					<button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}">
+					<button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}" tabindex="-1">
 						<span class="ar ar-r"></span>
 					</button>
 				</div>

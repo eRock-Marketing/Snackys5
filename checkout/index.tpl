@@ -9,6 +9,17 @@
 			{include file='layout/header.tpl' smallversion=true}
 		{/if}
 	{/block}
+	{block name="screenreader-h1"}
+		{if $step === 'accountwahl'}
+			<h1 class="sr-only">{lang key='orderStep0Title' section='checkout'}</h1>
+		{elseif $step === 'edit_customer_address' || $step === 'Lieferadresse'}
+			<h1 class="sr-only">{lang section='account data' key='billingAndDeliveryAddress'}</h1>
+		{elseif $step === 'Versand' || $step === 'Zahlung' || $step === 'ZahlungZusatzschritt'}
+			<h1 class="sr-only">{lang section='account data' key='shippingAndPaymentOptions'}</h1>
+		{elseif $step === 'Bestaetigung'}
+			<h1 class="sr-only">{lang section='checkout' key='summary'}</h1>
+		{/if}
+	{/block}
 	{block name="content"}   
 		<div id="result-wrapper">
         	<div id="checkout">

@@ -1,7 +1,4 @@
 {block name='checkout-step0-login-or-register'}
-	{block name='step0-h1'}
-		<h1 class="sr-only">{lang key='orderStep0Title' section='checkout'}</h1>
-	{/block}
 	{block name='step0-notice-missing-information'}
 		{if !empty($fehlendeAngaben) && !$alertNote}
 			<div class="alert alert-danger">{lang key='mandatoryFieldNotification' section='errorMessages'}</div>

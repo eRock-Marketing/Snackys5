@@ -573,7 +573,11 @@ function snackys()
 					if(!e) e = window.event;
 					e.preventDefault();
 					if(e.target.parentNode.parentNode.classList.contains('open-show'))
-						e.target.parentNode.parentNode.classList.remove('open-show')
+					{
+						e.target.parentNode.parentNode.classList.remove('open-show');
+						// Remove focus when closing the box
+						e.target.blur();
+					}
 					else
 						e.target.parentNode.parentNode.classList.add('open-show')
 				});
@@ -806,11 +810,77 @@ document.querySelectorAll('#footer-boxes .panel-heading').forEach(el => {
     el.setAttribute('tabindex', '0');
 });
 
+// Sticky Basket
+document.getElementById('stck-bskt-add')?.addEventListener('click', function () {
+    const targetButton = document.querySelector('button.sn-addBasket');
+    targetButton?.click();
+});
+
 // Set Focus on basket
 $(document).ready(function () {
     if ($('.cart-menu').hasClass('open')) {
         $('.c-dp .close-btn').focus();
     }
+    
+    $('.video-transcript').each(function() {
+        let container = $(this);
+        container.find('[data-toggle="collapse"]').on('click', function() {
+            $(this).attr('aria-expanded', function(i, attr) {
+                return attr === 'true' ? 'false' : 'true'
+            });
+            container.find('.collapse').collapse('toggle');
+        }).on('focus', function() {
+            $(this).parent('.video-transcript').toggleClass('focus');
+        })
+    });
+    $('[data-video-transcript]').each(function() {
+        let transcriptElement = $(this);
+        
+        transcriptElement.on('click', function (e) {
+            e.preventDefault();
+            let content = transcriptElement.data('video-transcript');
+            if (content !== '') {
+                let popup = window.open(
+                    '',
+                    'TranscriptWindow',
+                    'width=600, height=400, scrollbars=yes'
+                );
+                $(popup.document.body).html(content);
+            }
+        });
+    });
+
+    // Sticky Basket
+    function checkVisibilityAndScrollPosition() {
+        const $target = $('.sn-addBasket');
+        const $container = $('#stck-bskt');
+        const bufferFromBottom = 200; // px bevor das Seitenende erreicht ist
+    
+        if ($target.length === 0 || $container.length === 0) return;
+    
+        const rect = $target[0].getBoundingClientRect();
+        const isVisible = (
+        rect.top >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        );
+    
+        const nearPageEnd = (
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - bufferFromBottom
+        );
+    
+        if (!isVisible && !nearPageEnd) {
+        $container.addClass('show');
+        } else {
+        $container.removeClass('show');
+        }
+    }
+    
+    // Check beim Scrollen und bei Größenänderung
+    $(window).on('scroll resize', checkVisibilityAndScrollPosition);
+    
+    // Initialer Check
+    checkVisibilityAndScrollPosition();
+
 });
 
 // Basket Tab-Loop

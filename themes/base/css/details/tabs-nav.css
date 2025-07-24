@@ -44,6 +44,9 @@
         border-bottom: 1px solid var(--hr-li);
         margin: 0;
         cursor: pointer;
+        background: none;
+        border: 0;
+        width: 100%;
     }
     .tab-ct.show > .panel-heading .img-ct{
         transform: scaleY(-1);

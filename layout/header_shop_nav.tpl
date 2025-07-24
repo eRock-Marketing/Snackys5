@@ -51,7 +51,7 @@
 					{/if}
 				{/block}
 				{block name="navbar-top-user-cart"}
-					<div class="cart-menu dropdown{if $WarenkorbArtikelPositionenanzahl >= 1} items{/if}{if $nSeitenTyp == 3} current{/if}{if isset($bWarenkorbHinzugefuegt) && $bWarenkorbHinzugefuegt} open{/if}" data-toggle="basket-items">
+					<div class="cart-menu dropdown{if $WarenkorbArtikelAnzahl >= 1} items{/if}{if $nSeitenTyp == 3} current{/if}{if isset($bWarenkorbHinzugefuegt) && $bWarenkorbHinzugefuegt} open{/if}" data-toggle="basket-items">
 						{include file='basket/cart_dropdown_label.tpl'}
 					</div>
 				{/block}

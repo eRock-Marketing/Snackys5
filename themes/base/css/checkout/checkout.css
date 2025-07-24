@@ -13,8 +13,8 @@ body:not(.no-pd){
     max-width: 1500px;
 }
 #shop-nav{
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: 1.8rem;
+    padding-bottom: 1.8rem;
 }
 /* Steps */
 .c-stp {
@@ -457,30 +457,32 @@ label.stc-radio{
 #complete_order hr + hr{
     display: none;
 }
+@media screen and (min-width: 1200px){
+    #shop-nav .show-sm{
+        display: none;
+    }
+}
 @media screen and (max-width: 1600px){
     body:not(.no-pd){
         padding-right: 25rem;
     }
 }
 @media screen and (max-width: 1199px){
-    #shop-nav .xs-order-1{
-        order: 1;
-        text-align: right;
-    }
-    #logo{
-        justify-content: flex-start;
-    }
     body[data-page="11"] #content-wrapper {
-        margin-top: 1rem;
         margin-bottom: 2rem;
     }
     #customer{
         width: 100%;
     }
-	body[data-page="11"] #logo img{
-		margin: 0;
-		object-position: left;
-	}
+    #shop-nav .hide-sm{
+        display: none;
+    }
+    #shop-nav .icon.mr-xxs{
+        margin-right: 0;
+    }
+    #shop-nav .back{
+        transform: scaleX(-1);
+    }
 }
 @media screen and (max-width: 991px){
     body,
@@ -516,9 +518,6 @@ label.stc-radio{
     }
     body:not([data-page="18"]).body-offcanvas #content-wrapper{
         padding-top: 0;
-    }
-    body[data-page="11"] #content-wrapper{
-        margin-top: 0;
     }
     .c-stp > *{
         padding: 1rem 0;
@@ -563,6 +562,12 @@ label.stc-radio{
 		margin-bottom: 1rem;
 		border: 0;
 	}
+    #shop-nav .col-4:not(#logo){
+        width: 2rem;
+    }
+    #logo{
+        flex-grow: 1;
+    }
 }
 @media screen and (max-width: 575px){
     #panel-submit-order .submit_once{

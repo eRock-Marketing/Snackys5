@@ -36,7 +36,7 @@
 			ecomm_prodid: [{foreach from=$Suchergebnisse->getProducts() item="prodid" name="prodid"}{if !$smarty.foreach.prodid.first},{/if}"{$prodid->cArtNr}"{/foreach}],
 			ecomm_pagetype: 'category',
 			ecomm_totalvalue: [{foreach from=$Suchergebnisse->getProducts() item="totalvalue" name="totalvalue"}{if !$smarty.foreach.totalvalue.first},{/if}{$totalvalue->Preise->fVKNetto|number_format:2:".":""}{/foreach}]
-			{elseif $nSeitenTyp == 33 && $Bestellung->Positionen|count > 0}
+			{elseif $nSeitenTyp == 33 && $Bestellung->Positionen !== null && $Bestellung->Positionen|count > 0}
 			{* Bestellbestätigung *}
 			ecomm_prodid: [{foreach from=$Bestellung->Positionen item="prodid" name="prodid"}{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}{if !$smarty.foreach.prodid.first},{/if}"{$prodid->Artikel->cArtNr}"{/if}{/foreach}],
 			ecomm_pagetype: 'purchase',
@@ -194,7 +194,7 @@
 		});
 		{/if}
 		{* Purchase *}
-		{if $nSeitenTyp == 33 && $Bestellung->Positionen|count > 0}
+		{if $nSeitenTyp == 33 && $Bestellung->Positionen !== null && $Bestellung->Positionen|count > 0}
 		dataLayer.push({ ecommerce: null });
 		{assign var="coupon" value=""}
 		dataLayer.push({

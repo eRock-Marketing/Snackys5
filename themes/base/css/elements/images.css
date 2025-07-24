@@ -34,7 +34,7 @@ img[height]:not(.zoomImg):not([height="auto"]):not(.p-c img){
     transform: translateY(-4px);
 }
 /* Ratios Standard 1x1 */
-.img-ct:before,
+.img-ct:not(.c-ratio):before,
 .embed-responsive:before{
 	content: '';
 	padding-top: 100%;
@@ -82,6 +82,10 @@ svg.icon-darkmode {
 .img-manu img,
 .img-ct > svg{
 	object-fit: contain;
+}
+.img-ct.c-ratio img{
+    object-fit: cover;
+    object-position: center;
 }
 
 /* 16:9 */

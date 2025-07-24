@@ -277,7 +277,7 @@
 					</div>
 				</div>
 			{/block}
-			{* block name='checkout-customer-shipping-address-is-default-wrap'}
+			{block name='checkout-customer-shipping-address-is-default-wrap'}
 				{if empty($Kunde->kKunde) === false && $Kunde->isLoggedIn()}
 					{col cols=12 md=12 class="mt-xxs"}
 						{block name='checkout-customer-shipping-address-is-default'}
@@ -292,7 +292,7 @@
 						{/block}
 					{/col}
 				{/if}
-			{/block *}
+			{/block}
 			{block name='checkout-customer-shipping-address-save-preset-wrap'}
 				{if $step == 'Lieferadresse' || $step == 'edit_customer_address'}
 					{col cols=12 md=12}

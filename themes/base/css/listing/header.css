@@ -15,10 +15,10 @@
 #plh .desc .img-ct{
     border: 1px solid var(--pbx-im-r);
 }
-#plh a{
+#plh a:not(.btn){
     color: var(--plh-l);
 }
-#plh a:hover{
+#plh a:not(.btn):hover{
     color: var(--plh-l-h);
 }
 #plh hr{

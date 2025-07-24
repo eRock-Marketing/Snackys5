@@ -424,7 +424,7 @@
 										{/if}
 									{/block}
 									{block name='order-items-item-infos-manufacturer'}
-										{if $oPosition->Artikel->cHersteller && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen != "N"}
+										{if isset($oPosition->Artikel->cHersteller) && $oPosition->Artikel->cHersteller && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen != "N"}
 											<div class="row">
 												<div class="col-6">{lang key="manufacturer" section="productDetails"}:</div>
 												<div class="col-6 values">

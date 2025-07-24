@@ -18,7 +18,7 @@
 
         {if !empty($snackyConfig.google_analytics_four|trim)}
             gtag( 'config', '{$snackyConfig.google_analytics_four|trim}');
-            {if $nSeitenTyp == 33 && $Bestellung->Positionen|count > 0}
+            {if $nSeitenTyp == 33 && $Bestellung->Positionen !== null && $Bestellung->Positionen|count > 0}
                 gtag('set', 'user_data', {
                     'email': '{$Bestellung->oKunde->cMail}'
                 });
@@ -33,7 +33,7 @@
             {/if}
 
             {* Google Ads Conversion *}
-            {if $nSeitenTyp == 33 && $Bestellung->Positionen|count > 0}
+            {if $nSeitenTyp == 33 && $Bestellung->Positionen !== null && $Bestellung->Positionen|count > 0}
             gtag('event', 'conversion', {
                 'send_to': '{$snackyConfig.google_ads|trim}/{$snackyConfig.google_ads_label|trim}',
                 'value': {$Bestellung->fWarensummeNetto|number_format:2:".":""},
@@ -168,7 +168,7 @@
         });
         {/if}
         {* Purchase *}
-        {if $nSeitenTyp == 33 && $Bestellung->Positionen|count > 0}
+        {if $nSeitenTyp == 33 && $Bestellung->Positionen !== null && $Bestellung->Positionen|count > 0}
         {assign var="coupon" value=""}
         gtag("event", "purchase", {
             transaction_id: "{$Bestellung->cBestellNr}",

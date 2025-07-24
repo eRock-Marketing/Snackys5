@@ -23,29 +23,17 @@
 							</h1>
     						{include file="snippets/zonen.tpl" id="opc_after_heading"}
 						{/block}
-						{block name='basket-index-notice-shipping'}
-        					{if !empty($WarenkorbVersandkostenfreiHinweis) && $WarenkorbArtikelAnzahl > 0}
-            					<div class="alert alert-info">
-                					{$WarenkorbVersandkostenfreiHinweis}
-            					</div>
-        					{/if}
-    					{/block}
-						{* block name='basket-index-shipping-include-free-hint'}
-							<div class="alert alert-info">
-								{include file='basket/freegift_hint.tpl'}
-							</div>
-						{/block *}
-						{block name='basket-index-notice-weight'}
-							{if $Einstellungen.kaufabwicklung.warenkorb_gesamtgewicht_anzeigen === 'Y'}
-								<div class="alert alert-info">
-									{lang key='cartTotalWeight' section='basket' printf=$WarenkorbGesamtgewicht}
-								</div>
-							{/if}
-						{/block}
 						{block name="basket-content-basket"}
     						{if $WarenkorbArtikelAnzahl > 0}
         						{block name="basket"}
             						<div class="basket_wrapper">
+										{block name='basket-index-notice-weight'}
+											{if $Einstellungen.kaufabwicklung.warenkorb_gesamtgewicht_anzeigen === 'Y'}
+												<div class="alert alert-info">
+													{lang key='cartTotalWeight' section='basket' printf=$WarenkorbGesamtgewicht}
+												</div>
+											{/if}
+										{/block}
 										{block name="basket-content-items-wrapper"}
                 							<div class="basket-well mb-sm">
                     							{block name="basket-items"}
@@ -141,6 +129,14 @@
 									{/block}
 									{block name="basket-prices-outer"}
             							<div class="panel-body">
+											{block name='basket-index-notice-shipping'}
+												{if !empty($WarenkorbVersandkostenfreiHinweis) && $WarenkorbArtikelAnzahl > 0}
+													{include file='basket/shipping_hint.tpl'}
+												{/if}
+											{/block}
+											{block name='basket-index-shipping-include-free-hint'}
+												{include file='basket/freegift_hint.tpl'}
+											{/block}
                 							{block name="basket-prices"}
 												{block name="basket-prices-netto"}
                     								{if $NettoPreise}
@@ -278,7 +274,7 @@
 																	{continue}
 																{/if}
 																{block name="basket-freegift-item"}
-																		<label class="thumbnail flx-ac flx-nw w100 mb-xs{if $oArtikelGeschenk->getStillMissingAmount() > 0} disabled{/if}" for="gift{$oArtikelGeschenk->productID}" role="button">
+																		<label class="thumbnail flx-ac flx-nw w100 mb-xs{if $oArtikelGeschenk->getStillMissingAmount() > 0} disabled{/if}{if $selectedFreegift===$oArtikelGeschenk->productID} active{/if}" for="gift{$oArtikelGeschenk->productID}" role="button">
 																			{block name="basket-freegift-item-radio"}
 																				<input name="gratisgeschenk" class="sr-only" type="radio" value="{$oArtikelGeschenk->productID}" id="gift{$oArtikelGeschenk->productID}"{if $oArtikelGeschenk->getStillMissingAmount() > 0} disabled{/if} />
 																			{/block}
@@ -293,9 +289,6 @@
 																							sizes='45px'
 																							class='image'}
 																					</span>
-																					{if $selectedFreegift===$oArtikelGeschenk->productID}
-																						<span class="badge">&#10003;</span>
-																						{/if}
 																				</span>
 																			{/block}
 																			{block name="basket-freegift-item-name"}
@@ -309,6 +302,11 @@
 																						{/if}
 																					</span>																					
 																				</span>
+																			{/block}
+																			{block name="basket-freegift-item-check"}
+																			<span class="check">																				
+																				&#10003;
+																			</span> 
 																			{/block}
 																		</label>
 																{/block}

@@ -27,7 +27,7 @@ var _paq = window._paq = window._paq || [];
 			false,
 			"{$listName}",
 		]);
-	{elseif $nSeitenTyp == 33 && $Bestellung->Positionen|count > 0}
+	{elseif $nSeitenTyp == 33 && $Bestellung->Positionen !== null && $Bestellung->Positionen|count > 0}
 		{foreach from=$Bestellung->Positionen item="prodid" name="prodid"}
 			{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
 				_paq.push(['addEcommerceItem',

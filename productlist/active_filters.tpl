@@ -22,6 +22,9 @@
                                                     <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>
                                                     </svg>
                                                 </div>
+                                                {if $Einstellungen.navigationsfilter.merkmal_label_anzeigen === 'Y' && $activeFilter->getNiceName() === 'Characteristic'}
+                                                    {$activeFilter->getFilterName()}:&nbsp;
+                                                {/if}
                                                 {$filterOption->getFrontendName()}
                                             </a>
                                         {/strip}
@@ -36,6 +39,9 @@
                                                 <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>
                                                 </svg>
                                             </div>
+                                            {if $Einstellungen.navigationsfilter.merkmal_label_anzeigen === 'Y' && $activeFilter->getNiceName() === 'Characteristic'}
+                                                {$activeFilter->getFilterName()}:&nbsp;
+                                            {/if}
                                             {$activeValues->getFrontendName()}  
                                         </a>
                                     {/strip}

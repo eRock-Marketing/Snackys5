@@ -176,6 +176,9 @@
 .c-empt ~ .payplan{
     display: none;
 }
+.c-dp .gifthint strong{
+    font-weight: 400;
+}
 @media screen and (max-width: 991px){
     #paypal-button-miniCart-container{
         padding: 0;

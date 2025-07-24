@@ -28,12 +28,15 @@
 		{block name='sidebasket-filled'}
 			{if !empty($WarenkorbVersandkostenfreiHinweis)}
 				{block name='sidebasket-versandfrei-hinweis'}
-					<div class="alert alert-info">
-						{$WarenkorbVersandkostenfreiHinweis|truncate:120:"..."}
-					</div>
+					{include file='basket/shipping_hint.tpl'}
 					{include file="snippets/zonen.tpl" id="after_sidebasket_versandfrei" title="after_sidebasket_versandfrei"}
 				{/block}
 			{/if}
+			{block name='basket-cart-dropdown-shipping-include-free-hint'}
+				{if $cartPositions|count > 0}
+					{include file='basket/freegift_hint.tpl'}
+				{/if}
+			{/block}
 			{block name='sidebasket-items'}
 				<form id="cart-form-xs" method="post" action="{get_static_route id='warenkorb.php'}">
 					{if isset($jtl_token)}
@@ -219,27 +222,13 @@
 						</div>
 					{/block}
 					{block name='sidebaket-price-shipping'}
-						{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND])}
-							{if isset($FavourableShipping)}
-								{if $NettoPreise}
-									{$shippingCosts = "`$FavourableShipping->cPriceLocalized[$NettoPreise]` {lang key='plus' section='basket'} {lang key='vat' section='productDetails'}"}
-								{else}
-									{$shippingCosts = $FavourableShipping->cPriceLocalized[$NettoPreise]}
-								{/if}
-								<hr class="invisible hr-xs">
-								<div class="card small text-muted shipping-costs flx-jb cols-sums">
-									<div class="panel w100">
-										{lang|sprintf:$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL():$shippingCosts:$FavourableShipping->country->getName() key='shippingInformationSpecific' section='basket'}
-									</div>
-								</div>
-							{elseif empty($FavourableShipping) && empty($smarty.session.Versandart)}
-								<hr class="invisible hr-xs">
-								<div class="card small text-muted shipping-costs flx-jb cols-sums">
-									<div class="panel w100">
-										{lang|sprintf:$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL() key='shippingInformation' section='basket'}
-									</div>
-								</div>
-							{/if}
+						{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]) && $favourableShippingString !== ''}
+							<hr class="invisible hr-xs">
+							<div class="small text-muted shipping-costs">
+								{block name='basket-cart-dropdown-cart-item-favourable-shipping'}
+									{$favourableShippingString}
+								{/block}
+							</div>
 						{/if}
 					{/block}
 				</div>
@@ -282,13 +271,6 @@
 			<div class="payplan"></div>
 		{/if}
 		{include file="snippets/zonen.tpl" id="after_sidebasket_buybuttons" title="after_sidebasket_buybuttons"}
-	{/block}
-	{block name='basket-cart-dropdown-shipping-include-free-hint'}
-		{if $cartPositions|count > 0}
-			<div class="alert alert-info alert-fg">
-				{include file='basket/freegift_hint.tpl'}
-			</div>
-		{/if}
 	{/block}
 	{block name='sidebasket-legallinks'}
 		{getLink nLinkart=12 cAssign="linkdatenschutz"}

@@ -581,7 +581,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6{
     line-height: 1.1;
     letter-spacing: -.2px;
 }
-strong, b, label, legend{
+strong, b, label, legend, .var-head{
     font-weight: 600;
     color: var(--bod-s);
 }

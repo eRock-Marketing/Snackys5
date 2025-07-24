@@ -27,15 +27,12 @@
 								<div class="consent-accept">
 									<button type="button" class="consent-btn consent-btn-tertiary btn-block" id="consent-banner-btn-all">{lang key='consentAll' section='consent'}</button>
 								</div>
-								{if $snackyConfig.consentReject == '1' && $pluginEdition != 'standard'}
-								{else}
-									<div>
-										<button type="button" class="consent-btn consent-btn-outline-primary btn-block" id="consent-banner-btn-close" aria-label="{lang key='close' section='consent'}">
-											{lang key='close' section='consent'}
-										</button>
-									</div>
-								{/if}
-								<div{if $snackyConfig.consentReject == '1' && $pluginEdition != 'standard'} style="width:100%;"{/if}>
+								<div{if $snackyConfig.consentReject == '1'} class="sr-only"{/if}>
+									<button type="button" class="consent-btn consent-btn-outline-primary btn-block" id="consent-banner-btn-close" aria-label="{lang key='close' section='consent'}">
+										{lang key='close' section='consent'}
+									</button>
+								</div>
+								<div{if $snackyConfig.consentReject == '1'} style="width:100%;"{/if}>
 									<button type="button" class="consent-btn consent-btn-secondary btn-block" id="consent-banner-btn-settings">{lang key='configure' section='consent'}</button>
 								</div>
 							</div>

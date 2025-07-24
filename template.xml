@@ -3,8 +3,8 @@
     <Name>Snackys</Name>
     <Author>eRock Creations</Author>
     <URL>https://www.erock-creations.de</URL>
-    <MinShopVersion>5.4.0</MinShopVersion>
-    <Version>5.4.9</Version> 
+    <MinShopVersion>5.5.0</MinShopVersion>
+    <Version>5.5.3</Version> 
     <Preview>preview-snackys.png</Preview>
     <Description>Ultraschnelles responsive JTL Template von eRock Creations</Description>
     <Framework>Bootstrap4</Framework>
@@ -34,7 +34,7 @@
 				<Option Value="darkmode">Snackys Darkmode - with <![CDATA[&hearts;]]> by eRock Creations</Option>
 				<Option Value="custom">Custom - eigenes Theme</Option>
 			</Setting>
-            <Setting Description="Favicon" Key="favicon" Type="upload" Value="favicon.ico" maxFileSize="123456" showPreview="false" allowedFileExtensions="['ico','png']" accept="image/*" target="favicon/" targetFileName="favicon.ico"/>
+            <Setting Description="Favicon" Key="favicon" Type="upload" Value="favicon.ico" maxFileSize="123456" showPreview="false" allowedFileExtensions="['jpg','jpeg','png']" accept="image/png, image/jpeg" target="favicon/" targetFileName="favicon.ico"/>
 		</Section>
 	</Settings>
 	 <Minify>

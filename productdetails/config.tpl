@@ -308,7 +308,7 @@
 													   class="quantity form-control text-right" name="anzahl"
 													   value="{if $Artikel->fAbnahmeintervall > 0}{if $Artikel->fMindestbestellmenge > $Artikel->fAbnahmeintervall}{$Artikel->fMindestbestellmenge}{else}{$Artikel->fAbnahmeintervall}{/if}{elseif isset($fAnzahl)}{$fAnzahl}{else}1{/if}" />
 												<button name="inWarenkorb" type="submit" value="{lang key='addToCart'}"
-														class="submit btn btn-primary btn-block{if $configRequired} config-required{/if}"
+														class="submit btn btn-primary btn-block sn-addBasket{if $configRequired} config-required{/if}"
 														{if $configRequired} disabled{/if}>
 													{if isset($kEditKonfig)}
 														{lang key="applyChanges"}
