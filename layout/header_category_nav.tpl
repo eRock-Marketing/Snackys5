@@ -15,7 +15,7 @@
 					</div>
 				{/block}
 				{block name='category-nav-menu'}
-					<ul class="flx-ac flx-jc blanklist flx-w{if $snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 6} no-scrollbar{/if}" id="cat-ul" role="navigation">
+					<ul class="flx-ac flx-jc blanklist flx-w{if $snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 6} no-scrollbar{/if}" id="cat-ul">
 						{block name='category-nav-fullscreen-menu-elements'}
 							{if $snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 6}
 								<div class="flx-ac flx-jb nowrap fullscreen-title">
