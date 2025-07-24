@@ -11,13 +11,6 @@
                 {lang key='incl' section='productDetails'}
             {/if}
             &nbsp;{$taxdata.tax}% {lang key='vat' section='productDetails'}
-        {elseif $Einstellungen.global.global_ust_auszeichnung === 'autoNoVat'}
-            {if $taxdata.net}
-                {lang key='excl' section='productDetails'}
-            {else}
-                {lang key='incl' section='productDetails'}
-            {/if}
-            &nbsp;{lang key='vat' section='productDetails'}
         {elseif $Einstellungen.global.global_ust_auszeichnung === 'endpreis'}
             {lang key='finalprice' section='productDetails'}
         {/if}
@@ -50,6 +43,8 @@
 {/block}
 
 {block name='shipping-class'}
-    {* Block content removed in 5.4.0 *}
+    {if !empty($taxdata.shippingClass) && $taxdata.shippingClass !== 'standard' && $Einstellungen.global.global_versandklasse_anzeigen === 'Y'}
+        ({$taxdata.shippingClass})
+    {/if}
 {/block}
 {/block}

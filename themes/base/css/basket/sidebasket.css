@@ -7,7 +7,7 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    background: var(--sdb-b);
+    background: white;
     padding: 2rem 0;
     transition: transform .4s ease;
     transform: translateX(110%);
@@ -15,11 +15,9 @@
     right: 0;
     max-height: 100%;
     z-index: 11;
-    visibility: hidden;
 }
 .cart-menu.open .c-dp > .inside{
     transform: translateX(0);
-    visibility: visible;
 }
 .c-dp .items-list{
     height: 100%;
@@ -43,19 +41,17 @@
 .cart-menu:not(.open) .close-sidebar{
 	display: none;
 }
-.sc-item{
-	border-bottom: 1px solid var(--hr-li);
-}
 .sc-item .cols-img{
 	width: 2.5rem;
 	min-width: 2.5rem;	
 }
 .sc-item .cols-img .img-ct,
 .sc-item .cols-img img{
-    border-radius: var(--img-rnd-md);
+    border-radius: .5rem;
 }
 .sc-item{
 	padding: .5rem 0;
+	border-bottom: 1px solid @lightborder;
 }
 .sc-item .cols-price{
 	margin-left: auto;
@@ -70,6 +66,9 @@
 .sc-sum{
 	padding: 1rem 0;
 }
+.sc-sum > .cols-sums.sum-tt{
+	font-size: 1.2rem;
+}
 .c-dp .lpa-pay-button{
 	text-align: center;
 	margin-top: 1rem;
@@ -77,28 +76,22 @@
 .c-dp .ppc-message {
     margin-top: 1rem;
 }
+.sc-item a:hover{
+	color: @brand;
+}
 .sc-item .editpos,
 .sc-item .btn{   
 	-webkit-appearance: inherit;
-	appearance: inherit;
     border: 0;
     padding: .5rem;
-    border-radius: var(--btn-rnd-sm);
+    border-radius: .3rem;
 }
 .sc-item .editpos{
+    background: @lightbg;
     margin-left: .5rem;
-    background: var(--btn-df-b);
-    border: 1px solid var(--btn-df-r);
 }
 .sc-item .editpos:hover{
-	background: var(--btn-df-b-h);
-    border: 1px solid var(--btn-df-r-h);
-}
-.sc-item .editpos svg{
-    fill: var(--btn-df-t); 
-}
-.sc-item .editpos:hover svg{
-    fill: var(--btn-df-t-h); 
+	background: @lightfocusbg;
 }
 .sc-item .icon.img-ct{
 	width: .8rem;
@@ -110,22 +103,23 @@
 .sc-item .edit-item{
 	display: none;
 }
-.sc-item .edit-item.show{
+.sc-item .open + .edit-item{
 	display: flex;
 	padding-top: .5rem;
 }
 .sc-item .input-group input{
 	padding: .3rem .75rem;
+	font-size: .8rem;
     width: 4rem;
-    border-radius: var(--frm-rnd) 0 0 var(--frm-rnd);
+    border-radius: .3rem 0 0 .3rem;
 }
 .sc-item .input-group button{
-    border: 1px solid var(--inp-r);
     margin: 0;
     width: auto;
-    border-radius: 0 var(--frm-rnd) var(--frm-rnd) 0;
+    border-radius: 0 .3rem .3rem 0;
     padding: .5rem .8rem;
     background: none;
+    border: 1px solid @defaultborder;
     border-left: 0;
 }
 #cart-form-xs{
@@ -139,6 +133,20 @@
 .c-dp .alert{
     margin: .5rem 0;
 }
+/* Empty Basket */
+.c-empt{
+    border: 4px dotted @lightborder;
+    padding: 2rem;
+    border-radius: .5rem;
+}
+.c-empt .img-ct{
+    max-width: 4rem;
+    margin: auto;
+    opacity: .08;
+}
+.c-empt .h4{
+    margin: 1.7rem auto auto auto;
+}
 @media screen and (max-width:767px){
     .c-dp>.inside{
         max-width: 320px;
@@ -151,44 +159,4 @@
 		padding-left: 1rem;
 		padding-right: 1rem;
 	}
-}
-.alert-fg:empty{
-    display: none;
-}
-/* Empty Basket */
-.c-empt{
-    padding: 2rem;
-    border-radius: var(--box-rnd);
-    border: 4px dotted var(--hr-li);
-}
-.c-empt .img-ct{
-    max-width: 4rem;
-    margin: auto;
-}
-.c-empt .h4{
-    margin: 1.7rem auto auto auto;
-    color: var(--hr-li);
-}
-.c-empt svg{
-    fill: var(--hr-li);
-}
-.c-empt ~ .add-pays,
-.c-empt ~ .payplan{
-    display: none;
-}
-@media screen and (max-width: 991px){
-    #paypal-button-miniCart-container{
-        padding: 0;
-    }
-    #ppc-miniCart-horizontal-container{
-        margin: 0;
-    }
-    #ppc-miniCart-horizontal-container > div{
-        width: 50%;
-    }
-}
-@media screen and (max-width: 767px){
-    #ppc-miniCart-horizontal-container > div{
-        width: 100%;
-    }
 }

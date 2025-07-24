@@ -2,25 +2,22 @@
 	max-width: none;
 }
 body{
-    background: var(--bod-b);
-}
-#bxt-w{
-    background: var(--bod-b);
+    background: white;
 }
 @media screen and (min-width: @maxPageWidthpx){
 	body{
-		background: var(--bxl-b);
+		background: @bgBoxed;
 	}
 	#bxt-w .mw-container{
 		padding-left: 50px;
 		padding-right: 50px;
 	}
 	#bxt-w{
-		max-width: var(--wdt-pag);
+		max-width: @maxPageWidthpx;
 		margin: 2rem auto;
-		border: 2px solid var(--bxl-r);
+		border: 2px solid @defaultborder;
 		position: relative;
-		background: var(--bod-b);
+		background: white;
 	}
 	.bxt-nm #bxt-w{
 		margin: 0 auto;	

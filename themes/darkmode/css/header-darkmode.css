@@ -1,17 +1,71 @@
-:root{
-    --ben-b: #000;  
-    --ben-t: #fff;
-    --ben-i: var(--brand);
-    --top-b: #333;
-    --top-l: #fff;
-    --top-l-h: var(--brand);
-    --top-r: #111;
-    --hed-b: #000;
-    --hed-i: #fff;
-    --hed-i-h: var(--brand);
-    --ser-b: #333;
-    --ser-b-h: #444;
-    --ser-r: #333;
-    --ser-t: #eee;
-    --ser-i: #eee;
+#top-bar-wrapper,
+#top-bar-wrapper .dropdown-menu,
+#shop-nav,
+[data-headtype="2"] #cat-w,
+[data-headtype="4"] #km-fullscreen-wrapper #top-bar-wrapper,
+[data-headtype="4.5"] #km-fullscreen-wrapper #top-bar-wrapper,
+[data-headtype="5"] #km-fullscreen-wrapper #top-bar-wrapper,
+[data-headtype="5.5"] #km-fullscreen-wrapper #top-bar-wrapper{
+    background: @blackbg;
+}
+#top-bar-wrapper .dropdown-menu{
+    border-color: @blackbg;
+}
+
+#search input,
+#snackys-tpl #h-us:not(.th-l){
+    background: @darkbg;
+}
+#snackys-tpl #top-bar-wrapper,
+[data-headtype="2"] #cat-w{
+    border-color: @darkbg;
+}
+
+#search input:focus{
+    background: #555;
+}
+
+
+#top-bar-wrapper,
+#top-bar-wrapper a,
+#search input,
+#snackys-tpl #h-us:not(.th-l){
+    color: white;
+}
+@media screen and (min-width: 768px){
+    body:not([data-headtype="4"]):not([data-headtype="4.5"]):not([data-headtype="6"]) #cat-w .mm-mainlink:not(:hover){
+        color: white;
+    }
+}
+
+#top-bar-wrapper a:hover{
+    color: @brand;
+}
+
+#search svg{
+    fill: white;
+}
+#top-bar-wrapper .icon,
+#search .icon,
+.hdr-nav .icon{
+    opacity: 1;
+}
+
+.cart-menu .dropdown-menu{
+    background: transparent;
+    border: 0;
+}
+
+[data-page="18"][data-headtype="4"] #shop-nav,
+[data-page="18"][data-headtype="5"] #shop-nav,
+[data-page="18"][data-headtype="5.5"] #shop-nav,
+[data-page="18"][data-headtype="4.5"] #shop-nav{
+    background: none;
+}
+
+.burger-line{
+    background: white;
+}
+#logo .h2{
+    color: white;
 }

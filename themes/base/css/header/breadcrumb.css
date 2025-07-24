@@ -2,22 +2,8 @@
     overflow: hidden;
     padding-top: .8rem;
     padding-bottom: .8rem;
-    background: var(--brd-b);
-    color: var(--brd-l);
+    background: @lightbg;
 	margin-bottom: 2rem;
-    border-bottom: 1px solid var(--brd-r);
-}
-#bc a{
-    color: var(--brd-l);
-}
-#bc a:hover{
-    color: var(--brd-l-h);
-}
-#bc svg{
-    fill: var(--brd-l);
-}
-#bc a:hover svg{
-    fill: var(--brd-l-h);
 }
 #bc{
 	margin-top: 0;

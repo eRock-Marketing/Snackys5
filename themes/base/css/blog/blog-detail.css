@@ -1,0 +1,14 @@
+#nw-cmt{
+    max-width: 60rem;
+    margin: auto;
+}
+#nw-ct{
+    max-width: @maxNewsWidthpx;
+    margin: auto;
+}
+#nw-ct a:not(.btn){
+    color: @brand;
+}
+#nw-ct a:not(.btn):hover{
+    text-decoration: underline;
+}

@@ -1,27 +1,10 @@
 {block name='snippets-categories-dropdown'}
 {strip}
-{block name='snippets-categories-mega-assigns'}
-    {if !isset($i)}
-        {assign var=i value=0}
-    {/if}
-    {if !isset($activeId)}
-        {if $NaviFilter->hasCategory()}
-            {$activeId = $NaviFilter->getCategory()->getValue()}
-        {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($Artikel)}
-            {$activeId = $Artikel->gibKategorie()}
-        {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($smarty.session.LetzteKategorie)}
-            {$activeId = $smarty.session.LetzteKategorie}
-        {else}
-            {$activeId = 0}
-        {/if}
-    {/if}
-    {assign var=max_subsub_items value=$snackyConfig.megamenu_subcats}
-{/block}
+{assign var=max_subsub_items value=5}
 {if $snackyConfig.megaHome == 0}
 <li class="is-lth{if $nSeitenTyp == 18} active{/if}">
 	<a href="{$ShopURL}" title="{$Einstellungen.global.global_shopname}" class="home-icon mm-mainlink">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 26.25"><path d="M3.75 26.25h9.37v-7.5h3.76v7.5h9.37V15H30L15 0 0 15h3.75z"/></svg>
-        <span class="sr-only">{lang key="linkHome" section="custom"}</span>
 	</a>
 </li>
 {elseif $snackyConfig.megaHome == 1}
@@ -36,7 +19,7 @@
 {/if}
 
 {block name="megamenu-categories"}
-{if isset($snackyConfig.show_categories) && $snackyConfig.show_categories !== 'N' && isset($Einstellungen.global.global_sichtbarkeit) && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
+{if isset($snackyConfig.show_categories) && $snackyConfig.show_categories !== 'N' && isset($Einstellungen.global.global_sichtbarkeit) && ($Einstellungen.global.global_sichtbarkeit != 3 || isset($smarty.session.Kunde->kKunde) && $smarty.session.Kunde->kKunde != 0)}
     {assign var='show_subcategories' value=false}
     {if isset($snackyConfig.show_subcategories) && $snackyConfig.show_subcategories !== 'N'}
         {assign var='show_subcategories' value=true}
@@ -44,6 +27,17 @@
 
     {get_category_array categoryId=0 assign='categories'}
     {if !empty($categories)}
+        {if !isset($activeId)}
+            {if $NaviFilter->hasCategory()}
+                {$activeId = $NaviFilter->getCategory()->getValue()}
+            {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($Artikel)}
+                {assign var='activeId' value=$Artikel->gibKategorie()}
+            {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($smarty.session.LetzteKategorie)}
+                {$activeId = $smarty.session.LetzteKategorie}
+            {else}
+                {$activeId = 0}
+            {/if}
+        {/if}
         {if !isset($activeParents) && ($nSeitenTyp == 1 || $nSeitenTyp == 2)}
             {get_category_parents categoryId=$activeId assign='activeParents'}
         {/if}
@@ -54,14 +48,13 @@
 				{lang key="allCats" section="custom"}
 				<span class="caret hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}
 			</span>
-			<ul class="dropdown-menu keepopen first">
+			<ul class="dropdown-menu keepopen{if $categories|@count > 40} items-threecol{else if $categories|@count > 20} items-twocol{/if}">
 		{/if}
         {foreach name='categories' from=$categories item='category'}
             {if isset($category->hasChildren()) && !empty($category->getChildren())}
                 {assign var='isDropdown' value=true}
             {/if}
-            {assign var="catFunctions" value=$category->getFunctionalAttributes()}
-            <li class="{if $isDropdown && $category->hasChildren()}mgm-fw dropdown-style{/if}{if $category->getID() == $activeId || (isset($activeParents[0]) && $activeParents[0]->getID() == $category->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}{if $snackyConfig.dropdown_plus == 1 && $isDropdown && $category->hasChildren() && $snackyConfig.drodownMaincat == 1} dd-plus{/if}">
+            <li class="{if $isDropdown && $category->hasChildren()}mgm-fw dropdown-style{/if}{if $category->getID() == $activeId || (isset($activeParents[0]) && $activeParents[0]->getID() == $category->getID())} active{/if}{if is_array($category->KategorieAttribute) && !empty($category->KategorieAttribute["css_klasse"])} {$category->KategorieAttribute["css_klasse"]}{/if}">
                 <a href="{$category->getURL()}" class="{if $snackyConfig.drodownMaincat == 0}mm-mainlink{else}dropdown-link defaultlink{/if}">
                     <span class="notextov">{$category->getShortName()}</span>
                     {if $isDropdown && $category->hasChildren()}
@@ -71,14 +64,9 @@
 						<span class="ar ar-r hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}
 						{/if}
 					{/if}
-                </a>   
-                {if $snackyConfig.dropdown_plus == 1 && $isDropdown && $category->hasChildren() && $snackyConfig.drodownMaincat == 1}
-                    <button class="hidden-xs dd-toggle" type="button" data-toggle="collapse" data-target="#mm-{$category->getID()}" aria-expanded="false" aria-controls="mm-{$category->getID()}">
-                        <span class="ar ar-d"></span>
-                    </button>
-                {/if}
-                {if $isDropdown && $category->hasChildren()}
-                    <ul class="dropdown-menu keepopen{if $snackyConfig.drodownMaincat != 1} first{/if}"{if $snackyConfig.dropdown_plus == 1 && $snackyConfig.drodownMaincat == 1} id="mm-{$category->getID()}"{/if}>
+                </a>
+                {if $isDropdown && $category->hasChildren() && $category->hasChildren()}
+                    <ul class="dropdown-menu keepopen">
 						{if $category->hasChildren()}
 							{if !empty($category->getChildren())}
 								{assign var=sub_categories value=$category->getChildren()}
@@ -86,8 +74,7 @@
 								{get_category_array categoryId=$category->getID() assign='sub_categories'}
 							{/if}
 							{foreach name='sub_categories' from=$sub_categories item='sub'}
-                                {assign var="catFunctions" value=$category->getFunctionalAttributes()}
-								<li class="title{if $show_subcategories && $sub->hasChildren()} mgm-fw keepopen{/if}{if $sub->getID() == $activeId || (isset($activeParents[1]) && $activeParents[1]->getID() == $sub->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}{if $snackyConfig.dropdown_plus == 1 && $show_subcategories && $sub->hasChildren()} dd-plus{/if}">
+								<li class="title{if $show_subcategories && $sub->hasChildren()} mgm-fw keepopen{/if}{if $sub->getID() == $activeId || (isset($activeParents[1]) && $activeParents[1]->getID() == $sub->getID())} active{/if}{if is_array($sub->KategorieAttribute) && !empty($sub->KategorieAttribute["css_klasse"])} {$sub->KategorieAttribute["css_klasse"]}{/if}">
 									{if !empty($sub->getChildren())}
 										{assign var=subsub_categories value=$sub->getChildren()}
 									{else}
@@ -97,20 +84,14 @@
 										<span class="notextov">
 											{$sub->getShortName()}
 										</span>
-										{if $show_subcategories && $sub->hasChildren()}
+										{if $show_subcategories && $sub->hasChildren() && count($subsub_categories)  > 0}
 										<span class="ar ar-r hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}
 										{/if}
 									</a>
-                                    {if $snackyConfig.dropdown_plus == 1 && $show_subcategories && $sub->hasChildren()}
-                                        <button class="hidden-xs dd-toggle" type="button" data-toggle="collapse" data-target="#mm-{$sub->getID()}" aria-expanded="false" aria-controls="mm-{$sub->getID()}">
-                                            <span class="ar ar-d"></span>
-                                        </button>
-                                    {/if}
-									{if $show_subcategories && $sub->hasChildren()}
-										<ul class="dropdown-menu keepopen"{if $snackyConfig.dropdown_plus == 1} id="mm-{$sub->getID()}"{/if}>
+									{if $show_subcategories && $sub->hasChildren() && count($subsub_categories)  > 0}
+										<ul class="dropdown-menu keepopen">
 											{foreach name='subsub_categories' from=$subsub_categories item='subsub'}
-                                                    {assign var="catFunctions" value=$category->getFunctionalAttributes()}
-													<li class="{if $subsub->getID() == $activeId || (isset($activeParents[2]) && $activeParents[2]->getID() == $subsub->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}">
+													<li class="{if $subsub->getID() == $activeId || (isset($activeParents[2]) && $activeParents[2]->getID() == $subsub->getID())} active{/if}{if is_array($subsub->KategorieAttribute) && !empty($subsub->KategorieAttribute["css_klasse"])} {$subsub->KategorieAttribute["css_klasse"]}{/if}">
 														<a href="{$subsub->getURL()}" class="dropdown-link defaultlink notextov">
 															{$subsub->getShortName()}
 														</a>
@@ -142,7 +123,9 @@
 
 {block name="megamenu-manufacturers"}
 {if isset($snackyConfig.show_manufacturers) && $snackyConfig.show_manufacturers !== 'N' 
-    && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
+    && ($Einstellungen.global.global_sichtbarkeit != 3
+        || isset($smarty.session.Kunde->kKunde)
+        && $smarty.session.Kunde->kKunde != 0)}
     {get_manufacturers assign='manufacturers'}
     {if !empty($manufacturers)}
         <li class="dropdown-style mgm-fw{if $NaviFilter->hasManufacturer() || $nSeitenTyp == PAGE_HERSTELLER} active{/if}">
@@ -159,9 +142,9 @@
                     <span class="caret hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}
                 </span>
             {/if}
-            <ul class="dropdown-menu keepopen dropdown-manu first">
+            <ul class="dropdown-menu keepopen{if $manufacturers|@count > 40} items-threecol{else if $manufacturers|@count > 20} items-twocol{/if}">
 				{foreach name=hersteller from=$manufacturers item=hst}
-					<li class="title{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}"><a href="{$hst->getURL()}" class="dropdown-link defaultlink"><span class="notextov">{$hst->getName()|escape:'html'}</span></a></li>
+					<li class="title{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}"><a href="{$hst->cURLFull}" class="dropdown-link defaultlink"><span class="notextov">{$hst->cName}</span></a></li>
 				{/foreach}
             </ul>
         </li>

@@ -5,23 +5,9 @@
 }
 .qty-btns input {
   -moz-appearance: textfield;
-  appearance: textfield;
 }
 .qty-btns .btn{
-    border: 1px solid var(--btn-df-r);
-    background: var(--btn-df-b);
-    color: var(--btn-df-t);
-}
-.qty-btns .btn svg{
-    fill: var(--btn-df-t);
-}
-.qty-btns .btn:hover{
-    border: 1px solid var(--btn-df-r-h);
-    background: var(--btn-df-b-h);
-    color: var(--btn-df-t-h);
-}
-.qty-btns .btn:hover svg{
-    fill: var(--btn-df-t-h);
+    border: 1px solid @defaultborder;
 }
 .qty-btns .icon{
     width: .8rem;
@@ -31,13 +17,10 @@
     border-right: 0;
     border-left: 0;
     border-radius: 0;
-	text-align: center;
 }
 #buy_form .qty-btns .input-group-addon.unit{
     margin: 0;
-    border: 1px solid var(--inp-r);
-    background: var(--inp-b);
-    color: var(--inp-t);
+    border: 1px solid @defaultborder;
 }
 .p-c .qty-btns .btn,
 .p-c .qty-btns input{
@@ -48,7 +31,7 @@
 }
 #add-to-cart .submit,
 .exp .btn-primary,
-.qty-btns .btn,
+.qty-btns input,
 .qty-btns .unit{
     -webkit-user-select: none;
     -moz-user-select: none;

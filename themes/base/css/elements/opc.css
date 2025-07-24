@@ -1,14 +1,14 @@
 .img-thumbnail {
     padding: 4px;
-    background: var(--pbx-im-b);
-    border-radius: var(--img-rnd-xs);
-    border: 1px solid var(--pbx-im-r);
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid @lightborder;
 }
 img.rounded-circle{
-    border-radius: var(--rnd-fll);
+    border-radius: 50%;
 }
 img.rounded{
-    border-radius: var(--img-rnd-md);
+    border-radius: .5rem;
 }
 .product-list .col{
     padding: 15px;
@@ -16,16 +16,6 @@ img.rounded{
 .opc-Video label{
     display: block;
     margin-bottom: 1rem;
-}
-.opc-Video .embed-responsive{
-    width: 100%;
-}
-.give-consent.d-none{
-    display: none;
-}
-.img-ct .give-consent{
-    align-self: center;
-    margin: auto;
 }
 .embed-responsive iframe{
     border: 0;
@@ -38,60 +28,67 @@ img.rounded{
     width: 100%;
     height: 100%;
 }
+.opc-Accordion .card-header .btn{
+    background: none;
+    padding: 0;
+    display: block;
+}
+.opc-Accordion .card-header .btn:hover{
+    box-shadow: none;
+    color: @brand;
+}
+.opc-Accordion .opc-Accordion-group{
+    border-radius: 0;
+}
+.opc-Accordion .opc-Accordion-group:first-child{
+    border-radius: .5rem .5rem 0 0;
+}
+.opc-Accordion .opc-Accordion-group:last-child{
+    border-radius: 0 0 .5rem .5rem;
+}
 .opc-Flipcard-inner{
     cursor: pointer;
 }
 .card.border-primary{
-    border-color: var(--brand);
+    border-color: @brand;
 }
 .card.border-danger{
-    border-color: var(--dang-b);
+    border-color: @danger;
 }
 .card.border-success{
-    border-color: var(--succ-b);
+    border-color: @success;
 }
 .card.border-warning{
-    border-color: var(--warn-b);
+    border-color: @warning;
 }
 .card.border-info{
-    border-color: var(--info-b);
+    border-color: @info;
 }
-.nav-tabs{
+.opc-Tabs .nav-tabs{
 	overflow: auto;
-    border-bottom: 1px solid var(--hr-li);
+    border-bottom: 1px solid @lightborder;
+}
+.opc-Tabs .nav-tabs{
     display: flex;
 }
-.nav-tabs a{
+.opc-Tabs .nav-tabs a{
     padding: .7rem 1.2rem;
+    font-size: 1rem;
+    border: 1px solid @lightborder;
     border-bottom: 0;
     display: inline-block;
-    border: 0;
-    background: var(--btn-df-b);
-    color: var(--btn-df-t);
-    cursor: pointer;
 }
-.nav-tabs .nav-item:hover a{
-    background: var(--btn-df-b-h);
-    color: var(--btn-df-t-h);
+.opc-Tabs .nav-item:hover a,
+.opc-Tabs .active a{
+    background: @lightbg;
 }
-.nav-tabs a.active{
-    background: var(--btn-pr-b);
-    color: var(--btn-pr-t);
-}
-.nav-tabs .nav-item:first-child{
-    border-top-left-radius: .3rem;
+.opc-Tabs .tab-pane{
     overflow: hidden;
 }
-.nav-tabs .nav-item:last-child{
-    border-top-right-radius: .3rem;
-    overflow: hidden;
-}
-.tab-content .tab-pane:not(.active){
+.opc-Tabs .tab-pane:not(.active){
     display: none;
-    overflow: hidden;
 }
-.opc-Video .give-consent-preview.hidden,
-.opc-Video .give-consent-preview.d-none{
+.opc-Video .give-consent-preview.hidden{
     display: none;
 }
 .slick-slider{
@@ -108,8 +105,8 @@ img.rounded{
     font-size: 0;
     width: 3rem;
     height: 3rem;
-    border-radius: var(--rnd-fll);
-    background: var(--sl-ar-b);
+    border-radius: 50%;
+    background: @lightbg;
     border: 0;
     display: flex;
     align-items: center;
@@ -117,7 +114,7 @@ img.rounded{
 }
 .slick-arrow:before{
     content: '';
-    border: solid var(--sl-ar-i);
+    border: solid black;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
@@ -140,23 +137,22 @@ img.rounded{
     box-shadow: none;
 }
 #content .opc-product-slider .title{
-    color: var(--bod-t);
+    color: @defaulttext;
 }
-/*
-.consent-ct{
-    background: #333;
-}*/
 @media screen and (min-width: 768px){
-    .nav-tabs .nav-item:not(:first-child) a{
+    .opc-Tabs .nav-item:not(:first-child) a{
         border-left: 0;
     }
 }
 @media screen and (max-width: 767px){
-    .nav-tabs{
+    .opc-Tabs .nav-tabs{
         flex-wrap: wrap;
     }
-    nav-tabs .nav-item a,
-    nav-tabs .nav-item{
+    .opc-Tabs .nav-item a,
+    .opc-Tabs .nav-item{
+        width: 100%;
+    }
+    .opc-Tabs .nav-item{
         width: 100%;
     }
     .slick-arrow{

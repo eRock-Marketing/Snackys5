@@ -1,23 +1,21 @@
 /* Endles Scrolling Spinner */
 .el-sc:last-child{
     height: 3.4rem;
-    z-index: 8;
+    z-index: 11;
     position: relative;
 }
-.el-sc:last-child button:not(#view-next-click){
+.el-sc:last-child button{
 	position: absolute;
 	bottom: 0;
     width: 2.1rem;
     height: 2.1rem;
-    border: 5px solid var(--bod-b-l);
-    border-radius: var(--rnd-fll);
+    border: 5px solid @darkbg;
+    border-radius: 50%;
     padding: 0;
-    border-top-color: var(--brand);
+    border-top-color: @brand;
 	animation: 1.2s ease-in-out 0s infinite both spin;
     box-shadow: none;
     background: none;
-    font-size: 0;
-    transition: font-size 0s;
 }
 .sidecart-open .dropdown.open .c-dp>.inside{
 	animation: .4s ease .1s 1 both slide-in;
@@ -35,29 +33,24 @@
     position: fixed;
     right: 2rem;
     bottom: 2rem;
-    background: var(--btn-df-b);
+    background: @blackbg;
     width: 3rem;
     height: 3rem;
-    border-radius: var(--rnd-fll);
+    border-radius: 50%;
     z-index: 4;
 }
-#nfity-scroll:hover{
-    background: var(--btn-df-b-h);
-}
 #nfity-scroll .ar{
-    border-color: var(--btn-df-t);
+    border-color: white;
 }
 /* Active Filters */
 .active-filters .btn:not(.btn-block){
-    margin: 0 .4rem .4rem 0;
+    margin: 0 .2rem .2rem 0;
 }
-@media screen and (max-width: 767px){
-    .active-filters .btn:not(.btn-block){
-        margin: 0 .2rem .2rem 0;
-    }
+.active-filters .btn-block{
+    margin: .2rem 0;
+    display: flex;
 }
-/* Amazon Button */
-.lpa-button-content,
-.lpa-button-tooltip-wrapper{
-    max-width: 100%;
+.active-filters .btn-block .img-ct{
+    margin: 0 0 0 auto;
+    order: 1;
 }

@@ -1,12 +1,10 @@
-.p-w.hv-e:focus-within,
 .p-w.hv-e:hover{
 	position: relative;
 	z-index: 9;
-	background: var(--pbx-h-b);
-    box-shadow: 0 0 0 .4rem var(--pbx-h-b), 0 0 0 300vw rgba(0,0,0,.3);
-    border-radius: var(--box-rnd) var(--box-rnd) 0 0;
+	background: white;
+    box-shadow: 0 0 0 .4rem white, 0 0 0 300vw rgba(0,0,0,.3);
+    border-radius: .6rem .6rem 0 0;
 }
-.p-w:focus-within .p-c.hv-e:after,
 .p-w:hover .p-c.hv-e:after{
 	content: '';
 	position: absolute;
@@ -14,7 +12,7 @@
 	right: -15px;
 	left: -15px;
 	bottom: 0;
-    border-radius: var(--box-rnd) var(--box-rnd) 0 0;
+    border-radius: .6rem .6rem 0 0;
 	pointer-events: none;
 	z-index: -1;
 }
@@ -23,10 +21,7 @@
 	z-index: 2;
     display: none;
 	opacity: 0;
-	box-shadow: 0 0 0 .4rem var(--pbx-h-b);
-}
-.p-c.hv-e .exp:focus-within{
-	z-index: 3;
+	box-shadow: 0 0 0 .4rem white;
 }
 .p-c.hv-e .exp .btn-primary{
 	white-space: normal;
@@ -34,19 +29,18 @@
 .p-c.hv-e .img-w:hover .img-ct{
 	box-shadow: none;
 }
-.p-w:focus-within .hv-e .exp,
 .p-w:hover .hv-e .exp{
 	display: block;
 	opacity: 1;
 	left: -15px;
 	right: -15px;
 	padding: 15px;
-	background: var(--pbx-h-b);
-    border-radius: 0 0 var(--box-rnd) var(--box-rnd);
-    top: 100%;
+	background: white;
+    border-radius: 0 0 .6rem .6rem;
 }
 .hv-e .exp .var-it{
     margin: .4rem 0;
+    font-size: .9rem;
 }
 .hv-e .exp .var-it label{
     display: block;
@@ -80,7 +74,7 @@
     width: 0;
 }
 .var-it .control-hidden:checked + label{
-    border-color: var(--brand);
+    border-color: @brand;
 }
 .var-it label{
     font-weight: 400;
@@ -93,7 +87,7 @@
     transition: color .2s ease;
 }
 .var-it label[data-type="radio"]:hover{
-    color: var(--brand);
+    color: @brand;
 }
 .var-it label[data-type="radio"] input{
     margin-right: .5rem;
@@ -105,13 +99,14 @@
 }
 .var-it .swatches .btn-default:not(.active){
     background: none;
-    box-shadow: inset 0 0 0 1px var(--hr);
+    box-shadow: inset 0 0 0 1px @defaultborder;
 }
 .var-it .swatches .btn-default:hover{
-    border-color: var(--brand);
+    border-color: @brand;
 }
 .var-it .swatches .btn-default .label-info{
     display: block;
+    font-size: .8rem;
     margin-top: .5rem;
 }
 .var-it .swatches .btn-img.btn-default{
@@ -126,10 +121,11 @@
 }
 .var-it .swatches .btn-img:hover .img-ct,
 .var-it .swatches .btn-img.active .img-ct{
-    box-shadow: 0 0 0 1px var(--brand);    
+    box-shadow: 0 0 0 1px @brand;    
 }
 .var-it .textswatches .btn-default .label-info{
     display: block;
+    font-size: .8rem;
     margin-left: .5rem;
     margin-top: 0;
 }
@@ -141,17 +137,15 @@
     opacity: .5;
     cursor: not-allowed;
 }
+.var-it .tag{
+    font-size: .7rem;
+}
 .var-it .bootstrap-select > .btn.dropdown-toggle{
-    padding: 0.7rem 2rem .7rem .8rem;
+    padding: 0.7rem .8rem;
+    font-size: .9rem;
 }
 .var-it .label-variation + .tag{
     margin-left: .2rem;
-}
-.var-it .fa{
-    display: none;
-}
-.var-it .bootstrap-select.dropdown:not(.show):focus-within .dropdown-menu{
-    display: none;
 }
 @media screen and (max-width: 767px){
     .var-it .swatches .btn-img.btn-default{
@@ -159,7 +153,7 @@
     }
     .p-c.hv-e .exp .btn-primary{
         width: 100%;
-        border-radius: var(--btn-rnd-sm);
+        border-radius: .3rem;
         justify-content: center;
     }
 }

@@ -3,18 +3,17 @@
     margin-bottom: .5rem;
 }
 #gallery-thumbs .img-ct{
-    box-shadow: 0 0 0 1px var(--pbx-im-r);
+    box-shadow: 0 0 0 1px @lightborder;
     transition: box-shadow .3s ease;
-    border-radius: var(--img-rnd-md);
-    background: var(--pbx-im-b);
+    border-radius: .5rem;
 }
 #gallery-thumbs .img-w.active .img-ct,
 #gallery-thumbs .img-w:hover .img-ct{
-    box-shadow: 0 0 0 1px var(--pbx-im-r-h);
+    box-shadow: 0 0 0 1px @brand;
     transform: none;
 }
 #gallery-thumbs img{
-    border-radius: var(--img-rnd-md);
+    border-radius: .5rem;
 }
 #gallery-thumbs.two-cols{
     align-content: flex-start;
@@ -27,13 +26,11 @@
 #gallery a{
     display: block; 
     cursor: zoom-in;
-    border-radius: var(--img-rnd);
 }
 #gallery a:not(.active){
     display: none;
 }
-.lightbox-shown #gallery-thumbs img,
-.lightbox-shown #gallery img{
+#gallery img{
     object-fit: contain;
 }
 #gallery .sl-ar{
@@ -41,27 +38,19 @@
 	top: 50%;
 	transform: translateY(-50%);
 	z-index: 9;
-	background: var(--sl-ar-b);
+	background: @lightbg;
 	padding: 0.5rem 1rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
-#gallery .sl-ar .ar{
-    border-color: var(--sl-ar-i);
-}
 #gallery .sl-ar:hover{
-    background: var(--sl-ar-b-h);
+    background: @lightfocusbg;
 }
 #gallery .sl-nx{
     right: 15px;
 }
-.zoomImg{
-    background: var(--pbx-im-b);
-}
-#gallery.no-lb a{
-    pointer-events: none;
-}
+
 @media screen and (max-width: 991px){
     body:not(.lightbox-shown) #gallery-thumbs{
         display: flex;

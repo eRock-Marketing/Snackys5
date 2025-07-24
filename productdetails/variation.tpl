@@ -30,8 +30,7 @@
             <dd class="var-body form-group">
                 {if $Variation->cTyp === 'SELECTBOX'}
                     {block name='productdetails-info-variation-select'}
-                    <label class="sr-only" for="s-{$Variation->kEigenschaft}">{$Variation->cName}</label>
-                    <select data-site="10" id="s-{$Variation->kEigenschaft}" class="form-control" title="{if isset($smallView) && $smallView}{$Variation->cName} - {/if}{lang key='pleaseChooseVariation' section='productDetails'}" name="eigenschaftwert[{$Variation->kEigenschaft}]"{if !$showMatrix} required{/if}>
+                    <select class="form-control" title="{if isset($smallView) && $smallView}{$Variation->cName} - {/if}{lang key='pleaseChooseVariation' section='productDetails'}" name="eigenschaftwert[{$Variation->kEigenschaft}]"{if !$showMatrix} required{/if}>
                         {foreach name=Variationswerte from=$Variation->Werte key=y item=Variationswert}
                             {assign var="bSelected" value=false}
                             {if isset($oVariationKombi_arr[$Variationswert->kEigenschaft])}
@@ -50,8 +49,8 @@
                                         data-original="{$Variationswert->cName}"
                                         data-key="{$Variationswert->kEigenschaft}"
                                         data-value="{$Variationswert->kEigenschaftWert}"
-                                        data-content="{trim($cVariationsWert)|escape:'html'}{if $Variationswert->notExists}<span class='tag label label-default label-not-available'>{lang key='notAvailableInSelection'}</span>{elseif !$Variationswert->inStock}<span class='tag label label-default label-not-available'>{lang key='ampelRot'}</span>{/if}"
-                                        {if !empty($Variationswert->getImage(\JTL\Media\Image::SIZE_XS))}
+                                        data-content="{$cVariationsWert|escape:'html'}{if $Variationswert->notExists}<span class='tag label label-default label-not-available'>{lang key='notAvailableInSelection'}</span>{elseif !$Variationswert->inStock}<span class='tag label label-default label-not-available'>{lang key='ampelRot'}</span>{/if}"
+                                        {if !empty($Variationswert->cBildPfadMini)}
                                             data-list='{prepare_image_details item=$Variationswert json=true}'
                                             data-title='{$Variationswert->cName}'
                                         {/if}
@@ -59,7 +58,7 @@
                                             data-ref="{$Variationswert->oVariationsKombi->kArtikel}"
                                         {/if}
                                         {if $bSelected} selected="selected"{/if}>
-                                    {$Variationswert->cName}
+                                    {$cVariationsWert|trim}
                                 </option>
                             {/if}
                         {/foreach}
@@ -84,7 +83,7 @@
                                    data-original="{$Variationswert->cName}"
                                    data-key="{$Variationswert->kEigenschaft}"
                                    data-value="{$Variationswert->kEigenschaftWert}"
-                                   {if !empty($Variationswert->getImage(\JTL\Media\Image::SIZE_XS))}
+                                   {if !empty($Variationswert->cBildPfadMini)}
                                         data-list='{prepare_image_details item=$Variationswert json=true}'
                                         data-title='{$Variationswert->cName}{if $Variationswert->notExists} - {lang key='notAvailableInSelection'}{elseif !$Variationswert->inStock} - {lang key='ampelRot'}{/if}'
                                    {/if}
@@ -107,7 +106,7 @@
                         {/if}
                     {/foreach}
                 {elseif $Variation->cTyp === 'IMGSWATCHES' || $Variation->cTyp === 'TEXTSWATCHES'}
-                    <div class="flx-w swatches {$Variation->cTyp|lower}">
+                    <div class="dpflex-wrap swatches {$Variation->cTyp|lower}">
                         {foreach name=Variationswerte from=$Variation->Werte key=y item=Variationswert}
                             {assign var="bSelected" value=false}
                             {if isset($oVariationKombi_arr[$Variationswert->kEigenschaft])}
@@ -122,13 +121,13 @@
                                 {* /do nothing *}
                             {else}
                                 {block name='productdetails-info-variation-swatch'}
-                                    <label class="variation block btn btn-default{if $bSelected} active{/if}{if $Variationswert->notExists} not-available{/if}{if isset($smallView) && $smallView} btn-xs{/if}{if !empty($Variationswert->getImage(\JTL\Media\Image::SIZE_XS))} btn-img{/if}"
+                                    <label class="variation block btn btn-default{if $bSelected} active{/if}{if $Variationswert->notExists} not-available{/if}{if isset($smallView) || $smallView} btn-xs{/if}{if !empty($Variationswert->cBildPfadMiniFull)} btn-img{/if}"
                                             data-type="swatch"
                                             data-original="{$Variationswert->cName}"
                                             data-key="{$Variationswert->kEigenschaft}"
                                             data-value="{$Variationswert->kEigenschaftWert}"
                                             for="{if $modal}modal-{elseif isset($smallView) && $smallView}a-{$Artikel->kArtikel}{/if}vt{$Variationswert->kEigenschaftWert}"
-                                            {if !empty($Variationswert->getImage(\JTL\Media\Image::SIZE_XS))}
+                                            {if !empty($Variationswert->cBildPfadMini)}
                                                 data-list='{prepare_image_details item=$Variationswert json=true}'
                                             {/if}
                                             {if $Variationswert->notExists}
@@ -152,14 +151,15 @@
                                                name="eigenschaftwert[{$Variation->kEigenschaft}]"
                                                id="{if $modal}modal-{elseif isset($smallView) && $smallView}a-{$Artikel->kArtikel}{/if}vt{$Variationswert->kEigenschaftWert}"
                                                value="{$Variationswert->kEigenschaftWert}"
-                                               aria-label="{$Variationswert->cName}"
                                                {if $bSelected}checked="checked"{/if}
                                                {if $smarty.foreach.Variationswerte.index === 0 && !$showMatrix} required{/if}
                                                />
                                        <span class="label-variation">
-                                            {if !empty($Variationswert->getImage(\JTL\Media\Image::SIZE_XS))}
-                                                <span class="img-ct">
-                                                    {include file='snippets/image.tpl' sizes='90px' item=$Variationswert srcSize='xs'} 
+                                            {if !empty($Variationswert->cBildPfadMiniFull)}
+                                           <span class="img-ct">
+                                                <img src="{$Variationswert->cBildPfadMiniFull}" alt="{$Variationswert->cName|escape:'quotes'}"
+                                                     data-list='{prepare_image_details item=$Variationswert json=true}'
+                                                     title="{$Variationswert->cName}" />
                                                </span>
                                             {else}
                                                 {$Variationswert->cName}
@@ -173,13 +173,11 @@
                     </div>
                 {elseif $Variation->cTyp === 'FREIFELD' || $Variation->cTyp === 'PFLICHT-FREIFELD'}
                     {block name='productdetails-info-variation-text'}
-                    <label for="t-{$Variation->kEigenschaft}" value="{$Variationswert->kEigenschaftWert}"" class="sr-only">{$Variation->cName}</label>
                     <input type="text"
                        class="form-control"
-                       id="t-{$Variation->kEigenschaft}"
                        name="eigenschaftwert[{$Variation->kEigenschaft}]"
                        value="{if isset($oEigenschaftWertEdit_arr[$Variation->kEigenschaft])}{$oEigenschaftWertEdit_arr[$Variation->kEigenschaft]->cEigenschaftWertNameLocalized}{/if}"
-                       data-key="{$Variation->kEigenschaft}"{if $Variation->cTyp === 'PFLICHT-FREIFELD'} required{/if} maxlength=255>
+                       data-key="{$Variation->kEigenschaft}"{if $Variation->cTyp === 'PFLICHT-FREIFELD'} required{/if}>
                     {/block}
                 {/if}
             </dd>

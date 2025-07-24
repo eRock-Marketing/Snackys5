@@ -18,9 +18,9 @@ body .modal .modal-dialog{
 	display: flex !important;
 }
 .modal-content{
-    background: var(--mod-b);
+    background: white;
     padding: 0;
-    border-radius: var(--box-rnd-lg);
+    border-radius: 1rem;
     overflow: hidden;
     max-width: 60rem;
 	min-width: 25rem;
@@ -34,9 +34,10 @@ body .modal .modal-dialog{
     display: flex;
     align-items: center;
 	justify-content: space-between;
+	background: white;
     padding: 1.2rem 2rem;
+    background: @lightbg;
 	z-index: 2;
-    background: var(--mod-hd-b);
 }
 .modal-body{
     max-height: 65vh;
@@ -85,33 +86,15 @@ body .modal .modal-dialog{
     padding: 0;
     background: none;
     box-shadow: none;
-    border: 0;
 }
 .modal-header button[data-dismiss="modal"] {
     transform: translateX(0.3rem);
-    font-size: 0;
+    filter: invert();
+    opacity: 0.3;
 }
-/* Wishlist Modal */
-.wl-wp .caption p{
-    margin: .5rem 0;
-}
-.wl-wp .p-c textarea{
-    margin-top: auto;
-}
-/* Dropper Modal */
-.kk-popup-modal--custom-width .modal-content{
-    min-width: 0;
-    max-width: 100%;
-}
-.kk-popup-modal--custom-width .modal-dialog{
-    background: none;
-}
-/* Login Modal */
-#login-popup .modal-content{
-	max-width: 25rem;
-}
-#eFooter{
-    display: none;
+.modal-header button[data-dismiss="modal"]:hover{
+    background-color: #fff;
+    opacity: .5;
 }
 @media screen and (max-width: 767px){
     .modal-dialog .modal-content{
@@ -128,7 +111,7 @@ body .modal .modal-dialog{
     .modal #account .wl-ac .btn{
         width: 100%;
         margin: .2rem 0;
-        border-radius: var(--btn-rnd-sm);
+        border-radius: .3rem;
         justify-content: center;
     }
     .modal-body{
@@ -145,4 +128,12 @@ body .modal .modal-dialog{
     .modal #account .row .wl-it{
         width: 100%;
     }
+}
+
+/* Wishlist Modal */
+.wl-wp .caption p{
+    margin: .5rem 0;
+}
+.wl-wp .p-c textarea{
+    margin-top: auto;
 }

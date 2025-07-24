@@ -1,0 +1,70 @@
+#sp-l section:not(:last-child):not(:empty){
+    margin-bottom: 1rem;
+}
+body:not(.show-sidebar) #sp-l .inside {
+    transform: translateX(110%);
+    transition: .4s ease;
+}
+body:not(.show-sidebar) #sp-l .close-btn{
+    display: none;
+}
+body.show-sidebar #content-wrapper{
+    z-index: 11;
+}
+#sp-l{
+    z-index: 11;
+    position: fixed;
+}
+#sp-l .inside{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: white;
+    padding: 1.8rem 1.2rem;
+    font-size: .9rem;
+    overflow: auto;
+    z-index: 111;
+    max-width: 320px;
+    transform: translateX(0);
+    transition: .4s ease;
+    min-width: 300px;
+}
+#sp-l .close-btn{
+    z-index: 120;
+    position: fixed;
+    right: 1.2rem;
+    top: 1.4rem;
+}
+#sp-l #improve_search > .form-group{
+    margin: .4rem 0;
+}
+#improve_search .btn-group .btn{
+    flex-grow: 1;
+    justify-content: center;
+}
+#sp-l section:not(:last-child), 
+#sp-l>.inside>.panel-strap:not(:last-child),
+#sp-l .sidebox:not(:last-child):not(:empty){
+    margin-bottom: 1.25rem;
+}
+#sp-l.collapse section:not(:last-child){
+    margin: 0;
+}
+.op0{
+    opacity: 0;
+}
+.show-sidebar #sp-l .close-btn,
+.show-sidebar #sp-l .overlay-bg{
+    display: block;
+}
+#nav-ft .col-12{
+    width: 100%;
+}
+#sp-l section:not(:last-child):not(:empty) {
+    margin-bottom: 1rem;
+}
+#sp-l .panel{
+    box-shadow: 0 0 0 0.25rem #f6f6f6;
+    padding: 1rem .7rem;
+}

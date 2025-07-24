@@ -4,42 +4,9 @@
 	opacity: 1;
 	transition: .3s ease;
 }
-.tab-ct:not(.show) > .panel-body{
+.tab-ct:not(.open-show) > .panel-body{
 	opacity: 0;
 	height: 0;
 	overflow: hidden;
     margin: 0;
-    visibility: hidden;
-}
-.tab-ct > .panel-heading{
-    padding: 1.6rem 0;
-    border-bottom: 1px solid var(--hr-li);
-    margin: 0;
-    cursor: pointer;
-    background: none;
-    border: 0;
-    width: 100%;
-}
-.tab-ct.show > .panel-heading .img-ct{
-    transform: scaleY(-1);
-}
-.tab-ct.show > .panel-body{
-    margin-top: 1.5rem;
-}
-.tab-content .tab-pane.tab-ct{
-    display: block;
-}
-.tab-ct{
-    height: auto !important;
-}
-.tab-content .tab-pane:not(.active){
-    overflow: visible;
-}
-@media screen and (max-width: 767px){
-    .tab-ct.show > .panel-body{
-        margin: 1.5rem 0;
-    }
-    .tab-ct > .panel-heading{
-        padding: 1rem 0;
-    }
 }

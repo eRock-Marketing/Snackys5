@@ -1,0 +1,18 @@
+@media screen and (min-width: 768px){
+    #cat-w li:hover .mm-mainlink,
+    #cat-w li.active .mm-mainlink{
+        background: none;
+    }
+    [data-page="18"] #shop-nav{
+        border-color: transparent;
+    }
+    [data-headtype="5"] #cat-w li:not(:hover):not(.active) .mm-mainlink,
+    #cat-w a > svg, 
+    #cat-w li:not(.active) > a:not(:hover) svg{
+        color: white;
+        fill: white;
+    }
+    #snackys-tpl #cat-w .mgm>ul.blanklist>li{
+        background: none;
+    }
+}

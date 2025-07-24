@@ -1,16 +1,11 @@
 {block name='account-order-details'}
-	{block name='account-order-details-js'}
-		<script type="text/javascript">
-			if (top.location !== self.location) {ldelim}
-				top.location = self.location.href;
-			{rdelim}
-		</script>
-	{/block}
-	{block name='account-order-details-headline'}
-    	<h1 class="h2 mb-sm">
-			{lang key="orderCompletedPre" section="checkout"}: {$Bestellung->cBestellNr}
-		</h1>
-	{/block}
+    <script type="text/javascript">
+        if (top.location !== self.location) {ldelim}
+            top.location = self.location.href;
+        {rdelim}
+    </script>
+
+    <h1 class="h2 mb-spacer mb-small">{lang key="orderCompletedPre" section="checkout"}: {$Bestellung->cBestellNr}</h1>
     {block name="order-details-order-info"}
         <div class="card">
             <div class="card-body">
@@ -20,21 +15,9 @@
     {/block}
     <hr class="invisible">
     {block name='order-details-basket'}
-		{block name='order-details-basket-headline'}
-        	<h2 class="h3">{lang key='basket'}</h2>
-		{/block}
-		{block name='order-details-basket-items'}
-			{if $snackyConfig.basketVersion == 0}
-        		{include file='account/order_item.tpl' tplscope='confirmation'}
-			{else}
-        		{include file='account/basket.tpl' tplscope='confirmation'}
-			{/if}
-		{/block}
-		{block name='order-details-basket-downloads'}
-			{include file='account/downloads.tpl'}
-		{/block}
-		{block name='order-details-basket-uploads'}
-        	{include file='account/uploads.tpl'}
-		{/block}
+        <h2 class="h3">{lang key='basket'}</h2>
+        {include file='account/order_item.tpl' tplscope='confirmation'}
+        {include file='account/downloads.tpl'}
+        {include file='account/uploads.tpl'}
     {/block}
 {/block}

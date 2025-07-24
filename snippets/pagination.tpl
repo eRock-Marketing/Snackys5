@@ -1,6 +1,6 @@
 {block name='snippets-pagination'}
 {assign var=cParam_arr value=$cParam_arr|default:[]}
-{assign var=cUrlAppend value=http_build_query($cParam_arr)}
+{assign var=cUrlAppend value=$cParam_arr|http_build_query}
 {* parts list to display: label, pagination, items-per-page-options, sort-options *}
 {assign var=parts value=$parts|default:['label','pagi','count','sort']}
 
@@ -31,7 +31,7 @@
                 </div>
                 {/if}
                 {if in_array('pagi', $parts)}
-                    <ul class="pagination btn-group blanklist flx-ac flx-jc list-inline">
+                    <ul class="pagination btn-group blanklist dpflex-a-center dpflex-j-center list-inline">
                         {if $oPagination->getPage() > 0}
                             <li>
                                 <a class="block text-center" href="{$cThisUrl}?{$oPagination->getId()}_nPage={$oPagination->getPrevPage()}{$cUrlAppend}{$cAnchor}">&laquo;</a>
@@ -91,9 +91,6 @@
             {/foreach}
             {if in_array('count', $parts)}
                 <div class="form-group items-per-page-group">
-                    <label for="{$oPagination->getId()}_nItemsPerPage" class="sr-only">
-                        {lang key='paginationEntriesPerPage' section='global'}
-                    </label>
                     <select class="form-control" name="{$oPagination->getId()}_nItemsPerPage"
                             id="{$oPagination->getId()}_nItemsPerPage" onchange="this.form.submit()"
                             title="{lang key='paginationEntriesPerPage' section='global'}">
@@ -109,11 +106,8 @@
                     </select>
                 </div>
             {/if}
-            {if $oPagination->getSortByOptions()|count > 0 && in_array('sort', $parts)}
+            {if $oPagination->getSortByOptions()|@count > 0 && in_array('sort', $parts)}
                 <div class="form-group filter-group">
-                    <label for="{$oPagination->getId()}_nSortByDir" class="sr-only">
-                        {lang key='sorting' section='productOverview'}
-                    </label>
                     <select class="form-control" name="{$oPagination->getId()}_nSortByDir"
                             id="{$oPagination->getId()}_nSortByDir" onchange="this.form.submit()"
                             title="{lang key='sorting' section='productOverview'}">

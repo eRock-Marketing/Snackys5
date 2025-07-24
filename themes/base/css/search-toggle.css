@@ -1,0 +1,38 @@
+@media screen and (min-width: 768px){
+	#search form{
+		max-width: 40rem;
+		width: 100%;
+	}
+	#shop-nav #search.header-shop-menu{
+		align-self: stretch;
+		padding: 0 2rem;
+	}
+	.shw-sr-d #shop-nav #search.header-shop-menu{
+		position: relative;
+	}
+	#search > .inside{
+		position: absolute;
+		top: 0;
+		left: 2rem;
+		right: 2rem;
+		bottom: 0;
+	}
+	body:not(.shw-sr-d) #search > .inside{
+		visibility: hidden;
+		pointer-events: none;
+		opacity: 0;		
+	}
+	.shw-sr-d #search > .inside{
+		display: flex;
+		z-index: 10;
+	}
+	#shop-nav .sr-tg{
+		cursor: pointer;
+	}
+	body:not(.shw-sr-d) .sr-tg > span:last-child{
+		display: none;
+	}
+	body.shw-sr-d .sr-tg > span:first-child{
+		display: none;
+	}
+}

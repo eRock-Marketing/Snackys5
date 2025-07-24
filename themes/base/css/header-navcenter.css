@@ -1,0 +1,143 @@
+@media screen and (min-width: 768px){
+	#shop-nav{
+		padding: 0;
+		border-bottom: 1px solid @lightborder;
+	}
+	body:not([data-page="11"]) #logo{
+		text-align: left;
+		justify-content: flex-start;
+	}
+	/* mgm */
+	body.shw-sr-d #cat-w{
+		opacity: 0;
+		pointer-events: none;
+		visibility: hidden;
+	}
+	#cat-w .blanklist{
+		position: static;
+		flex-wrap: nowrap;
+	}
+	#search{
+		position: static;
+	}
+	#shop-nav > .mw-container{
+		position: relative;
+	}
+	.mgm:not(#mm-dropdown) li:not(.dropdown-style) > .dropdown-menu{
+		left: 70px;
+		right: 70px;
+	}
+	#shop-nav #cat-w li:hover>.mm-mainlink, 
+	#shop-nav [id*="mm-dropdown"] .active>.dropdown-link, 
+	#shop-nav [id*="mm-dropdown"] li:hover>.dropdown-link{
+		background: none;
+	}
+	#cat-w{
+		background: none;
+		box-shadow: none;
+		position: static;
+	}
+	#cat-w > .mw-container{
+		max-width: none;
+		padding-left: 0;
+		padding-right: 0;
+	}
+	#cat-w .mm-mainlink{
+		color: @defaulttext;
+		font-size: 1rem;
+		padding: 3rem 1rem;
+	}
+	#cat-w .mm-mainlink:hover, 
+	#cat-w .active > .mm-mainlink{
+		background: none;
+		color: @brand;
+	}
+	.mgm .mgm-c,
+	li.dropdown-style .dropdown-menu{
+		border-top: 2px solid @brand;
+	}
+	#cat-w svg{
+		fill: @defaulttext;
+	}
+	#cat-w a:hover svg, 
+	#cat-w .active > a svg{
+		fill: @brand;
+	}
+	li.dropdown-style>.dropdown-menu .dropdown-menu{
+		top: calc(-1rem - 2px);
+	}
+	#logo img{
+		object-position: left;
+	}
+	#shop-nav .wish-list-menu{
+		display: none;
+	}
+	#cat-w .mm-mainlink{
+		height: 7.375rem;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 1600px){
+	#shop-nav .img-ct.icon.icon-xl{
+		width: 2.2rem;
+	}
+    header .badge{
+        font-size: .85rem;
+        line-height: 1.25rem;
+        min-width: 1.25rem;
+        padding: 0 .25rem;
+    }
+    .hdr-nav .badge {
+        position: absolute;
+        top: -.5rem;
+        right: -.5rem;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1400px){
+	.mgm:not(#mm-dropdown) li:not(.dropdown-style) > .dropdown-menu{
+		left: 20px;
+		right: 20px;
+	}
+	.img-ct.icon.icon-xl{
+		width: 2rem;
+	}
+	#shop-nav .hdr-nav > div:not(:first-child){
+		margin-left: .5rem;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 1199px){
+	#logo img{
+		max-height: 3rem;
+	}
+	#shop-nav #logo{
+		height: 5rem;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+	}
+	#search{
+		order: 1;
+	}
+	#cat-w .mm-mainlink{
+		padding: 1rem;
+	}
+	body #shop-nav #search.header-shop-menu{
+		padding: 0;
+	}
+	#cat-w .blanklist{
+		flex-wrap: wrap;
+	}
+	#shop-nav #search form{
+		max-width: none;
+	}
+	#shop-nav #search > .inside{
+		left: 0;
+		right: 0;
+	}
+	#cat-w .mm-mainlink{
+		height: 3.375rem;
+	}
+}
+@media screen and (max-width: 767px){
+	#search{
+		opacity: 1;
+	}
+}

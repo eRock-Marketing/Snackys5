@@ -1,55 +1,35 @@
-.accordion{
-    margin: 1rem 0
+.accordeon{
+    margin-bottom: 3rem;
 }
-.accordion .card-header .btn{
-    background: none;
-    padding: 0;
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding-left: 1.4rem;
-}
-.accordion .card-header strong:hover,
-.accordion .card-header .btn:hover,
-.accordion .card-header .btn:focus{
-    box-shadow: none;
-    color: var(--bod-l-h);
-}
-.accordion .card{
+.accordeon .card{
     border-radius: 0;
     border-bottom-width: 0;
 }
-.accordion .card:first-child{
-    border-radius: var(--box-rnd) var(--box-rnd) 0 0;
+.accordeon .card:first-child{
+    border-radius: .5rem .5rem 0 0;
 }
-.accordion .card:last-child{
-    border-radius: 0 0 var(--box-rnd) var(--box-rnd);
+.accordeon .card:last-child{
+    border-radius: 0 0 .5rem .5rem;
     border-bottom-width: 1px;
 }
-.accordion .card-link{
+.accordeon .card-link{
     position: relative;
-    padding-right: 2.6rem;
+    padding-left: 2.6rem;
 }
-.accordion .toggle,
-.accordion .card-header .btn:before{
+.accordeon .toggle{
     width: 0.8rem;
     height: 0.8rem;
     transition: transform .2s ease;
     position: absolute;
-    right: 1.2rem;
+    left: 1.2rem;
     background-color: transparent;
     background-size: 90%;
     top: calc(50% - .4rem);
 }
-.accordion .card-header .btn:before{
-    content: '';
-    left: 0;
-}
-.accordion .card .card-link[aria-expanded="false"] .toggle,
-.accordion .card:not(:first-child) .card-link:not([aria-expanded="true"]) .toggle,
-.accordion .card-header .btn:not([aria-expanded="true"]):before{
+.accordeon .card .card-link[aria-expanded="false"] .toggle,
+.accordeon .card:not(:first-child) .card-link:not([aria-expanded="true"]) .toggle{
     transform: rotate(45deg);
 }
-.accordion .card + .card .card-header{
-    border-radius: 0;
+.collapse:not(.in){
+    display: none;
 }

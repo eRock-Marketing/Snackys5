@@ -1,0 +1,15 @@
+.al-wp .wishlists .btn-group .btn{
+    padding-left: .4rem;
+    padding-right: .4rem;
+}
+@media screen and (max-width: 450px){
+    .wl-ac{
+        flex-wrap: wrap;
+    }
+    #account .wl-ac .btn{
+        width: 100%;
+        margin: .2rem 0;
+        border-radius: .3rem;
+        justify-content: center;
+    }
+}

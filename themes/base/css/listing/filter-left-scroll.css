@@ -1,17 +1,17 @@
 #sp-l .panel-body::-webkit-scrollbar {
-    background: var(--pan-b);
+    background: #f6f6f6;
 }
 #sp-l .panel-body::-webkit-scrollbar-track {
-    background: var(--pan-b);
+    background: #f6f6f6;
 }
 #sp-l .panel-body::-webkit-scrollbar-thumb {
-    background: var(--scb-tr) ;
-    border-radius: var(--rnd-frc);
-    border: 5px solid var(--pan-b);
+    background: #666 ;
+    border-radius: 2rem;
+    border: 5px solid #f6f6f6;
 }
 #sp-l .panel-body::-webkit-scrollbar-thumb:hover,
 #sp-l .panel-body::-webkit-scrollbar-thumb:active{
-    border: 4px solid var(--pan-b);    
+    border: 4px solid #f6f6f6;    
 }
 #sp-l .panel-body{
 	max-height: 70vh;

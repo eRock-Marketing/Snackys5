@@ -1,25 +1,5 @@
 #top-bar-wrapper{
-    background-color: var(--top-b);
-    color: var(--top-l);
-    border-bottom: 1px solid var(--top-r);
-}
-#top-bar a{
-    color: var(--top-l);
-}
-#top-bar a:hover{
-    color: var(--top-l-h);
-}
-#top-bar svg{
-    fill: var(--top-l);
-}
-#top-bar a:hover > svg{
-    fill: var(--top-l-h);
-}
-#top-bar .caret{
-    border-top-color: var(--top-l);
-}
-#top-bar a:hover > .caret{
-    border-top-color: var(--top-l-h);
+    border-bottom: 1px solid @lightborder;
 }
 #top-bar{
     padding-top: .6rem;
@@ -27,9 +7,5 @@
 }
 #top-bar .social-icons{
 	font-size: 50%;
-}
-#top-bar .dropdown-menu-right{
-	left: auto !important;
-	transform: none !important;
-	top: 100% !important;
+    opacity: .8;
 }

@@ -28,14 +28,6 @@
             {col tag='dd' cols=6}{$Artikel->cBarcode}{/col}
         {/block}
     {/if}
-    {if !empty($Artikel->cHAN)
-        && ($Einstellungen.artikeldetails.han_display === 'lists'
-        || $Einstellungen.artikeldetails.han_display === 'always')}
-        {block name='productlist-item-details-han'}
-            {col tag='dt' cols=6}{lang key='han'}:{/col}
-            {col tag='dd' cols=6}{$Artikel->cHAN}{/col}
-        {/block}
-    {/if}
     {if !empty($Artikel->cISBN)
     && ($Einstellungen.artikeldetails.isbn_display === 'L'
     || $Einstellungen.artikeldetails.isbn_display === 'DL')}
@@ -49,9 +41,10 @@
     {if $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen !== 'N' && !empty($Artikel->cHersteller)}
         {block name='productlist-item-details-manufacturer'}
             {col tag='dt' cols=6}{lang key='manufacturer' section='productDetails'}:{/col}
-            {col tag='dd' cols=6}
-                {link href="{if !empty($Artikel->cHerstellerHomepage)}{$Artikel->cHerstellerHomepage}{else}{$Artikel->cHerstellerURL}{/if}"
+            {col tag='dd' cols=6 itemprop='manufacturer' itemscope=true itemtype='http://schema.org/Organization'}
+                {link href="{if !empty($Artikel->cHerstellerHomepage)}{$Artikel->cHerstellerHomepage}{else}{$Artikel->cHerstellerSeo}{/if}"
                     class="text-decoration-none-util"
+                    itemprop="url"
                     target="{if !empty($Artikel->cHerstellerHomepage)}_blank{else}_self{/if}"}
                     {if ($Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'BT'
                         || $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'B')
@@ -59,16 +52,17 @@
                     }
                         {image webp=true lazy=true fluid=true
                             src=$Artikel->cHerstellerBildURLKlein
-                            srcset="{$Artikel->cHerstellerBildURLKlein} {$Artikel->manufacturerImageWidthSM}w,
-                                    {$Artikel->cHerstellerBildURLNormal} {$Artikel->manufacturerImageWidthMD}w"
-                            alt=$Artikel->cHersteller|escape:'html'
+                            srcset="{$Artikel->cHerstellerBildURLKlein} {$Einstellungen.bilder.bilder_hersteller_mini_breite}w,
+                                    {$Artikel->cHerstellerBildURLNormal} {$Einstellungen.bilder.bilder_hersteller_normal_breite}w"
+                            alt=$Artikel->cHersteller
                             sizes="25px"
                             class="img-xs"}
+                        <meta itemprop="image" content="{$ShopURL}/{$Artikel->cHerstellerBildKlein}">
                     {/if}
                     {if ($Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'BT'
                     || $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'Y')
                     && !empty($Artikel->cHersteller)}
-                        <span>{$Artikel->cHersteller}</span>
+                        <span itemprop="name">{$Artikel->cHersteller}</span>
                     {/if}
                 {/link}
             {/col}
@@ -92,7 +86,7 @@
             {/col}
         {/block}
     {/if}
-    {if $Einstellungen.artikeldetails.show_shelf_life_expiration_date === 'Y' && isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
+    {if isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
         {block name='productlist-item-details-mhd'}
             {col tag='dt' cols=6 title="{lang key='productMHDTool'}"}{lang key='productMHD'}:{/col}
             {col tag='dd' cols=6}{$Artikel->dMHD_de}{/col}

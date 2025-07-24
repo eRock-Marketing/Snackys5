@@ -1,22 +1,6 @@
 {block name='snippets-categories-mega-fullscreen'}
 {strip}
-{block name='snippets-categories-mega-assigns'}
-    {if !isset($i)}
-        {assign var=i value=0}
-    {/if}
-    {if !isset($activeId)}
-        {if $NaviFilter->hasCategory()}
-            {$activeId = $NaviFilter->getCategory()->getValue()}
-        {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($Artikel)}
-            {$activeId = $Artikel->gibKategorie()}
-        {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($smarty.session.LetzteKategorie)}
-            {$activeId = $smarty.session.LetzteKategorie}
-        {else}
-            {$activeId = 0}
-        {/if}
-    {/if}
-    {assign var=max_subsub_items value=$snackyConfig.megamenu_subcats}
-{/block}
+{assign var=max_subsub_items value=5}
 {if $snackyConfig.megaHome == 0}
 <li class="is-lth{if $nSeitenTyp == 18} active{/if}">
 	<a href="{$ShopURL}" title="{$Einstellungen.global.global_shopname}" class="home-icon">
@@ -35,7 +19,7 @@
 {/if}
 
 {block name="megamenu-categories"}
-{if isset($snackyConfig.show_categories) && $snackyConfig.show_categories !== 'N' && isset($Einstellungen.global.global_sichtbarkeit) && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
+{if isset($snackyConfig.show_categories) && $snackyConfig.show_categories !== 'N' && isset($Einstellungen.global.global_sichtbarkeit) && ($Einstellungen.global.global_sichtbarkeit != 3 || isset($smarty.session.Kunde->kKunde) && $smarty.session.Kunde->kKunde != 0)}
     {assign var='show_subcategories' value=false}
     {if isset($snackyConfig.show_subcategories) && $snackyConfig.show_subcategories !== 'N'}
         {assign var='show_subcategories' value=true}
@@ -43,6 +27,17 @@
 
     {get_category_array categoryId=0 assign='categories'}
     {if !empty($categories)}
+        {if !isset($activeId)}
+            {if $NaviFilter->hasCategory()}
+                {$activeId = $NaviFilter->getCategory()->getValue()}
+            {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($Artikel)}
+                {assign var='activeId' value=$Artikel->gibKategorie()}
+            {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($smarty.session.LetzteKategorie)}
+                {$activeId = $smarty.session.LetzteKategorie}
+            {else}
+                {$activeId = 0}
+            {/if}
+        {/if}
         {if !isset($activeParents) && ($nSeitenTyp == 1 || $nSeitenTyp == 2)}
             {get_category_parents categoryId=$activeId assign='activeParents'}
         {/if}
@@ -51,7 +46,7 @@
             {if isset($category->hasChildren()) && $category->hasChildren()}
                 {assign var='isDropdown' value=true}
             {/if}
-            <li class="{if $isDropdown}mgm-fw{/if}{if $category->getID() == $activeId || (isset($activeParent) && $activeParent->getID() === $category->getID())} active{/if}">
+            <li class="{if $isDropdown}mgm-fw{/if}{if $category->getID() == $activeId || (isset($activeParents[0]) && $activeParents[0]->getID() == $category->getID())} active{/if}">
                 <a href="{$category->getURL()}">
                     {$category->getShortName()}
                     {if $isDropdown}<span class="ar ar-r"></span><span class="fa-caret-down visible-xs"></span>{/if}
@@ -59,15 +54,15 @@
                 {if $isDropdown}
                     <ul class="mm-fullscreen">
                         <li>
-								<a class="category-title block" href="{$category->getURL()}" title="{$category->getName()|escape:'html'}">
-									{$category->getShortName()}
+								<a class="category-title block" href="{$category->getURL()}">
+									{$category->cName}
 								</a>
                                     {assign var=hasInfoColumn value=false}
                                     {if isset($snackyConfig.show_maincategory_info) && $snackyConfig.show_maincategory_info !== 'N' && ($category->cBildURL !== 'gfx/keinBild.gif' || !empty($category->cBeschreibung))}
                                         {assign var=hasInfoColumn value=true}
                                         <div class="visible-lg mega-info-lg top15 pr hiden-xs">
                                                 {if $category->cBildURL !== 'gfx/keinBild.gif' && !$isMobile}
-                                                    <a class="img-ct{if $snackyConfig.imageratioCategory == '43'}  rt4x3{/if}" href="{$category->getURL()}" title="{$category->getName()|escape:'html'}">
+                                                    <a class="img-ct{if $snackyConfig.imageratioCategory == '43'}  rt4x3{/if}" href="{$category->getURL()}">
 													{include file='snippets/image.tpl'
 																		class='img-responsive'
 																		item=$category
@@ -76,7 +71,7 @@
                                                     </a>
                                                     <div class="clearall top15"></div>
                                                 {/if}
-                                                {if $category->cBildURL !== 'gfx/keinBild.gif'}<div class="description text-muted">{/if}{$category->getDescription()|strip_tags|strip_tags|truncate:200}{if $category->cBildURL !== 'gfx/keinBild.gif'}</div>{/if}
+                                                {if $category->cBildURL !== 'gfx/keinBild.gif'}<div class="description text-muted">{/if}{$category->getDescription()}{if $category->cBildURL !== 'gfx/keinBild.gif'}</div>{/if}
                                         </div>
                                     {/if}
                                         <div class="row row-eq-height row-eq-img-height {if $hasInfoColumn} hasInfoColumn{/if} subcat-list">
@@ -89,7 +84,7 @@
                                                 {foreach name='sub_categories' from=$sub_categories item='sub'}
                                                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 category-wrapper top15{if $sub->getID() == $activeId || (isset($activeParents[1]) && $activeParents[1]->getID() == $sub->getID())} active{/if}">
                                                             {if isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N' && !$isMobile}
-                                                                    <a class="img text-center pr block hidden-xs" href="{$sub->getURL()}" title="{$sub->category()|escape:'html'}">
+                                                                    <a class="img text-center pr block hidden-xs" href="{$sub->getURL()}">
                                                                         <span class="img-ct{if $snackyConfig.imageratioCategory == '43'}  rt4x3{/if}">
 																			{include file='snippets/image.tpl'
 																								class='image'
@@ -99,7 +94,7 @@
                                                                         </span>
                                                                     </a>
                                                             {/if}
-                                                                    <a class="h5 title caption{if isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N'} text-center{/if}" href="{$sub->getURL()}" title="{$sub->category()|escape:'html'}">
+                                                                    <a class="h5 title caption{if isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N'} text-center{/if}" href="{$sub->getURL()}">
                                                                             {$sub->getShortName()}
 																		{if $show_subcategories && $sub->hasChildren()}
 																		<span class="fa-caret-down visible-xs"></span>
@@ -116,7 +111,7 @@
                                                                     {foreach name='subsub_categories' from=$subsub_categories item='subsub'}
                                                                         {if $smarty.foreach.subsub_categories.iteration <= $max_subsub_items}
                                                                             <li{if $subsub->getID() == $activeId || (isset($activeParents[2]) && $activeParents[2]->getID() == $subsub->getID())} class="active"{/if}>
-                                                                                <a href="{$subsub->getURL()}" title="{$subsub->category()|escape:'html'}">
+                                                                                <a href="{$subsub->getURL()}">
                                                                                     {$subsub->getShortName()}
                                                                                 </a>
                                                                             </li>
@@ -151,7 +146,9 @@
 
 {block name="megamenu-manufacturers"}
 {if isset($snackyConfig.show_manufacturers) && $snackyConfig.show_manufacturers !== 'N' 
-    && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
+    && ($Einstellungen.global.global_sichtbarkeit != 3
+        || isset($smarty.session.Kunde->kKunde)
+        && $smarty.session.Kunde->kKunde != 0)}
     {get_manufacturers assign='manufacturers'}
     {if !empty($manufacturers)}
         <li class="mgm-fw mm-manu{if $NaviFilter->hasManufacturer() || $nSeitenTyp == PAGE_HERSTELLER} active{/if}">
@@ -181,7 +178,7 @@
 							{foreach name=hersteller from=$manufacturers item=hst}
 								<div class="col-12 col-sm-6 col-md-4 col-lg-3 category-wrapper manufacturer top15{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}">
 										{if isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N' && !$isMobile}
-												<a class="img text-center pr block hidden-xs" href="{$hst->getURL()}"><span class="img-ct{if $snackyConfig.imageratioCategory == '43'}  rt4x3{/if}">
+												<a class="img text-center pr block hidden-xs" href="{$hst->cURLFull}"><span class="img-ct{if $snackyConfig.imageratioCategory == '43'}  rt4x3{/if}">
 													{include file='snippets/image.tpl'
 														class='submenu-headline-image'
 														item=$hst
@@ -189,7 +186,7 @@
 														srcSize='sm'}
 												</span></a>
 										{/if}
-											<a class="title h5 caption{if isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N'} text-center{/if}" href="{$hst->getURL()}"><span>{$hst->getName()|escape:'html'}</span></a>
+											<a class="title h5 caption{if isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N'} text-center{/if}" href="{$hst->cURLFull}"><span>{$hst->cName}</span></a>
 								</div>
 							{/foreach}
 						</div>{* /row *}

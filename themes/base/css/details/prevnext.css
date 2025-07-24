@@ -1,6 +1,6 @@
 /* Prev/Next */
 #prevNextRow .button{
-	background: var(--det-pna-b);
+	background: @darkbg;
 	height: 5rem;
 	width: 2rem;
 	position: relative;
@@ -10,12 +10,12 @@
 #prevNextRow .next .button,
 #prevNextRow .previous .img-ct,
 #prevNextRow .previous img{
-	border-radius: 0 var(--img-rnd-md) var(--img-rnd-md) 0;
+	border-radius: 0 .5rem .5rem 0;
 }
 #prevNextRow .previous .button,
 #prevNextRow .next .img-ct,
 #prevNextRow .next img{
-	border-radius: var(--img-rnd-md) 0 0 var(--img-rnd-md);
+	border-radius: .5rem 0 0 .5rem;
 }
 #prevNextRow .previous a:not(:hover) .img-ct{
 	transform: translateX(-1rem);
@@ -30,7 +30,7 @@
 	transition: transform .2s ease, opacity .2s ease;
 }
 #prevNextRow .ar{
-	border-color: var(--det-pna-i);
+	border-color: white;
 }
 #prevNextRow .product-pagination{
     width: 7.5rem;

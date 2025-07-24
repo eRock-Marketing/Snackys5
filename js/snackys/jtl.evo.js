@@ -26,15 +26,49 @@
         closePanels: function() {
             for (var e = document.getElementById("sp-l").getElementsByClassName("panel-heading"), t = 0; t < e.length; t++) e[t].parentNode.classList.remove("open")
         },
-	
-
-        resetForParallax: function() {
-            $(window).trigger('resize').trigger('scroll');
-        },
-
         generateSlickSlider: function() {
 			if($('.evo-slider:not(.slick-initialized)').length)
 			{
+				/*
+				 * box product slider
+				 */
+				/*
+				$('.evo-box-slider:not(.slick-initialized)').slick({
+					//dots: true,
+					arrows: true,
+					lazyLoad: 'ondemand',
+					slidesToShow: 1
+				});
+				*/
+				/*
+				$('.evo-box-vertical:not(.slick-initialized)').slick({
+					//dots: true,
+					arrows:          true,
+					vertical:        true,
+					adaptiveHeight:  true,
+					verticalSwiping: true,
+					prevArrow:       '<button class="slick-up" aria-label="Previous" type="button"></button>',
+					nextArrow:       '<button class="slick-down" aria-label="Next" type="button"></button>',
+					lazyLoad:        'progressive',
+					slidesToShow:    1,
+				}).on('afterChange', function () {
+					var heights = [];
+					$('.evo-box-vertical:not(.eq-height) .product-wrapper').each(function (i, element) {
+						var $element       = $(element);
+						var elementHeight;
+						// Should we include the elements padding in it's height?
+						var includePadding = ($element.css('box-sizing') === 'border-box') || ($element.css('-moz-box-sizing') === 'border-box');
+						if (includePadding) {
+							elementHeight = $element.innerHeight();
+						} else {
+							elementHeight = $element.height();
+						}
+						heights.push(elementHeight);
+					});
+					$('.evo-box-vertical.evo-box-vertical:not(.eq-height) .product-wrapper').css('height', Math.max.apply(window, heights) + 'px');
+					$('.evo-box-vertical.evo-box-vertical:not(.eq-height)').addClass('eq-height');
+				});
+				*/
 				/*
 				 * responsive slider (content)
 				 */
@@ -89,10 +123,6 @@
                 $priceRangeFrom = $("#" + priceRangeID + "-from"),
                 $priceRangeTo = $("#" + priceRangeID + "-to"),
                 $priceSlider = document.getElementById(priceRangeID);
-				
-            if($priceSlider === null) {
-                return;
-            }
 
             if (priceRange) {
                 var priceRangeMinMax = priceRange.split('_');
@@ -101,123 +131,58 @@
                 $priceRangeFrom.val(currentPriceMin);
                 $priceRangeTo.val(currentPriceMax);
             }
-			noUiSlider.create($priceSlider, {
-				start: [parseInt(currentPriceMin), parseInt(currentPriceMax)],
-				connect: true,
-				range: {
-					'min': parseInt(priceRangeMin),
-					'max': parseInt(priceRangeMax)
-				},
-				step: 1,
-				format: {
-					to: function (value) {
-						return parseInt(value);
-					},
-					from: function (value) {
-						return parseInt(value);
-					}
-				}
-			});
-			$priceSlider.noUiSlider.on('change', function (values, handle) {
-				setTimeout(function(){
-					$.evo.redirectToNewPriceRange(values[0] + '_' + values[1], redirect, $wrapper);
-				},0);
-			});
-			$priceSlider.noUiSlider.on('update', function (values, handle) {
-				$priceRangeFrom.val(values[0]);
-				$priceRangeTo.val(values[1]);
-			});
-			$('.price-range-input').on('change', function () {
-				var prFrom = parseInt($priceRangeFrom.val()),
-					prTo = parseInt($priceRangeTo.val());
-				$.evo.redirectToNewPriceRange(
-					(prFrom > 0 ? prFrom : priceRangeMin) + '_' + (prTo > 0 ? prTo : priceRangeMax),
-					redirect,
-					$wrapper
-				);
-			});
-			
-			$('#'+priceRangeID+'-submit').on('click', function()
-			{
-				if($(this).data('url'))
-					window.location.href = $(this).data('url');
-			});
-			
+            noUiSlider.create($priceSlider, {
+                start: [parseInt(currentPriceMin), parseInt(currentPriceMax)],
+                connect: true,
+                range: {
+                    'min': parseInt(priceRangeMin),
+                    'max': parseInt(priceRangeMax)
+                },
+                step: 1,
+                format: {
+                    to: function (value) {
+                        return parseInt(value);
+                    },
+                    from: function (value) {
+                        return parseInt(value);
+                    }
+                }
+            });
+            $priceSlider.noUiSlider.on('change', function (values, handle) {
+                setTimeout(function(){
+                    $.evo.redirectToNewPriceRange(values[0] + '_' + values[1], redirect, $wrapper);
+                },0);
+            });
+            $priceSlider.noUiSlider.on('update', function (values, handle) {
+                $priceRangeFrom.val(values[0]);
+                $priceRangeTo.val(values[1]);
+            });
+            $('.price-range-input').on('change', function () {
+                var prFrom = parseInt($priceRangeFrom.val()),
+                    prTo = parseInt($priceRangeTo.val());
+                $.evo.redirectToNewPriceRange(
+                    (prFrom > 0 ? prFrom : priceRangeMin) + '_' + (prTo > 0 ? prTo : priceRangeMax),
+                    redirect,
+                    $wrapper
+                );
+            });
         },
 
-        startSpinner: function (target) {
-			//nothing to do - with our performance we dont need a spinner! :-)
-        },
-
-        stopSpinner: function () {
-			//nothing to do - with our performance we dont need a spinner! :-)
-        },
-		
         initFilters: function (href) {
-            var $wrapper = $('.js-collapse-filter');
-            //$.evo.extended().startSpinner($wrapper);
+            var $wrapper = $('.js-collapse-filter'),
+                self=this;
+            $.evo.extended().startSpinner($wrapper);
 
             $.ajax(href, {data: {'useMobileFilters':1}})
                 .done(function(data) {
                     $wrapper.html(data);
-                    $.evo.initPriceSlider($wrapper, false);
-					$.evo.initItemSearch('filter');
+                    self.initPriceSlider($wrapper, false);
                 })
                 .always(function() {
-                    //$.evo.extended().stopSpinner();
+                    $.evo.extended().stopSpinner();
                 });
         },
-       initItemSearch: function(context) {
-            let searchWrapper  = '.' + context + '-search-wrapper',
-                searchInput    = '.' + context + '-search',
-                itemValue      = '.' + context + '-item-value',
-                item           = '.' + context + '-item',
-                clear          = '.form-clear',
-                inputSelected  = 'input-group-selected',
-                $searchWrapper = $(searchWrapper);
 
-            if ($searchWrapper.length === 0) {
-                return;
-            }
-            $searchWrapper.each(function(i, itemWrapper){
-                $(itemWrapper).find(searchInput).on('input', function () {
-                    filterSearch($(itemWrapper));
-                }).on('keydown', function(e){
-                    if (e.key === 'Escape') {
-                        e.stopPropagation();
-                    }
-                });
-            });
-            $(searchWrapper + ' ' + clear).on('click', function() {
-                $(this).prev().val('');
-                $(this).addClass('d-none');
-                filterSearch($(this).closest(searchWrapper));
-            });
-            $(searchInput).on('focusin', function() {
-                $(this).closest(searchWrapper).addClass(inputSelected);
-            }).on('focusout', function() {
-                $(this).closest(searchWrapper).removeClass(inputSelected);
-            });
-
-            function filterSearch (itemWrapper) {
-                let searchTerm = itemWrapper.find(searchInput).val().toLowerCase();
-                itemWrapper.find(itemValue).each(function(i, itemTMP){
-                    itemTMP = $(itemTMP);
-                    let text = itemTMP.text().toLowerCase();
-                    if (text.indexOf(searchTerm) === -1) {
-                        itemTMP.closest(item).hide();
-                    } else {
-                        itemTMP.closest(item).show();
-                    }
-                    if (searchTerm.length === 0) {
-                        itemWrapper.find(clear).addClass('d-none');
-                    } else {
-                        itemWrapper.find(clear).removeClass('d-none');
-                    }
-                });
-            }
-        },
-		
         initFilterEvents: function() {
             var initiallized = false;
             $('#js-filters').on('click', function() {
@@ -229,13 +194,9 @@
         },
 
         redirectToNewPriceRange: function (priceRange, redirect, $wrapper) {
-			redirect = false;
             var currentURL  = window.location.href;
             if (!redirect) {
                 currentURL  = $wrapper.find('[data-id="js-price-range-url"]').val();
-            }
-            if (!currentURL) {
-                currentURL  = window.location.href;
             }
             var redirectURL = $.evo.updateURLParameter(
                 currentURL,
@@ -245,16 +206,12 @@
             if (redirect) {
                 window.location.href = redirectURL;
             } else {
-				var currentID  = $wrapper.find('[data-id="js-price-range-id"]').val();
-				$('#'+currentID+'-submit').attr('data-url',redirectURL);
                 $.evo.initFilters(redirectURL);
             }
         },
 
         updateURLParameter: function (url, param, paramVal) {
             var newAdditionalURL = '',
-                url        = url.split('#'),
-				url = url[0],
                 tempArray        = url.split('?'),
                 baseURL          = tempArray[0],
                 additionalURL    = tempArray[1],
@@ -317,10 +274,8 @@
             }
         },
 
-		/*
         productTabsPriceFlow: function() {
             $('a[href="#tab-priceFlow"]').on('shown.bs.tab', function () {
-				console.log("price-flow-tab-activated");
                 if (typeof window.priceHistoryChart !== 'undefined' && window.priceHistoryChart === null) {
                     window.priceHistoryChart = new Chart(window.ctx).Bar(window.chartData, {
                         responsive:      true,
@@ -329,31 +284,6 @@
                     });
                 }
             });
-        },*/
-		
-		
-
-        productTabsPriceFlow: function() {
-			// using cards
-			$('#tab-priceFlow').on('shown.bs.collapse', function () {
-				if (typeof window.priceHistoryChart !== 'undefined' && window.priceHistoryChart === null) {
-					window.priceHistoryChart = new Chart(window.ctx).Line(window.chartData, {
-						responsive:      true,
-						scaleBeginAtZero: false,
-						tooltipTemplate: "<%if (label){%><%=label%> - <%}%><%= parseFloat(value).toFixed(2).replace('.', ',') %> " + window.chartDataCurrency
-					});
-				}
-			});
-			//using tabs
-			$('a[data-toggle="tab"][aria-controls="tab-priceFlow"]').on('shown.bs.tab', function () {
-				if (typeof window.priceHistoryChart !== 'undefined' && window.priceHistoryChart === null) {
-					window.priceHistoryChart = new Chart(window.ctx).Line(window.chartData, {
-						responsive:      true,
-						scaleBeginAtZero: false,
-						tooltipTemplate: "<%if (label){%><%=label%> - <%}%><%= parseFloat(value).toFixed(2).replace('.', ',') %> " + window.chartDataCurrency
-					});
-				}
-			});
         },
 
         autoheight: function() {
@@ -495,7 +425,7 @@
 
             if (target.length > 0) {
                 // scroll below the static megamenu
-                var nav         = ($('body').hasClass('mobile')) ? $('#shop-nav') : $('#cat-w');
+                var nav         = $('#cat-w');
                 var fixedOffset = nav.length > 0 ? nav.outerHeight() : 0;
 
                 targetOffset = target.offset().top - fixedOffset - parseInt(target.css('margin-top'));
@@ -560,22 +490,12 @@
 
                 $form.find('fieldset, input[type="submit"]')
                     .attr('disabled', true);
-                var urlInstance = null;
-                if ($form.length === 1 && $form.attr('action') !== undefined) {
-                    urlInstance = new URL($form.attr('action'));
-                    urlInstance.searchParams.append('kVersandart', '' + shipmentid);
-                }
-                var url = urlInstance === null
-                    ? $('#jtl-io-path').data('path') + '/bestellvorgang.php?kVersandart=' + shipmentid
-                    : urlInstance.href
+                var url = 'bestellvorgang.php?kVersandart=' + shipmentid + '&kZahlungsart=' + paymentid;
                 $.evo.loadContent(url, function() {
                     $.evo.checkout();
                 }, null, true);
             });
 
-
-            regionsToState();
-            /*
             $('#country').on('change', function (e) {
                 var val = $(this).find(':selected').val();
 
@@ -590,12 +510,11 @@
                         $shippingSwitch.parent().addClass('hidden');
                         if ($shippingSwitch.prop('checked')) {
                             $shippingSwitch.prop('checked', false);
-                            $('#select-shipping-address').collapse('show');
+                            $('#select_shipping_address').collapse('show');
                         }
                     }
                 });
             });
-            */
         },
 		
         setCompareListHeight: function() {
@@ -771,7 +690,6 @@
 			this.slider();
 			this.mobileMenu();
 			this.panelOpener();
-			this.initFilterEvents();
         }
     };
 

@@ -40,11 +40,10 @@
                 {if isset($activeParents) && is_array($activeParents) && isset($activeParents[$i])}
                     {assign var='activeParent' value=$activeParents[$i]}
                 {/if}
-				{assign var="catFunctions" value=$category->getFunctionalAttributes()}
-                <li class="nav-it{if $category->getID() == $activeId || (isset($activeParent) && $activeParent->getID() === $category->getID())} active open{/if}{if is_array($catFunctions) && !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}">
-                    <a href="{$category->getURL()}"{if $hasItems} class="nav-sub flx{if $category->getID() == $activeId || (isset($activeParent) && $activeParent->getID() === $category->getID())} active open{/if}"{/if} data-ref="{$category->getID()}">
+                <li class="nav-it{if $category->getID() == $activeId || ((isset($activeParent) && isset($activeParent->getID())) && $activeParent->getID() == $category->getID())} active open{/if}{if is_array($category->categoryFunctionAttributes) && !empty($category->categoryFunctionAttributes["css_klasse"])} {$category->categoryFunctionAttributes["css_klasse"]}{/if}">
+                    <a href="{$category->cURL}"{if $hasItems} class="nav-sub dpflex{if $category->getID() == $activeId || ((isset($activeParent) && isset($activeParent->getID())) && $activeParent->getID() == $category->getID())} active open{/if}"{/if} data-ref="{$category->getID()}">
                         {$category->getShortName()}
-                        {if $hasItems}<button class="fa fa-caret-{$caret} nav-toggle" aria-label="{lang key='toggleSubemenu' section='custom'}"></button>{/if}
+                        {if $hasItems}<i class="fa fa-caret-{$caret} nav-toggle"></i>{/if}
                     </a>
                     {if $hasItems}
                         <ul class="nav">

@@ -32,7 +32,7 @@
             this.options = $.extend({}, BasketClass.DEFAULTS, options);
         },
 
-        addToBasket: function($form, data, direct) {
+        addToBasket: function($form, data) {
             var $main = $form;
 
             if (typeof data === 'undefined') {
@@ -45,11 +45,11 @@
             );
 
             if (productId > 0 && quantity > 0) {
-                this.pushToBasket($main, productId, quantity, data, direct);
+                this.pushToBasket($main, productId, quantity, data);
             }
         },
 
-        pushToBasket: function($main, productId, quantity, data, direct) {
+        pushToBasket: function($main, productId, quantity, data) {
             var that = this;
 
             that.toggleState($main, true);
@@ -64,23 +64,18 @@
 
                 var response = data.response;
                 if (response) {
-					if(direct == true)
-						window.location.reload();
-					else
-					{
-						switch (response.nType) {
-							case 0: // error
-								that.error(response);
-								break;
-							case 1: // forwarding
-								that.redirectTo(response);
-								break;
-							case 2: // added to basket
-								that.updateCart(0);
-								that.pushedToBasket(response);
-								break;
-						}
-					}
+                    switch (response.nType) {
+                        case 0: // error
+                            that.error(response);
+                            break;
+                        case 1: // forwarding
+                            that.redirectTo(response);
+                            break;
+                        case 2: // added to basket
+                            that.updateCart(0);
+                            that.pushedToBasket(response);
+                            break;
+                    }
                 }
             });
         },
@@ -119,8 +114,8 @@
 
         updateCart: function(type) {
             var that = this,
-                t = (type === undefined) ? 0 : parseInt(type);
-				
+                t = parseInt(type);
+
             $.evo.io().call('getBasketItems', [t], this, function(error, data) {
                 if (error) {
                     return;
@@ -135,14 +130,8 @@
 				{
 					document.getElementsByClassName('cart-menu')[0].classList.add('open');
 					document.body.classList.add('sidecart-open');
-                    document.querySelector('.c-dp .close-btn')?.focus();
 				}
             });
-			
-			
-				window.setTimeout(function(){
-					mainEventListener();
-				},500);
         }
     };
 
@@ -155,12 +144,9 @@
 
     // PLUGIN DATA-API
     // ===============
-    $(document).on('submit', '[data-toggle="basket-add"]', function(event) {
+    $('#content-wrapper').on('submit', '[data-toggle="basket-add"]', function(event) {
         event.preventDefault();
         $.evo.basket().addToBasket($(this));
-    }).on('submit', '[data-toggle="basket-add-direct"]', function(event) {
-        event.preventDefault();
-        $.evo.basket().addToBasket($(this),undefined,true);
     }).on('show.bs.dropdown', '[data-toggle="basket-items"]', function (event) {
         $.evo.basket().updateCart(0);
     });

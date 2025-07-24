@@ -6,10 +6,9 @@ body,
 	height: 100%;
 	padding: 0;
     margin: 0;
-    max-width: 100%;
 }
 body.body-offcanvas{
-	background: var(--bod-b-l);
+	background: @lightbg;
 }
 #content{
 	display: flex;
@@ -27,7 +26,7 @@ body.body-offcanvas{
 }
 #logo-wrapper{
 	margin-bottom: 1.5rem;
-	border-bottom: 1px solid var(--hr-li);
+	border-bottom: 1px solid @lightborder;
 	padding-bottom: 1.5rem;
 }
 #logo img{
@@ -44,15 +43,15 @@ body.body-offcanvas{
 #maintenance-notice{
 	padding: 2rem;
 	padding-top: 4.5rem;
-	border-radius: var(--box-rnd);
+	border-radius: .5rem;
 	box-shadow: 0px 0px 10px 0 rgba(0,0,0,.2);
 	width: 50rem;
 	max-width: 90vw;
 	position: relative;
-	background: var(--bod-b);
+	background: white;
 }
 #maintenance-notice .topbar{
-	background: var(--brand);
+	background: @info;
 	color: white;
 	position: absolute;
 	top: 0;
@@ -85,8 +84,8 @@ body #bxt-w{
 	fill: #bbb;
 }
 #maintenance-notice .icon-container{
-	background: #eee;
-	border-radius: var(--rnd-fll);
+	background: @lightbg;
+	border-radius: 50%;
 	padding: 3rem;
 }
 #maintenance-notice .text-col{
@@ -117,15 +116,4 @@ body #bxt-w{
 	#maintenance-notice .text-col{
 		padding: 0;
 	}
-}
-.btn-link{
-	-webkit-appearance: inherit;
-	border: 0;
-	background: none;
-	color: var(--bod-l);
-	padding: 0;
-	text-decoration: underline;
-}
-.btn-link:hover{
-	color: var(--bod-l-h);
 }

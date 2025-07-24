@@ -1,106 +1,88 @@
 {block name='productdetails-availability-notification-form'}
-	<div class="panel-wrap">
-		{block name='availability-form-popup-alerts'}
-			{if isset($position) && $position === 'popup'}
-				{if isset($Artikelhinweise) && count($Artikelhinweise) > 0}
-					<div class="alert alert-danger alert-dismissible">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						{foreach $Artikelhinweise as $Artikelhinweis}
-							{$Artikelhinweis}
-						{/foreach}
-					</div>
-				{/if}
-			{/if}
-		{/block}
-		{block name='availability-form'}
-			<form action="{if !empty($Artikel->cURLFull)}{$Artikel->cURLFull}{else}{$ShopURL}/{/if}" method="post" id="article_availability{$Artikel->kArtikel}" class="jtl-validate" addhoneypot=true>
-				{$jtl_token}
-				<fieldset>
-					<legend class="sr-only">{lang key="notifyMeWhenProductAvailableAgain" section="global"}</legend>
-					<div class="required-info small mb-xs">{lang key='requiredInfo' section='custom'}</div>
-					{block name='availability-form-firstname-lastname'}
-						{if $Einstellungen.$tplscope.benachrichtigung_abfragen_vorname !== 'N' || $Einstellungen.$tplscope.benachrichtigung_abfragen_nachname !== 'N'}
-							{block name='availability-form-firstname'}
-								{if $Einstellungen.$tplscope.benachrichtigung_abfragen_vorname !== 'N'}
-									<div class="form-group float-label-control{if !empty($fehlendeAngaben_benachrichtigung.vorname)} has-error{/if}{if $Einstellungen.$tplscope.benachrichtigung_abfragen_vorname === 'Y'} required{/if}">
-										<label for="article_availability{$Artikel->kArtikel}_firstName" class="control-label">
-											{lang key="firstName" section="account data"}
-										</label>
-										<input type="text" class="form-control" name="vorname" value="{if isset($Benachrichtigung->cVorname)}{$Benachrichtigung->cVorname}{/if}" id="article_availability{$Artikel->kArtikel}_firstName"{if $Einstellungen.$tplscope.benachrichtigung_abfragen_vorname === 'Y'} required{/if}>
-										{if !empty($fehlendeAngaben_benachrichtigung.vorname)}
-											<div class="form-error-msg text-danger">
-												{lang key="fillOut" section="global"}
-											</div>
-										{/if}
-									</div>
-								{/if}
-							{/block}
-							{block name='availability-form-lastname'}
-								{if $Einstellungen.$tplscope.benachrichtigung_abfragen_nachname !== 'N'}
-									<div class="form-group float-label-control{if !empty($fehlendeAngaben_benachrichtigung.nachname)} has-error{/if}{if $Einstellungen.$tplscope.benachrichtigung_abfragen_nachname === 'Y'} required{/if}">
-										<label for="article_availability{$Artikel->kArtikel}_lastName" class="control-label">
-											{lang key="lastName" section="account data"}
-										</label>
-										<input type="text" class="form-control" name="nachname" value="{if isset($Benachrichtigung->cNachname)}{$Benachrichtigung->cNachname|entferneFehlerzeichen}{/if}" id="article_availability{$Artikel->kArtikel}_lastName"{if $Einstellungen.$tplscope.benachrichtigung_abfragen_nachname === 'Y'} required{/if}>
-										{if !empty($fehlendeAngaben_benachrichtigung.nachname)}
-											<div class="form-error-msg text-danger">
-												{lang key="fillOut" section="global"}
-											</div>
-										{/if}
-									</div>
-								{/if}
-							{/block}
-						{/if}
-					{/block}
-					{block name='availability-form-email'}
-						<div class="form-group float-label-control{if !empty($fehlendeAngaben_benachrichtigung.email)} has-error{/if} required">
-							<label for="article_availability{$Artikel->kArtikel}_email" class="control-label">
-								{lang key="email" section="account data"}
-							</label>
-							<input type="email" class="form-control" name="email" value="{if isset($Lieferadresse->cMail)}{$Lieferadresse->cMail}{/if}" id="article_availability{$Artikel->kArtikel}_email" required>
-							{if !empty($fehlendeAngaben_benachrichtigung.email)}
-								<div class="form-error-msg text-danger">
-									{if $fehlendeAngaben_benachrichtigung.email == 1}
-										{lang key="fillOut" section="global"}
-									{elseif $fehlendeAngaben_benachrichtigung.email == 2}
-										{lang key="invalidEmail" section="global"}
-									{elseif $fehlendeAngaben_benachrichtigung.email == 3}
-										{lang key="blockedEmail" section="global"}
-									{/if}
-								</div>
-							{/if}
-						</div>
-					{/block}
-					{block name='availability-form-checkbox'}
-						{if isset($fehlendeAngaben_benachrichtigung)}
-							{include file='snippets/checkbox.tpl' nAnzeigeOrt=$smarty.const.CHECKBOX_ORT_FRAGE_VERFUEGBARKEIT cPlausi_arr=$fehlendeAngaben_benachrichtigung cPost_arr=null}
-						{else}
-							{include file='snippets/checkbox.tpl' nAnzeigeOrt=$smarty.const.CHECKBOX_ORT_FRAGE_VERFUEGBARKEIT cPlausi_arr=null cPost_arr=null cIDPrefix="article_availability{$Artikel->kArtikel}"}
-						{/if}
-					{/block}
-				</fieldset>
-				{block name='availability-form-captcha'}
-					{if (!isset($smarty.session.bAnti_spam_already_checked) || $smarty.session.bAnti_spam_already_checked !== true) &&
-						isset($Einstellungen.$tplscope.benachrichtigung_abfragen_captcha) && $Einstellungen.$tplscope.benachrichtigung_abfragen_captcha !== 'N' && empty($smarty.session.Kunde->kKunde)}
-						{captchaMarkup getBody=true}
-					{/if}
-				{/block}
-				{block name='availability-form-privacy-notice'}
-					<p class="privacy text-muted">
-						<a href="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}{/if}" class="popup small tdu">
-							{lang key='privacyNotice'}
-						</a>
-					</p>
-				{/block}
-				{block name='availability-form-submit'}
-					<input type="hidden" name="a" value="{if $Artikel->kVariKindArtikel}{$Artikel->kVariKindArtikel}{else}{$Artikel->kArtikel}{/if}" />
-					<input type="hidden" name="show" value="1" />
-					<input type="hidden" name="benachrichtigung_verfuegbarkeit" value="1" />
-					<button type="submit" value="{lang key="requestNotification" section="global"}" class="btn btn-primary btn-block btn-lg" >{lang key="requestNotification" section="global"}</button>
-				{/block}
-			</form>
-		{/block}
-	</div>
+<div class="panel-wrap">
+    {if isset($position) && $position === 'popup'}
+        {if isset($Artikelhinweise) && count($Artikelhinweise) > 0}
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {foreach $Artikelhinweise as $Artikelhinweis}
+                    {$Artikelhinweis}
+                {/foreach}
+            </div>
+        {/if}
+    {/if}
+    <form action="{if !empty($Artikel->cURLFull)}{$Artikel->cURLFull}{else}{$ShopURL}/{/if}" method="post" id="article_availability{$Artikel->kArtikel}" class="evo-validate panel">
+        {$jtl_token}
+        <fieldset>
+            {if $Einstellungen.$tplscope.benachrichtigung_abfragen_vorname !== 'N' || $Einstellungen.$tplscope.benachrichtigung_abfragen_nachname !== 'N'}
+                {if $Einstellungen.$tplscope.benachrichtigung_abfragen_vorname !== 'N'}
+                    <div class="form-group float-label-control{if !empty($fehlendeAngaben_benachrichtigung.vorname)} has-error{/if}{if $Einstellungen.$tplscope.benachrichtigung_abfragen_vorname === 'Y'} required{/if}">
+                        <label for="article_availability{$Artikel->kArtikel}_firstName" class="control-label">
+                            {lang key="firstName" section="account data"}
+                        </label>
+                        <input type="text" class="form-control" name="vorname" value="{if isset($Benachrichtigung->cVorname)}{$Benachrichtigung->cVorname}{/if}" id="article_availability{$Artikel->kArtikel}_firstName"{if $Einstellungen.$tplscope.benachrichtigung_abfragen_vorname === 'Y'} required{/if}>
+                        {if !empty($fehlendeAngaben_benachrichtigung.vorname)}
+                            <div class="form-error-msg text-danger">
+                                {lang key="fillOut" section="global"}
+                            </div>
+                        {/if}
+                    </div>
+                {/if}
+                {if $Einstellungen.$tplscope.benachrichtigung_abfragen_nachname !== 'N'}
+                    <div class="form-group float-label-control{if !empty($fehlendeAngaben_benachrichtigung.nachname)} has-error{/if}{if $Einstellungen.$tplscope.benachrichtigung_abfragen_nachname === 'Y'} required{/if}">
+                        <label for="article_availability{$Artikel->kArtikel}_lastName" class="control-label">
+                            {lang key="lastName" section="account data"}
+                        </label>
+                        <input type="text" class="form-control" name="nachname" value="{if isset($Benachrichtigung->cNachname)}{$Benachrichtigung->cNachname|entferneFehlerzeichen}{/if}" id="article_availability{$Artikel->kArtikel}_lastName"{if $Einstellungen.$tplscope.benachrichtigung_abfragen_nachname === 'Y'} required{/if}>
+                        {if !empty($fehlendeAngaben_benachrichtigung.nachname)}
+                            <div class="form-error-msg text-danger">
+                                {lang key="fillOut" section="global"}
+                            </div>
+                        {/if}
+                    </div>
+                {/if}
+            {/if}
+            <div class="form-group float-label-control{if !empty($fehlendeAngaben_benachrichtigung.email)} has-error{/if} required">
+                <label for="article_availability{$Artikel->kArtikel}_email" class="control-label">
+                    {lang key="email" section="account data"}
+                </label>
+                <input type="email" class="form-control" name="email" value="{if isset($Lieferadresse->cMail)}{$Lieferadresse->cMail}{/if}" id="article_availability{$Artikel->kArtikel}_email" required>
+                {if !empty($fehlendeAngaben_benachrichtigung.email)}
+                    <div class="form-error-msg text-danger">
+                        {if $fehlendeAngaben_benachrichtigung.email == 1}
+                            {lang key="fillOut" section="global"}
+                        {elseif $fehlendeAngaben_benachrichtigung.email == 2}
+                            {lang key="invalidEmail" section="global"}
+                        {elseif $fehlendeAngaben_benachrichtigung.email == 3}
+                            {lang key="blockedEmail" section="global"}
+                        {/if}
+                    </div>
+                {/if}
+            </div>
+    
+            {if isset($fehlendeAngaben_benachrichtigung)}
+                {include file='snippets/checkbox.tpl' nAnzeigeOrt=$smarty.const.CHECKBOX_ORT_FRAGE_VERFUEGBARKEIT cPlausi_arr=$fehlendeAngaben_benachrichtigung cPost_arr=null}
+            {else}
+                {include file='snippets/checkbox.tpl' nAnzeigeOrt=$smarty.const.CHECKBOX_ORT_FRAGE_VERFUEGBARKEIT cPlausi_arr=null cPost_arr=null cIDPrefix="article_availability{$Artikel->kArtikel}"}
+            {/if}
+    
+        </fieldset>
+        {if (!isset($smarty.session.bAnti_spam_already_checked) || $smarty.session.bAnti_spam_already_checked !== true) &&
+            isset($Einstellungen.$tplscope.benachrichtigung_abfragen_captcha) && $Einstellungen.$tplscope.benachrichtigung_abfragen_captcha !== 'N' && empty($smarty.session.Kunde->kKunde)}
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    {captchaMarkup getBody=true}
+                    <hr>
+                </div>
+            </div>
+        {/if}
+        <div class="mt-xxs">
+            <input type="hidden" name="a" value="{if $Artikel->kVariKindArtikel}{$Artikel->kVariKindArtikel}{else}{$Artikel->kArtikel}{/if}" />
+            <input type="hidden" name="show" value="1" />
+            <input type="hidden" name="benachrichtigung_verfuegbarkeit" value="1" />
+            <button type="submit" value="{lang key="requestNotification" section="global"}" class="btn btn-primary btn-block btn-lg" >{lang key="requestNotification" section="global"}</button>
+        </div>
+    </form>
+</div>
 {/block}

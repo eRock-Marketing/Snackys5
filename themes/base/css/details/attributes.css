@@ -2,27 +2,13 @@
     padding: .5rem;
 }
 .p-att li:nth-child(even){
-    background: var(--bod-b-l);
+    background: #f6f6f6;
 }
 .p-att .first{
-    width: 15rem;
-    min-width: 15rem;
-}
-.p-att .tag{
-    margin: .1rem;
+    width: 20rem;
 }
 @media screen and (max-width: 767px){
     .p-att .first{
-        width: 12rem;
-        min-width: 12rem;
-    }
-}
-@media screen and (max-width: 699px){
-    .p-att .first {
-        width: 100%;
-        margin: 0 0 .2rem 0;
-    }  
-    .p-att li{
-        flex-wrap: wrap;
-    }
+        width: 40%;
+    }    
 }

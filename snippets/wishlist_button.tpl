@@ -2,18 +2,14 @@
     {assign var='isOnWishList' value=false}
     {assign var='wishlistPos' value=0}
     {assign var='isVariationItem' value=!empty($Artikel->Variationen) && empty($Artikel->kVariKindArtikel)}
-    {if !$isVariationItem && \JTL\Session\Frontend::getWishlist()->getItems()|count > 0}
-        {foreach \JTL\Session\Frontend::getWishlist()->getItems() as $item}
-            {if $item->getProductID() === $Artikel->kArtikel || $item->getProductID() === $Artikel->kVariKindArtikel}
+    {if isset($smarty.session.Wunschliste) && !$isVariationItem}
+        {foreach $smarty.session.Wunschliste->CWunschlistePos_arr as $product}
+            {if $product->kArtikel === $Artikel->kArtikel || $product->kArtikel === $Artikel->kVariKindArtikel}
                 {$isOnWishList=true}
-                {$wishlistPos=$item->getID()}
+                {$wishlistPos=$product->kWunschlistePos}
                 {break}
             {/if}
         {/foreach}
-    {/if}
-    {assign var='tabIndx' value=0}
-    {if isset($tplscope) && $tplscope=='list'}
-        {assign var='tabIndx' value=-1}
     {/if}
     {block name='snippets-wishlist-button-main'}
         {if $buttonAndText|default:false}
@@ -23,7 +19,6 @@
                     variant="link"
                     class="{$classes|default:''} wishlist-button wishlist action-tip-animation-b {if $isOnWishList}on-list{/if}"
                     aria=["label" => {lang key='addToWishlist' section='productDetails'}]
-                    tabindex={$tabIndx}
                     data=["wl-pos" => $wishlistPos, "product-id-wl" => "{if isset($Artikel->kVariKindArtikel)}{$Artikel->kVariKindArtikel}{else}{$Artikel->kArtikel}{/if}"]}
                     <span class="wishlist-button-inner">
                         <span class="{if $isOnWishList}fas{else}far{/if} fa-heart wishlist-icon"></span>
@@ -37,7 +32,6 @@
                     type="submit"
                     class="{$classes|default:''} wishlist badge badge-circle-1 action-tip-animation-b {if $isOnWishList}on-list{/if}"
                     aria=["label" => {lang key='addToWishlist' section='productDetails'}]
-                    tabindex={$tabIndx}
                     title={lang key='addToWishlist' section='productDetails'}
                     data=[
                         "wl-pos" => $wishlistPos,

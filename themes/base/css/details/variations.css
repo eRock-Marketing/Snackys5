@@ -11,7 +11,7 @@
 }
 .var-head .swatches-selected{
     font-weight: 400;
-    color: var(--bod-t);
+    color: @defaulttext;
 }
 .var-it .control-hidden{
     position: absolute;
@@ -31,7 +31,7 @@
     transition: color .2s ease;
 }
 .var-it label[data-type="radio"]:hover{
-    color: var(--bod-l-h);
+    color: @brand;
 }
 .var-it label[data-type="radio"] input{
     margin-right: .5rem;
@@ -40,27 +40,23 @@
     margin: 0 .5rem .5rem 0;
 }
 .var-it .swatches .btn-default:not(.active):not(.btn-img){
-    background: var(--var-sw-b);
-    color: var(--var-sw-t);
-    border: 1px solid var(--var-sw-r);
+    background: none;
+    box-shadow: inset 0 0 0 1px @defaultborder;
 }
-.var-it .swatches .btn-default:not(.active):not(.btn-img):hover,
-.swatches .variation:focus-within{
-    background: var(--var-sw-b-h);
-    color: var(--var-sw-t-h);
-    border: 1px solid var(--var-sw-r-h);
+.var-it .swatches .btn-default:not(.active):not(.btn-img):hover{
+    background: none;
+    box-shadow: inset 0 0 0 1px @brand;
 }
 .var-it .swatches .btn-default:hover{
-    border: 1px solid var(--var-sw-r-h);
-    background: var(--var-sw-b-h);
+    border-color: @brand;
 }
 .var-it .swatches .btn-default .label-info{
     display: block;
+    font-size: .8rem;
     margin-top: .5rem;
 }
 .var-it .swatches .btn-default.btn-img{
     background: none;
-    border: 0;
     padding: .25rem;
     width: 12.5%;
     margin: 0;
@@ -72,17 +68,19 @@
 .var-it .btn-img .tag{
     margin-top: .3rem;
     margin-left: 0;
+    font-size: .7rem;
     text-align: center;
 }
 .var-it .swatches .btn-img .img-ct{
-    box-shadow: 0 0 0 2px var(--var-sw-r);       
+    box-shadow: 0 0 0 1px @lightborder;       
 }
 .var-it .swatches .btn-img:hover .img-ct,
 .var-it .swatches .btn-img.active .img-ct{
-    box-shadow: 0 0 0 2px var(--var-sw-r-h);    
+    box-shadow: 0 0 0 1px @brand;    
 }
 .var-it .textswatches .btn-default .label-info{
     display: block;
+    font-size: .8rem;
     margin-left: .5rem;
     margin-top: 0;
 }
@@ -100,15 +98,6 @@
 }
 .var-it .dropdown-menu .fa{
     display: none;
-}
-.var-it .bootstrap-select>.dropdown-menu{
-    max-width: 100%;
-}
-.var-it .bootstrap-select.dropdown:not(.show):focus-within .dropdown-menu{
-    display: none;
-}
-.var-it .bootstrap-select li{
-    pointer-events: all;
 }
 @media screen and (max-width: 1800px){
     .var-it .swatches .btn-img.btn-default{

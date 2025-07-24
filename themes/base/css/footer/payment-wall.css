@@ -1,20 +1,20 @@
 #pay-f{
-	border-top: 1px solid var(--hr-li);
+	border-top: 1px solid @lightborder;
 	padding-top: 3.5rem;
 }
 #pay-f li{
 	margin: .5rem;
 }
 #pay-f li.text{
-	padding: .5rem .8rem;
-	border-radius: var(--btn-rnd-sm);
-	border: 1px solid var(--hr);
-	color: var(--bod-t);
+	padding: 0.4rem 0.8rem;
+	border-radius: .3rem;
+	border: 1px solid @defaultborder;
+	font-size: 0.95rem;
+	color: @lighttext;
 }
 #pay-f li:empty{
 	display: none;
 }
 #pay-f li.img img{
 	max-width: 150px;
-	max-height: 50px;
 }

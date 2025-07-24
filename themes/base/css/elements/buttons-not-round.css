@@ -1,6 +1,35 @@
-:root{    
-    --frm-rnd: 0;
-    --frm-rnd-sm: 0;
-    --btn-rnd: 0;
-    --btn-rnd-sm: 0;
+.btn,
+.modal-dialog .answer > a,
+#amazonpayments .lpa-cancel a,
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+input[type="number"], 
+input[type="tel"], 
+input[type="url"], 
+input[type="date"], 
+input[type="search"], 
+input.quantity, 
+select, 
+textarea,
+.btn-rd,
+.modal-dialog .answer > a:first-child,
+.btn-group > .form-control:first-child,
+.modal-dialog .answer > a:last-child,
+.btn-group > .form-control:last-child,
+.sc-item .editpos,
+.sc-item .input-group input,
+.sc-item .input-group button,
+.c-empt,
+.burger-line,
+.file-error-message,
+.file-preview,
+.file-preview-other,
+.file-drop-zone,
+#dt-upload .btn-file,
+#fileupload-wrapper .btn-file,
+.mtrx .add,
+.mtrx .input-group input:only-child,
+#quantity-grp .btn.submit .config-required-info{
+    border-radius: 0 !important; 
 }

@@ -19,7 +19,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: #eee;
+    background: @lightbg;
     padding: .8rem 1rem;
 }
 .sl-w.t-light .htmlcaption{
@@ -48,7 +48,7 @@
 	background: rgba(255,255,255,.7);
 	border: 0;
 	padding: 1.5rem .8rem;
-	border-radius: var(--btn-rnd-sm);
+	border-radius: .3rem;
 	opacity: 1;
 }
 .sl-w .sl-nx{

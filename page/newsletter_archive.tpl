@@ -1,26 +1,20 @@
 {block name='page-newsletter-archive'}
-    {opcMountPoint id='opc_before_newsletter' inContainer=false}
-    {container fluid=$Link->getIsFluid() class="page-newsletter-archive {if $Einstellungen.template.theme.left_sidebar === 'Y' && $boxesLeftActive}container-plus-sidebar{/if}"}
-        {block name='page-newsletter-archive-toptags'}
-            <div id="toptags" class="h2">{lang key='newsletterhistory'}</div>
-        {/block}
-        {block name='page-newsletter-archive-content'}
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>{lang key='newsletterhistorysubject'}</th>
-                        <th>{lang key='newsletterhistorydate'}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {foreach $oNewsletterHistory_arr as $oNewsletterHistory}
-                        <tr>
-                            <td>{link href="{$oNewsletterHistory->cURLFull}"}{$oNewsletterHistory->cBetreff}{/link}</td>
-                            <td>{$oNewsletterHistory->Datum}</td>
-                        </tr>
-                    {/foreach}
-                </tbody>
-            </table>
-        {/block}
-    {/container}
+{include file="snippets/zonen.tpl" id="opc_before_newsletter"}
+
+<div id="toptags">{lang key="newsletterhistory" section="global"}</div>
+
+<table class="newsletter">
+    <tr class="head">
+        <th>{lang key="newsletterhistorysubject" section="global"}</th>
+        <th>{lang key="newsletterhistorydate" section="global"}</th>
+    </tr>
+    {foreach name=newsletterhistory from=$oNewsletterHistory_arr item=oNewsletterHistory}
+    <tr class="content_{$smarty.foreach.newsletterhistory.iteration%2}">
+        <td class="left_td">
+            <a href="{$oNewsletterHistory->cURLFull}">{$oNewsletterHistory->cBetreff}</a>
+        </td>
+        <td class="right_td">{$oNewsletterHistory->Datum}</td>
+    </tr>
+    {/foreach}
+</table>
 {/block}

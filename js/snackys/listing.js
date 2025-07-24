@@ -17,23 +17,13 @@
 				this.watchEndless()
 			}
         },
-		amazonPayPal: function()
-		{
-			if (!(typeof window.amazon === 'undefined' || window.amazon === null)) {
-				window.lpa().initButtons();
-			}
-		},
+        panelOpener: function() {},
+        closePanels: function() {},
         rewatchEndless: function() {
             $.snackyList.data.endlessObserver.disconnect(),
             $.snackyList.addToObserver()
         },
         watchEndless: function() {
-			var that = this;
-			$('#view-next-click').click(function(){
-				//change id of current
-				$(this).attr("id","view-next");
-				that.watchEndless();
-			});
             this.data.endlessObserver = new IntersectionObserver(function(e, t) {
                 if (0 == $.snackyList.data.isLoading)
                     for (var a = 0; a < e.length; a++)
@@ -61,7 +51,7 @@
                     $.snackyList.data.endlessObserver.observe(t[a])
         },
         loadArticles: function(e, t) {
-            var a = e, url, html, that=this;
+            var a = e, url, html;
             e && "" != e && $.ajax({
                 type: "POST",
                 url: e,
@@ -72,8 +62,7 @@
                 cache: !1
             }).done(function(e) {
 				html = $(e);
-				url = $('#endless-url',html).html();
-				if(url) url = url.replaceAll('&amp;', '&');
+				url = $('#endless-url',html).html().replaceAll('&amp;', '&');
                 1 == t ? ($("#view-prev").attr("data-url", $.trim(url)),
                 $("#view-prev").parent().after('<span class="pagination-url" data-url="' + a + '"></span>' + $('#p-l',html).html()))
 				: 
@@ -91,8 +80,7 @@
                 addValidationListener()),
                 $("#p-l .exp a, #p-l a.img-w").off("click").on("click", function(e) {
                     window.history.replaceState("endless", window.title, window.location.href + "#" + $(this).closest(".p-c").attr("id"))
-                });
-				that.amazonPayPal();
+                })
             }).fail(function(e) {
                 console.log("error while loading articles")
             })

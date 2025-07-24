@@ -1,6 +1,0 @@
-/* Modal Popup */
-.modal[tabindex],
-.modal #account .al-wp,
-.reCaptchaModal{
-	display:none;
-}

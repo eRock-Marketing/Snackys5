@@ -1,28 +1,13 @@
-#footer{
-    background: var(--foo-b);
-    color: var(--foo-t);
-}
-#footer a:not(.btn){
-    color: var(--foo-l);
-}
-#footer a:not(.btn):hover{
-    color: var(--foo-l-h);
-}
 #footer-boxes{
     padding: 4.5rem 0;
-    border-top: 1px solid var(--foo-hr);
-    border-bottom: 1px solid var(--foo-hr);
+    border-top: 1px solid @lightborder;
+    border-bottom: 1px solid @lightborder;
+    font-size: .95rem;
 }
 #footer-boxes .panel{
     padding: 0;
-    border: 0;
     background: none;
     box-shadow: none;
-    color: var(--foo-t);
-}
-#footer-boxes .panel-heading,
-#footer-boxes .panel-title{
-    color: var(--foo-s);
 }
 #logo-footer img{
     max-width: 10rem;
@@ -30,7 +15,7 @@
 .btn-social{
     width: 2rem;
     height: 2rem;
-    border-radius: var(--rnd-fll);
+    border-radius: 50%;
     margin: .4rem;
 }
 .btn-social:hover{
@@ -41,9 +26,9 @@
     height: 55%;
 }
 #copyright{
+    color: @lighttext;
     padding-top: 3rem;
     padding-bottom: 3rem;
-    color: var(--bod-t-l);
 }
 #footer-boxes .col-6:empty{
     display: none;
@@ -55,6 +40,11 @@
     }
     #footer-boxes {
         padding: 2.5rem 0
+    }
+}
+@media screen and (min-width: 768px){
+    before_heading .panel{
+        padding: 0 1rem;
     }
 }
 @media screen and (max-width: 500px){

@@ -1,16 +1,19 @@
-.p-c .exp:not(.flo-bt){
+.p-c .exp{
     margin-top: auto;
     padding-top: .7rem;
 }
 .p-c .exp .btn{
     margin: 0;
+    font-size: .95rem;
 }
 .exp.flo-bt input.quantity,
 .exp.hide-qty input.quantity{
 	display: none;
 }
-.exp.flo-bt .quantity-wrapper,
-.exp.flo-bt .input-group-btn{
+.p-c .exp .hidden-xs{
+    padding-left: .4rem;
+}
+.exp.flo-bt{
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -32,5 +35,5 @@
 	right: .8rem;
 	bottom: .8rem;
 	pointer-events: all;
-    border-radius: var(--rnd-fll);
+    border-radius: 50%;
 }

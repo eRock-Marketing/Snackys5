@@ -5,7 +5,7 @@
         <section class="box box-wishlist box-normal panel small" id="sidebox{$oBox->getID()}">
             {block name='boxes-box-wishlist-content'}
                 {block name='boxes-box-wishlist-title'}
-                    <div class="h5 panel-heading flx-ac">
+                    <div class="h5 panel-heading dpflex-a-center">
                         {lang key='wishlist'}
                         {if ($snackyConfig.filterOpen == 1 && $oBox->getPosition() == 'left') || ($oBox->getPosition() == 'bottom' && $snackyConfig.footerBoxesOpen === '0')}<span class="caret"></span>{/if}
                     </div>
@@ -17,39 +17,36 @@
                         <ul class="nav">
                             {foreach $oBox->getItems() as $wishlistItem}
                                 {if $wishlistItem@iteration > $maxItems}{break}{/if}
-                            <li class="flx-ac nav-it" data-id={$wishlistItem->getProductID()}>
+                            <li class="dpflex-a-center nav-it" data-id={$wishlistItem->kArtikel}>
                                 {block name='boxes-box-wishlist-dropdown-products-image-title'}
-                                    <a href="{$wishlistItem->Artikel->cURLFull}" class="flx-ac">
                                         {if $oBox->getShowImages()}
                                             {block name='boxes-box-wishlist-dropdown-products-image'}
-                                                <span class="img-ct icon ic-lg icon-wt">
-                                                        {include file='snippets/image.tpl'
-                                                            item=$wishlistItem->getProduct()
-                                                            square=false
-                                                            srcSize='xs'
-                                                            sizes='24px'}
-                                                </span>
+                                            <a href="{$wishlistItem->Artikel->cURLFull}" title="{$wishlistItem->cArtikelName|escape:'quotes'}" class="img-ct icon ic-lg icon-wt">
+                                                    {include file='snippets/image.tpl'
+                                                        item=$wishlistItem->Artikel
+                                                        square=false
+                                                        srcSize='xs'
+                                                        sizes='24px'}
+                                            </a>
                                             {/block}
                                         {/if}
                                         {block name='boxes-box-wishlist-dropdown-products-title'}
-                                            <span class="defaultlink">
-                                                {$wishlistItem->getQty()|replace_delim} &times; {$wishlistItem->getProductName()|truncate:40:'...'}
-                                            </span>
+                                            {link href=$wishlistItem->Artikel->cURLFull title=$wishlistItem->cArtikelName|escape:'quotes' class=defaultlink}
+                                                {$wishlistItem->fAnzahl|replace_delim}&times; {$wishlistItem->cArtikelName|truncate:40:"..."}
+                                            {/link}
                                         {/block}
-                                    </a>
                                 {/block}
                                 {block name='snippets-wishlist-dropdown-products-remove'}
                                     {link class="remove"
-                                        href=$wishlistItem->getURL()
+                                        href=$wishlistItem->cURL
                                         data=["name"=>"Wunschliste.remove",
                                         "toggle"=>"product-actions",
-                                        "value"=>json_encode(['a'=>$wishlistItem->getID()])|escape:'html'
+                                        "value"=>['a'=>$wishlistItem->kWunschlistePos]|json_encode|escape:'html'
                                         ]
-                                        title="{lang section='login' key='wishlistremoveItem'}"
                                         aria=["label"=>"{lang section='login' key='wishlistremoveItem'}"]}
                                         <span class="img-ct icon">
                                             <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>
+                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-bin"></use>
                                             </svg>
                                         </span>
                                     {/link}

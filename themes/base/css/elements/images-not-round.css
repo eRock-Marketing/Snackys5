@@ -1,6 +1,6 @@
-:root{
-    --img-rnd: 0;
-    --img-rnd-md: 0;
-    --img-rnd-sm: 0;
-    --img-rnd-xs: 0;
+.img-ct,
+.img-ct img,
+#prevNextRow .next .button,
+#prevNextRow .previous .button{
+    border-radius: 0 !important;
 }

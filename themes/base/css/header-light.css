@@ -1,0 +1,34 @@
+@media screen and (min-width: 768px){
+	body.shw-sr-d #logo{
+		display: none;
+	}
+	body:not(.shw-sr-d) #search{
+		visibility: hidden;
+		opacity: 0;
+		pointer-events: none;
+		width: 0;
+		padding: 0;
+	}
+	#search{
+		height: 60px;
+	}
+	#shop-nav .social-icons{
+		font-size: 50%;
+	}
+	#shop-nav .social-icons .img-ct{
+		width: 1.5rem;
+	}
+	/* Megamenü */
+	#cat-w{
+		box-shadow: none;
+	}
+	#cat-w .mm-mainlink{
+		font-size: 1rem;
+		padding: 1rem 1.25rem;
+		height: 3.375rem;
+	}
+	#cat-w svg{
+		width: 1rem;
+		height: 1rem;
+	}
+}

@@ -1,32 +1,38 @@
+/* Fixing this horrible mess */
 h1{
     text-align: center;
 }
-@media screen and (min-width: 992px){
-    .lpa-checkout-wrapper{
-        padding: 2.5rem;
-        border: 2px solid var(--hr-li);
-        border-radius: var(--box-rnd);
-    }
-}
 .lpa-checkout-wrapper{
     max-width: 60rem;
-    margin: 3rem auto 0 auto;
+    margin: 4rem auto 0 auto;
 }
-#lpaChangeAddressButton,
-#lpaChangePaymentButton{
-    color: var(--brand);
-    text-decoration: underline;
-}
-.lpa-checkout-wrapper > .row:not(:last-of-type),
+.lpa-checkout-wrapper > .row,
 #lpa-shipping-methods-container .panel-wrap{
     margin-bottom: 2.5rem;
+}
+#lpaChangeAddressButton,
+#lpaChangePaymentButton,
+.lpa-cancel a{    
+    display: inline-flex;
+	align-items: center;
+    padding: .7rem 1.2rem;
+    border-radius: .5rem;
+    line-height: 1.2;
+    font-weight: 600;
+    background: @lightfocusbg;
+    position: relative;
+    transition: .3s ease;
+    color: @darktext;
+    border: 0;
+    cursor: pointer;
+    margin: 0;
 }
 .lpa-checkout-wrapper .custom-radio,
 .lpa-checkout-wrapper .custom-checkbox{
     display: flex;
     align-items: center;
-    border-bottom: 1px solid var(--hr-li);
-    padding: .7rem 0;
+    border-bottom: 1px solid @lightborder;
+    padding: .7rem;
 }
 .lpa-checkout-wrapper .custom-radio input,
 .lpa-checkout-wrapper .custom-checkbox input{
@@ -74,26 +80,6 @@ h1{
 }
 .lpa-checkout-wrapper .order-submit{
     margin: 2rem 0;
-}
-.lpa-checkout-wrapper .lpa-cancel{
-    text-align: center;
-    margin-bottom: 1rem;
-    width: 100%;
-}
-.lpa-checkout-wrapper .lpa-submit{
-    text-align: center;
-    order: 1;
-    width: 100%;
-}
-.lpa-checkout-wrapper a:not(.btn){
-    text-decoration: underline;
-}
-.lpa-checkout-wrapper hr{
-    display: none;
-}
-#lpa-order-liable-pay-button{
-    width: 100%;
-    justify-content: center;
 }
 @media screen and (max-width: 767px){
     .lpa-checkout-wrapper > .row, #lpa-shipping-methods-container .panel-wrap {

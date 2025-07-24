@@ -1,27 +1,15 @@
+#account-list .blanklist{
+    margin: 1.6rem 0;
+}
 #log{
     max-width: 40rem;
     margin: auto;
 }
 .item .icon.active svg{
-    fill: var(--btn-su-b);
+    fill: @success;
 }
 .item .icon.inactive svg{
-    fill: var(--btn-da-b);
-}
-#er_twofa{
-    border: 1px solid var(--hr);
-    padding: 2rem;
-    border-radius: var(--box-rnd);
-}
-#er_twofa svg{
-    height: auto;
-    width: 6rem;
-    display: block;
-    margin: auto;
-    fill: var(--icon)
-}
-.panel.wishlists .w100 a{
-    display: block;
+    fill: @danger;
 }
 @media screen and (min-width: 992px){
     .al-wp > .panel{
@@ -46,10 +34,4 @@
         order: 1;
         margin-top: 2rem;
     }
-}
-@media screen and (max-width: 549px){
-	.sa-card .btn{
-		padding-left: .6rem;
-		padding-right: .6rem;
-	}
 }

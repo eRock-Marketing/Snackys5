@@ -3,11 +3,12 @@
         {inline_script}<script>
             $(document).ready(function () {
                 $('#paypal_button').hide();
-                $('#paypal_text').html('{lang key='redirect' section='global' addslashes=true}');
+                $('#paypal_text').html('{lang key='redirect' section='global'}');
                 $('#paypal_checkout').submit();
             });
         </script>{/inline_script}
     {/block}
+
     {block name='checkout-modules-paypal-bestellabschluss-content'}
         <div style="margin:10px 0;">
             {strip}

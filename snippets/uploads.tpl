@@ -1,6 +1,6 @@
 {block name='snippets-uploads'}
     {if !empty($oUploadSchema_arr)}
-        {getUploaderLang iso=$smarty.session.currentLanguage->getIso639()|default:'' assign='uploaderLang'}
+        {getUploaderLang iso=$smarty.session.currentLanguage->cISO639|default:'' assign='uploaderLang'}
         {if $tplscope === 'product' && !empty($Artikel) && !($Artikel->nIstVater || $Artikel->kVaterArtikel > 0 || $Artikel->isSimpleVariation || $Artikel->bHasKonfig)}
         <div class="small mt-xs mb-xs" id="dt-upload">
             {block name='snippets-uploads-subheading-product'}
@@ -70,7 +70,7 @@
                                                     cname:      "{$Artikel->cName|replace:" ":"_"}_{$oUploadSchema->cName|replace:" ":"_"}"
                                                     {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)},
                                                     variation:  "{strip}
-                                                    {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|transByISO|replace:" ":"_"}{/foreach}
+                                                    {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|trans|replace:" ":"_"}{/foreach}
                                                         "{/strip}
                                                     {/if}
                                                 },
@@ -102,7 +102,7 @@
                                             }).on('filebatchuploaderror', function(event, data, msg) {
                                                 if(clientUploadErrorIsActive === false){
                                                     let msgField = $('#queue{$oUploadSchema@index} .current-upload');
-                                                    let message  = '{lang key='uploadError' addslashes=true}';
+                                                    let message  = '{lang key='uploadError'}';
                                                     let status;
                                                     try{
                                                         let response =JSON.parse(msg);
@@ -112,13 +112,13 @@
                                                     }
                                                     switch(status){
                                                         case 'reached_limit_per_hour':
-                                                            message = '{lang key='uploadErrorReachedLimitPerHour' addslashes=true}';
+                                                            message = '{lang key='uploadErrorReachedLimitPerHour'}';
                                                             break;
                                                         case 'filetype_forbidden':
-                                                            message = '{lang key='uploadErrorFiletypeForbidden' addslashes=true}';
+                                                            message = '{lang key='uploadErrorFiletypeForbidden'}';
                                                             break;
                                                         case 'extension_not_listed':
-                                                            message = '{lang key='uploadErrorExtensionNotListed' addslashes=true}';
+                                                            message = '{lang key='uploadErrorExtensionNotListed'}';
                                                             break;
                                                     }
                                                     msgField.html(message);
@@ -158,7 +158,7 @@
         </div>
         {elseif $tplscope === 'basket'}
             {block name='snippets-uploads-subheading'}
-                <h2 class="h5 section-heading">{lang key='uploadHeadline'}</h2>
+                <div class="h5 section-heading">{lang key='uploadHeadline'}</div>
             {/block}
             {block name='snippets-uploads-schemes'}
                 {foreach $oUploadSchema_arr as $oUploadSchema}
@@ -169,7 +169,7 @@
                                 {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)}
                                     <small>
                                         {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}
-                                            - {$Variation->cEigenschaftName|transByISO}: {$Variation->cEigenschaftWertName|transByISO}
+                                            - {$Variation->cEigenschaftName|trans}: {$Variation->cEigenschaftWertName|trans}
                                         {/foreach}
                                     </small>
                                 {/if}
@@ -204,7 +204,8 @@
                                                 <div class="text-center-util {if isset($smarty.get.fillOut) && $smarty.get.fillOut == 12 && ($oUpload->nPflicht
                                                 && !$oUpload->bVorhanden)} upload-error{/if}"
                                                      id="upload-{$oUploadSchema@index}{$oUpload@index}">
-                                                    <input id="fileinput{$oUploadSchema@index}{$oUpload@index}" type="file" class="file-upload file-loading" aria-hidden="true" tabindex="-1"/>
+                                                    <input id="fileinput{$oUploadSchema@index}{$oUpload@index}"
+                                                           type="file" class="file-upload file-loading"/>
                                                     <div id="kv-error-{$oUploadSchema@index}{$oUpload@index}"
                                                          style="margin-top:10px; display:none;"></div>
                                                 </div>
@@ -240,7 +241,7 @@
                                                                 cname:      "{$oUpload->cName|replace:" ":"_"}"
                                                                 {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)},
                                                                 variation: "{strip}
-                                                                {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|transByISO|replace:" ":"_"}{/foreach}
+                                                                {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|trans|replace:" ":"_"}{/foreach}
                                                                     "{/strip}
                                                                 {/if}
                                                             },
@@ -261,7 +262,7 @@
                                                                 msgField.html('<i class="check" aria-hidden="true"></i>' + data.response.cName + ' (' + data.response.cKB + ' KB)');
                                                             } else {
                                                                 msgField.removeClass('text-success').addClass('text-danger');
-                                                                msgField.html('{lang key='uploadError' addslashes=true}');
+                                                                msgField.html('{lang key='uploadError'}');
                                                                 msgField.removeClass('text-success').addClass('text-danger');
                                                                 $el.fileinput('clear');
                                                             }
@@ -292,13 +293,13 @@
 
                                                                 switch(status){
                                                                     case 'reached_limit_per_hour':
-                                                                        message = '{lang key='uploadErrorReachedLimitPerHour' addslashes=true}';
+                                                                        message = '{lang key='uploadErrorReachedLimitPerHour'}';
                                                                         break;
                                                                     case 'filetype_forbidden':
-                                                                        message = '{lang key='uploadErrorFiletypeForbidden' addslashes=true}';
+                                                                        message = '{lang key='uploadErrorFiletypeForbidden'}';
                                                                         break;
                                                                     case 'extension_not_listed':
-                                                                        message = '{lang key='uploadErrorExtensionNotListed' addslashes=true}';
+                                                                        message = '{lang key='uploadErrorExtensionNotListed'}';
                                                                         break;
                                                                 }
                                                                 msgField.html(message);

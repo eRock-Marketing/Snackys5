@@ -1,4 +1,4 @@
-/*!
+/*
  * typeahead.js 0.11.1
  * https://github.com/twitter/typeahead.js
  * Copyright 2013-2015 Twitter, Inc. and other contributors; Licensed MIT
@@ -1101,7 +1101,7 @@
         }
         function buildHtml(c) {
             return {
-                wrapper: '<div class="' + c.wrapper + '"></div>',
+                wrapper: '<span class="' + c.wrapper + '"></span>',
                 menu: '<div class="' + c.menu + '"></div>'
             };
         }
@@ -1396,25 +1396,25 @@
             _managePreventDefault: function managePreventDefault(keyName, $e) {
                 var preventDefault;
                 switch (keyName) {
-                    case "up":
-                    case "down":
-                        preventDefault = !withModifier($e);
-                        break;
+                  case "up":
+                  case "down":
+                    preventDefault = !withModifier($e);
+                    break;
 
-                    default:
-                        preventDefault = false;
+                  default:
+                    preventDefault = false;
                 }
                 preventDefault && $e.preventDefault();
             },
             _shouldTrigger: function shouldTrigger(keyName, $e) {
                 var trigger;
                 switch (keyName) {
-                    case "tab":
-                        trigger = !withModifier($e);
-                        break;
+                  case "tab":
+                    trigger = !withModifier($e);
+                    break;
 
-                    default:
-                        trigger = true;
+                  default:
+                    trigger = true;
                 }
                 return trigger;
             },
@@ -1721,7 +1721,7 @@
                     if (!canceled && rendered < that.limit) {
                         that.cancel = $.noop;
                         rendered += suggestions.length;
-                        that._append(query, suggestions.slice(0, that.limit - rendered));
+                        that._append(query, suggestions.slice(0, that.limit));
                         that.async && that.trigger("asyncReceived", query);
                     }
                 }
@@ -2374,23 +2374,7 @@
                     typeahead.destroy();
                 });
                 return this;
-            },
-            getHints: function getHints() {
-                let hints = [];
-                ttEach(this, function(typeahead) {
-                    if (typeahead.menu == null || typeahead.menu.$node[0] == null) {
-                        return [];
-                    }
-                    hints = $(typeahead.menu.$node[0]).find(
-                        '.'
-                        + typeahead.classes.suggestion
-                        + '.'
-                        + typeahead.classes.selectable
-                    );
-                });
-
-                return hints;
-            },
+            }
         };
         $.fn.typeahead = function(method) {
             if (methods[method]) {
@@ -2410,7 +2394,7 @@
             });
         }
         function buildHintFromInput($input, www) {
-            return $input.clone().addClass(www.classes.hint).removeData().css(www.css.hint).css(getBackgroundStyles($input)).prop("readonly", true).removeAttr("id name placeholder required").attr({
+            return $input.clone().addClass(www.classes.hint).removeData().css(www.css.hint).css(getBackgroundStyles($input)).prop("readonly", true).removeAttr("id name placeholder").prop( "required", false ).attr({
                 autocomplete: "off",
                 spellcheck: "false",
                 tabindex: -1

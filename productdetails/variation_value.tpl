@@ -2,8 +2,6 @@
 {strip}
     {if !isset($hideVariationValue) || !$hideVariationValue}
         <span class="label-variation">{$Variationswert->cName}</span>
-    {else}
-        <span class="sr-only">{$Variationswert->cName}</span>
     {/if}
 {* variationskombination *}
 {if ($Artikel->kVaterArtikel > 0 || $Artikel->nIstVater == 1)}

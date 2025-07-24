@@ -4,12 +4,12 @@
             {if !($Artikel->nIstVater && $Artikel->kVaterArtikel === 0)}
                 {if $Einstellungen.artikeluebersicht.artikeluebersicht_vergleichsliste_anzeigen === 'Y'}
                     {block name='productlist-productlist-actions-include-comparelist-button'}
-                        {include file='snippets/comparelist_button.tpl' tplscope='list'}
+                        {include file='snippets/comparelist_button.tpl'}
                     {/block}
                 {/if}
                 {if $Einstellungen.global.global_wunschliste_anzeigen === 'Y' && $Einstellungen.artikeluebersicht.artikeluebersicht_wunschzettel_anzeigen === 'Y'}
                     {block name='productlist-productlist-actions-include-wishlist-button'}
-                        {include file='snippets/wishlist_button.tpl' tplscope='list'}
+                        {include file='snippets/wishlist_button.tpl'}
                     {/block}
                 {/if}
             {/if}

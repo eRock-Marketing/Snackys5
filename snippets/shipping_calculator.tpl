@@ -11,18 +11,16 @@
                 {block name="shipping-estimate-form-body"}
                     <div class="form-inline">
                         <label for="country">{lang key="country" section="account data"}</label>
-                        <select name="land" id="country" class="form-control mb-xs">
-                            {foreach $deliverableCountries as $country}
-                                {if $country->isShippingAvailable()}
-                                    <option value="{$country->getISO()}" {if $shippingCountry === $country->getISO()}selected{/if}>
-                                        {$country->getName()}
-                                    </option>
-                                {/if}
+                        <select name="land" id="country" class="form-control mb-spacer mb-xs">
+                            {foreach $laender as $land}
+                                <option value="{$land->getISO()}" {if $shippingCountry === $land->getISO()}selected{/if}>
+                                    {$land->getName()}
+                                </option>
                             {/foreach}
                         </select>
                         <label class="sr-only" for="plz">{lang key="plz" section="forgot password"}</label>
                         <div class="input-group w100">
-                            <input type="text" name="plz" size="8" maxlength="8" value="{if JTL\Session\Frontend::getCustomer()->cPLZ !== null}{JTL\Session\Frontend::getCustomer()->cPLZ}{/if}" id="plz" class="form-control" placeholder="{lang key='plz' section='forgot password'}">
+                            <input type="text" name="plz" size="8" maxlength="8" value="{if isset($smarty.session.Kunde->cPLZ)}{$smarty.session.Kunde->cPLZ}{/if}" id="plz" class="form-control" placeholder="{lang key="plz" section="forgot password"}">
                             <span class="input-group-btn">
                                 <button name="versandrechnerBTN" class="btn btn-default" type="submit"><span class="hidden-xs">{lang key="estimateShipping" section="checkout"}</span><span class="visible-xs">»</span></button>
                             </span>
@@ -36,7 +34,7 @@
     {block name="shipping-estimated"}
         <div class="panel panel-default" id="shipping-estimated">
             <div class="panel-heading">
-                <h2 class="panel-title h4">{block name="shipping-estimated-title"}{lang key="estimateShippingCostsTo" section="checkout"} {$Versandland}, {lang key="plz" section="forgot password"} {$VersandPLZ}{/block}</h2>
+                <h4 class="panel-title">{block name="shipping-estimated-title"}{lang key="estimateShippingCostsTo" section="checkout"} {$Versandland}, {lang key="plz" section="forgot password"} {$VersandPLZ}{/block}</h4>
             </div>
             <div class="panel-body">
                 {block name="shipping-estimated-body"}
@@ -46,7 +44,7 @@
                             <tbody>
                                 {foreach $ArtikelabhaengigeVersandarten as $artikelversand}
                                     <tr>
-                                        <td>{$artikelversand->cName|transByISO}</td>
+                                        <td>{$artikelversand->cName|trans}</td>
                                         <td class="text-right"><strong>{$artikelversand->cPreisLocalized}</strong>
                                         </td>
                                     </tr>
@@ -55,38 +53,33 @@
                         </table>
                     {/if}
                     {if !empty($Versandarten)}
-                        <table class="table table-striped m0">
-                            <caption class="sr-only">{lang key="shippingMethods" section="global"}:</caption>
-                            <thead>
-                                <tr>
-                                    <th>{lang key="shippingMethods"}</th>
-                                    <th class="text-right">{lang key="price"}</th>
-                            </thead>
+                        <table class="table table-striped">
+                            <caption>{lang key="shippingMethods" section="global"}:</caption>
                             <tbody>
                                 {foreach $Versandarten as $versandart}
                                     <tr id="shipment_{$versandart->kVersandart}">
                                         <td>
                                             {if $versandart->cBild}
                                                 <span class="img-ct icon icon-xl">
-												{image src=$versandart->cBild alt="{$versandart->angezeigterName|transByISO}"}
+												{image src=$versandart->cBild alt="{$versandart->angezeigterName|trans}"}
                                                 </span>
                                             {else}
-                                                {$versandart->angezeigterName|transByISO}
+                                                {$versandart->angezeigterName|trans}
                                             {/if}
-                                            {if $versandart->angezeigterHinweistext|transByISO}
+                                            {if $versandart->angezeigterHinweistext|trans}
                                                 <p class="small">
-                                                    {$versandart->angezeigterHinweistext|transByISO}
+                                                    {$versandart->angezeigterHinweistext|trans}
                                                 </p>
                                             {/if}
                                             {if isset($versandart->Zuschlag) && $versandart->Zuschlag->fZuschlag != 0}
                                                 <p class="small">
-                                                    {$versandart->Zuschlag->angezeigterName|transByISO}
+                                                    {$versandart->Zuschlag->angezeigterName|trans}
                                                         (+{$versandart->Zuschlag->cPreisLocalized})
                                                 </p>
                                             {/if}
-                                            {if $versandart->cLieferdauer|transByISO && $Einstellungen.global.global_versandermittlung_lieferdauer_anzeigen === 'Y'}
+                                            {if $versandart->cLieferdauer|trans && $Einstellungen.global.global_versandermittlung_lieferdauer_anzeigen === 'Y'}
                                                 <p class="small">
-                                                    {lang key="shippingTimeLP" section="global"}: {$versandart->cLieferdauer|transByISO}
+                                                    {lang key="shippingTimeLP" section="global"}: {$versandart->cLieferdauer|trans}
                                                 </p>
                                             {/if}
                                         </td>
@@ -104,8 +97,7 @@
                         {else}
                             {$link = $ShopURL|cat:'/?s='|cat:$Link->getID()}
                         {/if}
-                        <hr class="invisible hr-xs">
-                        <a href="{$link}" class="btn btn-default btn-block">{lang key="newEstimation" section="checkout"}</a>
+                        <a href="{$link}" class="btn btn-default">{lang key="newEstimation" section="checkout"}</a>
                     {else}
                         <div class="row">
                             {lang key="noShippingAvailable" section="checkout"}

@@ -22,13 +22,17 @@
 }
 
 /* Preisanzeige */
-.buy-wrapper .price{
+.product-offer .price_wrapper .price{
+    font-size: 2.2rem;
     line-height: 1;
     display: block;
     margin-bottom: .25rem;
 }
-.buy-wrapper .old-price{
+.product-offer .price_wrapper .price .old-price{
 	font-weight: 400;
+}
+.product-offer .price_wrapper .price .old-price + span{
+	color: @brand;
 }
 
 /* In den Warenkorb */
@@ -44,34 +48,141 @@
     margin-right: .5rem;
     margin-left: -.5rem;
 }
-#add-to-cart .sn-addBasket[disabled]{
-    opacity: .5;
+
+/* Tab Beschreibung */
+#tab-description .desc a{
+    text-decoration: underline;
+    color: @brand;
+}
+#tab-description img{
+    max-width: 100%;
+    height: auto;
 }
 
-/* Alerts */
+/* Tab Bewertung */
+#tab-votes .progress,
+#tab-votes .progress-bar{
+    border-radius: 1rem;
+    font-size: 0;
+    height: .5rem;
+    background: @lightfocusbg;
+}
+#tab-votes .progress-bar{
+    background: @darkbg;
+}
+#article_votes .text{
+    width: 6rem;
+}
+#article_votes .progress{
+    flex-grow: 1;
+}
+.add-review:not(.m0){
+    margin-top: 1rem;
+}
+.review p{
+    margin: .5rem 0;
+}
+#tab-votes .pagination-wrapper{
+    margin-bottom: 1rem;
+}
+#tab-votes .pagination-wrapper .form-group:not(:first-child){
+    margin-left: .5rem;
+}
+#reviews-overview{
+    min-width: 25rem;
+    order: 1;
+}
+#rv-wp{
+    flex-grow: 1;
+    margin-right: 4rem;
+}
+.card.answer{
+    margin: 1rem 0;
+    background: @defaultborder;
+}
+.not_helpful .img-ct{
+    transform: rotate(180deg);
+}
+@media screen and (max-width: 1600px){
+    #rv-wp{
+        margin-right: 2.5rem;
+    }
+    #reviews-overview{
+        min-width: 22rem;
+    }
+}
+@media screen and (max-width: 1199px){
+    #reviews-overview{
+        min-width: 20rem;
+    }
+}
+@media screen and (max-width: 991px){
+    #tab-votes > .dpflex{
+        flex-wrap: wrap;
+    }
+    #reviews-overview{
+        min-width: 100%;
+        order: 0;
+    }
+    #rv-wp{
+        margin-right: 0;
+    }
+}
+
+/* Ähnliche Artikel */
+.item-related .row{
+    flex-direction: row;
+    align-items: center;
+}
+.item-related .row .img-w{
+    margin: 0;
+    max-width: 5rem;
+}
+.item-related .p-c .price{
+    font-size: 1.1rem;
+}
+.item-related .row h4.title{
+    margin-bottom: .5rem;
+}
+.recommendations > section{
+    margin-top: 4rem;
+}
 #result-wrapper > .alert{
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
     display: flex;
     align-items: center;
 	justify-content: space-between;
 }
-#result-wrapper > .alert .fa,
 #result-wrapper > .alert.hidden{
     display: none
 }
+#result-wrapper > .alert > button{
+    font-size: 1rem;
+}
+
 
 .updatingStockInfo{
     position: absolute;
     opacity: 0;
-    width: 0;
 }
+
+/* payPal */
+.ppf-container{
+	margin: 1rem 0;
+	border-radius: .3rem;
+	border-color: @defaultborder
+}
+.ppf-container p:first-child{
+	margin-top: 0;
+}
+
 
 /* PayPal Finanzierung*/
 .ppf-container{
 	position: relative;
-	background: var(--btn-in-b);
+	background: @info;
 	border: 0;
-	color: var(--btn-in-t);
+	color: #fff;
 }
 .ppf-container p{
 	margin: 0;
@@ -98,17 +209,7 @@
 }
 .bundle-price .label-warning{
 	margin-top: .25rem;
-}
-/* Paypal/Amazon */
-.buy-wrapper .add-pays,
-.buy-wrapper .payplan{
-    display: none;
-}
-#add-to-cart ~ .add-pays{
-    display: block;
-}
-#add-to-cart ~ .payplan{
-    display: block;
+	font-size: smaller;
 }
 /* Amazon pay Button */
 #add-to-cart .lpa-pay-button.lpa-pay-button-express{
@@ -120,17 +221,22 @@
 	margin-top: .5rem;
     margin-bottom: 0;
 }
-/* PayPal */
-.ppf-container{
-	margin: 1rem 0;
-	border-radius: var(--btn-rnd-sm);
+/* Mediendateien */
+#tab-musik audio{
+	width: 100%;
 }
-.ppf-container p:first-child{
-	margin-top: 0;
-}
+/* Maxwidth Priceflow */
+#priceFlowContainer{
+	max-width: 50rem;
+} 
 /* Basket Animation on "basked-Added" */
 .basked-added .dropdown.open .c-dp>.inside{
 	animation: .4s ease .5s 1 both slide-in;
+}
+/* Mediafiles */
+.needs-consent.youtube,
+.give-consent.hidden{
+    display: none;
 }
 /* Ratenzahlung */
 .ppc-message{
@@ -139,47 +245,17 @@
 .buy-col{
     margin-top: 1rem;
 }
-/* Sonderpreis bis */
-.sale-wp .ct-un{
-    text-transform: uppercase;
-}
-.sale-wp .ct-wp{
-    padding: 0 1rem;
-}
-.sale-wp .h4{
-    text-transform: uppercase;
-}
-/* HotStock */
-.alert-hotstock .progress,
-.alert-hotstock .progress-bar{
-    border-radius: var(--rnd-frc);
-    font-size: 0;
-    height: .75rem;
-    background: var(--det-hot-b);
-}
-.alert-hotstock .progress-bar{
-    background: var(--det-hot-t);
-}
-.alert-hotstock .progress{
-    flex-grow: 1;
-}
-/* PayPal Checkout JTL-Bug: Z-Index Fix */
-#snackys-tpl #paypal-button-productDetails-container iframe{
-    z-index: 2;
+@keyframes slide-in{
+	from{
+		transform: translateX(110%);
+	}
+	to{
+		transform: translateX(0);
+	}
 }
 @media screen and (max-width: 1199px){
-    #paypal-button-productDetails-container{
-        width: 100%;
-    }
-}
-@media screen and (max-width: 1099px){
-    .sale-wp .ct-wp{
-        padding: 0 .4rem;
-    }
-}
-@media screen and (max-width: 991px){
-    #ppc-productDetails-horizontal-container > div{
-        width: 50%;
+    #result-wrapper>.alert{
+        margin-bottom: 3rem;
     }
 }
 @media screen and (max-width: 767px){
@@ -202,6 +278,9 @@
     #tab-tags .row{
         margin-top: .5rem;
     }
+    #tab-votes .pagination-wrapper{
+        display: none;
+    }
     #reviews-overview{
         margin-bottom: 1.6rem;
     }
@@ -211,10 +290,5 @@
     }
     #result-wrapper>.alert{
         margin: 0 0 1.5rem 0;
-    }
-}
-@media screen and (max-width: 369px){
-    #ppc-productDetails-horizontal-container > div{
-        width: 100%;
     }
 }

@@ -2,9 +2,6 @@
     margin: 2rem 0;
     font-weight: 600;
 }
-.pagination .active .block{
-    color: var(--bod-l-h);
-}
 .pagination-group > span{
     order: 1;
 }
@@ -12,6 +9,11 @@
     line-height: 2rem;
     min-width: 2rem;
     padding: 0 .5rem;
-    border-radius: var(--rnd-frc);
-    justify-content: center;
+    border-radius: 5rem;
+   justify-content: center;
+}
+.pagination .active .btn{
+    background: @brand;
+    @gradientbrand;
+    color: @backgroundtext;
 }

@@ -1,19 +1,15 @@
 {block name='snippets-product-slider'}
 {strip}
-{if $productlist|count > 0}
+{if $productlist|@count > 0}
     {if !isset($tplscope)}
         {assign var='tplscope' value='slider'}
     {/if}
-    <section class="panel-slider{if isset($title) && $title|strlen > 0} panel-default{/if}{if $tplscope === 'box'} box b-sl panel{/if}{if isset($class) && $class|strlen > 0} {$class}{/if}{if $nSeitenTyp === 18} mb-lg{/if}"{if isset($id) && $id|strlen > 0} id="{$id}"{/if}>
+    <section class="panel-slider{if $title|strlen > 0} panel-default{/if}{if $tplscope === 'box'} box b-sl panel{/if}{if isset($class) && $class|strlen > 0} {$class}{/if}{if $nSeitenTyp === 18} mb-spacer{/if}"{if isset($id) && $id|strlen > 0} id="{$id}"{/if}>
         <div class="panel-heading">
-            <div class="panel-title{if !isset($isBox)} flx-ac flx-jb mb-xs{/if}{if $tplscope == 'box'} h5 m0 flx-ac flx-jb{/if}">
-                {if isset($title) && $title|strlen > 0}   
+            <div class="panel-title{if !isset($isBox)} dpflex-a-center dpflex-j-between mb-spacer mb-xs{/if}{if $tplscope == 'box'} h5 m0 dpflex-a-center dpflex-j-between{/if}">
+                {if $title|strlen > 0}   
                     {if $tplscope !== 'box'}
-                        {if !isset($isBox)}
-                            <h2 class="m0">{$title}</h2>
-                        {else}
-                            <span class="h5 block">{$title}</span>
-                        {/if}
+                        <span class="{if !isset($isBox)}h2 m0 block{else}h5 block{/if}">{$title}</span>
                     {else}
                         {$title}
                     {/if}
@@ -25,12 +21,12 @@
                 <div class="right">
                     {if !$isMobile}
                         <div class="ar-ct btn-group{if $productlist|@count > $snackyConfig.css_listElmXl} show-xl{/if}{if $productlist|@count > $snackyConfig.css_listElmLg} show-lg{/if}{if $productlist|@count > $snackyConfig.css_listElmMd} show-md{/if}{if $productlist|@count > $snackyConfig.css_listElmSm} show-sm{/if}{if $productlist|@count > $snackyConfig.css_listElmXs} show-xs{/if}">
-                            <button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}">
+                            <span class="sl-ar sl-pr btn inactive">
                                 <span class="ar ar-l"></span>
-                            </button>
-                            <button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}">
+                            </span>
+                            <span class="sl-ar sl-nx btn">
                                 <span class="ar ar-r"></span>
-                            </button>
+                            </span>
                         </div>
                     {/if}
                     {if !empty($moreLink)}
@@ -39,33 +35,35 @@
                             {lang key="showAll" section="global"}
                             </span>
                             <span class="visible-xs">
-                                <span class="ar ar-r"></span> <span class="sr-only">{lang key="showAll" section="global"}</span>
+                                <span class="ar ar-r"></span>
                             </span>
                         </a>
                     {/if}
                 </div>
                 {else}
-	                {if isset($oBox) && (($snackyConfig.filterOpen == 1 && $oBox->getPosition() == 'left') || ($oBox->getPosition() == 'bottom' && $snackyConfig.footerBoxesOpen === '0'))}<span class="caret"></span>{/if}
+                {if ($snackyConfig.filterOpen == 1 && $oBox->getPosition() == 'left') || ($oBox->getPosition() == 'bottom' && $snackyConfig.footerBoxesOpen === '0')}<span class="caret"></span>{/if}
                 {/if}
             </div>
-            {if !empty($desc)}<div class="desc mb-xs">{$desc}</div>{/if}
+            {if !empty($desc)}<div class="desc mb-spacer mb-xs">{$desc}</div>{/if}
         </div>
-        <div class="panel-body">
+        <div{if $title|strlen > 0} class="panel-body"{/if}>
 			{if $isMobile || $tplscope === 'box'}
 			<div class="row ar-ct-m">
 				<div class="col-12 ar-ct{if $productlist|@count > $snackyConfig.css_listElmXl} show-xl{/if}{if $productlist|@count > $snackyConfig.css_listElmLg} show-lg{/if}{if $productlist|@count > $snackyConfig.css_listElmMd} show-md{/if}{if $productlist|@count > $snackyConfig.css_listElmSm} show-sm{/if}{if $productlist|@count > $snackyConfig.css_listElmXs} show-xs{/if}">
-					<button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}">
+					<span class="sl-ar sl-pr btn inactive">
 						<span class="ar ar-l"></span>
-					</button>
-					<button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}">
+					</span>
+					<span class="sl-ar sl-nx btn">
 						<span class="ar ar-r"></span>
-					</button>
+					</span>
 				</div>
 			</div>
 			{/if}
-            <div class="row p-sl no-scrollbar flx-nw{if isset($isBox)} sidebar{/if}">
+            <div class="row p-sl no-scrollbar dpflex-nowrap{if isset($isBox)} sidebar{/if}"
+				data-track-type="start" data-track-event="view_item_list" data-track-p-value="" data-track-p-currency="{$smarty.session.Waehrung->cISO}" data-track-p-items='[{foreach name=artikel from=$productlist item=Artikel}{if !$smarty.foreach.artikel.first},{/if}{ldelim}"id":"{if $snackyConfig.artnr == "id"}{$Artikel->kArtikel}{else}{$Artikel->cArtNr}{/if}","category":"{$gtagTitle}","name":"{$Artikel->cName|escape}","price":"{$Artikel->Preise->fVKNetto}"{rdelim}{/foreach}]'
+			>
                 {foreach name="sliderproducts" from=$productlist item='product'}
-                    <div class="col-lg-2 p-w">
+                    <div class="col-lg-2 p-w{if isset($style)} {$style}{/if}">
                         {include file='productlist/item_slider.tpl' Artikel=$product tplscope=$tplscope class=''}
                     </div>
                 {/foreach}
