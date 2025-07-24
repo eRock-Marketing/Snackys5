@@ -47,7 +47,7 @@
 															</li>
 														{/block}
 														{block name='account-order-item-content-information-mhd'}
-															{if isset($oPosition->Artikel->dMHD) && isset($oPosition->Artikel->dMHD_de) && $oPosition->Artikel->dMHD_de !== null}
+															{if $Einstellungen.artikeldetails.show_shelf_life_expiration_date === 'Y' && isset($oPosition->Artikel->dMHD, $oPosition->Artikel->dMHD_de)}
 																<li title="{lang key='productMHDTool' section='global'}" class="best-before">
 																	<strong>{lang key="productMHD" section="global"}:</strong> {$oPosition->Artikel->dMHD_de}
 																</li>
@@ -87,7 +87,7 @@
 														{/block}
 														{block name='account-order-item-content-information-notice'}
 															{if !empty($oPosition->cHinweis)}
-																<li class="text-info notice">{$oPosition->cHinweis}</li>
+																<li class="notice">{$oPosition->cHinweis}</li>
 															{/if}
 														{/block}
 														{block name='account-order-item-content-information-manufacturer'}
@@ -104,7 +104,7 @@
 															{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelmerkmale == 'Y' && !empty($oPosition->Artikel->oMerkmale_arr)}
 																{foreach $oPosition->Artikel->oMerkmale_arr as $characteristic}
 																	<li class="characteristic">
-																		<strong>{$characteristic->getName()}</strong>:
+																		<strong>{$characteristic->getName()|escape:'html'}</strong>:
 																		<span class="values">
 																			{foreach $characteristic->getCharacteristicValues() as $characteristicValue}
 																				{if !$characteristicValue@first}, {/if}
@@ -159,7 +159,7 @@
 												{/block}
 												{block name='account-order-item-content-information-notice2'}
 													{if !empty($oPosition->cHinweis)}
-														<small class="text-info notice">{$oPosition->cHinweis}</small>
+														<small class="notice block">{$oPosition->cHinweis}</small>
 													{/if}
 												{/block}
                             				{/if}
@@ -228,7 +228,9 @@
 												</div>
 											{/block}
 											{block name='account-order-item-content-quantity'}
-												{lang key="quantity"}: {$oPosition->nAnzahl|replace_delim} {if !empty($oPosition->Artikel->cEinheit)}{$oPosition->Artikel->cEinheit}{/if}
+												{if $oPosition->nPosTyp != '3' && $oPosition->nPosTyp != '2' && $oPosition->nPosTyp != '5'}
+													{lang key="quantity"}: {$oPosition->nAnzahl|replace_delim} {if !empty($oPosition->Artikel->cEinheit)}{$oPosition->Artikel->cEinheit}{/if}
+												{/if}
 											{/block}
                         				</div>
 									{/block}

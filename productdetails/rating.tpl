@@ -10,7 +10,7 @@
             {/if}
         {/block}
         {block name="productdetails-rating-main"}
-            <div class="rating flx-ac flx-w" title="{$ratingLabelText}: {$stars}/5">
+            <div class="rating flx-ac flx-nw" title="{$ratingLabelText}: {$stars}/5">
                 {strip}
                 {block name='productdetails-rating-star1'}
                     <div class="img-ct icon op1">

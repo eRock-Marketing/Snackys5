@@ -3,7 +3,7 @@
 {if !$isQuickview}
 	{if $snackyConfig.fullscreenElement == 0}
 		{if !empty($snackyConfig.youtubeID)}
-			{include file="snippets/video.tpl"}
+			{include file="snippets/video-home.tpl"}
 		{else}
 			<div class="video-background flx-ac flx-jc alert"><h2 class="m0">No Video found</h2></div>
 		{/if}

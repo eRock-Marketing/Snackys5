@@ -45,7 +45,7 @@
 								{/if}
 							{/block}
 							{block name='contact-content-form'}
-								<form name="contact" action="{get_static_route id='kontakt.php'}" method="post" class="jtl-validate">
+								<form name="contact" action="{get_static_route id='kontakt.php'}" method="post" class="jtl-validate" addhoneypot=true>
 									{$jtl_token}
 									{block name='contact-content-form-fieldset-information'}
 										<fieldset class="panel">

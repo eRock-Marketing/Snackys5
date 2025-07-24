@@ -38,7 +38,7 @@
             || isset($smarty.get.ratings_nItemsPerPage)
             || isset($smarty.get.ratings_nSortByDir)
             || isset($smarty.get.btgsterne)}
-        {section name=iterator start=1 loop=10}
+        {section name=iterator start=1 loop=11}
             {$tab = tab}
             {$tabname = $tab|cat:$smarty.section.iterator.index|cat:" name"}
             {$tabinhalt = $tab|cat:$smarty.section.iterator.index|cat:" inhalt"}

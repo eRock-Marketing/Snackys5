@@ -171,3 +171,23 @@
 .c-empt svg{
     fill: var(--hr-li);
 }
+.c-empt ~ .add-pays,
+.c-empt ~ .payplan{
+    display: none;
+}
+@media screen and (max-width: 991px){
+    #paypal-button-miniCart-container{
+        padding: 0;
+    }
+    #ppc-miniCart-horizontal-container{
+        margin: 0;
+    }
+    #ppc-miniCart-horizontal-container > div{
+        width: 50%;
+    }
+}
+@media screen and (max-width: 767px){
+    #ppc-miniCart-horizontal-container > div{
+        width: 100%;
+    }
+}

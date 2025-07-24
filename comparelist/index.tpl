@@ -123,12 +123,12 @@
 															{/block}
                                 						{elseif $row['key'] === 'cBeschreibung' || $row['key'] === 'cKurzBeschreibung'}
                                     						{block name='comparelist-index-products-row-description'}
-                                        						{if $oArtikel->$row['key']|strlen < $descriptionLength}
+																{if strlen($oArtikel->$row['key']|strip_tags) < $descriptionLength}
                                             						{$oArtikel->$row['key']}
                                         						{else}
                                             						<div>
                                                 						<span>
-                                                    						{substr($oArtikel->$row['key'], $descriptionLength)}
+                                                    						{$oArtikel->$row['key']}
                                                 						</span>
                                             						</div>
                                         						{/if}
@@ -156,7 +156,7 @@
 												{foreach $oVergleichsliste->oArtikel_arr as $oArtikel}
 													<div class="col-">
 														{if $oArtikel@index == 0}
-															<div class="{if isset($bAjaxRequest) && $bAjaxRequest}h4{else}h3{/if} m0">{$characteristic->getName()|default:$characteristic->getName($fallback)}</div>
+															<div class="{if isset($bAjaxRequest) && $bAjaxRequest}h4{else}h3{/if} m0">{$characteristic->getName()|default:$characteristic->getName($fallback)|escape:'html'}</div>
 														{/if}
 													</div>
 												{/foreach}
@@ -245,7 +245,7 @@
 						eModal.ajax({
 							size: 'lg',
 							url: e.currentTarget.href,
-							title: '{lang key="compare" section="global"}',
+							title: '{lang key="compare" section="global" addslashes=true}',
 							keyboard: true,
 							tabindex: -1
 						});

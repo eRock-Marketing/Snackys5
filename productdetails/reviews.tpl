@@ -1,14 +1,15 @@
 {block name='productdetails-reviews'}
+{assign var="ratingCount" value=$Artikel->Bewertungen->oBewertung_arr|count}
     <div class="flx">
         {block name="productdetails-review-overview"}
             <div id="reviews-overview" class="mb-sm">
-                <div class="{if $Artikel->Bewertungen->oBewertungGesamt->nAnzahl != 0}panel {/if}panel-default">
+                <div class="{if $ratingCount != 0}panel {/if}panel-default">
                     {block name="productdetails-review-overview-header"}
                         <div class="panel-heading">
-                            {if $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0}
+                            {if $ratingCount > 0}
                                 <h4 class="panel-title">
                                     <span class="h1 m0">{$Artikel->Bewertungen->oBewertungGesamt->fDurchschnitt}</span><span class="h2 m0">/5</span>
-                                    {include file='productdetails/rating.tpl' total=$Artikel->Bewertungen->oBewertungGesamt->nAnzahl}
+                                    {include file='productdetails/rating.tpl' total=$ratingCount}
                                 </h4>
                             {/if}
                         </div>
@@ -18,13 +19,13 @@
                             <form method="post" action="{get_static_route id='bewertung.php'}#tab-votes" id="article_rating">
                                 {$jtl_token}
                                 {block name="productdetails-review-overview-progress"}
-                                    {if $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0}
+                                    {if $ratingCount > 0}
                                         <div id="article_votes">
                                             {foreach name=sterne from=$Artikel->Bewertungen->nSterne_arr item=nSterne key=i}
                                                 {assign var=int1 value=5}
                                                 {math equation='x - y' x=$int1 y=$i assign='schluessel'}
                                                 {assign var=int2 value=100}
-                                                {math equation='(a/b)*c' a=$nSterne b=$Artikel->Bewertungen->oBewertungGesamt->nAnzahl c=$int2 assign='percent'}
+                                                {math equation='(a/b)*c' a=$nSterne b=$ratingCount c=$int2 assign='percent'}
                                                 <div class="flx-ac">
                                                     {block name="productdetails-review-overview-progress-text"}
                                                         <div class="text">
@@ -67,8 +68,8 @@
                                     {/if}
                                 {/block}
                                 {block name="productdetails-review-overview-add-review"}
-                                    <div class="add-review{if $Artikel->Bewertungen->oBewertungGesamt->nAnzahl == 0} m0{/if}">
-                                        {if $Artikel->Bewertungen->oBewertungGesamt->nAnzahl == 0}
+                                    <div class="add-review{if $ratingCount == 0} m0{/if}">
+                                        {if $ratingCount == 0}
                                             <p>{lang key="firstReview" section="global"}: </p>
                                         {else}
                                             <p>{lang key="shareYourExperience" section="product rating"}</p>
@@ -87,7 +88,7 @@
             </div>
         {/block}
         {block name="productdetails-review-reviews"}
-            {if $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0}
+            {if $ratingCount > 0}
                 <div id="rv-wp">
                     {block name="productdetails-review-reviews-helpful"}
                         {if isset($Artikel->HilfreichsteBewertung->oBewertung_arr[0]->nHilfreich) && $Artikel->HilfreichsteBewertung->oBewertung_arr[0]->nHilfreich > 0}
@@ -114,11 +115,6 @@
                     {/block}
                     {block name="productdetails-review-reviews-all"}
                         {if $ratingPagination->getPageItemCount() > 0}
-                            {block name='productdetails-reviews-verified-purchase-notice'}
-                                {* button type="link" variant="outline-secondary" block="true" class="verified-purchase-notice" data=["toggle"=>"popover","content"=>"{{lang key='verifiedPurchaseNotice' section='product rating'}|escape:"html"}"]}
-                                    {lang key='reviewsHowTo' section='product rating'}
-                                {/button *}
-                            {/block}
                             {block name="productdetails-review-reviews-all-form"}
                                 <form method="post" action="{get_static_route id='bewertung.php'}#tab-votes" class="reviews-list">
                                     {$jtl_token}
@@ -133,6 +129,9 @@
                                         </div>
                                     {/foreach}
                                 </form>
+                            {/block}
+                            {block name='productdetails-reviews-verified-purchase-notice'}
+                                <small class="mt-xs text-muted block">{{lang key='verifiedPurchaseNotice' section='product rating'}|escape:"html"}</small>
                             {/block}
                             {block name="productdetails-review-reviews-all-pagination"}
                                 {if empty($smarty.get.quickView)}

@@ -59,6 +59,7 @@
 										</div>
                 					{/if}
                 				{/block}
+								{include file="snippets/zonen.tpl" id="before_product_info" title="before_product_info"}
                 				{block name="productdetails-info-essential-wrapper"}
                 					{if ($Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0) || isset($Artikel->cArtNr) || ($Einstellungen.artikeldetails.artikeldetails_kategorie_anzeigen === 'Y')}
                     					<div class="info-essential row mb-xs">
@@ -74,7 +75,7 @@
 																{/if}
 															{/block}                                
 															{block name="productdetails-info-mhd-wrapper"}
-																{if isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
+																{if $Einstellungen.artikeldetails.show_shelf_life_expiration_date === 'Y' && isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
 																	<li title="{lang key='productMHDTool'}" class="best-before nav-it">
 																		<strong>{lang key="productMHD"}:</strong> <span>{$Artikel->dMHD_de}</span>                                        
 																	</li>

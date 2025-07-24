@@ -15,7 +15,7 @@
 <img class="{$params.class->getValue()} {$rounded} img-fluid{if $params['fluid-grow']->getValue() === true} w-100{/if}"
      height="{if $params.height->hasValue() && !empty($params.height->getValue())}{$params.height->getValue()}{else}130{/if}"
      width="{if $params.width->hasValue() && !empty($params.width->getValue())}{$params.width->getValue()}{else}130{/if}"
-     {if $params.alt->hasValue()}alt="{$params.alt->getValue()}" title="{$params.alt->getValue()}"{/if}
+     {if $params.alt->hasValue()}alt="{$params.alt->getValue()}"{/if}
      src="{$params.src->getValue()}">
 {else}
     {if $useWebP}
@@ -56,7 +56,7 @@
             {if $params.center->getValue() === true} mx-auto d-block{/if}{/strip}"
             {if $params.id->hasValue()}id="{$params.id->getValue()}"{/if}
             {if $params.title->hasValue()}title="{$params.title->getValue()}"{/if}
-            {if $params.alt->hasValue()}alt="{$params.alt->getValue()}" title="{$params.alt->getValue()}"{/if}
+            {if $params.alt->hasValue()}alt="{$params.alt->getValue()}"{/if}
             {if $params.width->hasValue() && !empty($params.width->getValue())}width="{$params.width->getValue()}"{/if}
             {if $params.height->hasValue() && !empty($params.height->getValue())}height="{$params.height->getValue()}"{/if}
             {if $params.style->hasValue()}style="{$params.style->getValue()}"{/if}

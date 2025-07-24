@@ -38,9 +38,9 @@ body:not(.no-pd){
 /* Anmelden/gast/reg */
 #choose-way .step-box{
 	font-weight: 600; 
-	border: 1px solid var(--inp-r);
-    color: var(--inp-t);
-    background: var(--inp-b);
+	border: 1px solid var(--btn-df-r);
+    color: var(--btn-df-t);
+    background: var(--btn-df-b);
 	padding: 1.3rem 1rem;
 	transition: .3s ease;
 	cursor: pointer;
@@ -48,16 +48,17 @@ body:not(.no-pd){
 	order: 1;
 }
 #choose-way .step-box svg{
-    fill: var(--inp-t);
+    fill: var(--btn-df-t);
 }
 #choose-way .step-box:hover,
 #choose-way .step-box.active{
-    background: var(--inp-b-h);
-    color: var(--inp-t-h);
+    background: var(--btn-df-b-h);
+    color: var(--btn-df-t-h);
+    border-color: var(--btn-df-r-h);
 }
 #choose-way .step-box:hover svg,
 #choose-way .step-box.active svg{
-    fill: var(--inp-t-h);
+    fill: var(--btn-df-t-h);
 }
 #choose-way .step-box.first{
 	right: -1px;

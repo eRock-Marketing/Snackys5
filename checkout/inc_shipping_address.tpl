@@ -45,10 +45,10 @@
 													{/block}
 													{block name='ship-address-choose-address-item-modal-body'}
                         								<div class="modal-body">
-															{if $adresse->cFirma}{$adresse->cFirma}<br />{/if}
-															<strong>{if $adresse->cTitel}{$adresse->cTitel}{/if} {$adresse->cVorname} {$adresse->cNachname}</strong><br />
-															{$adresse->cStrasse} {$adresse->cHausnummer}<br />
-															{$adresse->cPLZ} {$adresse->cOrt}<br />
+															{if $adresse->cFirma}{$adresse->cFirma}<br>{/if}
+															<strong>{if $adresse->cTitel}{$adresse->cTitel}{/if} {$adresse->cVorname} {$adresse->cNachname}</strong><br>
+															{$adresse->cStrasse} {$adresse->cHausnummer}<br>
+															{$adresse->cPLZ} {$adresse->cOrt}<br>
 															{include file='checkout/inc_delivery_address.tpl' Lieferadresse=$adresse hideMainInfo=true}
 														</div>
 													{/block}

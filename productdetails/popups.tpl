@@ -24,7 +24,7 @@
 				<script type="text/javascript">
 					$(function() {ldelim}
 						{if isset($fehlendeAngaben_benachrichtigung) && count($fehlendeAngaben_benachrichtigung) > 0 && ($verfuegbarkeitsBenachrichtigung == 2 || $verfuegbarkeitsBenachrichtigung == 3)}
-							show_popup('n{$kArtikel}', '{lang key="requestNotification" section="global"}');
+							show_popup('n{$kArtikel}', '{lang key="requestNotification" section="global" addslashes=true}');
 						{/if}
 
 						{if isset($fehlendeAngaben_fragezumprodukt) && $fehlendeAngaben_fragezumprodukt|@count > 0 && $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'P'}

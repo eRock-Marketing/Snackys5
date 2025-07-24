@@ -66,6 +66,9 @@
 						<script defer src="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}js/fileinput/themes/fas/theme.min.js"></script>
 						<script defer src="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}js/fileinput/locales/{$uploaderLang}.js"></script>
 					{/if}
+					{foreach $opcPageService->getCurPage()->getJsList() as $jsFile => $jsTrue}
+						<script defer src="{$jsFile}"></script>
+					{/foreach}
 					{assign var="customJSPath" value=$currentTemplateDir|cat:'/js/custom.js'}
 					{if file_exists($customJSPath)}
 						<script src="{$ShopURL}/{$customJSPath}?v={$nTemplateVersion}" type="text/javascript" defer></script>
@@ -143,7 +146,9 @@
 					{/if}
 				{/block}
 				{block name='layout-header-head-icons'}
-					<link rel="shortcut icon" href="{$shopFaviconURL}" type="image/x-icon">
+					<link rel="icon" href="{$ShopURL}/favicon.ico" sizes="48x48" >
+					<link rel="icon" href="{$ShopURL}/favicon.svg" sizes="any" type="image/svg+xml">
+					<link rel="manifest" href="{$ShopURL}/site.webmanifest" />
 				{/block}
 				{createArray arr="cssArray"}			
 				{block name="head-resources"}
@@ -375,6 +380,9 @@
 								<link rel="alternate"
 									  hreflang="{$language->getIso639()}"
 									  href="{if $language->getShopDefault() === 'Y' && isset($Link) && $Link->getLinkType() === $smarty.const.LINKTYP_STARTSEITE}{$ShopURL}/{else}{$language->getUrl()}{/if}">
+								{if $language->getShopDefault() === 'Y'}
+									<link rel="alternate" hreflang="x-default" href="{if isset($Link) && $Link->getLinkType() === $smarty.const.LINKTYP_STARTSEITE}{$ShopURL}/{else}{$language->getUrl()}{/if}">
+								{/if}
 							{/foreach}
 						{/if}
 					{/block}

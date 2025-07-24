@@ -198,6 +198,9 @@
 
         registerSimpleVariations: function($wrapper) {
             var that = this;
+            var bootstrapSelectDefaultWhiteList = $.fn.selectpicker.Constructor.DEFAULTS.whiteList;
+
+            bootstrapSelectDefaultWhiteList.span = ['data-value'];
 
             $('.variations select', $wrapper).selectpicker({
                 iconBase: 'fa',

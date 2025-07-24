@@ -2,10 +2,10 @@
 	{if $snackyConfig.specialpriceDate == "C"}
 		{block name="specialprice-countdown"}
 			{block name="specialprice-countdown-assigns"}
-				{assign var="uid" value="art_c_{$Artikel->kArtikel}_{1|mt_rand:20}"}
+				{assign var="uidSP" value="art_c_{$Artikel->kArtikel}_{1|mt_rand:20}"}
 			{/block}
 			{block name="specialprice-countdown-wrapper"}
-				<div id="{$uid}" class="sale-wp mb-sm mt-sm text-center panel">
+				<div id="{$uidSP}" class="sale-wp mb-sm mt-sm text-center panel">
 					<div class="mb-xs h4">{lang key="sonderpreisBisDetail" section="custom"}</div>
 					<div class="flx-jc">
 						<div class="ct-wp days">
@@ -29,39 +29,37 @@
 			{/block}
 			{block name="specialprice-countdown-javscript"}
 				{inline_script}<script>
-					$(() => {
-						let until = new Date("{$Artikel->dSonderpreisEnde_de|date_format:"Y-m-d"}T23:59:59");
-						let countDownDate = until.getTime();
-						let timeout = setInterval(update, 1000);
+						var untilSP = new Date("{$Artikel->dSonderpreisEnde_de|date_format:"Y-m-d"}T23:59:59");
+						var countDownDateSP = untilSP.getTime();
+						var timeout_specialprice = setInterval(update_specialprice, 1000);
 
-						update();
+						update_specialprice();
 						$(window).trigger('resize');
 
-						function update()
+						function update_specialprice()
 						{
 							let now      = new Date().getTime();
-							let distance = countDownDate - now; 
+							let distance = countDownDateSP - now; 
 							let days     = Math.floor(distance / (1000 * 60 * 60 * 24));
 							let hours    = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 							let minutes  = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 							let seconds  = Math.floor((distance % (1000 * 60)) / 1000);
 
 							if (distance <= 0) {
-								clearInterval(timeout);
+								clearInterval(timeout_specialprice);
 								days    = 0;
 								hours   = 0;
 								minutes = 0;
 								seconds = 0;
-								$("#{$uid}").hide();
+								$("#{$uidSP}").hide();
 								$(window).trigger('resize');
 							}
 
-							$("#{$uid} .days .ct-it").html(days);
-							$("#{$uid} .hours .ct-it").html(hours);
-							$("#{$uid} .minutes .ct-it").html(minutes);
-							$("#{$uid} .seconds .ct-it").html(seconds);
+							$("#{$uidSP} .days .ct-it").html(days);
+							$("#{$uidSP} .hours .ct-it").html(hours);
+							$("#{$uidSP} .minutes .ct-it").html(minutes);
+							$("#{$uidSP} .seconds .ct-it").html(seconds);
 						}
-					});
 				</script>{/inline_script}
 			{/block}
 		{/block}

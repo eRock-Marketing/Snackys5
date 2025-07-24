@@ -49,6 +49,8 @@
 								{lang key='notPayedYet' section='login'}
 							{/if}
 						</li>
+					{elseif $incommingPayments->isEmpty()}
+						<li>{$Bestellung->cZahlungsartName}</li>
 					{/if}
 					{foreach $incommingPayments as $paymentProvider => $incommingPayment}
 						<li>{htmlentities($paymentProvider)}</li>
@@ -75,8 +77,8 @@
 						<li>{$Bestellung->Status}</li>
 					{else}
 						<li>{lang key='notShippedYet' section='login'}</li>
-						{if $Bestellung->cStatus != $smarty.const.BESTELLUNG_STATUS_STORNO}
-						<li><strong>{lang key='shippingTime' section='global'}</strong>: {if isset($cEstimatedDeliveryEx)}{$cEstimatedDeliveryEx}{else}{$Bestellung->cEstimatedDelivery}{/if}</li>
+						{if $Bestellung->cStatus !== $smarty.const.BESTELLUNG_STATUS_STORNO}
+							<li><strong>{lang key='shippingTime' section='global'}</strong>: {if isset($cEstimatedDeliveryEx)}{$cEstimatedDeliveryEx}{else}{$Bestellung->cEstimatedDelivery}{/if}</li>
 						{/if}
 					{/if}
 				</ul>
@@ -156,7 +158,7 @@
 													{/if}
 
 													{* eindeutige Merkmale *}
-													{if $oLieferscheinpos->oPosition->Artikel->cHersteller && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen != "N"}
+													{if $oLieferscheinpos->oPosition->Artikel->cHersteller && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== "N"}
 														<li class="manufacturer">
 															<strong>{lang key='manufacturer' section='productDetails'}</strong>:
 															<span class="values">
@@ -168,7 +170,7 @@
 													{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelmerkmale == 'Y' && !empty($oLieferscheinpos->oPosition->Artikel->oMerkmale_arr)}
 														{foreach $oLieferscheinpos->oPosition->Artikel->oMerkmale_arr as $characteristic}
 															<li class="characteristic">
-																<strong>{$characteristic->getName()}</strong>:
+																<strong>{$characteristic->getName()|escape:'html'}</strong>:
 																<span class="values">
 																	{foreach $characteristic->getCharacteristicValues() as $characteristicValue}
 																		{if !$characteristicValue@first}, {/if}

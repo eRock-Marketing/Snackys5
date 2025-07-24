@@ -16,7 +16,7 @@
     border: 1px solid var(--drbtn-r);    
     color: var(--drbtn-t);
 }
-#nav-ft .btn:hover{
+#nav-ft .btn:hover:not(.active){
     background: var(--drbtn-b-h);
     border: 1px solid var(--drbtn-r-h);    
     color: var(--drbtn-t-h);
@@ -26,6 +26,9 @@
 }
 #improve_search > .form-group{
     margin: 0 0 0 .5rem
+}
+#filter-collapsible{
+    -webkit-tap-highlight-color: transparent;
 }
 #filter-collapsible .name{
     white-space: nowrap;

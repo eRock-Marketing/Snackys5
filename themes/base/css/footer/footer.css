@@ -19,6 +19,7 @@
     border: 0;
     background: none;
     box-shadow: none;
+    color: var(--foo-t);
 }
 #footer-boxes .panel-heading,
 #footer-boxes .panel-title{

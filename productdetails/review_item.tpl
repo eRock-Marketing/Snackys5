@@ -39,15 +39,13 @@
                     <blockquote class="m0">
                         <p>{$oBewertung->cText|nl2br}</p>
                         <small>
-                            <cite><span><span>{$oBewertung->cName}</span></span>.</cite>,
-                            {$oBewertung->Datum}
+                            {$oBewertung->cName}. | {$oBewertung->Datum}
+                            {block name='productdetails-review-item-details-verified-purchase'}
+                                {if !empty($oBewertung->wasPurchased)}
+                                     | {lang key='verifiedPurchase' section='product rating'}
+                                {/if}
+                            {/block}
                         </small>
-                        {block name='productdetails-review-item-details-verified-purchase'}
-                            {if !empty($oBewertung->wasPurchased)}
-                                <span class="blockquote-divider"></span>
-                                <span class="verified-purchase">{lang key='verifiedPurchase' section='product rating'}</span>
-                            {/if}
-                        {/block}
                     </blockquote>
                 {/block}
                 {block name="productdetails-review-helpful-voting"}

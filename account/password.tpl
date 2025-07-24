@@ -19,7 +19,7 @@
 							{/if}
 						{/block}
             			{block name="password-reset-form-body"}
-            				<form id="passwort_vergessen" action="{get_static_route id='pass.php'}{if $bExclusive === true}?exclusive_content=1{/if}" method="post" class="panel jtl-validate">
+            				<form id="passwort_vergessen" action="{get_static_route id='pass.php'}{if $bExclusive === true}?exclusive_content=1{/if}" method="post" class="panel jtl-validate" addhoneypot=true>
                 				{$jtl_token}
 								{block name="password-reset-form-legend"}
                 					<legend>{lang key="createNewPassword" section="forgot password"}</legend>

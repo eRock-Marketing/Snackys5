@@ -57,10 +57,10 @@
 						</div>
 						<section class="tmp-modal-content">
 							<div class="modal-body">
-								{lang key="basket2PersMerge" section="login"}
+								{lang key="basket2PersMerge" section="login" addslashes=true}
 								<div class="answer">
-									<a href="{get_static_route id='bestellvorgang.php'}?basket2Pers=1&token={$smarty.session.jtl_token}">{lang key="yes" section="global"}</a>
-									<a href="{get_static_route id='bestellvorgang.php'}?updatePersCart=1&token={$smarty.session.jtl_token}" class="x">{lang key="no" section="global"}</a>
+									<a href="{get_static_route id='bestellvorgang.php'}?basket2Pers=1&token={$smarty.session.jtl_token}">{lang key="yes" section="global" addslashes=true}</a>
+									<a href="{get_static_route id='bestellvorgang.php'}?updatePersCart=1&token={$smarty.session.jtl_token}" class="x">{lang key="no" section="global" addslashes=true}</a>
 								</div>
 							</div>
 						</section>

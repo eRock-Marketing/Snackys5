@@ -79,7 +79,7 @@
 																	</li>
 																{/block}
 																{block name='order-items-item-infos-mhd'}
-																	{if isset($oPosition->Artikel->dMHD) && isset($oPosition->Artikel->dMHD_de) && $oPosition->Artikel->dMHD_de !== null}
+																	{if $Einstellungen.artikeldetails.show_shelf_life_expiration_date === 'Y' && isset($oPosition->Artikel->dMHD) && isset($oPosition->Artikel->dMHD_de) && $oPosition->Artikel->dMHD_de !== null}
 																		<li title="{lang key='productMHDTool' section='global'}" class="best-before">
 																			<strong>{lang key="productMHD" section="global"}:</strong> {$oPosition->Artikel->dMHD_de}
 																		</li>
@@ -110,7 +110,7 @@
 																{/block}
 																{block name='order-items-item-infos-notices'}
 																	{if !empty($oPosition->cHinweis)}
-																		<li class="text-info notice">{$oPosition->cHinweis}</li>
+																		<li class="notice">{$oPosition->cHinweis}</li>
 																	{/if}
 																{/block}
 																{block name='order-items-item-infos-manufacturer'}
@@ -127,7 +127,7 @@
 																	{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelmerkmale == 'Y' && !empty($oPosition->Artikel->oMerkmale_arr)}
 																		{foreach $oPosition->Artikel->oMerkmale_arr as $characteristic}
 																			<li class="characteristic">
-																				<strong>{$characteristic->getName()}</strong>:
+																				<strong>{$characteristic->getName()|escape:'html'}</strong>:
 																				<span class="values">
 																					{foreach $characteristic->getCharacteristicValues() as $characteristicValue}
 																						{if !$characteristicValue@first}, {/if}
@@ -198,7 +198,7 @@
 													{/block}
 													{block name='order-items-item-notice-specialpos'}
 														{if !empty($oPosition->cHinweis)}
-															<small class="text-info notice">{$oPosition->cHinweis}</small>
+															<small class="notice block">{$oPosition->cHinweis}</small>
 														{/if}
 													{/block}
                             					{/if}
@@ -346,7 +346,7 @@
 														{/block}
 													{else}
 														{block name='order-items-item-quantity-not-changeable'}
-															{if $oPosition->nPosTyp != '3' && $oPosition->nPosTyp != '2'}
+															{if $oPosition->nPosTyp != '3' && $oPosition->nPosTyp != '2' && $oPosition->nPosTyp != '5'}
 																<span class="qty">
 																	<span class="badge">{$oPosition->nAnzahl|replace_delim} {if !empty($oPosition->Artikel->cEinheit)}{$oPosition->Artikel->cEinheit}{/if}</span>
 																</span>

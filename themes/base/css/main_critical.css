@@ -448,9 +448,11 @@ strong, b, label, legend{
     color: var(--bod-s);
 }
 a,
-a.defaultlink:not(.btn),
-a:not(.btn):visited{
+a.defaultlink:not(.btn){
     color: var(--bod-l);
+}
+a:visited{
+    color: currentColor;
 }
 a:not(.btn):hover,
 a:not(.btn):focus,
@@ -666,7 +668,8 @@ small,
 	pointer-events: none;
 }
 .fa-caret-down,
-.bootstrap-select>.btn.dropdown-toggle{
+.bootstrap-select>.btn.dropdown-toggle,
+select{
     cursor: pointer;
     overflow: hidden;
     white-space: nowrap;

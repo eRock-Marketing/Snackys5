@@ -24,7 +24,11 @@
         	<h2 class="h3">{lang key='basket'}</h2>
 		{/block}
 		{block name='order-details-basket-items'}
-        	{include file='account/order_item.tpl' tplscope='confirmation'}
+			{if $snackyConfig.basketVersion == 0}
+        		{include file='account/order_item.tpl' tplscope='confirmation'}
+			{else}
+        		{include file='account/basket.tpl' tplscope='confirmation'}
+			{/if}
 		{/block}
 		{block name='order-details-basket-downloads'}
 			{include file='account/downloads.tpl'}

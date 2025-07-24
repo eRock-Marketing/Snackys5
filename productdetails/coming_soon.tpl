@@ -1,7 +1,7 @@
 {block name="km-verfuegbar-ab"}
 	{if $snackyConfig.availableDate == "C"}
-		{assign var="uid" value="aval-ct"}
-		<div id="{$uid}" class="sale-wp mb-sm mt-sm text-center panel">
+		{assign var="uidCS" value="aval-ct"}
+		<div id="{$uidCS}" class="sale-wp mb-sm mt-sm text-center panel">
 			<div class="mb-xs h4">{lang key="productAvailableIn" section="custom"}</div>
 			<div class="flx-jc">
 				<div class="ct-wp days">
@@ -24,41 +24,39 @@
 			{if $Einstellungen.global.global_erscheinende_kaeuflich === 'Y' && $Artikel->inWarenkorbLegbar == 1}
 				<div class="mt-xs text-muted">{lang key="preorderPossible" section="global"}</div>
 			{/if}
-		</div>                
+		</div>             
 		{inline_script}<script>
-			$(() => {
-				let until = new Date("{$Artikel->Erscheinungsdatum_de|date_format:"Y-m-d"}T00:00:00");
-				let countDownDate = until.getTime();
-				let timeout = setInterval(update, 1000);
+				var untilCS = new Date("{$Artikel->Erscheinungsdatum_de|date_format:"Y-m-d"}T00:00:00");
+				var countDownDateCS = untilCS.getTime();
+				var timeout_comingsoon = setInterval(update_comingsoon, 1000);
 
-				update();
+				update_comingsoon();
 				$(window).trigger('resize');
 
-				function update()
+				function update_comingsoon()
 				{
 					let now      = new Date().getTime();
-					let distance = countDownDate - now; 
+					let distance = countDownDateCS - now; 
 					let days     = Math.floor(distance / (1000 * 60 * 60 * 24));
 					let hours    = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 					let minutes  = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 					let seconds  = Math.floor((distance % (1000 * 60)) / 1000);
 
 					if (distance <= 0) {
-						clearInterval(timeout);
+						clearInterval(timeout_comingsoon);
 						days    = 0;
 						hours   = 0;
 						minutes = 0;
 						seconds = 0;
-						$("#{$uid}").hide();
+						$("#{$uidCS}").hide();
 						$(window).trigger('resize');
 					}
 
-					$("#{$uid} .days .ct-it").html(days);
-					$("#{$uid} .hours .ct-it").html(hours);
-					$("#{$uid} .minutes .ct-it").html(minutes);
-					$("#{$uid} .seconds .ct-it").html(seconds);
+					$("#{$uidCS} .days .ct-it").html(days);
+					$("#{$uidCS} .hours .ct-it").html(hours);
+					$("#{$uidCS} .minutes .ct-it").html(minutes);
+					$("#{$uidCS} .seconds .ct-it").html(seconds);
 				}
-			});
 		</script>{/inline_script}
 	{elseif $snackyConfig.availableDate == "D"}
 		<div class="mb-sm mt-sm panel text-center">

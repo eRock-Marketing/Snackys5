@@ -32,12 +32,16 @@
 									<div class="panel-title h6 mb-xxs">
 										{lang key="shippingAdress" section="checkout"}
 									</div>
-									{$Bestellung->Lieferadresse->cVorname} {$Bestellung->Lieferadresse->cNachname|entferneFehlerzeichen}
-									<br>{$Bestellung->Lieferadresse->cStrasse|entferneFehlerzeichen} {$Bestellung->Lieferadresse->cHausnummer}
-									<br>{$Bestellung->Lieferadresse->cPLZ} {$Bestellung->Lieferadresse->cOrt}
-									<br>{$Bestellung->Lieferadresse->angezeigtesLand}
-									<br>
-									{$Bestellung->Lieferadresse->cMail}
+									{if $Bestellung->kLieferadresse != 0}
+										{$Bestellung->Lieferadresse->cVorname} {$Bestellung->Lieferadresse->cNachname|entferneFehlerzeichen}
+										<br>{$Bestellung->Lieferadresse->cStrasse|entferneFehlerzeichen} {$Bestellung->Lieferadresse->cHausnummer}
+										<br>{$Bestellung->Lieferadresse->cPLZ} {$Bestellung->Lieferadresse->cOrt}
+										<br>{$Bestellung->Lieferadresse->angezeigtesLand}
+										<br>
+										{$Bestellung->Lieferadresse->cMail}
+									{else}
+										{lang key="shippingAdressEqualBillingAdress" section="account data"}
+									{/if}
 									<hr>
 								{/block}
 								{block name="confirmation-details-payment"}
@@ -52,7 +56,17 @@
 										{lang key="shipmentMode" section="checkout"}
 									</div>
 									{$Bestellung->oVersandart->cName}<br>
-									<strong>{lang key="shippingTime"}</strong>: {$Bestellung->cEstimatedDeliveryEx}
+									{if $snackyConfig.deliveryDate == '1'}
+										{block name='confirmation-details-shipping-snackys'}
+											<strong>{lang key="deliveryDate" section="custom"}:</strong>
+											{getDeliveryDate calculateDays=$snackyConfig.daysForDeliverCalculation days=$Bestellung->oVersandart->nMinLiefertage saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
+											{if $Bestellung->oVersandart->nMinLiefertage < $Bestellung->oVersandart->nMaxLiefertage}
+												- {getDeliveryDate calculateDays=$snackyConfig.daysForDeliverCalculation days=$Bestellung->oVersandart->nMaxLiefertage saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
+											{/if}
+										{/block}
+									{else}
+										<strong>{lang key="shippingTime"}</strong>: {$Bestellung->cEstimatedDeliveryEx}
+									{/if}
 								{/block}
 							</div>
 						</div>
@@ -92,14 +106,18 @@
 							{/block}
 							{block name="confirmation-order-items2"}
 								{if isset($showBasket) && $showBasket == 'order-item'}
-									{include file='account/order_item.tpl' tplscope='confirmation'}
+									{if $snackyConfig.basketVersion == 0}
+										{include file='account/order_item.tpl' tplscope='confirmation'}
+									{else}
+										{include file='account/basket.tpl' tplscope='confirmation'}
+									{/if}
 								{/if}
 							{/block}
 						</div>
 					{/block}
 				</div>
-			{/block}
-		{else}
+			{/block}	
+		{else} 
 			{assign var=cModulId value=$Bestellung->Zahlungsart->cModulId}
 			{if ($method === null || $Bestellung->Zahlungsart->cModulId !== $method->getModuleID())
 				&& $Bestellung->Zahlungsart->cModulId !== 'za_lastschrift_jtl'

@@ -56,6 +56,9 @@
             {if isset($category->hasChildren()) && $category->hasChildren()}
                 {assign var='isDropdown' value=true}
             {/if}
+            {if isset($activeParents) && is_array($activeParents) && isset($activeParents[$i])}
+                {assign var=activeParent value=$activeParents[$i]}
+            {/if}
 
             {assign var="catFunctions" value=$category->getFunctionalAttributes()}
             <li class="{if $isDropdown}mgm-fw{/if}{if $category->getID() == $activeId || (isset($activeParent) && $activeParent->getID() === $category->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}">

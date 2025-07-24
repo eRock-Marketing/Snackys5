@@ -142,7 +142,7 @@
 											{/block}
 											{block name='blog-details-article-comments-user-form'}
                 								<div class="panel-body">
-                    								<form method="post" action="{if !empty($oNewsArchiv->getSEO())}{$oNewsArchiv->getURL()}{else}{get_static_route id='news.php'}{/if}" class="form jtl-validate" id="news-addcomment">
+                    								<form method="post" action="{if !empty($oNewsArchiv->getSEO())}{$oNewsArchiv->getURL()}{else}{get_static_route id='news.php'}{/if}" class="form jtl-validate" id="news-addcomment" addhoneypot=true>
                         								{$jtl_token}
 														<input type="hidden" name="kNews" value="{$oNewsArchiv->getID()}" />
 														<input type="hidden" name="kommentar_einfuegen" value="1" />

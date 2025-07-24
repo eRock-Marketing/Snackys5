@@ -156,10 +156,8 @@
                                                />
                                        <span class="label-variation">
                                             {if !empty($Variationswert->getImage(\JTL\Media\Image::SIZE_XS))}
-                                           <span class="img-ct">
-                                                <img src="{$Variationswert->getImage(\JTL\Media\Image::SIZE_XS)}" alt="{$Variationswert->cName|escape:'quotes'}"
-                                                     data-list='{prepare_image_details item=$Variationswert json=true}'
-                                                     title="{$Variationswert->cName}" />
+                                                <span class="img-ct">
+                                                    {include file='snippets/image.tpl' sizes='90px' item=$Variationswert srcSize='xs'} 
                                                </span>
                                             {else}
                                                 {$Variationswert->cName}

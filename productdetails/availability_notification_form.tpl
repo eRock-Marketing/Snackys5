@@ -15,7 +15,7 @@
 			{/if}
 		{/block}
 		{block name='availability-form'}
-			<form action="{if !empty($Artikel->cURLFull)}{$Artikel->cURLFull}{else}{$ShopURL}/{/if}" method="post" id="article_availability{$Artikel->kArtikel}" class="jtl-validate">
+			<form action="{if !empty($Artikel->cURLFull)}{$Artikel->cURLFull}{else}{$ShopURL}/{/if}" method="post" id="article_availability{$Artikel->kArtikel}" class="jtl-validate" addhoneypot=true>
 				{$jtl_token}
 				<fieldset>
 					{block name='availability-form-firstname-lastname'}

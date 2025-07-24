@@ -140,8 +140,8 @@
                     {image fluid=$fluid lazy=$lazy webp=$webp center=$center
                         src=$item->getImage($srcSize)
                         alt=$alt|strip_tags|escape:'quotes'|escape:'html'
-                        width=130
-                        height= 130
+                        width=$maxWidth|default:130
+                        height=$maxHeight|default:130
                         class=$class
                     }
                 {else}
@@ -153,8 +153,8 @@
                                 {$item->getImage(\JTL\Media\Image::SIZE_LG)} {$gross}w"
                         alt=$alt|strip_tags|escape:'quotes'|escape:'html'
                         sizes=$sizes
-                        width=$width
-                        height=$height
+                        width=$maxWidth|default:$width
+                        height=$maxHeight|default:$height
                         class=$class
                     }
                 {/if}

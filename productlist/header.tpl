@@ -37,51 +37,56 @@
             {block name='productlist-header-navinfo-headline'}
                 {if !isset($oNavigationsinfo)
                 || (!$oNavigationsinfo->getManufacturer() && !$oNavigationsinfo->getCharacteristicValue() && !$oNavigationsinfo->getCategory())}
-                    <h1 class="title mb-small">{$Suchergebnisse->getSearchTermWrite()}</h1>
+                    <h1 class="title mb-sm">{$Suchergebnisse->getSearchTermWrite()}</h1>
                 {elseif $oNavigationsinfo->getCategory() && isset($catSeoName) && $showTitle}
-                    <h1 class="title mb-small">{$catSeoName}</h1>
+                    <h1 class="title mb-sm">{$catSeoName}</h1>
                 {elseif $oNavigationsinfo->getName() && $showTitle}
-                    <h1 class="title mb-small">{$oNavigationsinfo->getName()}</h1>
+                    <h1 class="title mb-sm">{$oNavigationsinfo->getName()}</h1>
                 {/if}
                 {include file="snippets/zonen.tpl" id="opc_after_heading"}
             {/block}
             {block name='productlist-header-navinfo-description'}
 	            {if $oNavigationsinfo->getName()}
-		            <div class="desc text-lg clearfix mb-sm{if $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild.gif' === false && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild_kl.gif' === false && $showImage} row{/if}">
-			            {if $oNavigationsinfo->getImageURL() && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild.gif' === false && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild_kl.gif' === false && $showImage}
-			                <div class="col-6 col-sm-3 col-md-4 col-lg-2 product-border">
-                                {block name='productlist-header-navinfo-description-image'}
-			                        <div class="img-ct{if $snackyConfig.imageratioCategory == '43'} rt4x3{/if}">
-                                        {image src=$oNavigationsinfo->getImageURL()
-                                            webp=true
-                                            lazy=true
-                                            sizes="{if !$bExclusive && $boxes.left !== null && !empty(trim(strip_tags($boxes.left))) && $smarty.const.PAGE_ARTIKELLISTE === $nSeitenTyp}(min-width: 992px) 67vw, (min-width: 1300px) 75vw, 100vw{/if} "
-                                            alt="{if $oNavigationsinfo->getCategory() !== null && !empty($navData->getImageAlt())}{$navData->getImageAlt()}{else}{$navData->getDescription()|default:''|strip_tags|truncate:50}{/if}"
-                                            class="img-responsive"}
-                                    </div>
-                                {/block}
-			                </div>
-			                <div class="col-12 col-sm-9 col-md-8 col-lg-10">
-                        {/if}
-                        {if $Einstellungen.navigationsfilter.kategorie_beschreibung_anzeigen === 'Y'
-                        && $oNavigationsinfo->getCategory() !== null
-                        && $oNavigationsinfo->getCategory()->getDescription()|strlen > 0}
-                            <div class="item_desc custom_content">{if $snackyConfig.optimize_kategorie == "Y"}{$oNavigationsinfo->getCategory()->getDescription()|optimize}{else}{$oNavigationsinfo->getCategory()->getDescription()}{/if}</div>
-                        {/if}
-                        {if $Einstellungen.navigationsfilter.hersteller_beschreibung_anzeigen === 'Y'
-                        && $oNavigationsinfo->getManufacturer() !== null
-                        && $oNavigationsinfo->getManufacturer()->getDescription()|strlen > 0}
-                            <div class="item_desc custom_content">{if $snackyConfig.optimize_kategorie == "Y"}{$oNavigationsinfo->getManufacturer()->getDescription()|optimize}{else}{$oNavigationsinfo->getManufacturer()->getDescription()}{/if}</div>
-                        {/if}
-                        {if $Einstellungen.navigationsfilter.merkmalwert_beschreibung_anzeigen === 'Y'
-                        && $oNavigationsinfo->getCharacteristicValue() !== null
-                        && $oNavigationsinfo->getCharacteristicValue()->getDescription()|strlen > 0}
-                            <div class="item_desc custom_content">{if $snackyConfig.optimize_kategorie == "Y"}{$oNavigationsinfo->getCharacteristicValue()->getDescription()|optimize}{else}{$oNavigationsinfo->getCharacteristicValue()->getDescription()}{/if}</div>
-                        {/if}
-                        {if $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild.gif' === false && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild_kl.gif' === false &&  $showImage}
-                            </div>
-                        {/if}
-		            </div>
+                    {if ($Einstellungen.navigationsfilter.kategorie_beschreibung_anzeigen === 'Y' && $oNavigationsinfo->getCategory() !== null && $oNavigationsinfo->getCategory()->getDescription()|strlen > 0)
+                        || ($Einstellungen.navigationsfilter.hersteller_beschreibung_anzeigen === 'Y' && $oNavigationsinfo->getManufacturer() !== null && $oNavigationsinfo->getManufacturer()->getDescription()|strlen > 0)
+                        || ($Einstellungen.navigationsfilter.merkmalwert_beschreibung_anzeigen === 'Y' && $oNavigationsinfo->getCharacteristicValue() !== null && $oNavigationsinfo->getCharacteristicValue()->getDescription()|strlen > 0)
+                        || ($oNavigationsinfo->getImageURL() && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild.gif' === false && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild_kl.gif' === false && $showImage)}
+                        <div class="desc text-lg clearfix mb-sm{if $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild.gif' === false && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild_kl.gif' === false && $showImage} row{/if}">
+                            {if $oNavigationsinfo->getImageURL() && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild.gif' === false && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild_kl.gif' === false && $showImage}
+                                <div class="col-6 col-sm-3 col-md-4 col-lg-2 product-border">
+                                    {block name='productlist-header-navinfo-description-image'}
+                                        <div class="img-ct{if $snackyConfig.imageratioCategory == '43'} rt4x3{/if}">
+                                            {image src=$oNavigationsinfo->getImageURL()
+                                                webp=true
+                                                lazy=true
+                                                sizes="{if !$bExclusive && $boxes.left !== null && !empty(trim(strip_tags($boxes.left))) && $smarty.const.PAGE_ARTIKELLISTE === $nSeitenTyp}(min-width: 992px) 67vw, (min-width: 1300px) 75vw, 100vw{/if} "
+                                                alt="{if $oNavigationsinfo->getCategory() !== null && !empty($navData->getImageAlt())}{$navData->getImageAlt()}{else}{$navData->getDescription()|default:''|strip_tags|truncate:50}{/if}"
+                                                class="img-responsive"}
+                                        </div>
+                                    {/block}
+                                </div>
+                                <div class="col-12 col-sm-9 col-md-8 col-lg-10">
+                            {/if}
+                            {if $Einstellungen.navigationsfilter.kategorie_beschreibung_anzeigen === 'Y'
+                            && $oNavigationsinfo->getCategory() !== null
+                            && $oNavigationsinfo->getCategory()->getDescription()|strlen > 0}
+                                <div class="item_desc custom_content">{if $snackyConfig.optimize_kategorie == "Y"}{$oNavigationsinfo->getCategory()->getDescription()|optimize}{else}{$oNavigationsinfo->getCategory()->getDescription()}{/if}</div>
+                            {/if}
+                            {if $Einstellungen.navigationsfilter.hersteller_beschreibung_anzeigen === 'Y'
+                            && $oNavigationsinfo->getManufacturer() !== null
+                            && $oNavigationsinfo->getManufacturer()->getDescription()|strlen > 0}
+                                <div class="item_desc custom_content">{if $snackyConfig.optimize_kategorie == "Y"}{$oNavigationsinfo->getManufacturer()->getDescription()|optimize}{else}{$oNavigationsinfo->getManufacturer()->getDescription()}{/if}</div>
+                            {/if}
+                            {if $Einstellungen.navigationsfilter.merkmalwert_beschreibung_anzeigen === 'Y'
+                            && $oNavigationsinfo->getCharacteristicValue() !== null
+                            && $oNavigationsinfo->getCharacteristicValue()->getDescription()|strlen > 0}
+                                <div class="item_desc custom_content">{if $snackyConfig.optimize_kategorie == "Y"}{$oNavigationsinfo->getCharacteristicValue()->getDescription()|optimize}{else}{$oNavigationsinfo->getCharacteristicValue()->getDescription()}{/if}</div>
+                            {/if}
+                            {if $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild.gif' === false && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild_kl.gif' === false &&  $showImage}
+                                </div>
+                            {/if}
+                        </div>
+                    {/if}
 	            {/if}
             {/block}
         {/if}
@@ -89,7 +94,7 @@
     {block name="productlist-subcategories"}
         {if $Einstellungen.navigationsfilter.artikeluebersicht_bild_anzeigen !== 'N' && $oUnterKategorien_arr|count > 0}
 	        {include file="snippets/zonen.tpl" id="opc_before_subcategories"}
-            <div class="row row-multi sc-w mb-sm">
+            <div class="row row-multi sc-w">
                 {foreach $oUnterKategorien_arr as $Unterkat}
                     <div class="col-6 col-sm-4 col-md-4 col-lg-3{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-2{/if}">
                         <div class="thumbnail">
