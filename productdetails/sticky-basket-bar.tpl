@@ -28,8 +28,8 @@
                 </div>
             </div>
             <div class="right">
-                {if ($Artikel->nIstVater && $Artikel->kVaterArtikel == 0 && !$showMatrix) || $Artikel->bHasKonfig}
-                    <a href="#content-wrapper" class="btn btn-primary btn-lg">
+                {if $Artikel->bHasKonfig}
+                    <a href="#product-configurator" class="btn btn-primary btn-lg">
                         <span class="visible-xs">
                             <span class="img-ct icon">
                                 <svg>

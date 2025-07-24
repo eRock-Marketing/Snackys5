@@ -61,7 +61,7 @@
 								<div class="panel-title h6 mb-xxs">
 									{lang key="shipmentMode" section="checkout"}
 								</div>
-								{$Bestellung->oVersandart->cName}<br>
+								{if isset($Bestellung->oVersandart->oVersandartSprache_arr[$smarty.session.cISOSprache]->cName)}{$Bestellung->oVersandart->oVersandartSprache_arr[$smarty.session.cISOSprache]->cName}{/if}<br>
 								{if $snackyConfig.deliveryDate == '1'}
 									{block name='confirmation-details-shipping-snackys'}
 										<strong>{lang key="deliveryDate" section="custom"}:</strong>

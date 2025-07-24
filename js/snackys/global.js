@@ -851,6 +851,8 @@ $(document).ready(function () {
     });
 
     // Sticky Basket
+    let hasScrolledDownPastButton = false;
+    
     function checkVisibilityAndScrollPosition() {
         const $target = $('.sn-addBasket');
         const $container = $('#stck-bskt');
@@ -860,18 +862,34 @@ $(document).ready(function () {
     
         const rect = $target[0].getBoundingClientRect();
         const isVisible = (
-        rect.top >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+            rect.top >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
         );
     
         const nearPageEnd = (
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - bufferFromBottom
+            window.innerHeight + window.scrollY >= document.body.offsetHeight - bufferFromBottom
         );
     
-        if (!isVisible && !nearPageEnd) {
-        $container.addClass('show');
+        // Button-Position relativ zur Seite berechnen
+        const buttonTop = $target.offset().top;
+        const currentScrollTop = $(window).scrollTop();
+        const viewportHeight = $(window).height();
+    
+        // Überprüfen ob nach unten über den Button hinaus gescrollt wurde
+        if (currentScrollTop > buttonTop + $target.outerHeight()) {
+            hasScrolledDownPastButton = true;
+        }
+        
+        // Reset wenn wieder über dem Button gescrollt wird
+        if (currentScrollTop < buttonTop) {
+            hasScrolledDownPastButton = false;
+        }
+    
+        // Sticky-Bar nur anzeigen wenn nach unten am Button vorbei gescrollt wurde
+        if (hasScrolledDownPastButton && !isVisible && !nearPageEnd) {
+            $container.addClass('show');
         } else {
-        $container.removeClass('show');
+            $container.removeClass('show');
         }
     }
     

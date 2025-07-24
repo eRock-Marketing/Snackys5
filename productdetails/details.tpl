@@ -348,7 +348,10 @@
 			</div>
 			{if $snackyConfig.stickyBasket == 'Y'}
 				{block name="sticky-basket-bar"}
-					{include file="productdetails/sticky-basket-bar.tpl"}
+					{if $Artikel->nIstVater && $Artikel->kVaterArtikel == 0 && !$showMatrix}
+					{else}
+						{include file="productdetails/sticky-basket-bar.tpl"}
+					{/if}
 				{/block}
 			{/if}
 		</form>

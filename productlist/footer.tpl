@@ -30,21 +30,21 @@
                             {block name='footer-pagination-prev'}
                                 {if $filterPagination->getPrev()->getPageNumber() > 0}
                                     <li class="prev icon-wt">
-                                        <a href="{$filterPagination->getPrev()->getURL()}" class="btn btn-rd btn-blank">&laquo;</a>
+                                        <a href="{$filterPagination->getPrev()->getURL()}" class="btn btn-rd btn-blank"{if $NaviFilter->getFilterCount() > $snackyConfig.filterIndexing && $snackyConfig.relNofollow === 'Y'} rel="nofollow"{/if}>&laquo;</a>
                                     </li>
                                 {/if}
                             {/block}
                             {block name='footer-pagination-sites'}
                                 {foreach $filterPagination->getPages() as $page}
                                     <li class="page icon-wt{if $page->isActive()} active{/if}">
-                                        <a href="{$page->getURL()}" class="btn btn-rd btn-blank{if $page->isActive()} btn-primary{/if}">{$page->getPageNumber()}</a>
+                                        <a href="{$page->getURL()}" class="btn btn-rd btn-blank{if $page->isActive()} btn-primary{/if}"{if $NaviFilter->getFilterCount() > $snackyConfig.filterIndexing && $snackyConfig.relNofollow === 'Y'} rel="nofollow"{/if}>{$page->getPageNumber()}</a>
                                     </li>
                                 {/foreach}
                             {/block}
                             {block name='footer-pagination-next'}
                                 {if $filterPagination->getNext()->getPageNumber() > 0}
                                     <li class="next icon-wt">
-                                        <a href="{$filterPagination->getNext()->getURL()}" class="btn btn-rd btn-blank">&raquo;</a>
+                                        <a href="{$filterPagination->getNext()->getURL()}" class="btn btn-rd btn-blank"{if $NaviFilter->getFilterCount() > $snackyConfig.filterIndexing && $snackyConfig.relNofollow === 'Y'} rel="nofollow"{/if}>&raquo;</a>
                                     </li>
                                 {/if}
                             {/block}

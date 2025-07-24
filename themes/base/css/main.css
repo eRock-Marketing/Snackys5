@@ -48,6 +48,7 @@ a.btn-skip-to:focus {
 .gifthint .progress{
     margin-bottom: .25rem;
     margin-top: 7px;
+    overflow: hidden;
 }
 .gifthint .progress,
 .gifthint .progress-bar{

@@ -109,7 +109,13 @@
 																	{block name='sidebasket-items-warenkorbartikel-edit-quantity-amount'}
 																		<div class="form-inline flx-je">
 																			<div class="input-group" role="group">
-																				<input aria-label="{lang key='quantity'}" name="anzahl[{$smarty.foreach.positionen.index}]" class="btn-group form-control quantity text-right" size="3" value="{$oPosition->nAnzahl}" />
+																				<input aria-label="{lang key='quantity'}" 
+																					name="anzahl[{$smarty.foreach.positionen.index}]" 
+																					class="btn-group form-control quantity text-right" 
+																					min="{if $oPosition->Artikel->fMindestbestellmenge}{$oPosition->Artikel->fMindestbestellmenge}{else}0{/if}" 
+																					max="{$oPosition->Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_MAXBESTELLMENGE]|default:''}"
+																					size="3" 
+																					value="{$oPosition->nAnzahl}" />
 																				<button type="submit" class="btn btn-default btn-xs" aria-label="{lang key='refresh' section='checkout'}">
 																					<span class="img-ct icon">
 																						<svg>
