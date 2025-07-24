@@ -13,7 +13,6 @@
     {else}
         {foreach $Suchergebnisse->Preisspanne as $oPreisspannenfilter}
             <li>
-			{* $oPreisspannenfilter|print_r *}
                 <a href="{$oPreisspannenfilter->cURL}" rel="nofollow">
                     <span class="badge">{$oPreisspannenfilter->nAnzahlArtikel}</span>
                     <span class="value">
