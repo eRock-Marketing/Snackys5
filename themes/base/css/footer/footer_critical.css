@@ -1,0 +1,7 @@
+#footer-boxes{
+    border-top: 1px solid @lightborder;
+    border-bottom: 1px solid @lightborder;
+}
+#copyright{
+    color: @lighttext;
+}

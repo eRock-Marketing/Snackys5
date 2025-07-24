@@ -1,0 +1,44 @@
+@media screen and (min-width: 768px){
+    #cat-ul > .dropdown-style > .dropdown-menu{
+        max-height: 70vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    #cat-ul .dropdown-style .dropdown-menu:not(.first){
+        position: static;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        display: none;
+        padding-left: .5rem;
+        font-size: .9rem;
+    }
+    #cat-ul .dropdown-style .dropdown-menu:not(.first).show,
+    #cat-ul .dropdown-style .mm-mainlink.tapped + .dropdown-menu:not(.first){
+        display: block;
+    }
+    .dd-plus > .dropdown-link > .ar{
+        display: none;
+    }
+    .dd-plus .dd-toggle{
+        position: absolute;
+        top: 0;
+        right: .2rem;
+        width: 2rem;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform .2s ease;
+        cursor: pointer;
+    }
+    .dd-plus .dd-toggle[aria-expanded="true"]{
+        transform: scaleY(-1);
+    }
+    #cat-ul .dropdown-style .mgm-fw .ar {
+        border-width: 0 2px 2px 0;
+    }
+    .dd-plus > .dropdown-link{
+        padding-right: 2.2rem;
+    }
+}

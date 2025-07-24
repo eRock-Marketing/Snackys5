@@ -11,6 +11,13 @@
                 {lang key='incl' section='productDetails'}
             {/if}
             &nbsp;{$taxdata.tax}% {lang key='vat' section='productDetails'}
+        {elseif $Einstellungen.global.global_ust_auszeichnung === 'autoNoVat'}
+            {if $taxdata.net}
+                {lang key='excl' section='productDetails'}
+            {else}
+                {lang key='incl' section='productDetails'}
+            {/if}
+            &nbsp;{lang key='vat' section='productDetails'}
         {elseif $Einstellungen.global.global_ust_auszeichnung === 'endpreis'}
             {lang key='finalprice' section='productDetails'}
         {/if}

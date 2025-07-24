@@ -1,5 +1,5 @@
 {block name='register-form'}
-<form method="post" action="{get_static_route id='registrieren.php'}" class="evo-validate">
+<form method="post" action="{get_static_route id='registrieren.php'}" class="jtl-validate">
     {$jtl_token}
     {include file='register/form/customer_account.tpl'}
     <hr>
@@ -11,8 +11,9 @@
     <input type="hidden" name="editRechnungsadresse" value="{$editRechnungsadresse}">
 	
 	{include file="snippets/zonen.tpl" id="opc_before_submit"}
-    <p class="privacy text-muted text-right">
-        <a href="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}{/if}" class="popup">
+    <p class="small text-muted">(* = {lang key='mandatoryFields'})</p>
+    <p class="privacy text-muted">
+        <a href="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}{/if}" class="popup small tdu">
             {lang key='privacyNotice'}
         </a>
     </p>

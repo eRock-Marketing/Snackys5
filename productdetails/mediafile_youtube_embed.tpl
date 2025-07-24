@@ -19,14 +19,14 @@
 {$search                     = ['https://', 'youtu.be/', 'watch?v=']}
 {$replace                    = ['//', 'youtube.com/embed/', 'embed/']}
 {$embedURL                   = str_replace($search, $replace, $oMedienDatei->cURL)}
-<a href="#" class="trigger give-consent btn btn-xs" data-consent="youtube">Youtube Consent geben</a>
-<div class="img-ct rt16x9">
-<iframe class="needs-consent youtube"
-        data-consent="youtube"
-        width="{$width}"
-        height="{$height}"
-        data-src="{$embedURL}{$related}"
-        frameborder="0"{$fullscreen}>
-</iframe>
+<div class="img-ct rt16x9 consent-ct">
+    <a href="#" class="trigger give-consent btn btn-primary btn-xs" data-consent="youtube">Youtube Consent geben</a>
+    <iframe class="needs-consent youtube"
+            data-consent="youtube"
+            width="{$width}"
+            height="{$height}"
+            data-src="{$embedURL}{$related}"
+            frameborder="0"{$fullscreen}>
+    </iframe>
 </div>
 {/block}

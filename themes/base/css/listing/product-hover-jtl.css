@@ -23,6 +23,9 @@
 	opacity: 0;
 	box-shadow: 0 0 0 .4rem white;
 }
+.p-c.hv-e .exp:focus-within{
+	z-index: 3;
+}
 .p-c.hv-e .exp .btn-primary{
 	white-space: normal;
 }
@@ -37,6 +40,7 @@
 	padding: 15px;
 	background: white;
     border-radius: 0 0 .6rem .6rem;
+    top: 100%;
 }
 .hv-e .exp .var-it{
     margin: .4rem 0;
@@ -141,11 +145,14 @@
     font-size: .7rem;
 }
 .var-it .bootstrap-select > .btn.dropdown-toggle{
-    padding: 0.7rem .8rem;
+    padding: 0.7rem 2rem .7rem .8rem;
     font-size: .9rem;
 }
 .var-it .label-variation + .tag{
     margin-left: .2rem;
+}
+.var-it .fa{
+    display: none;
 }
 @media screen and (max-width: 767px){
     .var-it .swatches .btn-img.btn-default{

@@ -5,7 +5,7 @@
 		class="hidden-xs{if $Einstellungen.vergleichsliste.vergleichsliste_target === 'popup'} popup{/if}">
                 <span class="img-ct icon icon-xl">
 					<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-compare"></use>
+					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-compare"></use>
 					</svg>
                 </span>
             <sup class="badge"><em>{$smarty.session.Vergleichsliste->oArtikel_arr|count}</em></sup>

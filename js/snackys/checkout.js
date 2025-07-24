@@ -16,9 +16,7 @@
         load: function()
 		{
 			this.adressForm();
-			//this.versand();
 			this.basics();
-			//this.checkPayPalPlus();
 		},
 		
 		basics: function()
@@ -114,53 +112,6 @@
 					});
 				}
 			});
-		},
-		
-		versand: function()
-		{
-			var that = this;
-			var payments,sidebasket;
-				alert("intitialisiere");
-			$('input[name=Versandart]').on('change',function()
-			{
-				alert("nun aendere");
-				$('body').addClass('loading');
-
-				$.ajax({
-					url: 'bestellvorgang.php?isAjax&kVersandart='+$(this).val()
-				}).done(function(data) {
-					alert("geladen");
-					$('body').removeClass('loading');
-					var e = $.parseHTML(data, document, true);
-					payments = $(e).find('#fieldset-payment').html();
-					$('#fieldset-payment').html(payments);
-					if($(e).find('#checkout-cart-ajaxversand').length > 0)
-					{
-						sidebasket = $(e).find('#checkout-cart').html();
-						$('#checkout-cart').html(sidebasket);
-					}
-					alert("ist das so");
-					that.checkPayPalPlus();
-				}).fail(function(){
-					$('body').removeClass('loading');
-					console.log('Error loading '+url);
-				});
-			});
-		},
-
-		checkPayPalPlus: function()
-		{
-			if($('#ppp-modal').length)
-			{
-				var first = true;
-				$('.shipping-payments .btn-primary.submit').each(function()
-				{
-					if(first) first = false;
-					else
-						$(this).hide();
-				});
-			} else
-			$('.shipping-payments .btn-primary.submit').show();
 		}
 			
 	}

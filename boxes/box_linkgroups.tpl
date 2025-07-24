@@ -1,7 +1,7 @@
 {block name='boxes-box-linkgroups'}
 {if $snackyConfig.filterOpen == 1 && empty($oBox->getTitle()) && $oBox->getPosition() == 'left'}
 {else}
-    <section class="box box-linkgroup box-normal panel small" id="box{$oBox->getID()}">
+    <section class="box box-linkgroup box-normal panel small box-categories" id="box{$oBox->getID()}">
         {block name='boxes-box-linkgroups-title'}
             <div class="h5 panel-heading dpflex-a-c">
                 {$oBox->getTitle()}

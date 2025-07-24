@@ -8,10 +8,6 @@
 #sp-l li.dpflex-a-center{
     display: flex;
 }
-#product-offer li a{
-    display: inline;
-    padding: 0;
-}
 #basket-shipping-estimate-form select{
     width: 100%;
 }
@@ -28,6 +24,13 @@
 .label{
     color: @defaulttext;
 }
+.dropdown-toggle:after{
+    display: none;
+}
+.form-control,
+.input-group-sm > .form-control:not(textarea), .input-group-sm > .custom-select{
+    height: auto;
+}
 @media screen and (max-width: 767px){
     #cat-w .mm-mainlink .fa-caret-down.visible-xs, #cat-w .fa-caret-down.visible-xs{
         display: flex !important;
@@ -37,4 +40,7 @@
     body:not(.show-sidebar) #sp-l .close-btn{
         display: none !important;
     }
+}
+#consent-manager.active{
+    display: block !important;
 }

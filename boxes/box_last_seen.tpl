@@ -2,7 +2,7 @@
 {if $isMobile && $oBox->getPosition() == 'left'}
 {else}
     {lang key='lastViewed' assign='boxtitle'}
-    <section class="box box-last-seen box-normal panel" id="sidebox{$oBox->getID()}"}>
+    <section class="box box-last-seen box-normal panel" id="sidebox{$oBox->getID()}">
         {block name='boxes-box-last-seen-content'}
             {block name='boxes-box-last-seen-title'}
                 <div class="h5 panel-heading dpflex-a-c">

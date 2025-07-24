@@ -15,6 +15,8 @@
 {/if}
 
 {assign var="activeClass" value="none"}
+{assign var="loginClass" value=""}
+{assign var="regClass" value=""}
 
 {if $snackyConfig.checkoutPosTabs == '0'}
 	{assign var="loginClass" value="first"}
@@ -72,31 +74,34 @@
 {if isset($fehlendeAngaben.formular_zeit) && $fehlendeAngaben.formular_zeit == 1}
     {assign var="activeClass" value="reg"}
 {/if}
+{if isset($smarty.get.unreg_form) && $smarty.get.unreg_form == 1}
+    {assign var="activeClass" value="guest"}
+{/if}
 
 <div id="register-customer" class="row">
-	<div class="col-12" id="choose-way">
-		<div class="row pr">
-			<div class="col-4 step-box login {$loginClass}{if $activeClass == 'login'} active{/if}">
+	<div class="col-12 mb-sm" id="choose-way">
+		<div class="row m0">
+			<div class="col-4 step-box dpflex-a-c dpflex-j-c login {$loginClass}{if $activeClass == 'login'} active{/if}">
 				<span class="img-ct">
 					<svg>
-					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-user-reg"></use>
+					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-user-reg"></use>
 					</svg>
 				</span>
 				<span>{lang key="COlogin" section="custom"}</span>
 			</div>
-			<div class="col-4 step-box nouser reg {$regClass}{if $activeClass == 'reg'} active{/if}">
+			<div class="col-4 step-box dpflex-a-c dpflex-j-c nouser reg {$regClass}{if $activeClass == 'reg'} active{/if}">
 				<span class="img-ct">
 					<svg>
-					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-user-new"></use>
+					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-user-new"></use>
 					</svg>
 				</span>
 				<span>{lang key="COreg" section="custom"}</span>
 			</div>
 			{if $Einstellungen.kaufabwicklung.bestellvorgang_unregistriert === 'Y'}
-			<div class="col-4 step-box nouser guest {$guestClass}{if $activeClass == 'guest'} active{/if}" id="checkout-guest-btn">
+			<div class="col-4 step-box dpflex-a-c dpflex-j-c nouser guest {$guestClass}{if $activeClass == 'guest'} active{/if}" id="checkout-guest-btn">
 				<span class="img-ct">
 					<svg>
-					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-user-guest"></use>
+					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-user-guest"></use>
 					</svg>
 				</span>
 				<span>{lang key="COguest" section="custom"}</span>
@@ -105,7 +110,7 @@
 		</div>
 	</div>
     <div id="existing-customer" class="col-12{if $activeClass != 'login'} hidden{/if}">
-        <form method="post" action="{get_static_route id='bestellvorgang.php'}" class="form evo-validate" id="order_register_or_login">
+        <form method="post" action="{get_static_route id='bestellvorgang.php'}" class="form jtl-validate" id="order_register_or_login">
             {block name="checkout-login"}
                 <div class="panel">
                     {block name="checkout-login-body"}
@@ -125,7 +130,7 @@
     </div>
     <div id="customer" class="col-12{if $activeClass == 'login'} hidden{/if}">
         {include file="snippets/zonen.tpl" id="checkout-before-register" title="Checkout: Vor dem Registrieren-Formular"}
-        <form method="post" action="{get_static_route id='bestellvorgang.php'}" class="form evo-validate" id="form-register">
+        <form method="post" action="{get_static_route id='bestellvorgang.php'}" class="form jtl-validate" id="form-register">
             {block name="checkout-register"}
                 <div class="panel-wrap">
                     {block name="checkout-register-body"}

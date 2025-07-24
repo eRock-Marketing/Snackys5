@@ -3,7 +3,7 @@
     <h1 class="h2 mb-spacer mb-small">{if !empty($oRedirect->cName)}{$oRedirect->cName}{else}{lang key="loginTitle" section="login"}{/if}</h1>
     {block name="login-form"}
     {include file="snippets/zonen.tpl" id="opc_before_login"}
-        <form id="login_form" action="{get_static_route id='jtl.php'}" method="post" role="form" class="panel evo-validate">
+        <form id="login_form" action="{get_static_route id='jtl.php'}" method="post" role="form" class="panel jtl-validate">
             {$jtl_token}
             <fieldset>
                 <legend>{lang section="checkout" key="loginForRegisteredCustomers"}</legend>

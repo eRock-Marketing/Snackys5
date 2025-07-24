@@ -11,7 +11,7 @@
                             {block name='snippets-filter-active-filter-values'}
                                 {link href=$activeFilter->getUnsetFilterURL($filterOption->getValue())
                                     rel="nofollow"
-                                    title="Filter {lang key='delete'}"
+                                    title="{lang key='deleteFilter'}"
                                     class="btn btn-outline-secondary btn-sm filter-type-{$activeFilter->getNiceName()} snippets-filter-item js-filter-item"}
                                     {$filterOption->getFrontendName()}<span class="fa fa-times snippets-filter-item-icon-left"></span>
                                 {/link}
@@ -21,7 +21,7 @@
                         {block name='snippets-filter-active-filter-value'}
                             {link href=$activeFilter->getUnsetFilterURL($activeFilter->getValue())
                                 rel="nofollow"
-                                title="Filter {lang key='delete'}"
+                                title="{lang key='deleteFilter'}"
                                 class="btn btn-outline-secondary btn-sm filter-type-{$activeFilter->getNiceName()} snippets-filter-item js-filter-item"}
                                 {$activeValues->getFrontendName()}<span class="fa fa-times snippets-filter-item-icon-left"></span>
                             {/link}

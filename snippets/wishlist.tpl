@@ -17,7 +17,7 @@
                         {lang key="accountOverview" section="account data"}
                         <span class="img-ct icon icon-wt ic-md">
                             <svg>
-                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-user"></use>
+                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-user"></use>
                             </svg>
                         </span>
                     </a>
@@ -27,7 +27,7 @@
                     {lang key="orders" section="account data"}
                         <span class="img-ct icon icon-wt ic-md">
                             <svg>
-                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}"></use>
+                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}"></use>
                             </svg>
                         </span>
                     </a>
@@ -37,7 +37,7 @@
                     {lang key="addresses" section="account data"}
                         <span class="img-ct icon icon-wt ic-md">
                             <svg>
-                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-house"></use>
+                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-house"></use>
                             </svg>
                         </span>
                     </a>
@@ -48,7 +48,7 @@
                         <strong>{lang key="wishlists" section="account data"}</strong>
                         <span class="img-ct icon icon-wt ic-md">
                             <svg>
-                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-heart"></use>
+                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-heart"></use>
                             </svg>
                         </span>
                         </a>
@@ -60,7 +60,7 @@
                             {lang key="compare" sektion="global"}
                             <span class="img-ct icon icon icon-wt ic-md">
                                 <svg>
-                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-compare"></use>
+                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-compare"></use>
                                 </svg>
                             </span>
                         </a>
@@ -71,7 +71,7 @@
                         {lang key='allRatings'}
                         <span class="img-ct icon icon-wt ic-md">
                             <svg>
-                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-reviews"></use>
+                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-reviews"></use>
                             </svg>
                         </span>
                     </a>
@@ -101,7 +101,7 @@
                                                         <button class="btn-blank btn-sm btn dpflex-a-center" name="wls" value="{$Wunschliste->kWunschliste}" title="{lang key="wishlistStandard" section="login"}">
                                                             <span class="img-ct icon {if $Wunschliste->nStandard != 1}inactive{else}active{/if}">
                                                                 <svg>
-                                                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-circle"></use>
+                                                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-circle"></use>
                                                                 </svg>
                                                             </span>
                                                         </button>
@@ -109,7 +109,7 @@
                                                             <button type="submit" class="btn-blank btn-sm btn dpflex-a-center" name="wlAction" value="setPrivate" title="{lang key="wishlistPrivat" section="login"}">
                                                                 <span class="img-ct icon">
                                                                     <svg>
-                                                                      <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-hide"></use>
+                                                                      <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-hide"></use>
                                                                     </svg>
                                                                 </span>
                                                             </button>
@@ -118,7 +118,7 @@
                                                             <button type="submit" class="btn-blank btn-sm btn dpflex-a-center" name="wlAction" value="setPublic" title="{lang key="wishlistNotPrivat" section="login"}">
                                                                 <span class="img-ct icon">
                                                                     <svg>
-                                                                      <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-show"></use>
+                                                                      <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-show"></use>
                                                                     </svg>
                                                                 </span>
                                                             </button>
@@ -126,7 +126,7 @@
                                                         <button type="submit" class="btn-blank btn-sm btn dpflex-a-center" name="wllo" value="{$Wunschliste->kWunschliste}" title="{lang key='wishlisteDelete' section='login'}">
                                                             <span class="img-ct icon">
                                                                 <svg>
-                                                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-bin"></use>
+                                                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>
                                                                 </svg>
                                                             </span>
                                                         </button>
@@ -240,7 +240,7 @@
                                                        title="{lang key="product" section="global"}">
                                                         <span class="img-ct icon">
                                                             <svg>
-                                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-edit"></use>
+                                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-edit"></use>
                                                             </svg>
                                                         </span>
                                                     </a>
@@ -250,7 +250,7 @@
                                                             title="{lang key="wishlistaddToCart" section="login"}">
                                                         <span class="img-ct icon">
                                                             <svg class="icon-darkmode">
-                                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
+                                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
                                                             </svg>
                                                         </span>
                                                     </button>

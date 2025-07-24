@@ -4,7 +4,7 @@
 {block name="change-password-form"}
 <div class="panel-wrap">
     <p>{lang key='changePasswordDesc' section='login'}</p>
-    <form id="password" action="{get_static_route id='jtl.php'}" method="post" class="evo-validate">
+    <form id="password" action="{get_static_route id='jtl.php'}" method="post" class="jtl-validate">
         {$jtl_token}
         <div class="form-group required">
             <label for="currentPassword" class="control-label">{lang key="currentPassword" section="login"}</label>
@@ -13,7 +13,7 @@
 
         <div class="form-group required">
             <label for="newPassword" class="control-label">{lang key="newPassword" section="login"}</label>
-            <input type="password" name="neuesPasswort1" id="newPassword" class="form-control" required>
+            <input type="password" name="neuesPasswort1" id="newPassword" class="form-control" required autocomplete="new-password" maxlength="255">
         </div>
 
         <div class="form-group required">

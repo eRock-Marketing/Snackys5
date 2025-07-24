@@ -4,15 +4,16 @@
 #nav-ft .no-dropdown li{
     margin: 0;
 }
-#nav-ft .dropdown:not(.open) > .nav{
-    display: none;
-}
-#nav-ft .btn{
-    background: #f6f6f6;
+#nav-ft .btn,
+.mobile .ftr-sort .btn:not(.active){
     display: flex;
     justify-content: space-between;
     font-weight: 400;
-    border: 1px solid @defaultborder;
+}
+#nav-ft .btn:not(.active),
+.mobile .ftr-sort .btn:not(.active){
+    background: white;
+    border: 1px solid @lightborder;    
 }
 #nav-ft .form-group{
     margin: .25rem 0;
@@ -32,13 +33,35 @@
 #nav-ft .col-12{
     padding: 0 .25rem;
 }
-#nav-ft .dropdown > .nav{
+#nav-ft .col-12:empty{
+    display: none;
+}
+#nav-ft .l-op .btn{
+    flex-grow: 1;
+    justify-content: center;
+}
+#ftr-tg .btn:first-letter{
+    text-transform: uppercase;
+}
+#nav-ft .dropdown > .dropdown-menu{
     padding: 1rem;
-    background: #f6f6f6;
-    border-radius: 0 0 .5rem .5rem;
-    box-shadow: 0 -.5rem 0 0 #f6f6f6;
+    border: 1px solid @lightborder;
+    border-radius: .3rem;
+    margin-top: .5rem;
+}
+#nav-ft .dropdown-item{
+    padding: 0;
 }
 @media screen and (min-width: 992px){
+    #ftr-tp{
+        background: #f6f6f6;
+        padding: 1.5rem;
+        border-radius: .5rem;
+        margin-top: -.3rem;
+    }
+    #nav-ft .l-op .btn{
+        flex-grow: 0;
+    }
     #filter-collapsible{
         display: block;
         height: auto !important;
@@ -51,5 +74,16 @@
         right: 1px;
         max-height: 50vh;
         overflow: auto;
+        background-color: #fff;
+        box-shadow: 0 .25rem .5625rem -.0625rem rgba(0,0,0,.03),0 .275rem 1.25rem -.0625rem rgba(0,0,0,.05);
+        border: 1px solid #fff;
+    }
+    #nav-ft .more-ftr{
+        display: none;
+    }
+}
+@media screen and (max-width: 991px){
+    #sp-l > .inside > div{
+        padding: 0;
     }
 }

@@ -10,7 +10,7 @@
     {/block}
     {block name='checkout-modules-creditcard-payment-creditcard'}
         <fieldset id="payment_creditcard">
-            <legend>{lang key='paymentOptionCreditcardDesc' section='shipping payment'}</legend>
+            <legend class="mb-xs">{lang key='paymentOptionCreditcardDesc' section='shipping payment'}</legend>
             {row}
                 {col cols=12 md=6}
                     {formgroup

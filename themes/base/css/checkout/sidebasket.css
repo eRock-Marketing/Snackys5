@@ -1,5 +1,14 @@
-.sc-sum .card{
-    margin: .5rem 0;
+#checkout-cart{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2rem;
+    max-height: 100%;
+    overflow: auto;
+    background: #f6f6f6;
+    max-width: 28rem;
+    width: 100%;
 }
 .sc-sum .panel{
     background: white;
@@ -19,4 +28,19 @@
 }
 .sc-item .shortdesc p{
     margin: .25rem 0;
+}
+@media screen and (max-width: 1600px){
+    #checkout-cart{
+        max-width: 25rem;
+    }
+}
+@media screen and (max-width: 1199px){
+    #checkout-cart{
+        padding: 2rem 1.5rem;
+    }
+}
+@media screen and (max-width: 991px){
+    #checkout-cart{
+        display: none;
+    }
 }

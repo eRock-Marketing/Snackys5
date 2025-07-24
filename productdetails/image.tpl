@@ -8,7 +8,7 @@
             {strip}
                 <div class="img-w{if $smarty.foreach.thumbnails.first} active{/if}">
                     <div class="img-ct">
-						{image alt=$image->cAltAttribut|escape:'html'
+						{image alt=$image->cAltAttribut|escape:'quotes'
 							class="product-image"
 							fluid=true
 							lazy=true
@@ -33,27 +33,40 @@
 		<div class="inner">
         {block name="product-image"}
         {foreach $Artikel->Bilder as $image name="gallery"}
-			{if $smarty.foreach.gallery.first}<meta itemprop="image" content="{$image->cPfadGross}">{/if}
             {strip}
-			{assign var=bildGroessen value=$image->galleryJSON|json_decode:1}
                 <a href="{$image->cPfadGross}"{if $smarty.foreach.gallery.first} class="active"{/if}>
                     <div class="img-ct" data-src="{$image->cPfadGross}">
 						{assign var="isLazy" value=true}
 						{if $smarty.foreach.gallery.first && $snackyConfig.nolazyloadProductdetails == 'Y'}
 							{assign var="isLazy" value=false}
 						{/if}
-						{image alt=$image->cAltAttribut|escape:'html'
-							class="product-image"
-							fluid=true
-							lazy=$isLazy
-							webp=true
-							src="{$image->cURLMini}"
-							srcset="{$image->cURLMini} {$Einstellungen.bilder.bilder_artikel_mini_breite}w,
-								{$image->cURLKlein} {$Einstellungen.bilder.bilder_artikel_klein_breite}w,
-								{$image->cURLNormal} {$Einstellungen.bilder.bilder_artikel_normal_breite}w,
-								{$image->cURLGross} {$Einstellungen.bilder.bilder_artikel_gross_breite}w"
-							data=["list"=>"{$image->galleryJSON|escape:"html"}", "index"=>$image@index, "sizes"=>"auto","big"=>"{$image->cPfadGross}"]
-						}
+                        {if $image->cPfadGross|webpExists}
+                            {image alt=$image->cAltAttribut|escape:'quotes'
+                                class="product-image"
+                                fluid=true
+                                lazy=$isLazy
+                                webp=true
+                                src="{$image->cURLMini}"
+                                srcset="{$image->cURLMini} {$Einstellungen.bilder.bilder_artikel_mini_breite}w,
+                                    {$image->cURLKlein} {$Einstellungen.bilder.bilder_artikel_klein_breite}w,
+                                    {$image->cURLNormal} {$Einstellungen.bilder.bilder_artikel_normal_breite}w,
+                                    {$image->cURLGross} {$Einstellungen.bilder.bilder_artikel_gross_breite}w"
+                                data=["list"=>"{$image->galleryJSON|escape:"html"}", "index"=>$image@index, "sizes"=>"auto","big"=>"{$image->cPfadGross}","big-webp"=>"{$image->cPfadGross|getWebpURL}"]
+                            }
+                        {else}
+                            {image alt=$image->cAltAttribut|escape:'quotes'
+                            class="product-image"
+                            fluid=true
+                            lazy=$isLazy
+                            webp=true
+                            src="{$image->cURLMini}"
+                            srcset="{$image->cURLMini} {$Einstellungen.bilder.bilder_artikel_mini_breite}w,
+                                    {$image->cURLKlein} {$Einstellungen.bilder.bilder_artikel_klein_breite}w,
+                                    {$image->cURLNormal} {$Einstellungen.bilder.bilder_artikel_normal_breite}w,
+                                    {$image->cURLGross} {$Einstellungen.bilder.bilder_artikel_gross_breite}w"
+                        data=["list"=>"{$image->galleryJSON|escape:"html"}", "index"=>$image@index, "sizes"=>"auto","big"=>"{$image->cPfadGross}"]
+                        }
+                        {/if}
                     </div>
                 </a>
             {/strip}

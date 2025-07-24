@@ -1,8 +1,10 @@
 #product-actions > .btn{
-    margin-left: 0.5rem;
     padding: 0;
     min-width: 3rem;
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
+}
+#product-actions > .btn:not(:first-child){
+    margin-left: 0.5rem;
 }

@@ -4,7 +4,7 @@
     {assign var=nImageMaxWidth value=480}
     {assign var=nImageMaxHeight value=320}
     {assign var=nImagePreviewWidth value=35}
-    <div id="uploads">
+    <div id="uploads" class="mt-sm">
         <h3>{lang key="yourUploads"}</h3>
         <div class="table-responsive">
             <table class="table table-striped m0" id="customerupload">
@@ -33,7 +33,7 @@
                                 <button class="btn btn-blank btn-xs" name="{$oUpload->cName}">
                                     <span class="img-ct icon">
                                         <svg>
-                                          <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-show"></use>
+                                          <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-show"></use>
                                         </svg>
                                     </span>
                                 </button>

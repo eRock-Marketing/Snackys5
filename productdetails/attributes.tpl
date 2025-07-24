@@ -5,27 +5,35 @@
         {if $Einstellungen.artikeldetails.merkmale_anzeigen === 'Y'}
             {block name='productdetails-attributes-characteristics'}
                 {foreach $Artikel->oMerkmale_arr as $oMerkmal}
-                    <li class="dpflex-a-c">
+                    <li class="dpflex">
                         <strong class="first mr-xxs">{$oMerkmal->cName}: </strong>
-                        <span>
-                            {strip}
-                                {foreach $oMerkmal->oMerkmalWert_arr as $oMerkmalWert}
-                                    {if $oMerkmal->cTyp === 'TEXT' || $oMerkmal->cTyp === 'SELECTBOX' || $oMerkmal->cTyp === ''}
-                                        <span class="value"><a href="{$oMerkmalWert->cURLFull}" class="tag label label-primary">{$oMerkmalWert->cWert|escape:'html'}</a> </span>
-                                    {else}
-                                        <span class="value">
-                                        <a href="{$oMerkmalWert->cURLFull}" data-toggle="tooltip" data-placement="top" title="{$oMerkmalWert->cWert|escape:'html'}">
-                                            {if $oMerkmalWert->cBildpfadKlein !== 'gfx/keinBild_kl.gif'}
-                                                <img src="{$oMerkmalWert->cBildURLKlein}" title="{$oMerkmalWert->cWert|escape:'html'}" alt="{$oMerkmalWert->cWert|escape:'html'}" />
-                                            {else}
-                                                <span class="value"><a href="{$oMerkmalWert->cURLFull}" class="tag label label-primary">{$oMerkmalWert->cWert|escape:'html'}</a> </span>
-                                            {/if}
-                                        </a>
-                                    </span>
-                                    {/if}
-                                {/foreach}
-                            {/strip}
+                        {strip}
+                        <span class="right dpflex-a-c dpflex-wrap">
+                            {foreach $oMerkmal->oMerkmalWert_arr as $oMerkmalWert}
+                                {if $oMerkmal->cTyp === 'TEXT' || $oMerkmal->cTyp === 'SELECTBOX' || $oMerkmal->cTyp === ''}
+                                    <a href="{$oMerkmalWert->cURLFull}" class="tag">{$oMerkmalWert->cWert|escape:'html'}</a>
+                                {else}
+                                    <a href="{$oMerkmalWert->cURLFull}" data-toggle="tooltip" data-placement="top" title="{$oMerkmalWert->cWert|escape:'html'}">
+                                        {if $oMerkmalWert->cBildpfadKlein !== 'gfx/keinBild_kl.gif'}
+                                            <span class="img-ct icon icon-xl">
+                                            {include file='snippets/image.tpl'
+                                                item=$oMerkmalWert
+                                                square=false
+                                                srcSize='xs'
+                                                sizes='40px'
+                                                width='40'
+                                                height='40'
+                                                class='img-aspect-ratio'
+                                                alt=$oMerkmalWert->cWert}
+                                            </span>
+                                        {else}
+                                            <span class="tag">{$oMerkmalWert->cWert|escape:'html'}</span>
+                                        {/if}
+                                    </a>
+                                {/if}
+                            {/foreach}
                         </span>
+                        {/strip}
                     </li>
                 {/foreach}
             {/block}
@@ -35,9 +43,7 @@
             {block name='productdetails-attributes-shipping-weight'}
                 <li class="dpflex-a-c">
                     <strong class="first mr-xxs">{lang key='shippingWeight' section='global'}: </strong>
-                    <span>
-                        {$Artikel->cGewicht} {lang key='weightUnit' section='global'}
-                    </span>
+                    <span class="tag">{$Artikel->cGewicht} {lang key='weightUnit' section='global'}</span>
                 </li>
             {/block}
         {/if}
@@ -46,9 +52,7 @@
             {block name='productdetails-attributes-product-weight'}
                 <li class="dpflex-a-c">
                     <strong class="first mr-xxs">{lang key='productWeight' section='global'}: </strong>
-                    <span itemprop="weight" itemscope itemtype="http://schema.org/QuantitativeValue">
-                        <span itemprop="value">{$Artikel->cArtikelgewicht}</span> <span itemprop="unitText">{lang key='weightUnit' section='global'}
-                    </span>
+                    <span class="tag">{$Artikel->cArtikelgewicht} {lang key='weightUnit' section='global'}</span>
                 </li>
             {/block}
         {/if}
@@ -57,9 +61,7 @@
             {block name='productdetails-attributes-unit'}
                 <li class="dpflex-a-c">
                     <strong class="first mr-xxs">{lang key='contents' section='productDetails'}: </strong>
-                    <span class="list-group-item-text attr-value">
-                        {$Artikel->cMassMenge} {$Artikel->cMasseinheitName}
-                    </span>
+                    <span class="tag">{$Artikel->cMassMenge} {$Artikel->cMasseinheitName}</span>
                 </li>
             {/block}
         {/if}
@@ -70,14 +72,14 @@
                 {if $dimensionArr|count > 0}
                     <li class="dpflex-a-c">
                         <strong class="first mr-xxs">{lang key='dimensions' section='productDetails'}
-                            ({foreach $dimensionArr as $dimkey => $dim}
+                            <br><small>({foreach $dimensionArr as $dimkey => $dim}
                             {$dimkey}{if $dim@last}{else} &times; {/if}
-                            {/foreach}):
+                            {/foreach}):</small>
                         </strong>
-                        <span>
-                            {foreach $dimensionArr as $dim}
-                                {$dim}{if $dim@last} cm {else} &times; {/if}
-                            {/foreach}
+                        <span class="tag">
+                        {foreach $dimensionArr as $dim}
+                            {$dim}{if $dim@last} cm {else} &times; {/if}
+                        {/foreach}
                         </span>
                     </li>
                 {/if}
@@ -90,7 +92,7 @@
                 {foreach $Artikel->Attribute as $Attribut}
                     <li class="dpflex-a-c">
                         <strong class="first mr-xxs">{$Attribut->cName}: </strong>
-                        <span>{$Attribut->cWert}</span>
+                        <span class="tag">{$Attribut->cWert}</span>
                     </li>
                 {/foreach}
             {/block}

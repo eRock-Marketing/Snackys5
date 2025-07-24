@@ -3,7 +3,7 @@
     {$fehlendeAngaben = $fehlendeAngaben_fragezumprodukt}
 {/if}
 <div class="panel-wrap">
-    <form action="{if !empty($Artikel->cURLFull)}{$Artikel->cURLFull}{if $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'Y'}#tab-productquestion{/if}{else}index.php{/if}" method="post" id="article_question" class="evo-validate">
+    <form action="{if !empty($Artikel->cURLFull)}{$Artikel->cURLFull}{if $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'Y'}#tab-productquestion{/if}{else}index.php{/if}" method="post" id="article_question" class="jtl-validate">
         {$jtl_token}
         <fieldset class="panel">
             <span class="block h5">{lang key="contact"}</span>
@@ -158,19 +158,14 @@
         </fieldset>
         {if (!isset($smarty.session.bAnti_spam_already_checked) || $smarty.session.bAnti_spam_already_checked !== true) &&
             isset($Einstellungen.artikeldetails.produktfrage_abfragen_captcha) && $Einstellungen.artikeldetails.produktfrage_abfragen_captcha !== 'N' && empty($smarty.session.Kunde->kKunde)}
-            
-            <div class="row">
-                <div class="col-12 col-md-12{if !empty($fehlendeAngaben_fragezumprodukt.captcha)} has-error{/if}">
-                    {captchaMarkup getBody=true}
-                </div>
-            </div>
+            {captchaMarkup getBody=true}
         {/if}
-
-        {if $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'P' && isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}
-            <p class="privacy text-muted small">
-                <a href="{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}" class="popup">{$oSpezialseiten_arr[12]->cName}</a>
-            </p>
-        {/if}
+        <p class="small text-muted">(* = {lang key='mandatoryFields'})</p>
+        <p class="privacy text-muted">
+            <a href="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}{/if}" class="popup small tdu">
+                {lang key='privacyNotice'}
+            </a>
+        </p>
         <input type="hidden" name="a" value="{$Artikel->kArtikel}" />
         <input type="hidden" name="show" value="1" />
         <input type="hidden" name="fragezumprodukt" value="1" />

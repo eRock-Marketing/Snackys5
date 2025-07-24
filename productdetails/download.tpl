@@ -22,7 +22,7 @@
                                 </video>
                             {elseif $oDownload->getPreviewType() === 'image'}
                                 <img src="{$smarty.const.PFAD_DOWNLOADS_PREVIEW_REL}{$oDownload->cPfadVorschau}"
-                                     class="img-responsive" alt="{$oDownload->oDownloadSprache->getBeschreibung()|strip_tags}">
+                                     class="img-responsive" alt="{$oDownload->oDownloadSprache->getBeschreibung()|strip_tags}" width="100%">
                             {else}
                                 <a href="{$smarty.const.PFAD_DOWNLOADS_PREVIEW_REL}{$oDownload->cPfadVorschau}"
                                    title="{$oDownload->oDownloadSprache->getName()}" target="_blank">

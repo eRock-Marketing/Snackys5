@@ -1,15 +1,8 @@
-/* Counter in Boxes */
-.ctr{
-    color: @brand;
-    margin-left: auto;    
-    padding-left: .5rem;
-}
 /* Rating Stars */
 .nav-it .rating{
     width: 100%;
 }
 .ic-bd{
-    background: @defaultborder;
     width: 2rem;
     height: 2rem;
     border-radius: .5rem;
@@ -41,13 +34,16 @@
     border-radius: 0;
 }
 /* Range Slider */
+#price-slider-box:not(.noUi-target),
+#price-slider-box:not(.noUi-target) + .unit{
+    height: 20px;
+}
 .box .noUi-target{
     height: 20px;
     border: 0;
     box-shadow: none;
     margin: 0 10px 4px 10px;
     border-radius: 3rem;
-    background: @lightfocusbg;
 }
 html:not([dir=rtl]) .box .noUi-horizontal .noUi-origin{
     height: 100%;
@@ -59,7 +55,6 @@ html:not([dir=rtl]) .box .noUi-horizontal .noUi-handle {
     border: 0;
     border-radius: 50%;
     background: white;
-    box-shadow: inset 0 0 0 1px @defaultborder;
     top: 0;
     cursor: pointer;
 }
@@ -70,14 +65,11 @@ html:not([dir=rtl]) .box .noUi-horizontal .noUi-handle {
 .box .noUi-handle{
     transform: translateX(50%);
 }
-.box .noUi-connect{
-    background: @brand;
-    @gradientbrand;    
-}
 .box .rng{
     padding: 0;
     background: none;
     border: 0;
+    font-size: .85rem;
 }
 .box .unit{
     margin: 0 4px;
@@ -110,7 +102,6 @@ html:not([dir=rtl]) .box .noUi-horizontal .noUi-handle {
     height: auto;
     background: none;
     line-height: normal;
-    color: @brand;
     font-weight: 400;
     margin-left: auto;
 }
@@ -129,9 +120,14 @@ html:not([dir=rtl]) .box .noUi-horizontal .noUi-handle {
     transform: translateY(-6px);
 }
 #sp-l .jslider-pointer{
-    background: @brand;
     border-radius: 50%;
 }
 #sp-l .jslider-bg i{
     background: #ddd;
+}
+@media screen and (max-width: 991px){
+    .box .noUi-target,
+    html:not([dir=rtl]) .box .noUi-horizontal .noUi-handle{
+        height: 24px;
+    }
 }

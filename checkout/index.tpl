@@ -1,4 +1,5 @@
 {block name='checkout-index'}
+{if !isset($viewportImages)}{assign var="viewportImages" value=0}{/if}
 {block name="header"}
     {if !isset($bAjaxRequest) || !$bAjaxRequest}
         {include file='layout/header.tpl' smallversion=true}

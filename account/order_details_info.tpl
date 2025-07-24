@@ -16,33 +16,50 @@
         <hr>
     {/block}
     {block name="order-details-payment"}
-    <div class="panel-title h6 mb-xxs">{block name="order-details-payment-title"}{lang key="paymentOptions" section="global"}: {$Bestellung->cZahlungsartName}{/block}</div>
+    <div class="panel-title h6 mb-xxs">{block name="order-details-payment-title"}{lang key="paymentOptions" section="global"}: {/block}</div>
     {block name="order-details-payment-body"}
-        {if $Bestellung->cStatus != BESTELLUNG_STATUS_STORNO && $Bestellung->dBezahldatum_de !== '00.00.0000' && !empty($Bestellung->dBezahldatum_de)}
-            {lang key='payedOn' section='login'} {$Bestellung->dBezahldatum_de}
-        {else}
-            {if ($Bestellung->cStatus == BESTELLUNG_STATUS_OFFEN || $Bestellung->cStatus == BESTELLUNG_STATUS_IN_BEARBEITUNG) && (($Bestellung->Zahlungsart->cModulId !== 'za_ueberweisung_jtl' && $Bestellung->Zahlungsart->cModulId !== 'za_nachnahme_jtl' && $Bestellung->Zahlungsart->cModulId !== 'za_rechnung_jtl' && $Bestellung->Zahlungsart->cModulId !== 'za_barzahlung_jtl') && (isset($Bestellung->Zahlungsart->bPayAgain) && $Bestellung->Zahlungsart->bPayAgain))}
-                <a href="bestellab_again.php?kBestellung={$Bestellung->kBestellung}">{lang key='payNow' section='global'}</a>
-            {else}
-                {lang key='notPayedYet' section='login'}
+        <ul class="blanklist">
+            {if $Bestellung->dBezahldatum_de === '00.00.0000' || empty($Bestellung->dBezahldatum_de)}
+                <li>{$Bestellung->cZahlungsartName}</li>
+                <li>
+                    {if ($Bestellung->cStatus == BESTELLUNG_STATUS_OFFEN || $Bestellung->cStatus == BESTELLUNG_STATUS_IN_BEARBEITUNG)
+                        && (($Bestellung->Zahlungsart->cModulId !== 'za_ueberweisung_jtl'
+                        && $Bestellung->Zahlungsart->cModulId !== 'za_nachnahme_jtl'
+                        && $Bestellung->Zahlungsart->cModulId !== 'za_rechnung_jtl'
+                        && $Bestellung->Zahlungsart->cModulId !== 'za_barzahlung_jtl')
+                        && (isset($Bestellung->Zahlungsart->bPayAgain) && $Bestellung->Zahlungsart->bPayAgain))}
+                            {link href="{get_static_route id='bestellab_again.php'}?kBestellung={$Bestellung->kBestellung}"}{lang key='payNow' section='global'}{/link}
+                    {else}
+                        {lang key='notPayedYet' section='login'}
+                    {/if}
+                </li>
             {/if}
-        {/if}
+            {foreach $incommingPayments as $paymentProvider => $incommingPayment}
+                <li>{$paymentProvider|htmlentities}</li>
+                {foreach $incommingPayment as $payment}
+                    <li>{$payment->paymentLocalization}</li>
+                {/foreach}
+            {/foreach}
+        </ul>
     {/block}
     {/block}
     <hr>
     {block name="order-details-shipping"}
-    <div class="panel-title h6 mb-xxs">{block name="order-details-shipping-title"}{lang key="shippingOptions" section="global"}: {$Bestellung->cVersandartName}{/block}</div>
+    <div class="panel-title h6 mb-xxs">{block name="order-details-shipping-title"}{lang key="shippingOptions" section="global"}: {/block}</div>
     {block name='order-details-shipping-body'}
-    {if $Bestellung->cStatus == BESTELLUNG_STATUS_VERSANDT}
-        {lang key='shippedOn' section='login'} {$Bestellung->dVersanddatum_de}
-    {elseif $Bestellung->cStatus == BESTELLUNG_STATUS_TEILVERSANDT}
-        {$Bestellung->Status}
-    {else}
-        <p>{lang key='notShippedYet' section='login'}</p>
-        {if $Bestellung->cStatus != BESTELLUNG_STATUS_STORNO}
-        <p><strong>{lang key='shippingTime' section='global'}</strong>: {if isset($cEstimatedDeliveryEx)}{$cEstimatedDeliveryEx}{else}{$Bestellung->cEstimatedDelivery}{/if}</p>
-        {/if}
-    {/if}
+        <ul class="blanklist">
+            <li>{$Bestellung->cVersandartName}</li>
+            {if $Bestellung->cStatus == BESTELLUNG_STATUS_VERSANDT}
+                <li>{lang key='shippedOn' section='login'} {$Bestellung->dVersanddatum_de}</li>
+            {elseif $Bestellung->cStatus == BESTELLUNG_STATUS_TEILVERSANDT}
+                <li>{$Bestellung->Status}</li>
+            {else}
+                <li>{lang key='notShippedYet' section='login'}</li>
+                {if $Bestellung->cStatus != BESTELLUNG_STATUS_STORNO}
+                <li><strong>{lang key='shippingTime' section='global'}</strong>: {if isset($cEstimatedDeliveryEx)}{$cEstimatedDeliveryEx}{else}{$Bestellung->cEstimatedDelivery}{/if}</li>
+                {/if}
+            {/if}
+        </ul>
     {/block}
     {/block}
 
@@ -160,7 +177,7 @@
     {block name='order-details-request-plz'}
         <div class="row">
             <div class="col-12 col-md-6">
-                <form method="post" id='request-plz' action="{get_static_route}" class="evo-validate">
+                <form method="post" id='request-plz' action="{get_static_route}" class="jtl-validate">
                     <input type="hidden" name="uid" value="{$uid}" />
                     <p>{lang key='enter_plz_for_details' section='account data'}</p>
                     <div class="form-group">

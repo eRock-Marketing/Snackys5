@@ -41,7 +41,7 @@
                                         aria=["label"=>{lang section="comparelist" key="removeFromCompareList"}]}
                                         <span class="img-ct icon">
                                             <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-bin"></use>
+                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>
                                             </svg>
                                         </span>
                                     {/link}

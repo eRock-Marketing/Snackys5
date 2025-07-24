@@ -1,17 +1,25 @@
 {block name='layout-header-shop-nav'}
 {strip}
 <div class="hdr-nav dpflex-a-center dpflex-j-end">
+{include file="snippets/zonen.tpl" id="before_hdr_nav" title="before_hdr_nav"}
+{if $snackyConfig.languageShopNav == 'Y'}
+    {block name="navbar-languageswitch"}
+        {if isset($smarty.session.Sprachen) && $smarty.session.Sprachen|@count > 1}
+            {include file="snippets/language_dropdown.tpl" isHeader=true}
+        {/if}
+    {/block}
+{/if}
 {if $snackyConfig.headerType == 1 || $snackyConfig.headerType == 2 || $snackyConfig.headerType == 3 || $snackyConfig.headerType == 4 || $snackyConfig.headerType == 5 || $snackyConfig.headerType == 6 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 5.5 || $snackyConfig.headerType == 7}
 {block name="navbar-productsearch"}
 	<div class="sr-tg hidden-xs">
 		<span class="img-ct icon icon-xl">
 			<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-			  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-search"></use>
+			  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-search"></use>
 			</svg>
 		</span>
 		<span class="img-ct icon icon-xl">
 			<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-			  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-close"></use>
+			  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-close"></use>
 			</svg>
 		</span>
 	</div>
@@ -20,10 +28,10 @@
 {block name="navbar-top-user"}
     {block name="navbar-top-user-account"}
     <div class="dropdown">
-        <a href="#" data-toggle="modal" data-target="#login-popup" {if empty($smarty.session.Kunde->kKunde)}title="{lang key='login'}"{else}title="{lang key='hello'}"{/if}>
+        <a href="#" data-toggle="modal" data-target="#login-popup" {if empty($smarty.session.Kunde->kKunde)}title="{lang key='login'}"{else}title="{lang key='myAccount'}"{/if}>
             <span class="img-ct icon icon-xl">
                 <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-user"></use>
+                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-user"></use>
                 </svg>
             </span>
         </a>
@@ -36,7 +44,9 @@
     {/block}
 
     {block name="navbar-top-user-wish"}
-        {include file='layout/header_shop_nav_wish.tpl'}
+        {if $Einstellungen.global.global_wunschliste_anzeigen === 'Y'}
+            {include file='layout/header_shop_nav_wish.tpl'}
+        {/if}
     {/block}
 
     {block name="navbar-top-user-cart"}
@@ -45,6 +55,7 @@
     </div>
     {/block}
 {/block}{* /navbar-top-user *}
+{include file="snippets/zonen.tpl" id="after_hdr_nav" title="after_hdr_nav"}
 </div>{* /shop-nav *}
 {/strip}
 {/block}

@@ -1,6 +1,6 @@
 {block name='productlist-footer'}
 {assign var=Suchergebnisse value=$NaviFilter->getSearchResults(false)}
-{if $Suchergebnisse->getProducts()|@count > 0 && $snackyConfig.useEndlessScrolling != 'Y'}
+{if $Suchergebnisse->getProducts()|@count > 0 && $snackyConfig.useEndlessScrolling != 'Y' && $snackyConfig.useEndlessScrolling != 'B'}
 	{if $Einstellungen.navigationsfilter.suchtrefferfilter_nutzen === 'Y'
 		&& $Suchergebnisse->getSearchFilterOptions()|@count > 0
 		&& $Suchergebnisse->getSearchFilterJSON()

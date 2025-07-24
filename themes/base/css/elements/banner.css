@@ -1,25 +1,20 @@
 .banner{
 	position: relative;
 }
-.banner img{
-	width: 100%;
-}
-body:not([data-page="18"]) .banner img,
-body[data-page="18"] .sl-w + .banner img,
-body[data-page="18"].boxed-slider:not(.full-width) .banner img{
+.banner > img{
 	border-radius: .8rem;
 }
-.banner a[style]{
+.banner .area{
 	position: absolute;
 	border: .35rem solid rgba(255,255,255,.6);
 	border-radius: .3rem;
 	transition: .3s ease;
 	opacity: 0;
 }
-.banner:hover a[style]{
+.banner:hover .area{
 	opacity: 1;
 }
-.banner a[style]:hover{
+.banner .area:hover{
 	background: rgba(255,255,255,.3);
 }
 .banner .area-desc{
@@ -29,6 +24,7 @@ body[data-page="18"].boxed-slider:not(.full-width) .banner img{
 	left: 50%;
 	transform: translateX(-50%);
 	min-width: 15rem;
+    max-width: 15rem;
 	flex-wrap: wrap;
 	justify-content: center;
 	z-index: 100;
@@ -39,26 +35,8 @@ body[data-page="18"].boxed-slider:not(.full-width) .banner img{
     margin-top: 1rem;
     text-align: center;
 }
-.banner a[style]:hover .area-desc:not(:empty){
+.banner .area:hover .area-desc:not(:empty){
 	display: flex;
-}
-.banner .top .area-desc{
-	top: auto;
-	bottom: 100%;
-    margin: 0 0 1rem 0;
-}
-.banner .right .area-desc{
-	left: 100%;
-	top: 50%;
-	transform: translateY(-50%);
-    margin: 0 0 0 1rem;
-}
-.banner .left .area-desc{
-	right: 100%;
-	left: auto;
-	top: 50%;
-	transform: translateY(-50%);
-    margin: 0 1rem 0 0;
 }
 .banner .h4{
 	margin-bottom: .5rem;
@@ -74,8 +52,18 @@ body[data-page="18"].boxed-slider:not(.full-width) .banner img{
 }
 .banner .img-ct{
 	margin: .75rem auto;
-	max-width: 10rem;
 }
 .banner .price_wrapper{
     margin-top: 1rem;
+}
+@media screen and (max-width: 767px){
+    .banner .area-desc{
+        min-width: 10rem;
+        max-width: 10rem;
+    }
+    .banner .area{
+        border-width: .2rem;
+        min-width: 2rem;
+        min-height: 2rem;
+    }
 }

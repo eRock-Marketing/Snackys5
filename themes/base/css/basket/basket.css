@@ -19,13 +19,6 @@
     background: none;
     opacity: .5;
 }
-.choose_quantity button:hover .img-ct{
-    transform: rotate(360deg);
-    transition: 1s ease;
-}
-.choose_quantity .img-ct{
-    opacity: .7;
-}
 .right-boxes{
     max-width: 28rem;
 }
@@ -52,12 +45,24 @@ fileupload-wrapper:blank{
 .c-it .info-ul li{
     padding: .1rem 0
 }
+.c-it input.qty{
+    border: 1px solid @defaultborder;
+    border-radius: .3rem;
+    padding: .5rem 1rem;
+}
+.add-pays{
+    margin-top: .5rem;
+}
 /* PayPal Finanzierung*/
 .add-pays .ppc-message{
     margin-top: 1rem;
 }
+/* PayPal Checkout JTL-Bug: Z-Index Fix */
+#snackys-tpl #paypal-button-cart-container iframe{
+    z-index: 2;
+}
 @media screen and (max-width: 991px){
-    .basket_wrapper>.panel-slider{
+    .basket-xsell{
         display: none;
     }
     .right-boxes{
@@ -118,4 +123,44 @@ fileupload-wrapper:blank{
     .c-it .img-col{
         width: 8rem;
     }
+}
+/* Cross-Selling Sliders */
+@media screen and (min-width: 1600px){
+	body:not(.mobile) .basket_wrapper .p-sl .p-w,
+	body:not(.mobile) .basket_wrapper .ar-ct-m .ar-ct{
+        width: calc(100% / (@listElmXl - 1));
+        min-width: calc(100% / (@listElmXl - 1));
+    }
+	body:not(.mobile) .basket_wrapper .p-sl .p-w:nth-child(@listElmXln){
+		scroll-snap-align: start;
+	}
+	body:not(.mobile) .basket_wrapper .p-sl .p-w:not(:nth-child(@listElmXln)):not(:first-child){
+		scroll-snap-align: none;
+	}
+}
+@media screen and (min-width: 1200px) and (max-width: 1599px){
+	body:not(.mobile) .basket_wrapper .p-sl .p-w,
+	body:not(.mobile) .basket_wrapper .ar-ct-m .ar-ct{
+        width: calc(100% / (@listElmLg - 1));
+        min-width: calc(100% / (@listElmLg - 1));
+    }
+	body:not(.mobile) .basket_wrapper .p-sl .p-w:nth-child(@listElmLgn){
+		scroll-snap-align: start;
+	}
+	body:not(.mobile) .basket_wrapper .p-sl .p-w:not(:nth-child(@listElmLgn)):not(:first-child){
+		scroll-snap-align: none;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199px){
+	body:not(.mobile) .basket_wrapper .p-sl .p-w,
+	body:not(.mobile) .basket_wrapper .ar-ct-m .ar-ct{
+        width: calc(100% / (@listElmMd - 1));
+        min-width: calc(100% / (@listElmMd - 1));
+    }
+	body:not(.mobile) .basket_wrapper .p-sl .p-w:nth-child(@listElmMdn){
+		scroll-snap-align: start;
+	}
+	body:not(.mobile) .basket_wrapper .p-sl .p-w:not(:nth-child(@listElmMdn)):not(:first-child){
+		scroll-snap-align: none;
+	}
 }

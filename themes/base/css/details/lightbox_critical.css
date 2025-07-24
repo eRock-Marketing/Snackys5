@@ -1,0 +1,6 @@
+body:not(.lightbox-shown) #close-lightbox{
+    display: none;
+}
+.lightbox-shown #gallery-thumbs{
+    background: @blackbg;
+}

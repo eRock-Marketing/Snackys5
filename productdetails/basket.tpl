@@ -3,58 +3,75 @@
     <div id="add-to-cart" class="hidden-print product-buy{if $Artikel->nErscheinendesProdukt} coming_soon{/if}">
 
         {block name="add-to-cart"}
-            {if $Artikel->nErscheinendesProdukt}
-                <div class="{if $Einstellungen.global.global_erscheinende_kaeuflich === 'Y'}alert alert-warning coming_soon{else}alert alert-info {/if} text-center">
-                    {lang key="productAvailableFrom" section="global"}: <strong>{$Artikel->Erscheinungsdatum_de}</strong>
-                    {if $Einstellungen.global.global_erscheinende_kaeuflich === 'Y' && $Artikel->inWarenkorbLegbar == 1}
-                        ({lang key="preorderPossible" section="global"})
-                    {/if}
-                </div>
-            {/if}
             {if $Artikel->inWarenkorbLegbar == 1 && !$Artikel->oKonfig_arr}
                 {if !$showMatrix}
                     {block name="basket-form-inline"}
-                        <div id="quantity-grp" class="dpflex{if $snackyConfig.quantityButtons == '1'}-wrap{/if} w100 choose_quantity{if $Artikel->nIstVater && $Artikel->kVaterArtikel == 0 && !$showMatrix} disabled mb-xxs{/if}">
-                            {if $snackyConfig.quantityButtons == '1'}
-                            <div class="btn-group qty-btns w100 m0">
-                                <div class="btn btn-blank qty-sub">
-                                    <span class="img-ct icon">
-                                        <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                                          <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-minus"></use>
-                                        </svg>
-                                    </span>
-                                </div>
-                            {/if}
-                                
-                            <input type="{if $Artikel->cTeilbar === 'Y' && $Artikel->fAbnahmeintervall == 0}text{else}number{/if}"
-                               min="{if $Artikel->fMindestbestellmenge}{$Artikel->fMindestbestellmenge}{else if $Artikel->cTeilbar != 'Y'}1{/if}"
-                               max="{$Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_MAXBESTELLMENGE]|default:''}"
-                               {if $Artikel->cTeilbar != 'Y'}
-                                   step="{if $Artikel->fAbnahmeintervall > 0}{$Artikel->fAbnahmeintervall}{else}1{/if}"
+                        {if $Artikel->Preise->fVKNetto == 0 && isset($Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_VOUCHER_FLEX])}
+                            {block name='productdetails-basket-voucher-flex'}
+                                {col cols=12 sm=6}
+                                    {inputgroup class="form-counter"}
+                                        {input type="number"
+                                            step=".01"
+                                            value="{if isset($voucherPrice)}{$voucherPrice}{/if}"
+                                            name="{$smarty.const.FKT_ATTRIBUT_VOUCHER_FLEX}Value"
+                                            required=true
+                                            placeholder="{lang key='voucherFlexPlaceholder' section='productDetails' printf=$smarty.session.Waehrung->getName()}"}
+                                        {inputgroupappend}
+                                            {inputgrouptext class="form-control"}
+                                                {$smarty.session.Waehrung->getName()}
+                                            {/inputgrouptext}
+                                        {/inputgroupappend}
+                                    {/inputgroup}
+                                {/col}
+                                {if isset($kEditKonfig)}
+                                    <input type="hidden" name="kEditKonfig" value="{$kEditKonfig}"/>
                                 {/if}
-                                   id="quantity" class="quantity form-control{if $snackyConfig.quantityButtons == '1'} text-center{else} text-right{/if}" name="anzahl"
-                                   aria-label="{lang key='quantity'}"
-                                   value="{if $Artikel->fAbnahmeintervall > 0}{if $Artikel->fMindestbestellmenge > $Artikel->fAbnahmeintervall}{$Artikel->fMindestbestellmenge}{else}{$Artikel->fAbnahmeintervall}{/if}{else}1{/if}" />
-                            {if $Artikel->cEinheit}
-                                <span class="input-group-addon unit">{$Artikel->cEinheit}</span>
-                            {/if}
-                            {if $snackyConfig.quantityButtons == '1'}
-                                <div class="btn btn-blank qty-add">
-                                    <span class="img-ct icon">
-                                        <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                                          <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-plus"></use>
-                                        </svg>
-                                    </span>
+                                {input type="hidden" id="quantity" class="quantity" name="anzahl" value="1"}
+                            {/block}
+                        {else}
+                            <div id="quantity-grp" class="dpflex{if $snackyConfig.quantityButtons == '1'}-wrap{/if} w100 choose_quantity{if $Artikel->nIstVater && $Artikel->kVaterArtikel == 0 && !$showMatrix} disabled mb-xxs{/if}">
+                                {if $snackyConfig.quantityButtons == '1'}
+                                <div class="btn-group qty-btns w100 m0">
+                                    <div class="btn btn-blank qty-sub">
+                                        <span class="img-ct icon">
+                                            <svg>
+                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-minus"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                {/if}
+
+                                <input type="{if $Artikel->cTeilbar === 'Y' && $Artikel->fAbnahmeintervall == 0}text{else}number{/if}"
+                                   min="{if $Artikel->fMindestbestellmenge}{$Artikel->fMindestbestellmenge}{else if $Artikel->cTeilbar != 'Y'}1{/if}"
+                                   max="{$Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_MAXBESTELLMENGE]|default:''}"
+                                   {if $Artikel->cTeilbar != 'Y'}
+                                       step="{if $Artikel->fAbnahmeintervall > 0}{$Artikel->fAbnahmeintervall}{else}1{/if}"
+                                    {/if}
+                                       id="quantity" class="quantity form-control{if $snackyConfig.quantityButtons == '1'} text-center{else} text-right{/if}" name="anzahl"
+                                       aria-label="{lang key='quantity'}"
+                                       value="{if $Artikel->fAbnahmeintervall > 0 || $Artikel->fMindestbestellmenge > 1}{if $Artikel->fMindestbestellmenge > $Artikel->fAbnahmeintervall}{$Artikel->fMindestbestellmenge}{else}{$Artikel->fAbnahmeintervall}{/if}{else}1{/if}" />
+                                {if $Artikel->cEinheit}
+                                    <span class="input-group-addon unit">{$Artikel->cEinheit}</span>
+                                {/if}
+                                {if $snackyConfig.quantityButtons == '1'}
+                                    <div class="btn btn-blank qty-add">
+                                        <span class="img-ct icon">
+                                            <svg>
+                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-plus"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <hr class="hr-xs invisible w100">
-                            {/if}
-                            <button aria-label="{lang key='addToCart'}" name="inWarenkorb" type="submit" value="{lang key='addToCart'}" class="sn-addBasket submit btn btn-primary btn-lg btn-block{if isset($wkWeiterleiten)} wkWeiterleiten{/if}"{if $Artikel->nIstVater && $Artikel->kVaterArtikel == 0 && !$showMatrix} disabled{/if}
-                                data-track-type="click" data-track-event="add_to_cart" data-track-p-value="{$Artikel->Preise->fVKNetto}" data-track-p-currency="{$smarty.session.Waehrung->cISO}" data-track-p-items='[{ldelim}"id":"{$Artikel->cArtNr}","category":"{$cate|htmlspecialchars}","name":"{$Artikel->cName|htmlspecialchars}","price":"{$Artikel->Preise->fVKNetto}","quantity":"selectorval:#quantity"{rdelim}]'
-                            >
-                                <span class="">{lang key='addToCart'}</span>
-                            </button>
+                        <hr class="hr-xs invisible w100">
+                        {/if}
+                        {/if}
+                        <button aria-label="{lang key='addToCart'}" name="inWarenkorb" type="submit" value="{lang key='addToCart'}" class="sn-addBasket submit btn btn-primary btn-lg btn-block{if isset($wkWeiterleiten)} wkWeiterleiten{/if}"{if $Artikel->nIstVater && $Artikel->kVaterArtikel == 0 && !$showMatrix} disabled{/if}>
+                            <span class="">{lang key='addToCart'}</span>
+                        </button>
+                        {if $snackyConfig.quantityButtons != '1'}
                         </div>
+                        {/if}
                     {/block}
                 {/if}
                 {if $Artikel->nIstVater && $Artikel->kVaterArtikel == 0 && !$showMatrix}

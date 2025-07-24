@@ -10,16 +10,16 @@
             <label for="wl-action"  class="btn wishlist dpflex-a-c dpflex-j-center" title="{lang key='addToWishlist' section='productDetails'}">
                 <span class="img-ct icon ic-md">
 					<svg>
-					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-heart"></use>
+					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-heart"></use>
 					</svg>
                 </span>
             </label>
         {/if}
         {if $Einstellungen.artikeldetails.artikeldetails_vergleichsliste_anzeigen === 'Y' && $Einstellungen.vergleichsliste.vergleichsliste_anzeigen === 'Y'}
-            <label for="vg-action" class="btn compare dpflex-a-c dpflex-j-center">
+            <label for="vg-action" class="btn compare dpflex-a-c dpflex-j-center" title="{lang key='addToCompare' section='productDetails'}">
                 <span class="img-ct icon ic-md">
 					<svg>
-					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-compare"></use>
+					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-compare"></use>
 					</svg>
                 </span>
             </label>
@@ -28,7 +28,7 @@
             <label for="z{$kArtikel}" class="btn popup-dep question dpflex-a-c dpflex-j-center" title="{lang key='productQuestion' section='productDetails'}">
                 <span class="img-ct icon ic-md">
 					<svg>
-					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-question"></use>
+					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-question"></use>
 					</svg>
                 </span>
             </label>

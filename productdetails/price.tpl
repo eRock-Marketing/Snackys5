@@ -10,6 +10,10 @@
         <span class="price_label price_on_application small">{lang key="priceOnApplication" section="global"}</span>
     {else}
 		<div class="price-row">
+		
+			{* Fallback für PayPal Checkout Plugin > murks aber leider nur so funktionstüchtig *}
+			<meta itemprop="price" content="{if $Artikel->Preise->oPriceRange->isRange()}{$Artikel->Preise->oPriceRange->minBruttoPrice|string_format:"%.2f"}{else}{$Artikel->Preise->fVKBrutto|string_format:"%.2f"}{/if}">
+			
         {block name='price-label'}
             {if ($tplscope !== 'detail' && $Artikel->Preise->oPriceRange->isRange() && $Artikel->Preise->oPriceRange->rangeWidth() > $Einstellungen.artikeluebersicht.articleoverview_pricerange_width)
                 || ($tplscope === 'detail' && ($Artikel->nVariationsAufpreisVorhanden == 1 || $Artikel->bHasKonfig) && $Artikel->kVaterArtikel == 0)}
@@ -29,7 +33,7 @@
                 {/if}
             {/block}
 			{block name='price-range'}
-                <span{if $Artikel->Preise->oPriceRange->isRange() && $tplscope !== 'box'} itemprop="priceSpecification" itemscope itemtype="http://schema.org/UnitPriceSpecification"{/if} {if $tplscope === 'matrix'} class="no-wrap" {/if}>
+                <span {if $tplscope === 'matrix'} class="no-wrap" {/if}>
                 {if $tplscope !== 'detail' && $Artikel->Preise->oPriceRange->isRange()}
                     {if $Artikel->Preise->oPriceRange->rangeWidth() <= $Einstellungen.artikeluebersicht.articleoverview_pricerange_width}
                         {assign var=rangePrices value=$Artikel->Preise->oPriceRange->getLocalizedArray($NettoPreise)}
@@ -40,24 +44,8 @@
                 {else}
                     {if $Artikel->Preise->oPriceRange->isRange() && ($Artikel->nVariationsAufpreisVorhanden == 1 || $Artikel->bHasKonfig) && $Artikel->kVaterArtikel == 0}{$Artikel->Preise->oPriceRange->getMinLocalized($NettoPreise)}{else}{$Artikel->Preise->cVKLocalized[$NettoPreise]}{/if}
                 {/if}
-                {if $Artikel->Preise->oPriceRange->isRange() && $tplscope !== 'box'}
-                    <meta itemprop="priceCurrency" content="{$smarty.session.Waehrung->getName()}">
-                    <meta itemprop="minPrice" content="{$Artikel->Preise->oPriceRange->minBruttoPrice}">
-                    <meta itemprop="maxPrice" content="{$Artikel->Preise->oPriceRange->maxBruttoPrice}">
-                {/if}
                 {if $tplscope !== 'detail' && !$Artikel->Preise->oPriceRange->isRange()}<span class="footnote-reference">*</span>{/if}
                 </span>
-			{/block}
-			{block name='price-snippets'}
-				{if $tplscope !== 'box'}
-					<meta itemprop="price" content="{if $Artikel->Preise->oPriceRange->isRange()}{$Artikel->Preise->oPriceRange->minBruttoPrice}{else}{$Artikel->Preise->fVKBrutto}{/if}">
-					<meta itemprop="priceCurrency" content="{$smarty.session.Waehrung->getName()}">
-					{if $Artikel->Preise->Sonderpreis_aktiv && $Artikel->dSonderpreisStart_en !== null && $Artikel->dSonderpreisEnde_en !== null}
-						<meta itemprop="validFrom" content="{$Artikel->dSonderpreisStart_en}">
-						<meta itemprop="validThrough" content="{$Artikel->dSonderpreisEnde_en}">
-						<meta itemprop="priceValidUntil" content="{$Artikel->dSonderpreisEnde_en}">
-					{/if}
-				{/if}
 			{/block}
 		</strong>
 		</div>
@@ -70,14 +58,8 @@
                 {* Grundpreis *}
                 {if !empty($Artikel->cLocalizedVPE)}
                     {block name='detail-base-price'}
-                        <div class="base-price" itemprop="priceSpecification" itemscope itemtype="http://schema.org/UnitPriceSpecification">
-                            <meta itemprop="price" content="{if $Artikel->Preise->oPriceRange->isRange()}{($Artikel->Preise->oPriceRange->minBruttoPrice/$Artikel->fVPEWert)|string_format:"%.2f"}{else}{($Artikel->Preise->fVKBrutto/$Artikel->fVPEWert)|string_format:"%.2f"}{/if}">
-                            <meta itemprop="priceCurrency" content="{$smarty.session.Waehrung->getName()}">
-                            <span class="value" itemprop="referenceQuantity" itemscope itemtype="http://schema.org/QuantitativeValue">
-                                {$Artikel->cLocalizedVPE[$NettoPreise]}
-                                <meta itemprop="value" content="{$Artikel->fGrundpreisMenge}">
-                                <meta itemprop="unitText" content="{$Artikel->cVPEEinheit|regex_replace:"/[\d ]/":""}">
-                            </span>
+                        <div class="base-price">
+                            <span class="value">{$Artikel->cLocalizedVPE[$NettoPreise]}</span>
                         </div>
                     {/block}
                 {/if}
@@ -105,11 +87,12 @@
                     {/if}
                 {/if}
 
-                {if $Einstellungen.artikeldetails.artikeldetails_uvp_anzeigen === 'Y' && $Artikel->fUVP > 0}
+                {if $Einstellungen.artikeldetails.artikeldetails_uvp_anzeigen === 'Y' 
+					&& $Artikel->fUVP > 0
+					&& $Artikel->Preise->fVKBrutto < $Artikel->fUVP}
 					{* if $snackyConfig.oldPricePlace !== '1' *}
 						<div class="suggested-price">
-							<abbr title="{lang key="suggestedPrice" section="productDetails"}">{lang key="suggestedPrice" section="productDetails"}</abbr>:
-							<span class="value text-nowrap">{$Artikel->cUVPLocalized}</span>
+							{lang key="suggestedPrice" section="productDetails"}: {$Artikel->cUVPLocalized}
 						</div>
 					{* /if *}
                     {* Preisersparnis zur UVP anzeigen? *}
@@ -126,14 +109,8 @@
                 {* Grundpreis *}
                 {if !empty($Artikel->cLocalizedVPE) && !$Artikel->Preise->oPriceRange->isRange()}
                     {block name='productdetails-price-list-base-price'}
-                        <div class="base_price" itemprop="priceSpecification" itemscope itemtype="http://schema.org/UnitPriceSpecification">
-                            <meta itemprop="price" content="{($Artikel->Preise->fVKBrutto/$Artikel->fVPEWert)|string_format:"%.2f"}">
-                            <meta itemprop="priceCurrency" content="{$smarty.session.Waehrung->getName()}">
-                            <span class="value" itemprop="referenceQuantity" itemscope itemtype="http://schema.org/QuantitativeValue">
-                                    {$Artikel->cLocalizedVPE[$NettoPreise]}
-                                    <meta itemprop="value" content="{$Artikel->fGrundpreisMenge}">
-                                    <meta itemprop="unitText" content="{$Artikel->cVPEEinheit|regex_replace:"/[\d ]/":""}">
-                                </span>
+                        <div class="base_price">
+                            <span class="value">{$Artikel->cLocalizedVPE[$NettoPreise]}</span>
                         </div>
                     {/block}
                 {/if}

@@ -32,7 +32,7 @@
                                         {/if}
                                         {block name='boxes-box-wishlist-dropdown-products-title'}
                                             {link href=$wishlistItem->Artikel->cURLFull title=$wishlistItem->cArtikelName|escape:'quotes' class=defaultlink}
-                                                {$wishlistItem->fAnzahl|replace_delim}&times; {$wishlistItem->cArtikelName|truncate:40:"..."}
+                                                {$wishlistItem->fAnzahl|replace_delim}&times; {$wishlistItem->cArtikelName|truncate:40:'...'}
                                             {/link}
                                         {/block}
                                 {/block}
@@ -46,7 +46,7 @@
                                         aria=["label"=>"{lang section='login' key='wishlistremoveItem'}"]}
                                         <span class="img-ct icon">
                                             <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-bin"></use>
+                                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>
                                             </svg>
                                         </span>
                                     {/link}

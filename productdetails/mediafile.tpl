@@ -23,7 +23,7 @@
 
                 {* Images *}
                 {if $oMedienDatei->nMedienTyp == 1}
-                    <div class="col-6 col-sm-4 col-md-3 col-lg3{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-2{/if}">
+                    <div class="col-xxs-12 col-6 col-sm-6 col-md-4{if $snackyConfig.css_maxTabsWidth >= 1200}  col-lg3{/if}{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-2{/if}">
                         <div class="card">
                             <div class="card-header"><span class="h6 m0 block">{$oMedienDatei->cName}</h3></div>
                             <div class="card-body">
@@ -36,9 +36,9 @@
                                     {/foreach}
                                 {/if}
                                 {if !empty($oMedienDatei->cPfad)}
-                                    <img alt="{if isset($cMediaAltAttr)}{$cMediaAltAttr}{/if}" src="{$ShopURL}/{$smarty.const.PFAD_MEDIAFILES}{$oMedienDatei->cPfad}" class="img-responsive" />
+                                    <img alt="{if isset($cMediaAltAttr)}{$cMediaAltAttr}{/if}" src="{$ShopURL}/{$smarty.const.PFAD_MEDIAFILES}{$oMedienDatei->cPfad}" class="img-fluid" />
                                 {elseif !empty($oMedienDatei->cURL)}
-                                    <img alt="{if isset($cMediaAltAttr)}{$cMediaAltAttr}{/if}" src="{$oMedienDatei->cURL}" class="img-responsive" />
+                                    <img alt="{if isset($cMediaAltAttr)}{$cMediaAltAttr}{/if}" src="{$oMedienDatei->cURL}" class="img-fluid" />
                                 {/if}
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                 {* Audio *}
                 {elseif $oMedienDatei->nMedienTyp == 2}
                     {if $oMedienDatei->cName|strlen > 1}
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="col-xxs-12 col-6 col-sm-6 col-md-4{if $snackyConfig.css_maxTabsWidth >= 1200}  col-lg3{/if}{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-2{/if}">
                             <div class="card">
                                 <div class="card-header"><span class="h6 m0 block">{$oMedienDatei->cName}</span></div>
                                 <div class="card-body">
@@ -73,7 +73,7 @@
                 {* Video *}
                  {elseif $oMedienDatei->nMedienTyp === 3}
                         {block name='productdetails-mediafile-video'}
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="col-xxs-12 col-6 col-sm-6 col-md-4{if $snackyConfig.css_maxTabsWidth >= 1200}  col-lg3{/if}{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-2{/if}">
                             <div class="card">
                                 <div class="card-header"><span class="h6 m0 block">{$oMedienDatei->cName}</span></div>
                                 <div class="card-body">
@@ -93,7 +93,7 @@
                         {/block}
                 {* Sonstiges *}
                 {elseif $oMedienDatei->nMedienTyp == 4}
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="col-xxs-12 col-6 col-sm-6 col-md-4{if $snackyConfig.css_maxTabsWidth >= 1200}  col-lg3{/if}{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-2{/if}">
                         <div class="card">
                             <div class="card-header"><span class="h6 m0 block">{$oMedienDatei->cName}</span></div>
                             <div class="card-body">
@@ -115,7 +115,7 @@
                     </div>
                     {* PDF *}
                 {elseif $oMedienDatei->nMedienTyp == 5}
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="col-xxs-12 col-6 col-sm-6 col-md-4{if $snackyConfig.css_maxTabsWidth >= 1200}  col-lg3{/if}{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-2{/if}">
                         <div class="card">
                             <div class="card-header"><span class="h6 m0 block">{$oMedienDatei->cName}</span></div>
                             <div class="card-body">

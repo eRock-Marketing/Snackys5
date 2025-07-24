@@ -20,7 +20,7 @@
                                         <button class="btn-blank btn-sm btn dpflex-a-center" name="wls" value="{$Wunschliste->kWunschliste}" title="{lang key="wishlistStandard" section="login"}">
                                             <span class="img-ct icon {if $Wunschliste->nStandard != 1}inactive{else}active{/if}">
                                                 <svg>
-                                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-circle"></use>
+                                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-circle"></use>
                                                 </svg>
                                             </span>
                                         </button>
@@ -28,7 +28,7 @@
                                             <button type="submit" class="btn-blank btn-sm btn dpflex-a-center" name="wlAction" value="setPrivate" title="{lang key="wishlistPrivat" section="login"}">
                                                 <span class="img-ct icon">
 													<svg>
-													  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-hide"></use>
+													  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-hide"></use>
 													</svg>
 												</span>
                                             </button>
@@ -37,7 +37,7 @@
                                             <button type="submit" class="btn-blank btn-sm btn dpflex-a-center" name="wlAction" value="setPublic" title="{lang key="wishlistNotPrivat" section="login"}">
                                                 <span class="img-ct icon">
 													<svg>
-													  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-show"></use>
+													  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-show"></use>
 													</svg>
 												</span>
                                             </button>
@@ -45,7 +45,7 @@
                                         <button type="submit" class="btn-blank btn-sm btn dpflex-a-center" name="wllo" value="{$Wunschliste->kWunschliste}" title="{lang key='wishlisteDelete' section='login'}">
                                             <span class="img-ct icon">
 												<svg>
-												  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-bin"></use>
+												  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>
 												</svg>
                                             </span>
                                         </button>

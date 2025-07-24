@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Template isFullResponsive="true">
     <Name>Snackys</Name>
-    <Author>Knoell Marketing</Author>
-    <URL>https://www.knoell-marketing.de</URL>
-    <MinShopVersion>5.0.0</MinShopVersion>
-    <Version>5.0.8</Version>
+    <Author>eRock Marketing</Author>
+    <URL>https://www.erock-marketing.de</URL>
+    <MinShopVersion>5.1.0</MinShopVersion>
+    <Version>5.1.7</Version>
     <Preview>preview-snackys.png</Preview>
-    <Description>Ultraschnelles responsive JTL Template von Knoell Marketing</Description>
+    <Description>Ultraschnelles responsive JTL Template von eRock Marketing</Description>
     <Framework>Bootstrap4</Framework>
-	<ExsID>31fe34e5-f40d-4a6d-864e-2d2ec94c10fb</ExsID>
 	<Settings>
 		<Section Name="Allgemein" Key="general">
             <Setting Description="Komprimierung von JavaScript- und CSS-Dateien" Key="use_minify" Type="select" Value="Y">
@@ -41,62 +40,43 @@
 	</Settings>
 	 <Minify>
 			<CSS Name="snackys.css">
-				<File Path="themes/base/css/bootstrap_snackys.css"/>
 				<File Path="themes/base/css/main.css"/>
-				<File Path="themes/base/css/header.css"/>
-				<File Path="themes/base/css/footer/footer.css"/>             
-                <File Path="themes/base/css/header/shopnav.css"/>
-                <File Path="themes/base/css/header/megamenu.css"/>
-                <File Path="themes/base/css/header/breadcrumb.css"/>   
-                <File Path="themes/base/css/elements/images.css"/>            
-                <File Path="themes/base/css/elements/alerts.css"/> 
-                <File Path="themes/base/css/elements/text.css"/>
-                <File Path="themes/base/css/elements/buttons.css"/>
-                <File Path="themes/base/css/elements/forms.css"/>
+				<File Path="themes/base/css/footer/footer.css"/>
+                <File Path="themes/base/css/bootstrap/bootstrap-select.css"/>    
                 <File Path="themes/base/css/elements/modals.css"/>
-                <File Path="themes/base/css/elements/productbox.css"/>
-                <File Path="themes/base/css/elements/productlist.css"/>
-                <File Path="themes/base/css/elements/productslider.css"/>
-                <File Path="themes/base/css/elements/accordeon.css"/>               
-                <File Path="themes/base/css/elements/pagination.css"/>               
-                <File Path="themes/base/css/elements/bootstrap-select.css"/>               
+                <File Path="themes/base/css/elements/pagination.css"/>   
+                <File Path="themes/base/css/elements/comparelist.css"/>
 				<File Path="themes/base/css/basket/sidebasket.css"/>
 				<File Path="themes/base/css/boxes/boxes.css"/>
-                <File Path="themes/snackys/css/aspectratios.css"/>          
-				<File Path="themes/base/consent.css"/>
+                <File Path="themes/base/css/details/lightbox.css"/>
 				<File Path="themes/base/slick-lightbox.css"/>
-                <File Path="themes/base/css/elements/comparelist.css"/>
-                <File Path="themes/base/css/elements/opc.css"/>
 			</CSS>
 			<CSS Name="darkmode.css">
-				<File Path="themes/base/css/bootstrap_snackys.css"/>
 				<File Path="themes/base/css/main.css"/>
-				<File Path="themes/base/css/header.css"/>
-				<File Path="themes/base/css/footer/footer.css"/>             
-                <File Path="themes/base/css/header/shopnav.css"/>
-                <File Path="themes/base/css/header/megamenu.css"/>
-                <File Path="themes/base/css/header/breadcrumb.css"/>   
-                <File Path="themes/base/css/elements/images.css"/>            
-                <File Path="themes/base/css/elements/alerts.css"/> 
-                <File Path="themes/base/css/elements/text.css"/>
-                <File Path="themes/base/css/elements/buttons.css"/>
-                <File Path="themes/base/css/elements/forms.css"/>
+				<File Path="themes/base/css/footer/footer.css"/>
                 <File Path="themes/base/css/elements/modals.css"/>
-                <File Path="themes/base/css/elements/productbox.css"/>
-                <File Path="themes/base/css/elements/productlist.css"/>
-                <File Path="themes/base/css/elements/productslider.css"/>
-                <File Path="themes/base/css/elements/accordeon.css"/>               
-                <File Path="themes/base/css/elements/pagination.css"/>               
-                <File Path="themes/base/css/elements/bootstrap-select.css"/>               
+                <File Path="themes/base/css/elements/pagination.css"/> 
+                <File Path="themes/base/css/bootstrap/bootstrap-select.css"/> 
+                <File Path="themes/base/css/elements/comparelist.css"/>     
 				<File Path="themes/base/css/basket/sidebasket.css"/>
 				<File Path="themes/base/css/boxes/boxes.css"/>
-                <File Path="themes/snackys/css/aspectratios.css"/>          
-				<File Path="themes/base/consent.css"/>
+                <File Path="themes/base/css/details/lightbox.css"/>
 				<File Path="themes/base/slick-lightbox.css"/>
-                <File Path="themes/base/css/elements/comparelist.css"/>
-                <File Path="themes/base/css/elements/opc.css"/>
 			</CSS>
 			<CSS Name="custom.css">
+				<File Path="themes/base/css/main.css"/>
+				<File Path="themes/base/css/footer/footer.css"/>
+                <File Path="themes/base/css/elements/modals.css"/>
+                <File Path="themes/base/css/elements/pagination.css"/> 
+                <File Path="themes/base/css/bootstrap/bootstrap-select.css"/>    
+                <File Path="themes/base/css/elements/comparelist.css"/>  
+				<File Path="themes/base/css/basket/sidebasket.css"/>
+				<File Path="themes/base/css/boxes/boxes.css"/>
+                <File Path="themes/base/css/details/lightbox.css"/>
+				<File Path="themes/base/slick-lightbox.css"/>
+			</CSS>
+			<!--
+			<CSS Name="backup">
 				<File Path="themes/base/css/bootstrap_snackys.css"/>
 				<File Path="themes/base/css/main.css"/>
 				<File Path="themes/base/css/header.css"/>
@@ -117,20 +97,19 @@
                 <File Path="themes/base/css/elements/pagination.css"/>               
                 <File Path="themes/base/css/elements/bootstrap-select.css"/>               
 				<File Path="themes/base/css/basket/sidebasket.css"/>
-				<File Path="themes/base/css/boxes/boxes.css"/>
-                <File Path="themes/snackys/css/aspectratios.css"/>          
+				<File Path="themes/base/css/boxes/boxes.css"/>         
 				<File Path="themes/base/consent.css"/>
 				<File Path="themes/base/slick-lightbox.css"/>
                 <File Path="themes/base/css/elements/comparelist.css"/>  
                 <File Path="themes/base/css/elements/opc.css"/>
 			</CSS>
+			-->
 			<JS Name="jtl3.js">
-				<File Path="js/snackys/iefix.js"/>
 				<File Path="js/jquery.serialize-object.js"/>
-				<File Path="js/bootstrap.min.js"/>
-				<File Path="js/bootstrap-modal.js"/>
+				<File Path="js/popper.min.js"/>
+				<File Path="js/bootstrap.bundle.min.js"/>
+				<File Path="js/bootstrap-emodal.js"/>
 				<File Path="js/bootstrap-toolkit.js"/>
-				<File Path="js/bootstrap-collapse.js"/>
 				<File Path="js/bootstrap-select.js"/>
 				<File Path="js/snackys/swipe.js"/>
 				<File Path="js/snackys/jtl.evo.js"/>
@@ -141,20 +120,16 @@
 				<File Path="js/snackys/jquery.zoom.min.js"/>
 				<File Path="js/snackys/spin.js"/>
 				<File Path="js/snackys/global.js"/>
-				<File Path="js/snackys/classList.js" />
 				<File Path="js/snackys/listing.js" />
 				<File Path="js/snackys/checkout.js" />
 				<File Path="js/Chart.js" DependsOnSettingGroup="CONF_PREISVERLAUF" DependsOnSetting="preisverlauf.preisverlauf_anzeigen" DependsOnSettingValue="Y"/>
 				<File Path="js/nouislider.min.js" />
 				<File Path="js/slick-lightbox.min.js" />
+				<File Path="js/consent.js" />
 				
 				
 				<File Path="js/typeahead.bundle.js" DependsOnSettingGroup="CONF_TEMPLATE" DependsOnSetting="template.general.use_typehead" DependsOnSettingValue="Y"/>
 				<File Path="js/typeahead.fallback.js" DependsOnSettingGroup="CONF_TEMPLATE" DependsOnSetting="template.general.use_typehead" DependsOnSettingValue="N"/>
-					
-				<!-- New -->
-				<File Path="js/consent.js"/>
-				<File Path="js/consent.youtube.js"/>
 			</JS>
 		</Minify>
     <Boxes>
@@ -163,15 +138,39 @@
         <Container Position="top" Available="1"></Container>
         <Container Position="bottom" Available="1"></Container>
     </Boxes>
+	<CSSMain>
+			<File Path="/templates/Snackys/themes/base/css/bootstrap/bootstrap_snackys.css"/>
+			<File Path="/templates/Snackys/themes/base/css/main_critical.css"/>
+			<File Path="/templates/Snackys/themes/base/css/header/main.css"/>
+			<File Path="/templates/Snackys/themes/base/css/footer/footer_critical.css"/>	<!-- Critical Parts from footer.tpl -->
+			<File Path="/templates/Snackys/themes/base/css/header/shopnav.css"/>
+			<File Path="/templates/Snackys/themes/base/css/header/megamenu.css"/>
+			<File Path="/templates/Snackys/themes/base/css/header/breadcrumb.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/images.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/alerts.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/text.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/buttons.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/forms.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/modals_critical.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/productbox.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/productslider.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/accordeon.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/pagination_critical.css"/>
+			<File Path="/templates/Snackys/themes/base/css/bootstrap/bootstrap-select_critical.css"/>
+			<File Path="/templates/Snackys/themes/base/css/basket/sidebasket_critical.css"/>
+			<File Path="/templates/Snackys/themes/base/css/boxes/boxes_critical.css"/>
+			<File Path="/templates/Snackys/themes/base/consent.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/opc.css"/>
+	</CSSMain>
 	<CSSPageTypes>
 			<File Path="/templates/Snackys/themes/base/css/details/details.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/details/actions.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/details/attributes.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/details/matrix.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/details/gallery.css" PageType="1"/>
-			<File Path="/templates/Snackys/themes/base/css/details/lightbox.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/details/tabs.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/details/variations.css" PageType="1"/>
+			<File Path="/templates/Snackys/themes/base/css/details/lightbox_critical.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/listing/listing.css" PageType="2"/>
 			<File Path="/templates/Snackys/themes/base/css/listing/header.css" PageType="2"/>
 			<File Path="/templates/Snackys/themes/base/css/listing/filter-top.css" PageType="2"/>
@@ -182,7 +181,7 @@
 			<File Path="/templates/Snackys/themes/base/css/account/account.css" PageType="4"/>
 			<File Path="/templates/Snackys/themes/base/css/page/contact.css" PageType="5"/>
 			<File Path="/templates/Snackys/themes/base/css/umfrage.css" PageType="6"/>
-			<File Path="/templates/Snackys/themes/base/css/blog/blog.css" PageType="7"/>
+			<File Path="/templates/Snackys/themes/base/css/blog/overview.css" PageType="7"/>
 			<File Path="/templates/Snackys/themes/base/css/checkout/register.css" PageType="10"/>
 			<File Path="/templates/Snackys/themes/base/css/basket/basket.css" PageType="11"/>
 			<File Path="/templates/Snackys/themes/base/css/checkout/checkout.css" PageType="11"/>
@@ -190,19 +189,20 @@
 			<File Path="/templates/Snackys/themes/base/css/account/password-reset.css" PageType="14"/>
 			<File Path="/templates/Snackys/themes/base/css/page/maintainance.css" PageType="15"/>
 			<File Path="/templates/Snackys/themes/base/css/account/account.css" PageType="16"/>
-			<File Path="/templates/Snackys/themes/base/css/wishlist.css" PageType="16"/>
+			<File Path="/templates/Snackys/themes/base/css/page/wishlist.css" PageType="16"/>
+            <File Path="/templates/Snackys/themes/base/css/elements/comparelist.css" PageType="16"/>
 			<File Path="/templates/Snackys/themes/base/css/index/blogoverview.css" PageType="18"/>
+			<File Path="/templates/Snackys/themes/base/css/page/index.css" PageType="18"/>
 			<File Path="/templates/Snackys/themes/base/css/page/manufacturers.css" PageType="24"/>
+			<File Path="/templates/Snackys/themes/base/css/page/sitemap.css" PageType="25"/>
 			<File Path="/templates/Snackys/themes/base/css/checkout/amazon-checkout.css" PageType="28"/>
 			<File Path="/templates/Snackys/themes/base/css/basket/basket.css" PageType="28"/>
-			<File Path="/templates/Snackys/themes/base/css/plugins.css" PageType="31"/>
 			<File Path="/templates/Snackys/themes/base/css/basket/basket.css" PageType="33"/>
 			<File Path="/templates/Snackys/themes/base/css/checkout/completed.css" PageType="33"/>
 			<File Path="/templates/Snackys/themes/base/css/page/404.css" PageType="36"/>
-			<File Path="/templates/Snackys/themes/base/css/blog/blog.css" PageType="40"/>
-			<File Path="/templates/Snackys/themes/base/css/blog/blog-detail.css" PageType="41"/>
-			<File Path="/templates/Snackys/themes/base/css/blog/blog.css" PageType="42"/>
-			<File Path="/templates/Snackys/themes/base/css/dropper.css" PageType="all"/>
+			<File Path="/templates/Snackys/themes/base/css/blog/overview.css" PageType="40"/>
+			<File Path="/templates/Snackys/themes/base/css/blog/article.css" PageType="41"/>
+			<File Path="/templates/Snackys/themes/base/css/blog/overview.css" PageType="42"/>
             <File Path="themes/##theme##/css/custom.css" PageType="all"/>
 	</CSSPageTypes>
 </Template>

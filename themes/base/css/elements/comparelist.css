@@ -21,6 +21,8 @@
 }
 .cpr-f .price-row{
     margin-bottom: 0.3rem;
+}
+.cpr-f .price-row .price{
     font-size: 1.5rem;
 }
 .cpr-f .is{

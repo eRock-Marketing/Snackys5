@@ -8,7 +8,7 @@
         <input type="hidden" name="Zahlungsart" value="{$Zahlungsart->kZahlungsart}" />
     </div>
     <div class="text-right">
-        <input type="submit" value="{lang key="continueOrder" section="account data"}" class="submit btn btn-lg submit_once btn-primary" />
+        <button type="submit" value="{lang key="continueOrder" section="account data"}" class="submit btn btn-lg submit_once btn-primary">{lang key="continueOrder" section="account data"}</button>
     </div>
 </form>
 {/block}

@@ -1,0 +1,28 @@
+/* Filter */
+#frm_filter{
+    gap: .5rem;
+}
+#frm_filter > *{
+    width: auto;
+    flex-grow: 1;
+}
+/* Previewbox */
+.pn-news .more{
+    margin-top: auto;
+    font-weight: bold;
+}
+.pn-news .icon svg{
+    transform: scale(.9);
+}
+.pn-news .sep{
+	display: inline-block;
+	margin: 0 .2rem;
+}
+.pn-news{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.pn-news .more{
+    margin-top: auto;
+}

@@ -10,7 +10,6 @@
                 {/if}
             {/foreach}
 
-            {include file='snippets/pagination.tpl' oPagination=$orderPagination cThisUrl='jtl.php' cParam_arr=['bestellungen'=>1] parts=['pagi', 'label']}
             <div class="card">
                 <div class="card-body">
                     {foreach $orderPagination->getPageItems() as $order}
@@ -27,13 +26,14 @@
                         </span>
                         <span class="img-ct icon icon-wt">
                             <svg>
-                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#ar-right"></use>
+                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#ar-right"></use>
                             </svg>
                         </span>
                     </a>
                     {/foreach}
                 </div>
             </div>
+            {include file='snippets/pagination.tpl' oPagination=$orderPagination cThisUrl='jtl.php' cParam_arr=['bestellungen'=>1] parts=['pagi', 'label']}
         {/block}
     {else}
         <div class="alert alert-info">{lang key='noEntriesAvailable'}</div>

@@ -30,46 +30,6 @@
 			if($('.evo-slider:not(.slick-initialized)').length)
 			{
 				/*
-				 * box product slider
-				 */
-				/*
-				$('.evo-box-slider:not(.slick-initialized)').slick({
-					//dots: true,
-					arrows: true,
-					lazyLoad: 'ondemand',
-					slidesToShow: 1
-				});
-				*/
-				/*
-				$('.evo-box-vertical:not(.slick-initialized)').slick({
-					//dots: true,
-					arrows:          true,
-					vertical:        true,
-					adaptiveHeight:  true,
-					verticalSwiping: true,
-					prevArrow:       '<button class="slick-up" aria-label="Previous" type="button"></button>',
-					nextArrow:       '<button class="slick-down" aria-label="Next" type="button"></button>',
-					lazyLoad:        'progressive',
-					slidesToShow:    1,
-				}).on('afterChange', function () {
-					var heights = [];
-					$('.evo-box-vertical:not(.eq-height) .product-wrapper').each(function (i, element) {
-						var $element       = $(element);
-						var elementHeight;
-						// Should we include the elements padding in it's height?
-						var includePadding = ($element.css('box-sizing') === 'border-box') || ($element.css('-moz-box-sizing') === 'border-box');
-						if (includePadding) {
-							elementHeight = $element.innerHeight();
-						} else {
-							elementHeight = $element.height();
-						}
-						heights.push(elementHeight);
-					});
-					$('.evo-box-vertical.evo-box-vertical:not(.eq-height) .product-wrapper').css('height', Math.max.apply(window, heights) + 'px');
-					$('.evo-box-vertical.evo-box-vertical:not(.eq-height)').addClass('eq-height');
-				});
-				*/
-				/*
 				 * responsive slider (content)
 				 */
 				let sliders = $('.evo-slider:not(.slick-initialized)').slick({
@@ -169,20 +129,70 @@
         },
 
         initFilters: function (href) {
-            var $wrapper = $('.js-collapse-filter'),
-                self=this;
-            $.evo.extended().startSpinner($wrapper);
+            var $wrapper = $('.js-collapse-filter');
+            //$.evo.extended().startSpinner($wrapper);
 
             $.ajax(href, {data: {'useMobileFilters':1}})
                 .done(function(data) {
                     $wrapper.html(data);
-                    self.initPriceSlider($wrapper, false);
+                    $.evo.initPriceSlider($wrapper, false);
+					$.evo.initItemSearch('filter');
                 })
                 .always(function() {
-                    $.evo.extended().stopSpinner();
+                    //$.evo.extended().stopSpinner();
                 });
         },
+       initItemSearch: function(context) {
+            let searchWrapper  = '.' + context + '-search-wrapper',
+                searchInput    = '.' + context + '-search',
+                itemValue      = '.' + context + '-item-value',
+                item           = '.' + context + '-item',
+                clear          = '.form-clear',
+                inputSelected  = 'input-group-selected',
+                $searchWrapper = $(searchWrapper);
 
+            if ($searchWrapper.length === 0) {
+                return;
+            }
+            $searchWrapper.each(function(i, itemWrapper){
+                $(itemWrapper).find(searchInput).on('input', function () {
+                    filterSearch($(itemWrapper));
+                }).on('keydown', function(e){
+                    if (e.key === 'Escape') {
+                        e.stopPropagation();
+                    }
+                });
+            });
+            $(searchWrapper + ' ' + clear).on('click', function() {
+                $(this).prev().val('');
+                $(this).addClass('d-none');
+                filterSearch($(this).closest(searchWrapper));
+            });
+            $(searchInput).on('focusin', function() {
+                $(this).closest(searchWrapper).addClass(inputSelected);
+            }).on('focusout', function() {
+                $(this).closest(searchWrapper).removeClass(inputSelected);
+            });
+
+            function filterSearch (itemWrapper) {
+                let searchTerm = itemWrapper.find(searchInput).val().toLowerCase();
+                itemWrapper.find(itemValue).each(function(i, itemTMP){
+                    itemTMP = $(itemTMP);
+                    let text = itemTMP.text().toLowerCase();
+                    if (text.indexOf(searchTerm) === -1) {
+                        itemTMP.closest(item).hide();
+                    } else {
+                        itemTMP.closest(item).show();
+                    }
+                    if (searchTerm.length === 0) {
+                        itemWrapper.find(clear).addClass('d-none');
+                    } else {
+                        itemWrapper.find(clear).removeClass('d-none');
+                    }
+                });
+            }
+        },
+		
         initFilterEvents: function() {
             var initiallized = false;
             $('#js-filters').on('click', function() {
@@ -425,7 +435,7 @@
 
             if (target.length > 0) {
                 // scroll below the static megamenu
-                var nav         = $('#cat-w');
+                var nav         = ($('body').hasClass('mobile')) ? $('#shop-nav') : $('#cat-w');
                 var fixedOffset = nav.length > 0 ? nav.outerHeight() : 0;
 
                 targetOffset = target.offset().top - fixedOffset - parseInt(target.css('margin-top'));
@@ -490,12 +500,15 @@
 
                 $form.find('fieldset, input[type="submit"]')
                     .attr('disabled', true);
-                var url = 'bestellvorgang.php?kVersandart=' + shipmentid + '&kZahlungsart=' + paymentid;
+                var url = $('#jtl-io-path').data('path') + '/bestellvorgang.php?kVersandart=' + shipmentid + '&kZahlungsart=' + paymentid;
                 $.evo.loadContent(url, function() {
                     $.evo.checkout();
                 }, null, true);
             });
 
+
+            regionsToState();
+            /*
             $('#country').on('change', function (e) {
                 var val = $(this).find(':selected').val();
 
@@ -515,6 +528,7 @@
                     }
                 });
             });
+            */
         },
 		
         setCompareListHeight: function() {
@@ -690,6 +704,7 @@
 			this.slider();
 			this.mobileMenu();
 			this.panelOpener();
+			this.initFilterEvents();
         }
     };
 

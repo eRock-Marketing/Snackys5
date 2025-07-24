@@ -1,6 +1,6 @@
 {block name='snippets-uploads'}
     {if !empty($oUploadSchema_arr)}
-        {getUploaderLang iso=$smarty.session.currentLanguage->cISO639|default:'' assign='uploaderLang'}
+        {getUploaderLang iso=$smarty.session.currentLanguage->getIso639()|default:'' assign='uploaderLang'}
         {if $tplscope === 'product' && !empty($Artikel) && !($Artikel->nIstVater || $Artikel->kVaterArtikel > 0 || $Artikel->isSimpleVariation || $Artikel->bHasKonfig)}
         <div class="small mt-xs mb-xs" id="dt-upload">
             {block name='snippets-uploads-subheading-product'}

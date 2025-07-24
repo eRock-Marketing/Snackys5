@@ -1,5 +1,5 @@
 {block name='account-retrospective-payment'}
-<form id="form-payment-extra" class="form payment-extra" method="post" action="bestellab_again.php">
+<form id="form-payment-extra" class="form payment-extra" method="post" action="{get_static_route id='bestellab_again.php'}" slide=true>
     {$jtl_token}
     <fieldset class="outer">
         <input type="hidden" name="zusatzschritt" value="1" />

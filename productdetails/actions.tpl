@@ -7,9 +7,7 @@
             {assign var=kArtikel value=$Artikel->kArtikelVariKombi}
         {/if}
         {if $Einstellungen.global.global_wunschliste_anzeigen === 'Y'}
-            <button id="wl-action" data-track-event="add_to_wishlist" 
-				data-track-type="click" data-track-event="add_to_wishlist" data-track-p-value="{$Artikel->Preise->fVKNetto}" data-track-p-currency="{$smarty.session.Waehrung->cISO}" data-track-p-items='[{ldelim}"id":"{$Artikel->cArtNr}","category":"{$cate|htmlspecialchars}","name":"{$Artikel->cName|htmlspecialchars}","price":"{$Artikel->Preise->fVKNetto}","quantity":"selectorval:#quantity"{rdelim}]'
-				name="Wunschliste" type="submit"title="{lang key='addToWishlist' section='productDetails'}">
+            <button id="wl-action" name="Wunschliste" type="submit"title="{lang key='addToWishlist' section='productDetails'}">
             </button>
         {/if}
         {if $Einstellungen.artikeldetails.artikeldetails_vergleichsliste_anzeigen === 'Y' && $Einstellungen.vergleichsliste.vergleichsliste_anzeigen === 'Y'}

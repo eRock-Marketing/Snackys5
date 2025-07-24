@@ -12,7 +12,7 @@
             </div>
         {/if}
     {/if}
-    <form action="{if !empty($Artikel->cURLFull)}{$Artikel->cURLFull}{else}{$ShopURL}/{/if}" method="post" id="article_availability{$Artikel->kArtikel}" class="evo-validate panel">
+    <form action="{if !empty($Artikel->cURLFull)}{$Artikel->cURLFull}{else}{$ShopURL}/{/if}" method="post" id="article_availability{$Artikel->kArtikel}" class="jtl-validate">
         {$jtl_token}
         <fieldset>
             {if $Einstellungen.$tplscope.benachrichtigung_abfragen_vorname !== 'N' || $Einstellungen.$tplscope.benachrichtigung_abfragen_nachname !== 'N'}
@@ -70,19 +70,18 @@
         </fieldset>
         {if (!isset($smarty.session.bAnti_spam_already_checked) || $smarty.session.bAnti_spam_already_checked !== true) &&
             isset($Einstellungen.$tplscope.benachrichtigung_abfragen_captcha) && $Einstellungen.$tplscope.benachrichtigung_abfragen_captcha !== 'N' && empty($smarty.session.Kunde->kKunde)}
-            <div class="row">
-                <div class="col-12 col-md-12">
-                    {captchaMarkup getBody=true}
-                    <hr>
-                </div>
-            </div>
-        {/if}
-        <div class="mt-xxs">
-            <input type="hidden" name="a" value="{if $Artikel->kVariKindArtikel}{$Artikel->kVariKindArtikel}{else}{$Artikel->kArtikel}{/if}" />
-            <input type="hidden" name="show" value="1" />
-            <input type="hidden" name="benachrichtigung_verfuegbarkeit" value="1" />
-            <button type="submit" value="{lang key="requestNotification" section="global"}" class="btn btn-primary btn-block btn-lg" >{lang key="requestNotification" section="global"}</button>
-        </div>
+            {captchaMarkup getBody=true}
+        {/if}                
+        <p class="small text-muted">(* = {lang key='mandatoryFields'})</p>
+        <p class="privacy text-muted">
+            <a href="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}{/if}" class="popup small tdu">
+                {lang key='privacyNotice'}
+            </a>
+        </p>
+        <input type="hidden" name="a" value="{if $Artikel->kVariKindArtikel}{$Artikel->kVariKindArtikel}{else}{$Artikel->kArtikel}{/if}" />
+        <input type="hidden" name="show" value="1" />
+        <input type="hidden" name="benachrichtigung_verfuegbarkeit" value="1" />
+        <button type="submit" value="{lang key="requestNotification" section="global"}" class="btn btn-primary btn-block btn-lg" >{lang key="requestNotification" section="global"}</button>
     </form>
 </div>
 {/block}

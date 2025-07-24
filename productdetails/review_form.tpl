@@ -8,7 +8,7 @@
 {block name="content"}
     {block name="productdetails-review-form-main"}
     <div class="panel-wrap">
-        <form method="post" action="{get_static_route id='bewertung.php'}#tab-votes" class="evo-validate">
+        <form method="post" action="{get_static_route id='bewertung.php'}#tab-votes" class="jtl-validate">
             {$jtl_token}
 
             {$alertList->displayAlertByKey('productNotBuyed')}
@@ -49,7 +49,8 @@
                             <textarea name="cText" cols="80" rows="8" id="comment" class="form-control" required>{$oBewertung->cText|default:""}</textarea>
                         </div>
                     </div>
-                    <hr class="invisible hr-sm">
+                    <p class="small text-muted">(* = {lang key='mandatoryFields'})</p>
+                </p>
                     <input name="bfh" type="hidden" value="1">
                     <input name="a" type="hidden" value="{$Artikel->kArtikel}">
                     <input name="submit" type="submit" value="{lang key="submitRating" section="product rating"}" class="submit btn btn-primary btn-block">

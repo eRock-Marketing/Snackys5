@@ -1,0 +1,29 @@
+.sc-item{
+	border-bottom: 1px solid @lightborder;
+}
+.sc-item a:hover{
+	color: @brand;
+}
+.sc-item .editpos{
+    background: @lightbg;
+}
+.sc-item .editpos:hover{
+	background: @lightfocusbg;
+}
+.sc-item .input-group button{
+    border: 1px solid @defaultborder;
+}
+/* Empty Basket */
+.c-empt{
+    padding: 2rem;
+    border-radius: .5rem;
+    border: 4px dotted @lightborder;
+}
+.c-empt .img-ct{
+    max-width: 4rem;
+    margin: auto;
+    opacity: .08;
+}
+.c-empt .h4{
+    margin: 1.7rem auto auto auto;
+}

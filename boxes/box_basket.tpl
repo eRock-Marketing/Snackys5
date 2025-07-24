@@ -16,7 +16,7 @@
                 <div class="ic-bd dpflex-a-center dpflex-j-center icon-wt">
                     <span class="img-ct icon ic-lg">
                         <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                          <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}"></use>
+                          <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}"></use>
                         </svg>
                     </span>
                 </div>

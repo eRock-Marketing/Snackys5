@@ -11,7 +11,6 @@
             <div class="panel-body">
                 <ul class="nav blanklist">
                     {foreach $oBox->getItems() as $newsMonth}
-                        {if $newsMonth@index === 10}{break}{/if}
                         {block name='boxes-box-news-month-news-link'}
                             <li class="nav-it">
                                 <a href="{$newsMonth->cURL}" title="{$newsMonth->cName}" class="dpflex">

@@ -2,6 +2,7 @@
 #product-configuration-sidebar{
     position: static !important;
     width: 100% !important;
+    margin-bottom: 1rem;
 }
 #product-configuration-sidebar table,
 #product-configuration-sidebar tbody,
@@ -32,25 +33,24 @@
 #product-configuration-sidebar tfoot tr:last-child{
     border-bottom: 0;
 }
-
+#config-popup{
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+}
 #config-popup .modal-content{
-    width: 60rem;
+    max-width: 75rem;
 }
-#product-configurator .cfg-group{
-	margin-bottom: 2rem;
-    font-size: .95rem;
-}
-
-.cfg-group .highlighted{
-    background: rgba(46, 148, 232, 0.15);
-    box-shadow: 0 0 0 .5rem rgba(46, 148, 232, 0.15);
-    border-radius: 0.1rem;
-}
-.cfg-group .list-group-item:not(:last-child){
-    margin-bottom: 1rem;
+#config-popup .modal-body{
+    max-height: calc(90vh - 5rem);
 }
 .cfg-group .form-group{
     margin-top: 0;
+}
+.cfg-group .alert{
+    padding: .8rem 1rem;
+    border-radius: .3rem;
+    margin-bottom: 1rem;
+    font-size: .85rem;
 }
 #quantity-grp .btn.submit .config-required-info{
     position: absolute;
@@ -64,6 +64,7 @@
     margin-top: .2rem;
     font-size: .8rem;
     display: none;
+    width: 100%;
 }
 #quantity-grp .btn.submit[disabled]:hover .config-required-info{
     display: block;
@@ -81,4 +82,333 @@
     margin-top: -0.25rem;
     margin-left: -.25rem;
     top: 0;
+}
+.cfg-group .group{
+    margin: 1.5rem 0;
+}
+.cfg-group .caption{
+    line-height: 1.6;
+}
+.cfg-ct{
+    border: 2px solid @lightborder;
+    border-radius: .8rem;
+    padding: 1rem;
+    position: relative;
+    height: 100%;
+    transition: border .1s ease;
+}
+.cfg-ct:hover{
+    border-color: @defaultborder;
+}
+.cfg-ct.disable{
+    pointer-events: none;
+    opacity: .5;
+}
+.cfg-ct.highlighted{
+    background: rgba(96, 149, 244, 0.1);
+}
+input:checked + .cfg-ct{
+    border-color: @success;
+}
+.cfg-ct .check{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: @success url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNODIuOCAxMy45MzhjLTEuNS4xLTIuOS44LTMuOSAyLjItMTQuMiAxNy44LTI3LjEgMzUuNC00MC44IDUyLjlsLTE3LjUtMTcuNGMtMi41LTIuNS02LjEtMi04LjEgMS4xcy0xLjYgNy42LjkgMTAuMWwyMS41IDIxLjZjMi4zIDIuMyA1LjYgMi4xIDcuNy0uNiAxNS40LTE5LjQgMjkuMi0zOC41IDQ0LjQtNTcuNSAyLjMtMi44IDIuMy03LjMuMS0xMC4yLTEuMS0xLjQtMi43LTIuMi00LjMtMi4yeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==')no-repeat center/60%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(-35%) translateX(35%);
+    display: none;
+}
+input:checked + .cfg-ct .check{
+    display: flex;
+}
+.cfg-group label{
+    cursor: pointer;
+    height: 100%;
+}
+.cfg-ct .desc{
+    font-weight: 400;
+}
+.cfg-ct .tag{
+    margin-left: .1rem;
+    position: relative;
+    top: -2px;
+}
+/* Group Title */
+#cfg-container .cfg-title{
+    border-bottom: 1px solid @lightborder;
+    padding: .8rem 0;
+    cursor: pointer;
+}
+.cfg-group [aria-expanded="true"] .ar-d{
+    transform: rotate(-135deg);
+    position: relative;
+    top: 4px;
+}
+/* Group Title Counter */
+.cfg-cntr{
+    width: 2rem;
+    min-width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: @lightbg;
+    text-align: center;
+    line-height: 2rem;
+    margin-right: .7rem;
+    transition: background .2s ease, color .3s ease;
+}
+[aria-expanded="true"] .cfg-cntr:not(.cfg-ar){
+    background: @success;
+    color: @backgroundtext;
+}
+/* Group Title Arrow */
+.cfg-ar{
+    margin-left: auto;
+}
+/* Group Footer */
+.cfg-ftr{
+    padding: 1rem;
+    background: #f6f6f6;
+    border-radius: .5rem
+}
+.cfg-ct .text{
+    position: relative;
+    font-size: .9rem;
+}
+/* Desc Popup */
+.desc-dd{
+    position: static;
+    display: inline-block;
+}
+.desc-tgl{
+    background: @darkbg;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.2rem;
+    font-size: .8rem;
+    color: @backgroundtext;
+    display: inline-block;
+    position: relative;
+    top: -2px;
+}
+#config-popup .desc-tgl:hover{
+    color: @backgroundtext;
+    background: @brand;
+}
+.desc-dd .dropdown-menu{
+    padding: 0.5rem  1rem;
+    font-weight: 400;
+    background: @darktext;
+    color: white;
+}
+/* Quantity */
+.cfg-ct .qt-wp{
+    margin: .5rem 0 0 0;
+}
+.cfg-ct .form-error-msg{
+    position: static;
+    transform: none;
+    padding: 0;
+    margin-top: 0.4rem;
+    font-weight: 400;
+}
+.qt-wp input[type=number]::-webkit-inner-spin-button, 
+.qt-wp input[type=number]::-webkit-outer-spin-button {  
+   opacity: 1;
+}
+/* Description Toggle */
+.cfg-ct .desc-tgl{
+    margin: .2rem 0;
+}
+.cfg-ct .desc-tgl:not([aria-expanded="false"]) .caret{
+    transform: scaleY(-1);
+}
+
+/* Select & Multi Select */
+.typ-dd input + .cfg-ct{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: 0;
+    border-color: @lightborder;
+    padding-left: 4rem;
+}
+.typ-dd .img-ct{
+    margin: 0;
+    width: 4.5rem;
+    margin-right: 1rem;
+}
+.typ-dd .caption:not(.w100){
+    width: calc(100% - 15.5rem);
+    padding-right: 2rem;
+}
+.typ-dd .caption.w100{
+    width: calc(100% - 10rem);
+    padding-right: 2rem;
+}
+.typ-dd .list-group-item:first-child .cfg-ct{
+    border-radius: .5rem .5rem 0 0;
+}
+.typ-dd .list-group-item:last-child .cfg-ct{
+    border-radius: 0 0 .5rem .5rem;
+}
+.typ-dd .list-group-item:not(:last-child) .cfg-ct{
+    border-bottom: 0;
+}
+.typ-dd .cfg-ct .check{
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    display: flex;
+    transition: background .2s ease;
+}
+.typ-dd .cfg-ct:hover{
+    background: #f6f6f6;
+}
+.typ-dd input:not(:checked) + .cfg-ct .check{
+    background-color: white;
+    border: 1px solid @defaultborder;
+}
+.typ-dd .desc{
+    margin: .2rem 0 0 0;
+}
+.typ-dd .qt-wp{
+    width: 10rem;
+    margin: 0;
+}
+/* Error handeling */
+/*
+.cfg-group.has-error .cfg-ftr .btn{
+    pointer-events: none;
+    opacity: .5;
+    cursor: not-allowed;
+}*/
+.cfg-group.seen.is-correct:not(.has-error) .cfg-cntr:first-child{
+    background: @success;
+    color: white;
+}
+#snackys-tpl .cfg-group.seen.has-error .cfg-cntr:first-child{
+    background: @danger;
+    color: white;
+}
+.cfg-group.seen.has-error .alert{
+    background: @alertDangerBg;
+    color: @alertDangerTxt;
+}
+.cfg-ct > .img-ct{
+    pointer-events: none;
+}
+/* Sidepanel */
+#product-configuration-sidebar .vat_info{
+    margin: 0;
+}
+#product-configuration-sidebar tfoot{
+    margin: 1rem 0;
+}
+/* No Popup Mode */
+.no-pop .panel:not(.panel-primary){
+    background: none;
+    padding: 0;
+    box-shadow: none;
+}
+.no-pop .list-group-item.col-lg-3{
+    width: calc(100% / 3);
+}
+.no-pop #product-configuration-sidebar{
+    margin-top: 2rem;
+}
+.no-pop .row-multi{
+    margin: -8px;
+}
+.no-pop .row-multi>[class*=col-]{
+    padding: 8px;
+}
+.no-pop-tg{
+    order: 1;
+}
+.no-pop-tg + .buy-col{
+    margin-top: 0;
+}
+.no-pop-tg .price_wrapper{
+    display: none;
+}
+@media screen and (max-width: 1499px){
+    .no-pop .list-group-item.col-lg-3{
+        width: calc(100% / 2);
+    }
+}
+@media screen and (max-width: 1299px){
+    #config-popup .modal-content{
+        max-width: 90vw;
+    }
+}
+@media screen and (max-width: 999px){
+    .no-pop .list-group-item.col-lg-3{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 899px){ 
+    .typ-dd .caption:not(.w100){
+        width: calc(100% - 5.5rem);
+        padding-right: 0;
+    }
+    .typ-dd .caption.w100{
+        width: 100%;
+        padding-right: 0;
+    }
+    .typ-dd .qt-wp {
+        width: 100%;
+        margin: 0.5rem 0 0 0;
+        max-width: 15rem;
+    }
+}
+@media screen and (max-width: 767px){
+    .no-pop .list-group-item.col-lg-3{
+        width: calc(100% / 2);
+    }
+}
+@media screen and (max-width: 699px){
+    .typ-dd .cfg-ct .check{
+        width: 1.5rem;
+        height: 1.5rem;
+        left: .8rem;
+    }
+    .typ-dd input + .cfg-ct{
+        padding-left: 3.2rem;
+    }
+    .typ-dd .img-ct {
+        margin: 0;
+        width: 3.5rem;
+        margin-right: 0.7rem;
+    }
+}
+@media screen and (max-width: 549px){
+    .cfg-group .list-group-item.col-6{
+        width: 100%;
+    }
+    #cfg-container .cfg-title{
+        font-size: .9rem;
+    }
+    .cfg-cntr{
+        width: 1.7rem;
+        min-width: 1.7rem;
+        height: 1.7rem;
+        line-height: 1.7rem;
+    }
+    .cfg-title .ar-d{
+        position: relative;
+        top: 2px;
+    }
+    .cfg-ftr{
+        padding: 0;
+        background: none;
+    }
+    .cfg-ftr .btn{
+        width: 100%;
+        justify-content: center
+    }
 }

@@ -51,7 +51,6 @@
 }
 .sc-item{
 	padding: .5rem 0;
-	border-bottom: 1px solid @lightborder;
 }
 .sc-item .cols-price{
 	margin-left: auto;
@@ -76,9 +75,6 @@
 .c-dp .ppc-message {
     margin-top: 1rem;
 }
-.sc-item a:hover{
-	color: @brand;
-}
 .sc-item .editpos,
 .sc-item .btn{   
 	-webkit-appearance: inherit;
@@ -87,11 +83,7 @@
     border-radius: .3rem;
 }
 .sc-item .editpos{
-    background: @lightbg;
     margin-left: .5rem;
-}
-.sc-item .editpos:hover{
-	background: @lightfocusbg;
 }
 .sc-item .icon.img-ct{
 	width: .8rem;
@@ -103,7 +95,7 @@
 .sc-item .edit-item{
 	display: none;
 }
-.sc-item .open + .edit-item{
+.sc-item .edit-item.show{
 	display: flex;
 	padding-top: .5rem;
 }
@@ -119,7 +111,6 @@
     border-radius: 0 .3rem .3rem 0;
     padding: .5rem .8rem;
     background: none;
-    border: 1px solid @defaultborder;
     border-left: 0;
 }
 #cart-form-xs{
@@ -132,20 +123,6 @@
 }
 .c-dp .alert{
     margin: .5rem 0;
-}
-/* Empty Basket */
-.c-empt{
-    border: 4px dotted @lightborder;
-    padding: 2rem;
-    border-radius: .5rem;
-}
-.c-empt .img-ct{
-    max-width: 4rem;
-    margin: auto;
-    opacity: .08;
-}
-.c-empt .h4{
-    margin: 1.7rem auto auto auto;
 }
 @media screen and (max-width:767px){
     .c-dp>.inside{

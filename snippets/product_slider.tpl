@@ -46,7 +46,7 @@
             </div>
             {if !empty($desc)}<div class="desc mb-spacer mb-xs">{$desc}</div>{/if}
         </div>
-        <div{if $title|strlen > 0} class="panel-body"{/if}>
+        <div class="panel-body">
 			{if $isMobile || $tplscope === 'box'}
 			<div class="row ar-ct-m">
 				<div class="col-12 ar-ct{if $productlist|@count > $snackyConfig.css_listElmXl} show-xl{/if}{if $productlist|@count > $snackyConfig.css_listElmLg} show-lg{/if}{if $productlist|@count > $snackyConfig.css_listElmMd} show-md{/if}{if $productlist|@count > $snackyConfig.css_listElmSm} show-sm{/if}{if $productlist|@count > $snackyConfig.css_listElmXs} show-xs{/if}">
@@ -59,11 +59,9 @@
 				</div>
 			</div>
 			{/if}
-            <div class="row p-sl no-scrollbar dpflex-nowrap{if isset($isBox)} sidebar{/if}"
-				data-track-type="start" data-track-event="view_item_list" data-track-p-value="" data-track-p-currency="{$smarty.session.Waehrung->cISO}" data-track-p-items='[{foreach name=artikel from=$productlist item=Artikel}{if !$smarty.foreach.artikel.first},{/if}{ldelim}"id":"{if $snackyConfig.artnr == "id"}{$Artikel->kArtikel}{else}{$Artikel->cArtNr}{/if}","category":"{$gtagTitle}","name":"{$Artikel->cName|escape}","price":"{$Artikel->Preise->fVKNetto}"{rdelim}{/foreach}]'
-			>
+            <div class="row p-sl no-scrollbar dpflex-nowrap{if isset($isBox)} sidebar{/if}">
                 {foreach name="sliderproducts" from=$productlist item='product'}
-                    <div class="col-lg-2 p-w{if isset($style)} {$style}{/if}">
+                    <div class="col-lg-2 p-w">
                         {include file='productlist/item_slider.tpl' Artikel=$product tplscope=$tplscope class=''}
                     </div>
                 {/foreach}

@@ -8,7 +8,7 @@
     {include file="snippets/extension.tpl"}
     
     <div class="order-completed">
-        {include file='checkout/inc_paymentmodules.tpl'}
+        {include file='checkout/inc_paymentmodules.tpl' showBasket='order-item'}
     
 		{block name='order-completed'}
         {if isset($abschlussseite)}

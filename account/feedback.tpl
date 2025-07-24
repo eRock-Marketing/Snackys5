@@ -3,7 +3,7 @@
 
 {if empty($smarty.session.Kunde->kKunde)}
     <div class="alert alert-danger">{lang key='loginFirst' section='product rating'}</div>
-{elseif empty($bewertungen)}
+{elseif $bewertungen|count == 0}
     <div class="alert alert-danger">{lang key='no feedback' section='product rating'}</div>
 {else}
         {foreach $bewertungen as $Bewertung}
@@ -20,16 +20,15 @@
             <div class="card-body">
                 <div class="dpflex-j-between mb-xs">
                     {$Bewertung->cText}
-                    {*<div class="right">
-                        <a href="{$ShopURL}/bewertung.php?a={$Bewertung->kArtikel}&bfa=1" class="btn btn-ic">
-                            
-                        <span class="img-ct icon">
-                            <svg>
-                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-edit"></use>
-                            </svg>
-                        </span>
+                    <div class="right">
+                        <a title="{lang key='edit' section='product rating'}" href="{get_static_route id='bewertung.php'}?a={$Bewertung->kArtikel}&bfa=1&token={$smarty.session.jtl_token}"} class="btn btn-ic">
+                            <span class="img-ct icon">
+                                <svg>
+                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-edit"></use>
+                                </svg>
+                            </span>
                         </a>
-                    </div>*}
+                    </div>
                 </div>
                     {if !empty($Bewertung->cAntwort)}
                         <div class="review card mb-xs">
@@ -45,7 +44,7 @@
                     {/if}
                 <div class="small">
                     {if !empty($Bewertung->fGuthabenBonus)}
-                        {lang key='balance bonus' section='product rating'}: {$Bewertung->fGuthabenBonus} | 
+                        {lang key='balance bonus' section='product rating'}: {$Bewertung->fGuthabenBonusLocalized} | 
                     {/if}
                     {if $Bewertung->nAktiv == 1}
                         {lang key='feedback activated' section='product rating'}

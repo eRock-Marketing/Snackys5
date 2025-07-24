@@ -1,6 +1,23 @@
 {block name='snippets-categories-mega'}
 {strip}
-{assign var=max_subsub_items value=5}
+{block name='snippets-categories-mega-assigns'}
+    {if !isset($i)}
+        {assign var=i value=0}
+    {/if}
+    {if !isset($activeId)}
+        {if $NaviFilter->hasCategory()}
+            {$activeId = $NaviFilter->getCategory()->getValue()}
+        {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($Artikel)}
+            {$activeId = $Artikel->gibKategorie()}
+        {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($smarty.session.LetzteKategorie)}
+            {$activeId = $smarty.session.LetzteKategorie}
+        {else}
+            {$activeId = 0}
+        {/if}
+    {/if}
+    {assign var=max_subsub_items value=$snackyConfig.megamenu_subcats}
+{/block}
+{block name='snippets-categories-mega-linkhome'}
 {if $snackyConfig.megaHome == 0}
 <li class="is-lth{if $nSeitenTyp == 18} active{/if}">
 	<a href="{$ShopURL}" title="{$Einstellungen.global.global_shopname}" class="home-icon mm-mainlink">
@@ -14,10 +31,12 @@
 	</a>
 </li>
 {/if}
+{/block}
+{block name='snippets-categories-mega-linkgroup-before'}
 {if isset($snackyConfig.show_pages) && $snackyConfig.show_pages !== 'N'}
     {include file='snippets/linkgroup_list.tpl' linkgroupIdentifier='megamenu_start' dropdownSupport=true tplscope='megamenu_start'}
 {/if}
-
+{/block}
 {block name="megamenu-categories"}
 {if isset($snackyConfig.show_categories) && $snackyConfig.show_categories !== 'N' && isset($Einstellungen.global.global_sichtbarkeit) && ($Einstellungen.global.global_sichtbarkeit != 3 || isset($smarty.session.Kunde->kKunde) && $smarty.session.Kunde->kKunde != 0)}
     {assign var='show_subcategories' value=false}
@@ -27,17 +46,6 @@
 
     {get_category_array categoryId=0 assign='categories'}
     {if !empty($categories)}
-        {if !isset($activeId)}
-            {if $NaviFilter->hasCategory()}
-                {$activeId = $NaviFilter->getCategory()->getValue()}
-            {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($Artikel)}
-                {assign var='activeId' value=$Artikel->gibKategorie()}
-            {elseif $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && isset($smarty.session.LetzteKategorie)}
-                {$activeId = $smarty.session.LetzteKategorie}
-            {else}
-                {$activeId = 0}
-            {/if}
-        {/if}
         {if !isset($activeParents) && ($nSeitenTyp == 1 || $nSeitenTyp == 2)}
             {get_category_parents categoryId=$activeId assign='activeParents'}
         {/if}
@@ -51,20 +59,21 @@
 
             {assign var="catFunctions" value=$category->getFunctionalAttributes()}
             <li class="{if $isDropdown}mgm-fw{/if}{if $category->getID() == $activeId || (isset($activeParents[0]) && $activeParents[0]->getID() == $category->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}">
-                <a href="{$category->getURL()}" class="mm-mainlink">
+                <a href="{$category->getURL()}" class="mm-mainlink" title="{$category->getName()|escape:'html'}">
                     {$category->getShortName()}
                     {if $isDropdown}<span class="caret hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}{/if}
                 </a>
                 {if $isDropdown}
                     <ul class="dropdown-menu keepopen">
                         <li class="mgm-c mw-container">
+						    {include file="snippets/zonen.tpl" id="before_megamenu_content_{$category->getID()}" title="before_megamenu_content_{$category->getID()}"}
                                 <div class="row dpflex-a-start">
                                     {assign var=hasInfoColumn value=false}
                                     {if isset($snackyConfig.show_maincategory_info) && $snackyConfig.show_maincategory_info !== 'N' && ($category->getImageUrl() !== $noImgUrl || !empty($category->getDescription()))}
                                         {assign var=hasInfoColumn value=true}
                                         <div class="col-md-4 col-lg-3 hidden-xs hidden-sm info-col">
 											{if $category->getImageUrl() !== $noImgUrl && isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N'}
-												<a href="{$category->getURL()}" class="block">
+												<a href="{$category->getURL()}" class="block" title="{$category->getShortName()|escape:'html'}">
 													<span class="img-ct{if $snackyConfig.imageratioCategory == '43'} rt4x3{/if}">
 													{include file='snippets/image.tpl'
 																		class='img-responsive'
@@ -75,11 +84,11 @@
 												</a>
 											{/if}
 											<div class="description">
-												<a class="h4 block m0" href="{$category->getURL()}">
+												<a class="h4 block m0" href="{$category->getURL()}" title="{$category->getShortName()|escape:'html'}">
 													{$category->getShortName()}
 												</a>
 												<p>
-													{$category->getDescription()|strip_tags|escape:"html"|truncate:200}
+													{$category->getDescription()|strip_tags|strip_tags|truncate:200}
 												</p>
 											</div>
                                         </div>
@@ -92,10 +101,11 @@
                                                     {get_category_array categoryId=$category->getID() assign='sub_categories'}
                                                 {/if}
                                                 {foreach name='sub_categories' from=$sub_categories item='sub'}
-                                                    <div class="col-12 col-sm-3 col-lg-3{if $sub->getID() == $activeId || (isset($activeParents[1]) && $activeParents[1]->getID() == $sub->getID())} active{/if}{if is_array($sub->KategorieAttribute) && !empty($sub->KategorieAttribute["css_klasse"])} {$sub->KategorieAttribute["css_klasse"]}{/if}">
+                                                    {assign var="catFunctions" value=$sub->getFunctionalAttributes()}
+                                                    <div class="col-12 col-sm-3 col-lg-3{if $sub->getID() == $activeId || (isset($activeParents[1]) && $activeParents[1]->getID() == $sub->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}">
                                                             {if isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N'}
                                                                 
-															<a href="{$sub->getURL()}" class="hidden-xs block">
+															<a href="{$sub->getURL()}" class="hidden-xs block" title="{$sub->getShortName()|escape:'html'}">
 																<span class="img-ct{if $snackyConfig.imageratioCategory == '43'}  rt4x3{/if}">
 																	{include file='snippets/image.tpl'
 																						class='image'
@@ -110,7 +120,7 @@
 															{else}
 																{get_category_array categoryId=$sub->getID() assign='subsub_categories'}
 															{/if}
-															<a class="defaultlink h6 title block" href="{$sub->getURL()}">
+															<a class="defaultlink h6 title block" href="{$sub->getURL()}" title="{$sub->getShortName()|escape:'html'}">
 																{$sub->getShortName()}
 																{if $show_subcategories && $sub->hasChildren() && count($subsub_categories)  > 0}
 																{include file='snippets/mobile-menu-arrow.tpl'}
@@ -121,8 +131,9 @@
                                                                 <ul class="blanklist small subsub">
                                                                     {foreach name='subsub_categories' from=$subsub_categories item='subsub'}
                                                                         {if $smarty.foreach.subsub_categories.iteration <= $max_subsub_items}
-                                                                            <li class="{if $subsub->getID() == $activeId || (isset($activeParents[2]) && $activeParents[2]->getID() == $subsub->getID())} active{/if}{if is_array($subsub->KategorieAttribute) && !empty($subsub->KategorieAttribute["css_klasse"])} {$subsub->KategorieAttribute["css_klasse"]}{/if}">
-                                                                                <a href="{$subsub->getURL()}" class="defaultlink">
+																			{assign var="subCatFunctions" value=$sub->getFunctionalAttributes()}
+                                                                            <li class="{if $subsub->getID() == $activeId || (isset($activeParents[2]) && $activeParents[2]->getID() == $subsub->getID())} active{/if}{if !empty($subCatFunctions["css_klasse"])} {$subCatFunctions["css_klasse"]}{/if}">
+                                                                                <a href="{$subsub->getURL()}" class="defaultlink" title="{$subsub->getShortName()|escape:'html'}">
                                                                                     {$subsub->getShortName()}
                                                                                 </a>
                                                                             </li>
@@ -141,6 +152,7 @@
                                     </div>{* /mega-categories *}
                                 </div>{* /row *}
                             {* /mgm-c *}
+						    {include file="snippets/zonen.tpl" id="after_megamenu_content_{$category->getID()}" title="after_megamenu_content_{$category->getID()}"}
                         </li>
                     </ul>
                 {/if}
@@ -179,6 +191,7 @@
             {/if}
             <ul class="dropdown-menu keepopen">
                 <li class="mgm-c mw-container">
+                    {include file="snippets/zonen.tpl" id="before_megamenu_content_manufacturers" title="before_megamenu_content_manufacturers"}
 					<div class="row row-multi">
 						{foreach name=hersteller from=$manufacturers item=hst}
 							<div class="col-12 col-sm-3 col-md-3{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-2{/if}{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}">
@@ -199,6 +212,7 @@
 							</div>
 						{/foreach}
 					</div>{* /row *}
+                    {include file="snippets/zonen.tpl" id="after_megamenu_content_manufacturers" title="after_megamenu_content_manufacturers"}
                 </li>
             </ul>
         </li>

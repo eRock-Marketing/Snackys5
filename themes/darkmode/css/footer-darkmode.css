@@ -3,7 +3,8 @@
     background: @blackbg;
 }
 #footer,
-#footer .panel-heading{
+#footer .panel-heading,
+#footer .panel-title{
     color: white;
 }
 #footer a:not(.btn):not(:hover){
@@ -14,4 +15,13 @@
 }
 #footer svg{
     fill: white;
+}
+[data-page="11"] #footer{
+    padding-top: 3rem;
+}
+#footer .fa-caret-down{
+    filter: invert(100%);
+}
+#footer .p-c strong.price .old-price{
+    color: white;
 }

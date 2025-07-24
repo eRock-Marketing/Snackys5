@@ -2,10 +2,10 @@
 #top-bar-wrapper .dropdown-menu,
 #shop-nav,
 [data-headtype="2"] #cat-w,
-[data-headtype="4"] #km-fullscreen-wrapper #top-bar-wrapper,
-[data-headtype="4.5"] #km-fullscreen-wrapper #top-bar-wrapper,
-[data-headtype="5"] #km-fullscreen-wrapper #top-bar-wrapper,
-[data-headtype="5.5"] #km-fullscreen-wrapper #top-bar-wrapper{
+[data-headtype="4"] #km-fw #top-bar-wrapper,
+[data-headtype="4.5"] #km-fw #top-bar-wrapper,
+[data-headtype="5"] #km-fw #top-bar-wrapper,
+[data-headtype="5.5"] #km-fw #top-bar-wrapper{
     background: @blackbg;
 }
 #top-bar-wrapper .dropdown-menu{
@@ -49,6 +49,10 @@
 #search .icon,
 .hdr-nav .icon{
     opacity: 1;
+}
+
+.basket-opener svg{
+    fill: white;
 }
 
 .cart-menu .dropdown-menu{

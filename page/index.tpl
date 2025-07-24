@@ -49,6 +49,18 @@
                                 </span>
                             </div>
                         {/if}
+                        {assign var='linkKeyHersteller' value=\JTL\Shop::Container()->getLinkService()->getSpecialPageID(LINKTYP_HERSTELLER, false)|default:0}
+                        {assign var='linkSEOHersteller' value=\JTL\Shop::Container()->getLinkService()->getLinkByID($linkKeyHersteller)|default:null}
+                        {if $linkSEOHersteller !== null && !empty($linkSEOHersteller->getName())}
+                            <a class="btn btn-primary" href="{$linkSEOHersteller->getURL()}" title="{$linkSEOHersteller->getName()}" aria-label="{$linkSEOHersteller->getName()}">
+                                <span class="hidden-xs">
+                                {lang key="showAll" section="global"}
+                                </span>
+                                <span class="visible-xs">
+                                    <span class="ar ar-r"></span>
+                                </span>
+                            </a>
+                        {/if}
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 {block name='layout-index'}
+{if !isset($viewportImages)}{assign var="viewportImages" value=0}{/if}
 {if isset($nFullscreenTemplate) && $nFullscreenTemplate == 1}
     {include file=$cPluginTemplate}
 {else}
@@ -15,9 +16,11 @@
 			{if !empty($Link->getTitle()) && $Link->getLinkType() != $smarty.const.LINKTYP_404}
 				{include file="snippets/zonen.tpl" id="opc_before_heading"}
 				<h1>{$Link->getTitle()}</h1>
+				{include file="snippets/zonen.tpl" id="opc_after_heading"}
 			{elseif isset($bAjaxRequest) && $bAjaxRequest}
 				{include file="snippets/zonen.tpl" id="opc_before_heading"}
 				<h1>{if !empty($Link->getMetaTitle())}{$Link->getMetaTitle()}{else}{$Link->getName()}{/if}</h1>
+				{include file="snippets/zonen.tpl" id="opc_after_heading"}
 			{/if}
 
 			{if $nSeitenTyp !== 18 && $nSeitenTyp !== 1 && $nSeitenTyp !== 2}

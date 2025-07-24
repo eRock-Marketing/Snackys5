@@ -72,11 +72,11 @@
     text-align: center;
 }
 .var-it .swatches .btn-img .img-ct{
-    box-shadow: 0 0 0 1px @lightborder;       
+    box-shadow: 0 0 0 2px @lightborder;       
 }
 .var-it .swatches .btn-img:hover .img-ct,
 .var-it .swatches .btn-img.active .img-ct{
-    box-shadow: 0 0 0 1px @brand;    
+    box-shadow: 0 0 0 2px @brand;    
 }
 .var-it .textswatches .btn-default .label-info{
     display: block;

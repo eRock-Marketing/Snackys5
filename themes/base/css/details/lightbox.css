@@ -24,7 +24,6 @@
     padding: 1.8rem;
     width: 10rem;
     max-height: 100%;
-    background: @blackbg;
     z-index: 5;
     position: static;
     border: 0;
@@ -95,11 +94,6 @@
 }
 .lightbox-shown #gallery-thumbs .img-w{
     position: static;
-}
-
-/* Close Button */
-body:not(.lightbox-shown) #close-lightbox{
-    display: none;
 }
 .lightbox-shown #close-lightbox{
     position: fixed;

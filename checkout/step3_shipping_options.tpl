@@ -4,9 +4,9 @@
         {if !isset($Versandarten)}
             <div class="alert alert-danger">{lang key="noShippingMethodsAvailable" section="checkout"}</div>
         {else}
-            <form method="post" action="{get_static_route id='bestellvorgang.php'}" class="form evo-validate shipping-payments">
+            <form method="post" action="{get_static_route id='bestellvorgang.php'}" class="form jtl-validate shipping-payments checkout-shipping-form">
                 {$jtl_token}
-                <div class="panel-wrap">
+                <div class="panel-wrap mb-sm">
                     <fieldset id="checkout-shipping-payment">
                         <legend>{lang section='global' key='shippingOptions'}</legend>
                         <div class="form-group">
@@ -53,7 +53,7 @@
                     </fieldset>
                 </div>
                 {if isset($Verpackungsarten) && $Verpackungsarten|@count > 0}
-                <div class="panel-wrap">
+                <div class="panel-wrap mb-sm">
                     <fieldset>
                         <legend>{lang section='checkout' key='additionalPackaging'}</legend>
                         <div class="form-group">
@@ -82,7 +82,7 @@
                     </fieldset>
                 </div>
                 {/if}
-                <div class="panel-wrap">
+                <div class="panel-wrap mb-sm">
                     <fieldset id="fieldset-payment">
                         <legend>{lang section='global' key='paymentOptions'}</legend>
                         {$step4_payment_content}

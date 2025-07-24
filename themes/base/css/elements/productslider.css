@@ -1,3 +1,6 @@
+.panel-slider{
+    max-width: 100%;
+}
 .p-sl{
 	flex-wrap: nowrap;
 	overflow-x: auto;

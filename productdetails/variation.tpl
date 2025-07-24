@@ -30,7 +30,7 @@
             <dd class="var-body form-group">
                 {if $Variation->cTyp === 'SELECTBOX'}
                     {block name='productdetails-info-variation-select'}
-                    <select class="form-control" title="{if isset($smallView) && $smallView}{$Variation->cName} - {/if}{lang key='pleaseChooseVariation' section='productDetails'}" name="eigenschaftwert[{$Variation->kEigenschaft}]"{if !$showMatrix} required{/if}>
+                    <select data-site="10" class="form-control" title="{if isset($smallView) && $smallView}{$Variation->cName} - {/if}{lang key='pleaseChooseVariation' section='productDetails'}" name="eigenschaftwert[{$Variation->kEigenschaft}]"{if !$showMatrix} required{/if}>
                         {foreach name=Variationswerte from=$Variation->Werte key=y item=Variationswert}
                             {assign var="bSelected" value=false}
                             {if isset($oVariationKombi_arr[$Variationswert->kEigenschaft])}
@@ -121,7 +121,7 @@
                                 {* /do nothing *}
                             {else}
                                 {block name='productdetails-info-variation-swatch'}
-                                    <label class="variation block btn btn-default{if $bSelected} active{/if}{if $Variationswert->notExists} not-available{/if}{if isset($smallView) || $smallView} btn-xs{/if}{if !empty($Variationswert->cBildPfadMiniFull)} btn-img{/if}"
+                                    <label class="variation block btn btn-default{if $bSelected} active{/if}{if $Variationswert->notExists} not-available{/if}{if isset($smallView) && $smallView} btn-xs{/if}{if !empty($Variationswert->cBildPfadMiniFull)} btn-img{/if}"
                                             data-type="swatch"
                                             data-original="{$Variationswert->cName}"
                                             data-key="{$Variationswert->kEigenschaft}"
@@ -177,7 +177,7 @@
                        class="form-control"
                        name="eigenschaftwert[{$Variation->kEigenschaft}]"
                        value="{if isset($oEigenschaftWertEdit_arr[$Variation->kEigenschaft])}{$oEigenschaftWertEdit_arr[$Variation->kEigenschaft]->cEigenschaftWertNameLocalized}{/if}"
-                       data-key="{$Variation->kEigenschaft}"{if $Variation->cTyp === 'PFLICHT-FREIFELD'} required{/if}>
+                       data-key="{$Variation->kEigenschaft}"{if $Variation->cTyp === 'PFLICHT-FREIFELD'} required{/if} maxlength=255>
                     {/block}
                 {/if}
             </dd>

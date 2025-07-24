@@ -1,7 +1,7 @@
 {block name='boxes-box-custom'}
 {if $snackyConfig.filterPos == 1 && empty($oBox->getTitle()) && $oBox->getPosition() == 'left'}
 {else}
-    <section class="panel box box-custom box-normal" id="sidebox{$oBox->getID()}"}>
+    <section class="panel box box-custom box-normal" id="sidebox{$oBox->getID()}">
         {block name='boxes-box-custom-title'}
             <div class="h5 panel-heading dpflex-a-c">
                 {$oBox->getTitle()}

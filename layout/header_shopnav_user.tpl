@@ -15,7 +15,7 @@
 		<div class="modal-body">
 		{if empty($smarty.session.Kunde->kKunde)}
             {block name='layout-header-shopnav-user-offline'}
-			<form action="{get_static_route id='jtl.php' secure=true}" method="post" class="form evo-validate">
+			<form action="{get_static_route id='jtl.php' secure=true}" method="post" class="form jtl-validate">
 				{$jtl_token}
 				<div class="form-group">
 					<label for="email_quick">{lang key='emailadress'}</label>
@@ -57,7 +57,7 @@
 					{lang key='myAccount'}
 					<span class="img-ct icon icon-wt ic-md">
 						<svg>
-						  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-user"></use>
+						  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-user"></use>
 						</svg>
 					</span>
 				</a>
@@ -67,17 +67,17 @@
 					{lang key="orders" section="account data"}
 					<span class="img-ct icon icon icon-wt ic-md">
 						<svg>
-						  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}"></use>
+						  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}"></use>
 						</svg>
 					</span>
 				</a>
                 {/block}
                 {block name='layout-header-shopnav-user-adress'}
 				<a href="{get_static_route id='jtl.php' params=['editRechnungsadresse' => 1]}" class="dpflex-a-center dpflex-j-between nav-it defaultlink">
-					{lang key="addresses" section="account data"}
+					{lang key="billingAdress" section="account data"}
 					<span class="img-ct icon icon icon-wt ic-md">
 						<svg>
-						  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-house"></use>
+						  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-house"></use>
 						</svg>
 					</span>
 				</a>
@@ -88,7 +88,7 @@
 						{lang key="wishlists" section="account data"}
 						<span class="img-ct icon icon icon-wt ic-md">
 							<svg>
-							  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-heart"></use>
+							  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-heart"></use>
 							</svg>
 						</span>
 					</a>
@@ -100,7 +100,7 @@
 						{lang key="compare" sektion="global"}
 						<span class="img-ct icon icon icon-wt ic-md">
 							<svg>
-							  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-compare"></use>
+							  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-compare"></use>
 							</svg>
 						</span>
 					</a>
@@ -111,7 +111,7 @@
                     {lang key='allRatings'}
                     <span class="img-ct icon icon icon-wt ic-md">
                         <svg>
-                          <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-reviews"></use>
+                          <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-reviews"></use>
                         </svg>
                     </span>
                 </a>

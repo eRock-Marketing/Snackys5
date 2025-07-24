@@ -10,6 +10,9 @@
     #footer-boxes .col-6:not(.open-show) .panel-body{
         display: none;
     }
+    #footer-boxes .col-6 .panel-slider.open-show .panel-body{
+        display: block;
+    }
     #footer-boxes .col-6:not(.open-show) .panel-heading{
         margin: 0;
     }

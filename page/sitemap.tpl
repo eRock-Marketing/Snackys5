@@ -1,143 +1,162 @@
 {block name='page-sitemap'}
-<hr class="invisible">
+    <div id="km_sm">
+    <hr class="invisible">
     {if $Einstellungen.sitemap.sitemap_seiten_anzeigen === 'Y'}
-        {block name='sitemap-pages'}
-            {include file="snippets/zonen.tpl" id="opc_before_pages"}
-            <div class="sitemap panel-default mb-md">
-                <h2 class="h5">{block name='sitemap-pages-title'}{lang key='sitemapSites'}{/block}</h2>
-                {block name='sitemap-pages-body'}
-                    {foreach $linkgroups as $linkgroup}
-                        {if isset($linkgroup->getName()) && $linkgroup->getName() !== 'hidden' && !empty($linkgroup->getLinks())}
-                            <ul class="list-unstyled mb-sm">
-                                {include file='snippets/linkgroup_list.tpl' linkgroupIdentifier=$linkgroup->getTemplate() tplscope='sitemap'}
-                            </ul>
-                        {/if}
-                    {/foreach}
+        {block name='page-sitemap-pages'}
+            {opcMountPoint id='opc_before_pages' inContainer=false}
+            {card header={lang key='sitemapSites'} class="mb-md"}
+                {block name='page-sitemap-pages-content'}
+                    {row class="row-multi"}
+                        {foreach $linkgroups as $linkgroup}
+                            {assign var="links" value=""}
+                            {get_navigation linkgroupIdentifier=$linkgroup->getTemplate() assign='links'}
+                            {if !empty($links) && !empty($linkgroup->getName()) && $linkgroup->getName() !== 'hidden' && !empty($linkgroup->getLinks())}
+                                {col cols=12 md=4 lg=3}
+                                    {nav}
+                                            {foreach $links as $li}
+                                                <li>
+                                                    <a href="{$li->getURL()}" {if $li->getNoFollow()} rel="nofollow"{/if}{if !empty($li->getTitle())} title="{$li->getTitle()}"{/if}>
+                                                        {$li->getName()}
+                                                        {if $li->getChildLinks()->count() > 0 && isset($dropdownSupport)} <span class="caret hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}{/if}
+                                                    </a>
+                                                </li>
+                                            {/foreach}
+                                    {/nav}
+                                {/col}
+                            {/if}
+                        {/foreach}
+                    {/row}
                 {/block}
-            </div>
+            {/card}
         {/block}
     {/if}
-{if $Einstellungen.sitemap.sitemap_kategorien_anzeigen === 'Y' && isset($oKategorieliste->elemente) && $oKategorieliste->elemente|@count > 0}
-    {block name='sitemap-categories'}
-		{include file="snippets/zonen.tpl" id="opc_before_categories"}
-
-        <div class="sitemap mb-md">
-            <h2 class="h5">{block name='sitemap-categories-title'}{lang key='sitemapKats'}{/block}</h2>
-            {block name='sitemap-categories-body'}
-                    {* first: categories with subcategories only *}
-                    {foreach $oKategorieliste->elemente as $oKategorie}
-                        {if $oKategorie->getChildren()|@count > 0}
-                            <ul class="list-unstyled mb-sm">
-                                <li>
-                                    <a href="{$oKategorie->getURL()}" title="{$oKategorie->getName()}">
-                                        <strong>
-                                            {$oKategorie->getShortName()}
-                                        </strong>
-                                    </a>
-                                </li>
-                                {foreach $oKategorie->getChildren() as $oSubKategorie}
-                                    <li>
-                                        <a href="{$oSubKategorie->getURL()}" title="{$oKategorie->getName()}">
-                                            {$oSubKategorie->getShortName()}
-                                        </a>
-                                    </li>
-                                    {if $oSubKategorie->getChildren()|@count > 0}
+    {if $Einstellungen.sitemap.sitemap_kategorien_anzeigen === 'Y' && isset($oKategorieliste->elemente) && $oKategorieliste->elemente|@count > 0}
+        {block name='page-sitemap-categories'}
+            {opcMountPoint id='opc_before_categories' inContainer=false}
+            {card header={lang key='sitemapKats'} class="mb-md"}
+                {block name='page-sitemap-categories-content'}
+                    {row class="row-multi"}
+                        {foreach $oKategorieliste->elemente as $oKategorie}
+                            {if $oKategorie->getChildren()|@count > 0}
+                                {col cols=12 md=4 lg=3}
+                                    <ul class="nav">
                                         <li>
-                                            <ul class="list-unstyled sub-categories">
-                                                {foreach $oSubKategorie->getChildren() as $oSubSubKategorie}
-                                                    <li>
-                                                        <a href="{$oSubSubKategorie->getURL()}"
-                                                           title="{$oKategorie->getName()}">
-                                                            {$oSubSubKategorie->getShortName()}
-                                                        </a>
-                                                    </li>
-                                                {/foreach}
-                                            </ul>
+                                            {link href=$oKategorie->getURL() title=$oKategorie->getName()|escape:'html' class="nice-deco"}
+                                                <strong>{$oKategorie->getShortName()}</strong>
+                                            {/link}
+                                        </li>
+                                        {foreach $oKategorie->getChildren() as $oSubKategorie}
+                                            <li>
+                                                {link href=$oSubKategorie->getURL() title=$oKategorie->getName()|escape:'html' class="nice-deco"}
+                                                    {$oSubKategorie->getShortName()}
+                                                {/link}
+                                            </li>
+                                            {if $oSubKategorie->getChildren()|@count > 0}
+                                                <li>
+                                                    <ul class="sub-categories list-unstyled">
+                                                        {foreach $oSubKategorie->getChildren() as $oSubSubKategorie}
+                                                            <li>
+                                                                {link href=$oSubSubKategorie->getURL()
+                                                                   title=$oKategorie->getName()|escape:'html' class="nice-deco"}
+                                                                    {$oSubSubKategorie->getShortName()}
+                                                                {/link}
+                                                            </li>
+                                                        {/foreach}
+                                                    </ul>
+                                                </li>
+                                            {/if}
+                                        {/foreach}
+                                    </ul>
+                                {/col}
+                            {/if}
+                        {/foreach}
+
+                        {col cols=12 md=4 lg=3}
+                            <ul class="nav">
+                                {foreach $oKategorieliste->elemente as $oKategorie}
+                                    {if $oKategorie->getChildren()|@count == 0}
+                                        <li>
+                                            &nbsp;&nbsp;{link href=$oKategorie->getURL() title=$oKategorie->getName()|escape:'html' class="nice-deco"}
+                                                {$oKategorie->getShortName()}
+                                            {/link}
                                         </li>
                                     {/if}
                                 {/foreach}
                             </ul>
-                        {/if}
-                    {/foreach}
-
-                    {* last: all categories without subcategories *}
-                    <ul class="list-unstyled mb-sm">
-                        {* <li><b>{lang key='otherCategories'}</b></li> *}
-                        {foreach $oKategorieliste->elemente as $oKategorie}
-                            {if $oKategorie->getChildren()|@count == 0}
-                                <li>
-                                    &nbsp;&nbsp;<a href="{$oKategorie->getURL()}" title="{$oKategorie->getName()}">
-                                        {$oKategorie->getShortName()}
-                                    </a>
-                                </li>
+                        {/col}
+                    {/row}
+                {/block}
+            {/card}
+        {/block}
+    {/if}
+    {if $Einstellungen.sitemap.sitemap_hersteller_anzeigen === 'Y' && $oHersteller_arr|@count > 0}
+        {block name='page-sitemap-manufacturer'}
+            {opcMountPoint id='opc_before_manufacturers' inContainer=false}
+            {card header={lang key='sitemapNanufacturer'} class="mb-md"}
+                {block name='page-sitemap-manufacturer-content'}
+                    {row class="row-multi"}
+                        {foreach $oHersteller_arr as $oHersteller}
+                            {col cols=12 md=4 lg=3 class="sitemap-group-item"}
+                                {link href=$oHersteller->cURL  class="nice-deco"}{$oHersteller->cName}{/link}
+                            {/col}
+                        {/foreach}
+                    {/row}
+                {/block}
+            {/card}
+        {/block}
+    {/if}
+    {if $Einstellungen.news.news_benutzen === 'Y' && $Einstellungen.sitemap.sitemap_news_anzeigen === 'Y' && !empty($oNewsMonatsUebersicht_arr) && $oNewsMonatsUebersicht_arr|@count > 0}
+        {block name='page-sitemap-news'}
+            {opcMountPoint id='opc_before_news' inContainer=false}
+            {card header={lang key='sitemapNews'} class="mb-md"}
+                {block name='page-sitemap-news-content'}
+                    {row class="row-multi"}
+                        {foreach $oNewsMonatsUebersicht_arr as $oNewsMonatsUebersicht}
+                            {if $oNewsMonatsUebersicht->oNews_arr|@count > 0}
+                                {math equation='x-y' x=$oNewsMonatsUebersicht@iteration y=1 assign='i'}
+                                {col cols=12 md=4 lg=3}
+                                    <strong class="block mb-xxs">{link href=$oNewsMonatsUebersicht->cURLFull class="nice-deco"}{$oNewsMonatsUebersicht->cName}{/link}</strong>
+                                    <ul class="nav">
+                                        {foreach $oNewsMonatsUebersicht->oNews_arr as $oNews}
+                                            <li>{link href=$oNews->cURLFull class="nice-deco"}{$oNews->cBetreff}{/link}</li>
+                                        {/foreach}
+                                    </ul>
+                                {/col}
                             {/if}
                         {/foreach}
-                    </ul>
-            {/block}
-        </div>
-    {/block}
-{/if}
-{if $Einstellungen.sitemap.sitemap_hersteller_anzeigen === 'Y' && $oHersteller_arr|@count > 0}
-    {block name='sitemap-manufacturer'}
-		{include file="snippets/zonen.tpl" id="opc_before_manufacturers"}
-
-        <div class="sitemap mb-md">
-            <h2 class="h5">{block name='sitemap-manufacturer-title'}{lang key='sitemapNanufacturer'}{/block}</h2>
-            {block name='sitemap-manufacturer-body'}
-                <ul class="list-unstyled">
-                    {foreach $oHersteller_arr as $oHersteller}
-                        <li><a href="{$oHersteller->cURL}">{$oHersteller->cName}</a></li>
-                    {/foreach}
-                </ul>
-            {/block}
-        </div>
-    {/block}
-{/if}
-{if $Einstellungen.news.news_benutzen === 'Y' && $Einstellungen.sitemap.sitemap_news_anzeigen === 'Y' && !empty($oNewsMonatsUebersicht_arr) && $oNewsMonatsUebersicht_arr|@count > 0}
-    {block name='sitemap-news'}
-		{include file="snippets/zonen.tpl" id="opc_before_news"}
-
-        <div class="sitemap mb-md">
-            <h2 class="h5">{block name='sitemap-news-title'}{lang key='sitemapNews'}{/block}</h2>
-            {block name='sitemap-news-body'}
-                {foreach $oNewsMonatsUebersicht_arr as $oNewsMonatsUebersicht}
-                    {if $oNewsMonatsUebersicht->oNews_arr|@count > 0}
-                        {math equation='x-y' x=$oNewsMonatsUebersicht@iteration y=1 assign='i'}
-                        <strong class="h5 block"><a href="{$oNewsMonatsUebersicht->cURLFull}">{$oNewsMonatsUebersicht->cName}</a></strong>
-                        <ul class="list-unstyled mb-sm">
-                            {foreach $oNewsMonatsUebersicht->oNews_arr as $oNews}
-                                <li><a href="{$oNews->cURLFull}">{$oNews->cBetreff}</a></li>
-                            {/foreach}
-                        </ul>
-                    {/if}
-                {/foreach}
-            {/block}
-        </div>
-    {/block}
-{/if}
-{if $Einstellungen.news.news_benutzen === 'Y' && $Einstellungen.sitemap.sitemap_newskategorien_anzeigen === 'Y' && !empty($oNewsKategorie_arr) && $oNewsKategorie_arr|@count > 0}
-    {block name='sitemap-news-categories'}
-		{include file="snippets/zonen.tpl" id="opc_before_news_categories"}
-
-        <div class="sitemap mb-md">
-            <h2 class="h5">{block name='sitemap-news-categories-title'}{lang key='sitemapNewsCats'}{/block}</h2>
-            {block name='sitemap-news-categories-body'}
-                <div class="row">
-                    {foreach $oNewsKategorie_arr as $oNewsKategorie}
-                        {if $oNewsKategorie->oNews_arr|@count > 0}
-                            <div class="col-12">
-                                <strong><a href="{$oNewsKategorie->cURLFull}">{$oNewsKategorie->cName}</a></strong>
-                                <ul class="list-unstyled">
-                                    {foreach $oNewsKategorie->oNews_arr as $oNews}
-                                        <li>&nbsp;&nbsp;<a href="{$oNews->cURLFull}">{$oNews->cBetreff}</a></li>
-                                    {/foreach}
-                                </ul>
-                            </div>
-                        {/if}
-                    {/foreach}
-                </div>
-            {/block}
-        </div>
-    {/block}
-{/if}
+                    {/row}
+                {/block}
+            {/card}
+        {/block}
+    {/if}
+    {if $Einstellungen.news.news_benutzen === 'Y'
+        && $Einstellungen.sitemap.sitemap_newskategorien_anzeigen === 'Y'
+        && !empty($oNewsKategorie_arr)
+        && $oNewsKategorie_arr|@count > 0
+    }
+        {block name='page-sitemap-news-categories'}
+            {opcMountPoint id='opc_before_news_categories' inContainer=false}
+            {card header={lang key='sitemapNewsCats'} class="mb-md"}
+                {block name='page-sitemap-news-categories-content'}
+                    {row class="row-multi"}
+                        {foreach $oNewsKategorie_arr as $oNewsKategorie}
+                            {if $oNewsKategorie->oNews_arr|@count > 0}
+                                {col cols=12 md=4 lg=3}
+                                    <strong class="block mb-xxs">{link href=$oNewsKategorie->cURLFull}{$oNewsKategorie->cName}{/link}</strong>
+                                    <ul class="nav">
+                                        {foreach $oNewsKategorie->oNews_arr as $oNews}
+                                            <li>
+                                                {link href=$oNews->cURLFull class="nice-deco"}{$oNews->cBetreff}{/link}
+                                            </li>
+                                        {/foreach}
+                                    </ul>
+                                {/col}
+                            {/if}
+                        {/foreach}
+                    {/row}
+                {/block}
+            {/card}
+        {/block}
+    {/if}
+    </div>
 {/block}

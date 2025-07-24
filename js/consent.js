@@ -3,3 +3,9 @@
 $('.consent-show-more').on('click', function(e) {
     e.preventDefault();
 });
+$('#consent-accept-banner-btn-close').on('click', function(e) {
+    $('[data-storage-key]').each(function(v,k){
+        CM.setSetting($(k).data('storageKey'), $(k).is(':checked'));
+    });
+    CM.closeBanner();
+});

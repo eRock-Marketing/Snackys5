@@ -8,8 +8,8 @@
     {/if}
 
     {block name="product-pagination"}
-    {if $Einstellungen.artikeldetails.artikeldetails_navi_blaettern == 'Y' && isset($NavigationBlaettern)}
-        <div id="prevNextRow" class="dpflex-a-center dpflex-j-between dpflex-wrap mb-spacer mb-small hidden-xs">
+    {if $Einstellungen.artikeldetails.artikeldetails_navi_blaettern == 'Y' && isset($NavigationBlaettern) && !$isMobile}
+        <div id="prevNextRow" class="dpflex-a-center dpflex-j-between dpflex-wrap mb-sm hidden-xs">
             <div class="visible-lg visible-md product-pagination previous">
                 {if isset($NavigationBlaettern->vorherigerArtikel) && $NavigationBlaettern->vorherigerArtikel->kArtikel}
                     <a href="{$NavigationBlaettern->vorherigerArtikel->cURLFull}" title="{$NavigationBlaettern->vorherigerArtikel->cName}" class="dpflex">
@@ -22,7 +22,7 @@
                     </a>
                 {/if}
             </div>
-            <h1 class="fn product-title text-center" itemprop="name">{$Artikel->cName}</h1>
+            <h1 class="fn product-title text-center">{$Artikel->cName}</h1>
             <div class="visible-lg visible-md product-pagination next">
                 {if isset($NavigationBlaettern->naechsterArtikel) && $NavigationBlaettern->naechsterArtikel->kArtikel}
                     <a href="{$NavigationBlaettern->naechsterArtikel->cURLFull}" title="{$NavigationBlaettern->naechsterArtikel->cName}" class="dpflex">
@@ -36,6 +36,24 @@
                 {/if}
             </div>
         </div>
+    {elseif $Einstellungen.artikeldetails.artikeldetails_navi_blaettern == 'Y' && isset($NavigationBlaettern) && $isMobile}
+        <div id="prevNextRow" class="dpflex-a-center dpflex-j-between small">
+            <div class="product-pagination previous">
+                {if isset($NavigationBlaettern->vorherigerArtikel) && $NavigationBlaettern->vorherigerArtikel->kArtikel}
+                    <a href="{$NavigationBlaettern->vorherigerArtikel->cURLFull}" title="{$NavigationBlaettern->vorherigerArtikel->cName}" class="dpflex-a-c">
+                        <span class="ar ar-l"></span> {lang key="previous"}
+                    </a>
+                {/if}
+            </div>
+            <div class="product-pagination next">
+                {if isset($NavigationBlaettern->naechsterArtikel) && $NavigationBlaettern->naechsterArtikel->kArtikel}
+                    <a href="{$NavigationBlaettern->naechsterArtikel->cURLFull}" title="{$NavigationBlaettern->naechsterArtikel->cName}" class="dpflex-a-c">
+                        {lang key="next"} <span class="ar ar-r"></span>
+                    </a>
+                {/if}
+            </div>
+        </div>
+        <div class="hidden-xs"><hr class="invisible"></div>
     {else}
     <hr class="invisible hr-sm hidden-xs">
     {/if}
@@ -48,7 +66,7 @@
     {/foreach}
     {include file="snippets/zonen.tpl" id="opc_before_buy_form"}
     {block name="buyform-block"}
-    <form id="buy_form" method="post" action="{$Artikel->cURLFull}" class="evo-validate mb-lg" data-track-type="start" data-track-event="view_item" data-track-p-items='[{ldelim}"id":"{if $snackyConfig.artnr == "id"}{$Artikel->kArtikel}{else}{$Artikel->cArtNr}{/if}","category":"{$cate|escape}","name":"{$Artikel->cName|escape}","price":"{$Artikel->Preise->fVKNetto}"{rdelim}]'>
+    <form id="buy_form" method="post" action="{$Artikel->cURLFull}" class="jtl-validate mb-lg">
         {$jtl_token}
         <div class="row product-primary" id="product-offer">
             <div class="product-gallery col-12 col-sm-6">
@@ -61,15 +79,15 @@
             {block name="productdetails-details-info"}
                 
 				{block name="product-headline-block"}
-                {if $Einstellungen.artikeldetails.artikeldetails_navi_blaettern !== 'Y' && !isset($NavigationBlaettern)}
+                {if ($Einstellungen.artikeldetails.artikeldetails_navi_blaettern !== 'Y' && !isset($NavigationBlaettern)) || $isMobile}
                 <div class="product-headline">
                     {include file="snippets/zonen.tpl" id="opc_before_headline"}
-                    <h1 class="product-title" itemprop="name">{$Artikel->cName}</h1>
+                    <h1 class="product-title">{$Artikel->cName}</h1>
                 </div>
                 {else}
                 <div class="product-headline visible-xs">
                     {include file="snippets/zonen.tpl" id="opc_before_headline"}
-                    <span class="product-title h1 block" itemprop="name">{$Artikel->cName}</span>
+                    <span class="product-title h1 block">{$Artikel->cName}</span>
                 </div>
                 {/if}
                 {/block}
@@ -83,7 +101,7 @@
                                 {block name="productdetails-info-artnr-wrapper"}
                                 {if isset($Artikel->cArtNr)}
                                     <li class="product-sku nav-it">
-                                        <strong>{lang key="sortProductno"}:</strong> <span itemprop="sku">{$Artikel->cArtNr}</span>
+                                        <strong>{lang key="sortProductno"}:</strong> <span>{$Artikel->cArtNr}</span>
                                     </li>
                                 {/if}
                                 {/block}
@@ -91,7 +109,7 @@
                                 {block name="productdetails-info-mhd-wrapper"}
                                 {if isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
                                     <li title="{lang key='productMHDTool'}" class="best-before nav-it">
-                                        <strong>{lang key="productMHD"}:</strong> <span itemprop="best-before">{$Artikel->dMHD_de}</span>                                        
+                                        <strong>{lang key="productMHD"}:</strong> <span>{$Artikel->dMHD_de}</span>                                        
                                     </li>
                                 {/if}
                                 {/block}
@@ -99,7 +117,7 @@
                                 {block name="productdetails-info-barcode-wrapper"}
                                 {if !empty($Artikel->cBarcode) && ($Einstellungen.artikeldetails.gtin_display === 'details' || $Einstellungen.artikeldetails.gtin_display === 'always')}
                                     <li class="nav-it">
-                                        <strong>{lang key='ean'}: </strong><span itemprop="{if $Artikel->cBarcode|count_characters === 8}gtin8{else}gtin13{/if}">{$Artikel->cBarcode}</span>
+                                        <strong>{lang key='ean'}: </strong><span>{$Artikel->cBarcode}</span>
                                     </li>
                                 {/if}
                                 {/block}
@@ -107,7 +125,7 @@
                                 {block name="productdetails-info-isbn-wrapper"}
                                 {if !empty($Artikel->cISBN) && ($Einstellungen.artikeldetails.isbn_display === 'D' || $Einstellungen.artikeldetails.isbn_display === 'DL')}
                                     <li class="nav-it">
-                                        <strong>{lang key='isbn'}: </strong><span itemprop="gtin13">{$Artikel->cISBN}</span>
+                                        <strong>{lang key='isbn'}: </strong><span>{$Artikel->cISBN}</span>
                                     </li>
                                 {/if}
                                 {/block}
@@ -116,7 +134,7 @@
                                 {assign var=i_kat value=($Brotnavi|@count)-2}
                                 {if $Einstellungen.artikeldetails.artikeldetails_kategorie_anzeigen === 'Y' && isset($Brotnavi[$i_kat])}
                                     <li class="product-category word-break nav-it">
-                                        <strong>{lang key="category" section="global"}: </strong><a href="{$Brotnavi[$i_kat]->getURLFull()}" itemprop="category">{$Brotnavi[$i_kat]->getName()}</a>
+                                        <strong>{lang key="category" section="global"}: </strong><a href="{$Brotnavi[$i_kat]->getURLFull()}">{$Brotnavi[$i_kat]->getName()}</a>
                                     </li>
                                 {/if}
                                 {/block}  
@@ -134,14 +152,9 @@
                                 {/block} 
                                 {if ($Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0)}
                                     {block name="productdetails-info-rating-wrapper"}
-                                    <li class="rating-wrapper nav-it dpflex-a-center" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                                        <span itemprop="ratingValue"
-                                              class="hidden">{$Artikel->Bewertungen->oBewertungGesamt->fDurchschnitt}</span>
-                                        <span itemprop="bestRating" class="hidden">5</span>
-                                        <span itemprop="worstRating" class="hidden">1</span>
-                                        <span itemprop="reviewCount" class="hidden">{$Artikel->Bewertungen->oBewertungGesamt->nAnzahl}</span>    
+                                    <li class="rating-wrapper nav-it dpflex-a-center">
                                         <strong class="icon-wt">{lang key="rating" section="global"}:</strong>
-                                        <a href="{$Artikel->cURLFull}#tab-votes" id="jump-to-votes-tab" class="hidden-print">
+                                        <a id="jump-to-votes-tab" class="hidden-print"{if $Einstellungen.artikeldetails.artikeldetails_tabs_nutzen == 'N' || $isMobile} data-toggle="collapse" href="#tab-votes" role="button"{else} href="{$Artikel->cURLFull}#tab-votes" {/if}>
                                             {include file='productdetails/rating.tpl' stars=$Artikel->Bewertungen->oBewertungGesamt->fDurchschnitt total=$Artikel->Bewertungen->oBewertungGesamt->nAnzahl}
                                         </a>
                                     </li>
@@ -149,21 +162,27 @@
                                 {/if}
                                 {block name="productdetails-info-manufacturer-wrapper"}
                                     {if $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== 'N' && isset($Artikel->cHersteller)}
-                                    <li class="nav-it dpflex-a-center" itemprop="manufacturer" itemscope itemtype="http://schema.org/Organization">
-                                        <meta itemprop="brand" content="{$Artikel->cHersteller}">
+                                    <li class="nav-it dpflex-a-center">
                                         {block name="product-info-manufacturer"}
-                                            <strong class="block first icon-wt">{lang key="manufacturers"}: </strong>
-                                            <a href="{$Artikel->cHerstellerSeo}"{if $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== 'B'} data-toggle="tooltip" data-placement="left" title="{$Artikel->cHersteller}"{/if} itemprop="url" class="dpflex-a-center">
+                                            <strong class="block first icon-wt">{lang key='manufacturer' section='productDetails'}: </strong>
+                                            {if $Einstellungen.artikeldetails.artikel_weitere_artikel_hersteller_anzeigen === 'Y'}
+                                                <a href="{if !empty($Artikel->cHerstellerHomepage)}{$Artikel->cHerstellerHomepage}{else}{$Artikel->cHerstellerSeo}{/if}" title="{$Artikel->cHersteller|escape:'html'}" class="dpflex-a-c">
+                                            {else}
+                                                <span class="dpflex-a-c">
+                                            {/if}
                                                 {if ($Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen === 'B' || $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen === 'BT') && !empty($Artikel->cHerstellerBildURLKlein)}	
                                                 <span class="img-ct icon icon-wt icon-xl contain">
-                                                {image lazy=true webp=true src=$Artikel->cHerstellerBildURLKlein alt=$Artikel->cHersteller}
+                                                {image lazy=true webp=true src=$Artikel->cHerstellerBildURLKlein alt=$Artikel->cHersteller|escape:'html'}
                                                 </span>
-                                                <meta itemprop="image" content="{$Artikel->cHerstellerBildURLKlein}">
                                                 {/if}
                                                 {if $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== 'B'}
-                                                    <span itemprop="name">{$Artikel->cHersteller}</span>
+                                                    <span>{$Artikel->cHersteller}</span>
                                                 {/if}
-                                            </a>
+                                            {if $Einstellungen.artikeldetails.artikel_weitere_artikel_hersteller_anzeigen === 'Y'}
+                                                </a>
+                                            {else}
+                                                </span>
+                                            {/if}
                                         {/block}
                                     </li>
                                     {/if}
@@ -186,7 +205,7 @@
                 {if $Einstellungen.artikeldetails.artikeldetails_kurzbeschreibung_anzeigen === 'Y' && $Artikel->cKurzBeschreibung}
                     {block name="productdetails-info-description"}
 						{include file="snippets/zonen.tpl" id="opc_before_short_desc"}
-						<div class="shortdesc mb-xs" itemprop="description">
+						<div class="shortdesc mb-xs">
 							{if $snackyConfig.optimize_artikel == "Y"}{$Artikel->cKurzBeschreibung|optimize}{else}{$Artikel->cKurzBeschreibung}{/if}
 						</div>
 					   {include file="snippets/zonen.tpl" id="opc_after_short_desc"}
@@ -194,13 +213,9 @@
                 {/if}
                 {/block}
 
-                <div class="product-offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <div class="product-offer">
                     <hr>
-                    <link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#Sell" />
                     {block name="productdetails-info-hidden"}
-                    {if !($Artikel->nIstVater)}
-                        <link itemprop="url" href="{$Artikel->cURLFull}" />
-                    {/if}
                     <input type="submit" name="inWarenkorb" value="1" class="hidden" />
                     {if $Artikel->kArtikelVariKombi > 0}
                         <input type="hidden" name="aK" value="{$Artikel->kArtikelVariKombi}" />
@@ -274,17 +289,163 @@
                     {block name='productdetails-details-include-uploads'}
                         {include file="snippets/uploads.tpl" tplscope='product'}
                     {/block}
+                    {block name="km-sonderpreis-bis"}
+                        {if !empty($Artikel->dSonderpreisEnde_de) && $Artikel->dSonderpreisEnde_de|date_format:"%y%m%d" >= $smarty.now|date_format:"%y%m%d"  && $Artikel->dSonderpreisStart_de|date_format:"%y%m%d" <= $smarty.now|date_format:"%y%m%d"}
+                            {if $snackyConfig.specialpriceDate == "C"}
+                                {assign var="uid" value="art_c_{$Artikel->kArtikel}_{1|mt_rand:20}"}
+                                <div id="{$uid}" class="sale-wp mb-sm mt-sm text-center panel">
+                                    <div class="mb-xs h4">{lang key="sonderpreisBisDetail" section="custom"}</div>
+                                    <div class="dpflex-j-c">
+                                        <div class="ct-wp days">
+                                            <div class="ct-it">0</div>
+                                            <div class="ct-un">{lang key='days'}</div>
+                                        </div>
+                                        <div class="ct-wp hours">
+                                            <div class="ct-it">0</div>
+                                            <div class="ct-un">{lang key='hours'}</div>
+                                        </div>
+                                        <div class="ct-wp minutes">
+                                            <div class="ct-it">0</div>
+                                            <div class="ct-un">{lang key='minutes'}</div>
+                                        </div>
+                                        <div class="ct-wp seconds">
+                                            <div class="ct-it">0</div>
+                                            <div class="ct-un">{lang key='seconds'}</div>
+                                        </div>
+                                    </div>
+                                </div>                
+                                {inline_script}<script>
+                                    $(() => {
+                                        let until = new Date("{$Artikel->dSonderpreisEnde_de|date_format:"Y-m-d"}T23:59:59");
+                                        let countDownDate = until.getTime();
+                                        let timeout = setInterval(update, 1000);
+
+                                        update();
+                                        $(window).trigger('resize');
+
+                                        function update()
+                                        {
+                                            let now      = new Date().getTime();
+                                            let distance = countDownDate - now; 
+                                            let days     = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                            let hours    = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                            let minutes  = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                            let seconds  = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                            if (distance <= 0) {
+                                                clearInterval(timeout);
+                                                days    = 0;
+                                                hours   = 0;
+                                                minutes = 0;
+                                                seconds = 0;
+                                                $("#{$uid}").hide();
+                                                $(window).trigger('resize');
+                                            }
+
+                                            $("#{$uid} .days .ct-it").html(days);
+                                            $("#{$uid} .hours .ct-it").html(hours);
+                                            $("#{$uid} .minutes .ct-it").html(minutes);
+                                            $("#{$uid} .seconds .ct-it").html(seconds);
+                                        }
+                                    });
+                                </script>{/inline_script}
+                            {elseif $snackyConfig.specialpriceDate == "D"}
+                                <div class="mb-sm mt-sm panel text-center">
+                                    <div class="h4 m0">
+                                        {lang key="sonderpreisBisDetail" section="custom"} {$Artikel->dSonderpreisEnde_de|date_format:"{$snackyConfig.deliveryDateFormat}"}
+                                    </div>
+                                </div>
+                            {/if}
+                        {/if}
+                    {/block}
+                    {block name="km-verfuegbar-ab"}
+                        {if $Artikel->nErscheinendesProdukt}
+                            {if $snackyConfig.availableDate == "C"}
+                                {assign var="uid" value="aval-ct"}
+                                <div id="{$uid}" class="sale-wp mb-sm mt-sm text-center panel">
+                                    <div class="mb-xs h4">{lang key="productAvailableIn" section="custom"}</div>
+                                    <div class="dpflex-j-c">
+                                        <div class="ct-wp days">
+                                            <div class="ct-it">0</div>
+                                            <div class="ct-un">{lang key='days'}</div>
+                                        </div>
+                                        <div class="ct-wp hours">
+                                            <div class="ct-it">0</div>
+                                            <div class="ct-un">{lang key='hours'}</div>
+                                        </div>
+                                        <div class="ct-wp minutes">
+                                            <div class="ct-it">0</div>
+                                            <div class="ct-un">{lang key='minutes'}</div>
+                                        </div>
+                                        <div class="ct-wp seconds">
+                                            <div class="ct-it">0</div>
+                                            <div class="ct-un">{lang key='seconds'}</div>
+                                        </div>
+                                    </div>
+                                    {if $Einstellungen.global.global_erscheinende_kaeuflich === 'Y' && $Artikel->inWarenkorbLegbar == 1}
+                                        <div class="mt-xs text-muted">{lang key="preorderPossible" section="global"}</div>
+                                    {/if}
+                                </div>                
+                                {inline_script}<script>
+                                    $(() => {
+                                        let until = new Date("{$Artikel->Erscheinungsdatum_de|date_format:"Y-m-d"}T00:00:00");
+                                        let countDownDate = until.getTime();
+                                        let timeout = setInterval(update, 1000);
+
+                                        update();
+                                        $(window).trigger('resize');
+
+                                        function update()
+                                        {
+                                            let now      = new Date().getTime();
+                                            let distance = countDownDate - now; 
+                                            let days     = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                            let hours    = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                            let minutes  = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                            let seconds  = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                            if (distance <= 0) {
+                                                clearInterval(timeout);
+                                                days    = 0;
+                                                hours   = 0;
+                                                minutes = 0;
+                                                seconds = 0;
+                                                $("#{$uid}").hide();
+                                                $(window).trigger('resize');
+                                            }
+
+                                            $("#{$uid} .days .ct-it").html(days);
+                                            $("#{$uid} .hours .ct-it").html(hours);
+                                            $("#{$uid} .minutes .ct-it").html(minutes);
+                                            $("#{$uid} .seconds .ct-it").html(seconds);
+                                        }
+                                    });
+                                </script>{/inline_script}
+                            {elseif $snackyConfig.availableDate == "D"}
+                                <div class="mb-sm mt-sm panel text-center">
+                                    <div class="h4 m0">
+                                        {lang key="productAvailableFrom" section="global"}: {$Artikel->Erscheinungsdatum_de}
+                                    </div>
+                                    {if $Einstellungen.global.global_erscheinende_kaeuflich === 'Y' && $Artikel->inWarenkorbLegbar == 1}
+                                        <div class="mt-xxs text-muted">{lang key="preorderPossible" section="global"}</div>
+                                    {/if}
+                                </div>
+                            {/if}
+                        {/if}
+                    {/block}
                     {block name="details-buy-wrapper"}
                     <div class="buy-wrapper row dpflex-a-end">
-                        <div class="col-12{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-6{/if} as-fs">
+                        <div class="col-12{if $Artikel->bHasKonfig} no-pop-tg{elseif $snackyConfig.css_maxPageWidth >= 1600} col-xl-6{/if} as-fs">
                         {block name="productdetails-info-price"}
-                            {include file="productdetails/price.tpl" Artikel=$Artikel tplscope="detail"}
+                            {if !($Artikel->Preise->fVKNetto == 0 && isset($Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_VOUCHER_FLEX]))}
+                                {include file="productdetails/price.tpl" Artikel=$Artikel tplscope="detail"}
+                            {/if}
                             {block name="productdetails-info-stock"}
                                 {include file="productdetails/stock.tpl" tplscope="detail"}
                             {/block}
                         {/block}
                         </div>
-						<div class="col-12{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-6{/if} buy-col">
+						<div class="col-12{if $Artikel->bHasKonfig}{elseif $snackyConfig.css_maxPageWidth >= 1600} col-xl-6{/if} buy-col">
                         {block name="details-wenig-bestand-wrapper"}
                             {* Wenig Bestand *}
                             {if $snackyConfig.hotStock > 0 && $Artikel->cLagerBeachten === 'Y' && $Artikel->cLagerKleinerNull === 'N' && $Artikel->fLagerbestand <= $snackyConfig.hotStock && $Artikel->fLagerbestand > 0}
@@ -315,7 +476,7 @@
                         {block name="detail-notification-wrapper"}
                             {if ($verfuegbarkeitsBenachrichtigung == 1 || $verfuegbarkeitsBenachrichtigung == 2 || $verfuegbarkeitsBenachrichtigung == 3)}
                                 {if $verfuegbarkeitsBenachrichtigung == 1}
-                                    <a href="#tab-availabilityNotification" class="btn btn btn-primary btn-block btn-lg" title="{lang key='requestNotification'}">
+                                    <a id="goToNotification" href="#tab-availabilityNotification" class="btn btn btn-primary btn-block btn-lg" title="{lang key='requestNotification'}">
                                         {lang key='requestNotification'}
                                     </a>
                                 {else}
@@ -323,6 +484,8 @@
                                         {lang key='requestNotification'}
                                     </button>
                                 {/if}
+                            {elseif $Artikel->Lageranzeige->nStatus == '0'}
+                                <div class="alert alert-danger text-center m0">{lang key='soldout'}</div>
                             {/if}
                         {/block}
                             <div class="add-pays text-center dpflex">
@@ -422,18 +585,18 @@
             {block name="productdetails-recommendations"}
 				{if isset($Xselling->Standard->XSellGruppen) && count($Xselling->Standard->XSellGruppen) > 0}
                     {foreach $Xselling->Standard->XSellGruppen as $Gruppe}
-                        {include file='snippets/product_slider.tpl' class='x-supplies' id='slider-xsell-group-'|cat:$Gruppe@iteration productlist=$Gruppe->Artikel title=$Gruppe->Name}
+                        {include file='snippets/product_slider.tpl' class='x-supplies mb-lg' id='slider-xsell-group-'|cat:$Gruppe@iteration productlist=$Gruppe->Artikel title=$Gruppe->Name desc=$Gruppe->Beschreibung}
 					{/foreach}
 				{/if}
 
 				{if isset($Xselling->Kauf->Artikel) && count($Xselling->Kauf->Artikel) > 0}
 					{lang key='customerWhoBoughtXBoughtAlsoY' section='productDetails' assign='slidertitle'}
-					{include file='snippets/product_slider.tpl' class='x-sell' id='slider-xsell' productlist=$Xselling->Kauf->Artikel title=$slidertitle desc=$Gruppe->Beschreibung}
+					{include file='snippets/product_slider.tpl' class='x-sell mb-lg' id='slider-xsell' productlist=$Xselling->Kauf->Artikel title=$slidertitle}
 				{/if}
                 
                 {if isset($oAehnlicheArtikel_arr) && count($oAehnlicheArtikel_arr) > 0}
                     {lang key='RelatedProducts' section='productDetails' assign='slidertitle'}
-                    {include file='snippets/product_slider.tpl' class='x-related' id='slider-related' productlist=$oAehnlicheArtikel_arr title=$slidertitle}
+                    {include file='snippets/product_slider.tpl' class='x-related mb-lg' id='slider-related' productlist=$oAehnlicheArtikel_arr title=$slidertitle}
                 {/if}                
             {/block}
             </div>

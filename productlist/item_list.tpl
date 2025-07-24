@@ -4,7 +4,7 @@
 {else}
 {hasOnlyListableVariations artikel=$Artikel maxVariationCount=$snackyConfig.variation_select_productlist maxWerteCount=$snackyConfig.variation_max_werte_productlist assign="hasOnlyListableVariations"}
 {/if}
-<div id="result-wrapper_buy_form_{$Artikel->kArtikel}" data-wrapper="true"
+<div id="{$idPrefix|default:''}result-wrapper_buy_form_{$Artikel->kArtikel}" data-wrapper="true"
 	class="p-c{if isset($listStyle) && $listStyle === 'gallery'} active{/if}{if isset($class)} {$class}{/if}">
     {block name="productlist-image"}
     <a class="img-w block" href="{$Artikel->cURLFull}">
@@ -13,7 +13,7 @@
         {else}
 			{assign var="alt" value=$Artikel->cName}
         {/if}
-        <div class="img-ct{if isset($Artikel->Bilder[1])} has-second{/if}">
+        <div class="img-ct{if isset($Artikel->Bilder[1])} has-second{/if}{if $Einstellungen.bilder.container_verwenden == 'N'} contain{/if}">
             {$image = $Artikel->Bilder[0]}
 			{image 
 				alt=$alt 
@@ -23,7 +23,6 @@
 						 {$image->cURLKlein} {$Einstellungen.bilder.bilder_artikel_klein_breite}w,
 						 {$image->cURLNormal} {$Einstellungen.bilder.bilder_artikel_normal_breite}w"
 				sizes="auto"
-				data=["id"  => $imgcounter]
 				class="{if !$isMobile && !empty($Artikel->Bilder[1])} first{/if}"
 				lazy=!$stopLazy
 			}
@@ -38,7 +37,6 @@
                              {$image2->cURLKlein} {$Einstellungen.bilder.bilder_artikel_klein_breite}w,
                              {$image2->cURLNormal} {$Einstellungen.bilder.bilder_artikel_normal_breite}w"
                     sizes="auto"
-                    data=["id"  => $imgcounter]
                     class="{if !$isMobile && !empty($Artikel->Bilder[1])} first{/if}"
                     fluid=true
                     lazy=true
@@ -47,20 +45,9 @@
             {/if}
             {block name='searchspecial-overlay'}
                 {if isset($Artikel->oSuchspecialBild)}
-                    {if isset($Artikel->oSuchspecialBild->cSuchspecial)}
-                        {assign var="cSpecialCheck" value=$Artikel->oSuchspecialBild->cSuchspecial|replace:'ü':''}
-                        {if $Artikel->oSuchspecialBild->cSuchspecial == 'Sonderangebote' && $snackyConfig.saleprozent == 'Y'}
-                            {assign var="rabatt" value=($Artikel->Preise->alterVKNetto-$Artikel->Preise->fVKNetto)/$Artikel->Preise->alterVKNetto*100}
-                            <span class="ov-t {$Artikel->oSuchspecialBild->cSuchspecial|lower|strip:''}">- {$rabatt|round:0}%</span>
-                        {elseif isset($oSuchspecial[$cSpecialCheck])}
-                            <span class="ov-t {$Artikel->oSuchspecialBild->cSuchspecial|lower|strip:''}">{$oSuchspecial[$cSpecialCheck]}</span>
-                        {*Workaround for damn ü !*}
-                        {elseif $Artikel->oSuchspecialBild->cSuchspecial|substr:0:4|lower == 'in k'}
-                            <span class="ov-t bald-verfuegbar">{$oSuchspecial['bald-verfuegbar']}</span>
-                        {else}
-                            <span class="ov-t {$Artikel->oSuchspecialBild->cSuchspecial|lower|strip:''}">#{$Artikel->oSuchspecialBild->cSuchspecial}</span>
-                        {/if}
-                    {/if}
+                    {block name='productlist-item-box-include-ribbon'}
+                        {include file='snippets/ribbon.tpl'}
+                    {/block}
                 {/if}
             {/block}
         </div>
@@ -72,8 +59,7 @@
         <div class="col-12 col-sm-8 col-md-7 col-lg-7{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-8{/if} col-left">
             {block name='product-title'}
             <div class="title h4">
-                <a href="{$Artikel->cURLFull}" class="block" itemprop="name">{$Artikel->cName}</a>
-                <meta itemprop="url" content="{$Artikel->cURLFull}">
+                <a href="{$Artikel->cURLFull}" class="block">{$Artikel->cName}</a>
             {if $Einstellungen.bewertung.bewertung_anzeigen === 'Y'}
                 <a href="{$Artikel->cURLFull}#tab-votes" class="hidden-print block">
                 {include file='productdetails/rating.tpl' stars=$Artikel->fDurchschnittsBewertung}
@@ -85,13 +71,13 @@
             <div class="product-info hidden-xs">
                 {block name='product-info'}
                     {if $Einstellungen.artikeluebersicht.artikeluebersicht_kurzbeschreibung_anzeigen === 'Y' && $Artikel->cKurzBeschreibung}
-                        <div class="shortdesc mb-xxs" itemprop="description">
+                        <div class="shortdesc mb-xxs">
                             {$Artikel->cKurzBeschreibung|strip_tags|truncate:500:"...":true}
                         </div>
                     {/if}
                     <ul class="blanklist info hidden-xs">
                         <li class="attr-sku">
-                            <strong>{lang key='productNo'}: </strong> <span itemprop="sku">{$Artikel->cArtNr}</span>
+                            <strong>{lang key='productNo'}: </strong> <span>{$Artikel->cArtNr}</span>
                         </li>
                         {if !empty($Artikel->cBarcode)
                             && ($Einstellungen.artikeldetails.gtin_display === 'lists'
@@ -147,26 +133,29 @@
                         {/if}
                         
                         {block name='product-manufacturer'}
-                            {if $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen !== 'N'}
-                                <li class="hidden-xs" itemprop="manufacturer" itemscope itemtype="http://schema.org/Organization">
-                                    <strong>{lang key="manufacturers"}: </strong>
+                            {if $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen !== 'N' && !empty($Artikel->cHersteller)}
+                                <li class="hidden-xs dpflex-a-c">
+                                    <strong class="mr-xxs">{lang key='manufacturerSingle' section='productOverview'}: </strong>
+                                    <a href="{if !empty($Artikel->cHerstellerHomepage)}{$Artikel->cHerstellerHomepage}{else}{$Artikel->cHerstellerSeo}{/if}" class="dpflex-wrap dpflex-a-c">
                                     {if ($Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'BT'
                                         || $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'B')
                                         && !empty($Artikel->cHerstellerBildKlein)}
-                                            {if !empty($Artikel->cHerstellerHomepage)}<a href="{$Artikel->cHerstellerHomepage}">{/if}
-                                                <span class="img-ct icon icon-xl icon-wt">
-                                                    <img src="{$Artikel->cHerstellerBildKlein}" alt="{$Artikel->cHersteller}">
-                                                </span>
-                                                <meta itemprop="image" content="{$ShopURL}/{$Artikel->cHerstellerBildKlein}">
-                                            {if !empty($Artikel->cHerstellerHomepage)}</a>{/if}
+                                            <span class="img-ct icon icon-xl icon-wt contain">
+                                                {image webp=true lazy=true fluid=true
+                                                    src=$Artikel->cHerstellerBildURLKlein
+                                                    srcset="{$Artikel->cHerstellerBildURLKlein} {$Einstellungen.bilder.bilder_hersteller_mini_breite}w,
+                                                            {$Artikel->cHerstellerBildURLNormal} {$Einstellungen.bilder.bilder_hersteller_normal_breite}w"
+                                                    alt=$Artikel->cHersteller
+                                                    sizes="25px"
+                                                    class="img-xs"}
+                                            </span>
                                     {/if}
                                     {if ($Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'BT'
                                         || $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'Y')
                                         && !empty($Artikel->cHersteller)}
-                                                {if !empty($Artikel->cHerstellerHomepage)}<a href="{$Artikel->cHerstellerHomepage}" itemprop="url">{/if}
-                                                    <span itemprop="name">{$Artikel->cHersteller}</span>
-                                                {if !empty($Artikel->cHerstellerHomepage)}</a>{/if}
+                                        <span>{$Artikel->cHersteller}</span>
                                     {/if}
+                                    </a>
                                 </li>
                             {/if}
                         {/block}
@@ -177,7 +166,7 @@
         {/block}
     {block name="list-right-wrapper"}
     <div class="col-12 col-sm-4 col-md-5 col-lg-5{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-4{/if} text-right col-right">
-    <form id="buy_form_{$Artikel->kArtikel}" action="{$ShopURL}/" method="post" class="form form-basket evo-validate right" data-toggle="basket-add">
+    <form id="{$idPrefix|default:''}buy_form_{$Artikel->kArtikel}" action="{$ShopURL}/" method="post" class="form form-basket jtl-validate right" data-toggle="basket-add">
     {include file="productdetails/price.tpl" Artikel=$Artikel tplscope=$tplscope}
         {$jtl_token}
         {block name="productlist-delivery-status"}
@@ -229,8 +218,8 @@
                     <div class="btn-group qty-btns w100 m0">
                         <div class="btn btn-blank qty-sub">
                             <span class="img-ct icon">
-                                <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-minus"></use>
+                                <svg>
+                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-minus"></use>
                                 </svg>
                             </span>
                         </div>
@@ -248,8 +237,8 @@
                     {if $snackyConfig.quantityButtons == 1 && $snackyConfig.listShowAmountCart == 2}
                         <div class="btn btn-blank qty-add">
                             <span class="img-ct icon">
-                                <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-plus"></use>
+                                <svg>
+                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-plus"></use>
                                 </svg>
                             </span>
                         </div>
@@ -263,14 +252,14 @@
                             {if $snackyConfig.listShowAmountCart == 2 && $snackyConfig.quantityButtons != 1}
                                 <span class="img-ct icon ic-w">
                                     <svg>
-                                        <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
+                                        <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
                                     </svg>
                                 </span>
                             {else}
                             <span class="visible-xs">
                                 <span class="img-ct icon ic-w mauto">
                                     <svg>
-                                        <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
+                                        <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
                                     </svg>
                                 </span>
                             </span>

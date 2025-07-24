@@ -15,15 +15,6 @@
             {/if}
         {/if}
 
-        {* rich snippet availability *}
-        {if $Artikel->cLagerBeachten === 'N' || $Artikel->fLagerbestand > 0 || $Artikel->cLagerKleinerNull === 'Y'}
-            <link itemprop="availability" href="http://schema.org/InStock" />
-        {elseif $Artikel->nErscheinendesProdukt && $Artikel->Erscheinungsdatum_de !== '00.00.0000' && $Einstellungen.global.global_erscheinende_kaeuflich === 'Y'}
-            <link itemprop="availability" href="http://schema.org/PreOrder" />
-        {elseif $Artikel->cLagerBeachten === 'Y' && $Artikel->cLagerKleinerNull === 'N' && $Artikel->fLagerbestand <= 0}
-            <link itemprop="availability" href="http://schema.org/OutOfStock" />
-        {/if}
-
         {if isset($Artikel->cLieferstatus) && ($Einstellungen.artikeldetails.artikeldetails_lieferstatus_anzeigen === 'Y' ||
         ($Einstellungen.artikeldetails.artikeldetails_lieferstatus_anzeigen === 'L' && $Artikel->fLagerbestand == 0 && $Artikel->cLagerBeachten === 'Y') ||
         ($Einstellungen.artikeldetails.artikeldetails_lieferstatus_anzeigen === 'A' && ($Artikel->fLagerbestand > 0 || $Artikel->cLagerKleinerNull === 'Y' || $Artikel->cLagerBeachten !== 'Y')))}
@@ -41,16 +32,20 @@
                     data-content="{if $Firma->country !== null}{lang|sprintf:$Firma->country->getName():$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL():$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL() key='shippingInformation' section='productDetails'}{/if}"
                     {/if}>
                     {if $snackyConfig.deliveryDate == '1'}
-                        <strong>{lang key="deliveryDate" section="custom"}:</strong>
-                        {getDeliveryDate days=$Artikel->nMinDeliveryDays saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
-                        {if $Artikel->nMinDeliveryDays < $Artikel->nMaxDeliveryDays}
-                            - {getDeliveryDate days=$Artikel->nMaxDeliveryDays saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
-                        {/if}
+                        {block name='productdetails-stock-snackys-deliverydate'}
+                            <strong>{lang key="deliveryDate" section="custom"}:</strong>
+                            {getDeliveryDate days=$Artikel->nMinDeliveryDays saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
+                            {if $Artikel->nMinDeliveryDays < $Artikel->nMaxDeliveryDays}
+                                - {getDeliveryDate days=$Artikel->nMaxDeliveryDays saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
+                            {/if}
+                        {/block}
                     {else}
-                        {if !isset($availability) && !isset($shippingTime)}<strong>{lang key='shippingTime'}: </strong>{/if}
-                        <span class="a{$Artikel->Lageranzeige->nStatus} text-nowrap">
-                                {$Artikel->cEstimatedDelivery}
-                        </span>
+                        {block name='productdetails-stock-snackys-deliverytime'}
+                            {if !isset($availability) && !isset($shippingTime)}<strong>{lang key='shippingTime'}: </strong>{/if}
+                            <span class="a{$Artikel->Lageranzeige->nStatus} text-nowrap">
+                                    {$Artikel->cEstimatedDelivery}
+                            </span>
+                        {/block}
                     {/if}
                     {block name="productdetails-shipfree-info"}
                         {if !empty($WarenkorbVersandkostenfreiHinweis) && $tplscope == 'detail'}

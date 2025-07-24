@@ -15,7 +15,7 @@
     {get_navigation linkgroupIdentifier=$linkgroupIdentifier assign='links'}
     {if !empty($links)}
         {foreach $links as $li}
-            <li class="{if $li->getChildLinks()->count() > 0 && isset($dropdownSupport)}mgm-fw{/if}{if $li->getIsActive() || ($checkLinkParents === true && isset($activeParents) && in_array($li->getID(), $activeParents))} active{/if}{if $tplscope === 'megamenu' && $li->getChildLinks()->count() > 0} bs-hover-enabled{/if}">
+            <li class="{if $li->getChildLinks()->count() > 0 && isset($dropdownSupport)}mgm-fw{/if}{if $li->getIsActive() || ($checkLinkParents === true && isset($activeParents) && in_array($li->getID(), $activeParents))} active{/if}{if $tplscope === 'megamenu' && $li->getChildLinks()->count() > 0} bs-hover-enabled{/if} dropdown-style">
 				<a href="{$li->getURL()}"{if $li->getNoFollow()} rel="nofollow"{/if}{if !empty($li->getTitle())} title="{$li->getTitle()}"{/if} class="dropdown-toggle-mmenu" data-toggle="dropdown" data-hover="dropdown">
 					{$li->getName()}
 					{if $li->getChildLinks()->count() > 0 && isset($dropdownSupport)} <span class="ar ar-r"></span><span class="fa-caret-down visible-xs"></span>{/if}

@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="img-col col-3 col-md-2">
                     {if !empty($oPosition->Artikel->cVorschaubild)}
-                    <a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans}" class="img-ct">
+                    <a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:'html'}" class="img-ct">
                         {if isset($nSeitenTyp) && $nSeitenTyp == 37}
                             {include file='snippets/image.tpl'
                                 fluid=false
@@ -27,7 +27,7 @@
                     <div class="row first">
                         <div class="col-8 col-md-8 col-lg-9">
                              {if $oPosition->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
-                                <a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans}" class="block"><strong class="title">{$oPosition->cName|trans}</strong></a>
+                                <a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:'html'}" class="block"><strong class="title">{$oPosition->cName|trans}</strong></a>
                                 <ul class="blanklist text-muted small info-ul">
                                     <li class="sku"><strong>{lang key="productNo" section="global"}:</strong> {$oPosition->Artikel->cArtNr}</li>
                                     {if isset($oPosition->Artikel->dMHD) && isset($oPosition->Artikel->dMHD_de) && $oPosition->Artikel->dMHD_de !== null}

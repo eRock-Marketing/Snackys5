@@ -1,4 +1,4 @@
-.p-c .exp{
+.p-c .exp:not(.flo-bt){
     margin-top: auto;
     padding-top: .7rem;
 }
@@ -10,10 +10,8 @@
 .exp.hide-qty input.quantity{
 	display: none;
 }
-.p-c .exp .hidden-xs{
-    padding-left: .4rem;
-}
-.exp.flo-bt{
+.exp.flo-bt .quantity-wrapper,
+.exp.flo-bt .input-group-btn{
 	position: absolute;
 	top: 0;
 	left: 0;

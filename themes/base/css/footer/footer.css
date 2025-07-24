@@ -1,7 +1,5 @@
 #footer-boxes{
     padding: 4.5rem 0;
-    border-top: 1px solid @lightborder;
-    border-bottom: 1px solid @lightborder;
     font-size: .95rem;
 }
 #footer-boxes .panel{
@@ -26,7 +24,6 @@
     height: 55%;
 }
 #copyright{
-    color: @lighttext;
     padding-top: 3rem;
     padding-bottom: 3rem;
 }
@@ -40,11 +37,6 @@
     }
     #footer-boxes {
         padding: 2.5rem 0
-    }
-}
-@media screen and (min-width: 768px){
-    before_heading .panel{
-        padding: 0 1rem;
     }
 }
 @media screen and (max-width: 500px){

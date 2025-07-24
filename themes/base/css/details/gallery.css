@@ -6,6 +6,7 @@
     box-shadow: 0 0 0 1px @lightborder;
     transition: box-shadow .3s ease;
     border-radius: .5rem;
+    background: white;
 }
 #gallery-thumbs .img-w.active .img-ct,
 #gallery-thumbs .img-w:hover .img-ct{
@@ -30,6 +31,7 @@
 #gallery a:not(.active){
     display: none;
 }
+#gallery-thumbs img,
 #gallery img{
     object-fit: contain;
 }
@@ -50,7 +52,9 @@
 #gallery .sl-nx{
     right: 15px;
 }
-
+.zoomImg{
+    background: white;
+}
 @media screen and (max-width: 991px){
     body:not(.lightbox-shown) #gallery-thumbs{
         display: flex;

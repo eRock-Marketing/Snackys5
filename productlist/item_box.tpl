@@ -4,16 +4,16 @@
 {else}
 {hasOnlyListableVariations artikel=$Artikel maxVariationCount=$snackyConfig.variation_select_productlist maxWerteCount=$snackyConfig.variation_max_werte_productlist assign="hasOnlyListableVariations"}
 {/if}
-<div id="result-wrapper_buy_form_{$Artikel->kArtikel}" data-wrapper="true"
+<div id="{$idPrefix|default:''}result-wrapper_buy_form_{$Artikel->kArtikel}" data-wrapper="true"
 	class="p-c {if $snackyConfig.hover_productlist === 'Y' && !$isMobile} hv-e{/if}{if isset($listStyle) && $listStyle === 'gallery'} active{/if}{if isset($class)} {$class}{/if}">
     {block name="productlist-image"}
     <a class="img-w block" href="{$Artikel->cURLFull}">
         {if isset($Artikel->Bilder[0]->cAltAttribut)}
-			{assign var="alt" value=$Artikel->Bilder[0]->cAltAttribut|strip_tags|truncate:60|escape:"html"}
+			{assign var="alt" value=$Artikel->Bilder[0]->cAltAttribut|strip_tags|truncate:60|escape:"quotes"}
         {else}
 			{assign var="alt" value=$Artikel->cName}
         {/if}
-        <div class="img-ct{if isset($Artikel->Bilder[1])} has-second{/if}">
+        <div class="img-ct{if isset($Artikel->Bilder[1])} has-second{/if}{if $Einstellungen.bilder.container_verwenden == 'N'} contain{/if}">
             {$image = $Artikel->Bilder[0]}
 			{image 
 				alt=$alt 
@@ -22,8 +22,7 @@
 				srcset="{$image->cURLMini} {$Einstellungen.bilder.bilder_artikel_mini_breite}w,
 						 {$image->cURLKlein} {$Einstellungen.bilder.bilder_artikel_klein_breite}w,
 						 {$image->cURLNormal} {$Einstellungen.bilder.bilder_artikel_normal_breite}w"
-				sizes="auto"
-				data=["id"  => $imgcounter]
+				sizes="{if $stopLazy}{$Einstellungen.bilder.bilder_artikel_klein_breite}px{else}auto{/if}"
 				class="{if !$isMobile && !empty($Artikel->Bilder[1])} first{/if}"
 				lazy=!$stopLazy
 			}
@@ -38,7 +37,6 @@
                              {$image2->cURLKlein} {$Einstellungen.bilder.bilder_artikel_klein_breite}w,
                              {$image2->cURLNormal} {$Einstellungen.bilder.bilder_artikel_normal_breite}w"
                     sizes="auto"
-                    data=["id"  => $imgcounter]
                     class="{if !$isMobile && !empty($Artikel->Bilder[1])} first{/if}"
                     fluid=true
                     lazy=true
@@ -48,40 +46,27 @@
         </div>
 		{block name='searchspecial-overlay'}
 			{if isset($Artikel->oSuchspecialBild)}
-				{if isset($Artikel->oSuchspecialBild->cSuchspecial)}
-					{assign var="cSpecialCheck" value=$Artikel->oSuchspecialBild->cSuchspecial|replace:'ü':''}
-					{if $Artikel->oSuchspecialBild->cSuchspecial == 'Sonderangebote' && $snackyConfig.saleprozent == 'Y'}
-						{assign var="rabatt" value=($Artikel->Preise->alterVKNetto-$Artikel->Preise->fVKNetto)/$Artikel->Preise->alterVKNetto*100}
-						<span class="ov-t {$Artikel->oSuchspecialBild->cSuchspecial|lower|strip:''}">- {$rabatt|round:0}%</span>
-					{elseif isset($oSuchspecial[$cSpecialCheck])}
-						<span class="ov-t {$Artikel->oSuchspecialBild->cSuchspecial|lower|strip:''}">{$oSuchspecial[$cSpecialCheck]}</span>
-					{*Workaround for damn ü !*}
-					{elseif $Artikel->oSuchspecialBild->cSuchspecial|substr:0:4|lower == 'in k'}
-						<span class="ov-t bald-verfuegbar">{$oSuchspecial['bald-verfuegbar']}</span>
-					{else}
-						<span class="ov-t {$Artikel->oSuchspecialBild->cSuchspecial|lower|strip:''}">#{$Artikel->oSuchspecialBild->cSuchspecial}</span>
-					{/if}
-				{/if}
-			{/if}
+                {block name='productlist-item-box-include-ribbon'}
+                    {include file='snippets/ribbon.tpl'}
+                {/block}
+            {/if}
 		{/block}
     </a>
     {/block}
     {block name="productlist-image-caption"}
     <div class="caption">
-        <a href="{$Artikel->cURLFull}" class="title block h4 m0" itemprop="name">{$Artikel->cKurzbezeichnung}</a>
-        {if $Artikel->cName !== $Artikel->cKurzbezeichnung}
-			<meta itemprop="alternateName" content="{$Artikel->cName}">
-		{/if}
-        <meta itemprop="url" content="{$Artikel->cURLFull}">
+        <a href="{$Artikel->cURLFull}" class="title block h4 m0">{$Artikel->cKurzbezeichnung}</a>
         {if $Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->fDurchschnittsBewertung > 0}
             <a href="{$Artikel->cURLFull}#tab-votes" class="hidden-print block">
 			{include file='productdetails/rating.tpl' stars=$Artikel->fDurchschnittsBewertung}
             </a>
         {/if}
-        {include file="productdetails/price.tpl" Artikel=$Artikel tplscope=$tplscope}
+        <div>
+            {include file="productdetails/price.tpl" Artikel=$Artikel tplscope=$tplscope}
+        </div>
     </div>{* /caption *}
     {/block}
-    <form id="buy_form_{$Artikel->kArtikel}" action="{$ShopURL}/" method="post" class="form form-basket evo-validate" data-toggle="basket-add">
+    <form id="{$idPrefix|default:''}buy_form_{$Artikel->kArtikel}" action="{$ShopURL}/" method="post" class="form form-basket jtl-validate" data-toggle="basket-add">
         {$jtl_token}
         {block name="productlist-delivery-status"}
         <div class="delivery-status">
@@ -143,8 +128,8 @@
                         <div class="btn-group qty-btns w100 m0">
                             <div class="btn btn-blank qty-sub">
                                 <span class="img-ct icon">
-                                    <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                                      <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-minus"></use>
+                                    <svg>
+                                      <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-minus"></use>
                                     </svg>
                                 </span>
                             </div>
@@ -164,8 +149,8 @@
                         {if $snackyConfig.quantityButtons == 1}
                             <div class="btn btn-blank qty-add">
                                 <span class="img-ct icon">
-                                    <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                                      <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-plus"></use>
+                                    <svg>
+                                      <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-plus"></use>
                                     </svg>
                                 </span>
                             </div>
@@ -179,7 +164,7 @@
                                 <button type="submit" class="btn btn-primary" id="submit{$Artikel->kArtikel}" title="{lang key="addToCart"}">
                                     <span class="img-ct icon ic-w">
                                         <svg>
-                                            <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
+                                            <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
                                         </svg>
                                     </span>
                                 </button>
@@ -261,8 +246,8 @@
                 <div class="btn-group qty-btns w100 m0">
                     <div class="btn btn-blank qty-sub">
                         <span class="img-ct icon">
-                            <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-minus"></use>
+                            <svg>
+                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-minus"></use>
                             </svg>
                         </span>
                     </div>
@@ -280,8 +265,8 @@
                 {if $snackyConfig.quantityButtons == 1 && $snackyConfig.listShowCart == 3 && $snackyConfig.listShowAmountCart == 2}
                     <div class="btn btn-blank qty-add">
                         <span class="img-ct icon">
-                            <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-plus"></use>
+                            <svg>
+                              <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-plus"></use>
                             </svg>
                         </span>
                     </div>
@@ -293,14 +278,14 @@
                             {if ($snackyConfig.listShowAmountCart == 2 && $snackyConfig.quantityButtons != 1) ||  $snackyConfig.listShowCart == 2}
                                 <span class="img-ct icon ic-w mauto">
                                     <svg>
-                                        <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
+                                        <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
                                     </svg>
                                 </span>
                             {else}
                             <span class="visible-xs">
                                 <span class="img-ct icon ic-w mauto">
                                     <svg>
-                                        <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
+                                        <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}-simple"></use>
                                     </svg>
                                 </span>
                             </span>

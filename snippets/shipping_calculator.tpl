@@ -12,10 +12,12 @@
                     <div class="form-inline">
                         <label for="country">{lang key="country" section="account data"}</label>
                         <select name="land" id="country" class="form-control mb-spacer mb-xs">
-                            {foreach $laender as $land}
-                                <option value="{$land->getISO()}" {if $shippingCountry === $land->getISO()}selected{/if}>
-                                    {$land->getName()}
-                                </option>
+                            {foreach $countries as $country}
+                                {if $country->isShippingAvailable()}
+                                    <option value="{$country->getISO()}" {if $shippingCountry === $country->getISO()}selected{/if}>
+                                        {$country->getName()}
+                                    </option>
+                                {/if}
                             {/foreach}
                         </select>
                         <label class="sr-only" for="plz">{lang key="plz" section="forgot password"}</label>

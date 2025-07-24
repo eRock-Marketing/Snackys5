@@ -11,3 +11,7 @@
 .lightbox-shown [id*="trustbadge-container"]{
     display: none !important;
 }
+/* Z-Index reduzieren */
+#snackys-tpl body > [id|="trustbadge"]{
+    z-index: 100 !important;
+}

@@ -1,5 +1,5 @@
 {block name='boxes-box-direct-purchase'}
-    <section class="panel box box-direct-purchase box-normal" id="sidebox{$oBox->getID()}"}>
+    <section class="panel box box-direct-purchase box-normal" id="sidebox{$oBox->getID()}">
         {block name='boxes-box-direct-purchase-title'}
             <div class="h5 panel-heading dpflex-a-c">
                 {lang key='quickBuy'}
@@ -17,7 +17,7 @@
                         {button type="submit" variant="secondary" title="{lang key='intoBasket'}"}
                             <span class="img-ct icon">
                                 <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}"></use>
+                                  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}"></use>
                                 </svg>
                             </span>
                         {/button}

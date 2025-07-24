@@ -3,8 +3,9 @@
 .error404 #alert-list{
     display: none;
 }
-.error404 #footer{
-	margin: 0;
+.error404 #pay-f,
+.error404 div:not(#pay-f) + #footer{
+	margin-top: 0;
 }
 .error404 #content-wrapper{
 	padding: 0;

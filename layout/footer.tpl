@@ -4,7 +4,10 @@
 		{include file="snippets/zonen.tpl" id="opc_content"}
 		{include file="snippets/zonen.tpl" id="after_content"} {* Compability to Snackys Shop 4 *}
     </div>{* /content *}
-	{if $smallversion && !($isMobile && !$isTablet)}
+    {if $nSeitenTyp == 11}
+        {assign var="step3_active" value=($bestellschritt[5] == 1)}
+    {/if}
+	{if isset($smallversion) && $smallversion && !($isMobile && !$isTablet) && (!isset($step3_active) || !$step3_active)}
 		<div class="col-md-4 col-lg-3" id="checkout-cart">
 			{include file="basket/cart_dropdown_checkout.tpl"}
 		</div>
@@ -12,14 +15,14 @@
     {/block}
     
     {block name="aside"}
-	{if !$smallversion && !$maintenance}
+	{if (!isset($smallversion) || !$smallversion) && (!isset($maintenance) || !$maintenance) && $Link->getLinkType() != $smarty.const.LINKTYP_404}
 		{has_boxes position='left' assign='hasLeftBox'}
 		{if !$bExclusive && $hasLeftBox && !empty($boxes.left|strip_tags|trim)}
 			{assign var="hasFilters" value="true"}	
 		{else}
 			{assign var="hasFilters" value=false}	
 		{/if}
-		{if ($hasFilters == true && $nSeitenTyp === $smarty.const.PAGE_ARTIKELLISTE) || ($snackyConfig.sidepanelEverywhere == 'Y' && $hasFilters == true) || isset($smarty.get.sidebar)}
+		{if ($hasFilters == true && $nSeitenTyp === $smarty.const.PAGE_ARTIKELLISTE) || ($snackyConfig.sidepanelEverywhere == 'Y' && $hasFilters == true) || isset($smarty.get.sidebar) || (count($Suchergebnisse->getProducts()) > 0 && $nSeitenTyp === $smarty.const.PAGE_ARTIKELLISTE && $isMobile)}
 			{include file="layout/sidebar.tpl"}
 		{/if}
     {/if}
@@ -53,7 +56,7 @@
                     {foreach from=$zahlungsartenFooter item=zahlungsart}
                         {if $zahlungsart->nActive == 1 && $zahlungsart->nNutzbar==1 && !empty($zahlungsart->cBild) && $snackyConfig.paymentWall != 3}
                             <li class="img">
-                                {image src=$zahlungsart->cBild alt=$zahlungsart->cName}
+                                {image src=$zahlungsart->cBild alt=$zahlungsart->cName lazy=true}
                             </li>
                         {else if $zahlungsart->nActive == 1 && $zahlungsart->nNutzbar==1 && $snackyConfig.paymentWall != 2}
                             <li class="text">{$zahlungsart->cName}</li>
@@ -69,24 +72,30 @@
     <footer id="footer" class="mt-md">
 
 		{block name="footer-boxes"}
-			{if !$smallversion && !$maintenance}
+			{if (!isset($smallversion) || !$smallversion) && (!isset($maintenance) || !$maintenance)}
 				{getBoxesByPosition position='bottom' assign='footerBoxes'}
 				{if isset($footerBoxes) && count($footerBoxes) > 0}
 					<div id="footer-boxes">
 					<div class="mw-container">
                     {block name="layout-footer-boxes"}
 						<div class="row row-multi{if $snackyConfig.footerBoxesDirection == "C"} dpflex-j-c{elseif $snackyConfig.footerBoxesDirection == "R"} dpflex-j-e{/if}">
-							 {if $snackyConfig.logoFooter == 0 && isset($ShopLogoURL)}
-								<div class="col-6 col-sm-4 col-md-3 col-lg-2 hidden-xs" id="logo-footer">  
-                                    {image src=$ShopLogoURL alt=$Einstellungen.global.global_shopname class="img-responsive"}
-								</div>
+							 {if $snackyConfig.logoFooter == 0 && (isset($ShopLogoURL) || !empty($snackyConfig.svgLogo))}
+							     {block name="footer-logo"}
+                                      <div class="col-6 col-sm-4 col-md-3 col-lg-2 hidden-xs" id="logo-footer">
+                                          {include file="snippets/zonen.tpl" id="before_footer_logo" title="before_footer_logo"}
+                                          {include file='layout/shoplogo.tpl' tplscope="footer"}
+                                          {include file="snippets/zonen.tpl" id="after_footer_logo" title="after_footer_logo"}
+								      </div>
+								{/block}
 							{/if}
 							{foreach name=bottomBoxes from=$footerBoxes  item=box}
-									{if $smarty.foreach.bottomBoxes.iteration < 10}
+                                {block name="footer-boxes-boxes"}
+									{if $smarty.foreach.bottomBoxes.iteration < 10 && $box->isActive() && !empty($box->getRenderedContent())}
 									   <div class="{block name="footer-boxes-class"}col-6 col-sm-4 col-md-3 col-lg-2{/block}">
 										{$box->getRenderedContent()}
 									   </div>
 									{/if}
+                                {/block}
 							{/foreach}
                             {block name="footer-newsletter-outer"}
 							{if $snackyConfig.newsletter_footer === 'Y'
@@ -109,7 +118,11 @@
                                                         {$jtl_token}
                                                         <input type="hidden" name="abonnieren" value="2"/>
                                                         <input type="email" size="20" name="cEmail" id="newsletter_email" class="form-control" placeholder="{lang key='emailadress'}">
-                                                        <hr class="hr-xs invisible">
+                                                        <p class="privacy text-muted">
+                                                            <a href="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}{/if}" class="popup small tdu">
+                                                                {lang key='privacyNotice'}
+                                                            </a>
+                                                        </p>
                                                         <button type="submit" class="btn btn-primary submit btn-block btn-sm">
                                                             <span>{lang key='newsletterSendSubscribe' section='newsletter'}</span>
                                                         </button>
@@ -122,6 +135,7 @@
 							{/if}
                             {/block}
 							{if ((isset($smarty.session.Sprachen) && $smarty.session.Sprachen|@count > 1) || (isset($smarty.session.Waehrungen) && $smarty.session.Waehrungen|@count > 1)) && $snackyConfig.lgcu_footer != N}
+                                {assign var="isFooter" value=true}
 								<div class="col-6 col-sm-4 col-md-3 col-lg-2">
 									<section class="panel box box-lng-cur">
 										<div class="h5 panel-heading dpflex-a-center">
@@ -138,37 +152,17 @@
 										</div>
 										<div class="panel-body">
 										{block name="footer-language"}
-										{if !$smallversion}
+										{if (!isset($smallversion) || !$smallversion)}
 											{if isset($smarty.session.Sprachen) && $smarty.session.Sprachen|@count > 1}
-											<div class="language-dropdown dropdown mb-xxs">
-												<a href="#" class="dropdown-toggle btn btn-primary btn-block btn-sm" data-toggle="dropdown" itemprop="inLanguage" itemscope itemtype="http://schema.org/Language" title="{lang key='selectLang'}">
-													{foreach from=$smarty.session.Sprachen item=Sprache}
-														{if $Sprache->kSprache == $smarty.session.kSprache}
-															<span class="lang-{$lang}" itemprop="name">{$Sprache->displayLanguage}</span>
-														{/if}
-													{/foreach}
-													<span class="caret"></span>
-												</a>
-												<ul id="language-dropdown" class="dropdown-menu dropdown-menu-left">
-												{foreach from=$smarty.session.Sprachen item=oSprache}
-													{if $oSprache->kSprache != $smarty.session.kSprache}
-														<li>
-															<a href="{$oSprache->url}" class="link_lang {$oSprache->iso}" rel="nofollow">
-																<span>{$oSprache->displayLanguage}</span>
-															</a>
-														</li>
-													{/if}
-													{/foreach}
-												</ul>
-											</div>
+			                                     {include file="snippets/language_dropdown.tpl" isfooter=$isFooter}
 											{/if}
 										{/if}
 										{/block}
 										{block name="footer-currency"}
-										{if !$smallversion}
+										{if (!isset($smallversion) || !$smallversion)}
 											{if isset($smarty.session.Waehrungen) && $smarty.session.Waehrungen|@count > 1}
 											<div class="dropdown">
-												<a href="#" class="dropdown-toggle btn btn-primary btn-block btn-sm" data-toggle="dropdown" title="{lang key='selectCurrency'}">
+												<a href="#" class="dropdown-toggle btn btn-block btn-sm" data-toggle="dropdown" title="{lang key='selectCurrency'}">
 													{$smarty.session.Waehrung->getName()}
 													<span class="caret"></span></a>
 												<ul id="currency-dropdown" class="dropdown-menu dropdown-menu-left">
@@ -195,21 +189,64 @@
                     {if ($linkimpressum || $linkdatenschutz) && $snackyConfig.footerBoxesOpen === '0'}
                         <div class="visible-xs mt-sm">
                                 <div class="mw-container text-center small">
-                                    {if $linkdatenschutz}<a href="{$linkdatenschutz->getURL()}" rel="nofollow">{$linkdatenschutz->getTitle()}</a>{/if}
+                                    {if $linkdatenschutz}
+                                        <a href="{$linkdatenschutz->getURL()}" rel="nofollow">
+                                            {if !empty($linkdatenschutz->getTitle())}
+                                                {$linkdatenschutz->getTitle()}
+                                            {else}
+                                                {$linkdatenschutz->getName()}
+                                            {/if}
+                                        </a>
+                                    {/if}
                                     {if $linkimpressum && $linkdatenschutz} • {/if}
-                                    {if $linkimpressum}<a href="{$linkimpressum->getURL()}" rel="nofollow">{$linkimpressum->getTitle()}</a>{/if}
+                                    {if $linkimpressum}
+                                        <a href="{$linkimpressum->getURL()}" rel="nofollow">
+                                            {if !empty($linkimpressum->getTitle())}
+                                                {$linkimpressum->getTitle()}
+                                            {else}
+                                                {$linkimpressum->getName()}
+                                            {/if}
+                                        </a>
+                                    {/if}
                                 </div>
                         </div>
                     {/if}
 				{/if}
-			{elseif $smallversion}
+			{elseif isset($smallversion) && $smallversion}
 				{getLink nLinkart=12 cAssign="linkdatenschutz"}
 				{getLink nLinkart=27 cAssign="linkimpressum"}
-				{if $linkimpressum || $linkdatenschutz}
+				{getLink nLinkart=24 cAssign="linkwrb"}
+				{if $linkimpressum || $linkdatenschutz || $linkwrb}
 					<div class="mw-container text-center small">
-						{if $linkdatenschutz}<a href="{$linkdatenschutz->getURL()}" rel="nofollow">{$linkdatenschutz->getTitle()}</a>{/if}
+						{if $linkdatenschutz}
+                            <a href="{$linkdatenschutz->getURL()}" rel="nofollow" class="popup">
+                                {if !empty($linkdatenschutz->getTitle())}
+                                    {$linkdatenschutz->getTitle()}
+                                {else}
+                                    {$linkdatenschutz->getName()}
+                                {/if}
+                            </a>
+                        {/if}
 						{if $linkimpressum && $linkdatenschutz} • {/if}
-						{if $linkimpressum}<a href="{$linkimpressum->getURL()}" rel="nofollow">{$linkimpressum->getTitle()}</a>{/if}
+						{if $linkimpressum}
+                            <a href="{$linkimpressum->getURL()}" rel="nofollow" class="popup">
+                                {if !empty($linkimpressum->getTitle())}
+                                    {$linkimpressum->getTitle()}
+                                {else}
+                                    {$linkimpressum->getName()}
+                                {/if}
+                            </a>
+                        {/if}
+						{if $linkdatenschutz && $linkwrb} • {/if}
+						{if $linkwrb}
+                            <a href="{$linkwrb->getURL()}" rel="nofollow" class="popup">
+                                {if !empty($linkwrb->getTitle())}
+                                    {$linkwrb->getTitle()}
+                                {else}
+                                    {$linkwrb->getName()}
+                                {/if}
+                            </a>
+                        {/if}
 					</div>
 				{/if}
 			{/if}
@@ -218,76 +255,10 @@
 		  {include file="snippets/zonen.tpl" id="after_footerboxes" title="after_footerboxes"}
 
             {block name="footer-additional"}
-				{if !$smallversion}
+				{if !isset($smallversion) || !$smallversion}
                     {if $snackyConfig.socialmedia_footer === 'Y'}
                         <div id="footer-social" class="mw-container mt-sm">
-                            <div class="footer-additional-wrapper dpflex-a-center dpflex-j-center dpflex-wrap">
-                                {block name="footer-socialmedia"}
-                                    {if !empty($snackyConfig.facebook)}
-                                        <a href="{if $snackyConfig.facebook|strpos:'http' !== 0}https://{/if}{$snackyConfig.facebook}" class="btn-social btn-facebook dpflex-a-center dpflex-j-center" title="Facebook" target="_blank" rel="noopener">
-											<svg class="icon-darkmode">
-											  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-facebook"></use>
-											</svg>
-										</a>
-                                    {/if}
-                                    {if !empty($snackyConfig.twitter)}
-                                        <a href="{if $snackyConfig.twitter|strpos:'http' !== 0}https://{/if}{$snackyConfig.twitter}" class="btn-social btn-twitter dpflex-a-center dpflex-j-center" title="Twitter" target="_blank" rel="noopener">
-											<svg class="icon-darkmode">
-											  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-twitter"></use>
-											</svg>
-										</a>
-                                    {/if}
-                                    {if !empty($snackyConfig.youtube)}
-                                        <a href="{if $snackyConfig.youtube|strpos:'http' !== 0}https://{/if}{$snackyConfig.youtube}" class="btn-social btn-youtube dpflex-a-center dpflex-j-center" title="YouTube" target="_blank" rel="noopener">
-											<svg class="icon-darkmode">
-											  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-youtube"></use>
-											</svg>
-										</a>
-                                    {/if}
-                                    {if !empty($snackyConfig.vimeo)}
-                                        <a href="{if $snackyConfig.vimeo|strpos:'http' !== 0}https://{/if}{$snackyConfig.vimeo}" class="btn-social btn-vimeo dpflex-a-center dpflex-j-center" title="Vimeo" target="_blank" rel="noopener">
-											<svg class="icon-darkmode">
-											  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-vimeo"></use>
-											</svg>
-										</a>
-                                    {/if}
-                                    {if !empty($snackyConfig.pinterest)}
-                                        <a href="{if $snackyConfig.pinterest|strpos:'http' !== 0}https://{/if}{$snackyConfig.pinterest}" class="btn-social btn-pinterest dpflex-a-center dpflex-j-center" title="PInterest" target="_blank" rel="noopener">
-											<svg class="icon-darkmode">
-											  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-pinterest"></use>
-											</svg>
-										</a>
-                                    {/if}
-                                    {if !empty($snackyConfig.instagram)}
-                                        <a href="{if $snackyConfig.instagram|strpos:'http' !== 0}https://{/if}{$snackyConfig.instagram}" class="btn-social btn-instagram dpflex-a-center dpflex-j-center" title="Instagram" target="_blank" rel="noopener">
-											<svg class="icon-darkmode">
-											  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-instagram"></use>
-											</svg>
-										</a>
-                                    {/if}
-                                    {if !empty($snackyConfig.skype)}
-                                        <a href="{if $snackyConfig.skype|strpos:'skype:' !== 0}skype:{$snackyConfig.skype}?add{else}{$snackyConfig.skype}{/if}" class="btn-social btn-skype dpflex-a-center dpflex-j-center" title="Skype" target="_blank" rel="noopener">
-											<svg class="icon-darkmode">
-											  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-skype"></use>
-											</svg>
-										</a>
-                                    {/if}
-                                    {if !empty($snackyConfig.xing)}
-                                        <a href="{if $snackyConfig.xing|strpos:'http' !== 0}https://{/if}{$snackyConfig.xing}" class="btn-social btn-xing dpflex-a-center dpflex-j-center" title="Xing" target="_blank" rel="noopener">
-											<svg class="icon-darkmode">
-											  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-xing"></use>
-											</svg>
-										</a>
-                                    {/if}
-                                    {if !empty($snackyConfig.linkedin)}
-                                        <a href="{if $snackyConfig.linkedin|strpos:'http' !== 0}https://{/if}{$snackyConfig.linkedin}" class="btn-social btn-linkedin dpflex-a-center dpflex-j-center" title="Linkedin" target="_blank" rel="noopener">
-											<svg class="icon-darkmode">
-											  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-linkedin"></use>
-											</svg>
-										</a>
-                                    {/if}
-                                {/block}
-                            </div>
+				            {include file='snippets/socialprofiles.tpl' tplscope="footer"}
                         </div>
                     {/if}
                 {/if}
@@ -297,18 +268,14 @@
             {block name="footer-copyright"}
 				<ul class="blanklist{if $snackyConfig.footerCopyright == 1 && !$isMobile} list-inline{/if}">
 					{if $NettoPreise == 1}
-						<li>{lang key="footnoteExclusiveVat" section="global" assign="footnoteVat"}</li>
+						{lang key="footnoteExclusiveVat" section="global" assign="footnoteVat"}
 					{else}
-						<li>{lang key="footnoteInclusiveVat" section="global" assign="footnoteVat"}</li>
+						{lang key="footnoteInclusiveVat" section="global" assign="footnoteVat"}
 					{/if}
 					{if $Einstellungen.global.global_versandhinweis === 'zzgl'}
-						<li>
-							{lang key='footnoteExclusiveShipping' section='global' printf=$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL() assign='footnoteShipping'}
-						</li>
+						{lang key='footnoteExclusiveShipping' section='global' printf=$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL() assign='footnoteShipping'}
 					{elseif $Einstellungen.global.global_versandhinweis === 'inkl'}
-						<li>
-							{lang key='footnoteInclusiveShipping' section='global' printf=$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL() assign='footnoteShipping'}
-						</li>
+                        {lang key='footnoteInclusiveShipping' section='global' printf=$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL() assign='footnoteShipping'}
 					{/if}
 					{block name="footer-vat-notice"}
 						<li>
@@ -316,7 +283,7 @@
 						</li>
 					{/block}
 					{if !empty($meta_copyright)}
-						<li><span itemprop="copyrightHolder">&copy; {$meta_copyright}</span></li>
+						<li><span>&copy; {$meta_copyright}</span></li>
 					{/if}
 					{if $Einstellungen.global.global_zaehler_anzeigen === 'Y'}
 						<li>{lang key="counter" section="global"}: {$Besucherzaehler}</li>
@@ -330,7 +297,8 @@
 						Powered by <a href="https://jtl-url.de/jtlshop" title="JTL-Shop" target="_blank" rel="noopener nofollow">JTL-Shop</a>
 						</li>
 					{/if}
-					{if $snackyConfig.noCopyright|checkCopyfree}
+					{checkCopyfree cAssign="snackysCopyfree"}
+					{if !$snackysCopyfree}
 						<li id="template-copyright">
 							Made with <span class="color-brand">&hearts;</span> by <a href="https://www.knoell-marketing.de/" title="Werbeagentur - Knoell marketing">Knoell Marketing</a>
 						</li>
@@ -348,8 +316,52 @@
 {if $snackyConfig.designWidth == 1}
 </div>
 {/if}
+{* Restliches CSS > alles nicht kritische *}
+{block name="layout-footer-css"}
+    {if $Einstellungen.template.general.use_minify === 'N'}
+        {foreach $cCSS_arr as $cCSS}
+            <link rel="preload" href="{$ShopURL}/{$cCSS}?v={$nTemplateVersion}" as="style"
+                  onload="this.onload=null;this.rel='stylesheet'">
+        {/foreach}
+        {if isset($cPluginCss_arr)}
+            {foreach $cPluginCss_arr as $cCSS}
+                <link rel="preload" href="{$ShopURL}/{$cCSS}?v={$nTemplateVersion}" as="style"
+                      onload="this.onload=null;this.rel='stylesheet'">
+            {/foreach}
+        {/if}
+
+        <noscript>
+            {foreach $cCSS_arr as $cCSS}
+                <link rel="stylesheet" href="{$ShopURL}/{$cCSS}?v={$nTemplateVersion}">
+            {/foreach}
+            {if isset($cPluginCss_arr)}
+                {foreach $cPluginCss_arr as $cCSS}
+                    <link href="{$ShopURL}/{$cCSS}?v={$nTemplateVersion}" rel="stylesheet">
+                {/foreach}
+            {/if}
+        </noscript>
+    {else}
+        <link rel="preload" href="{$ShopURL}/{$combinedCSS|replace:"evo":"snackys"}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript>
+            <link href="{$ShopURL}/{$combinedCSS|replace:"evo":"snackys"}" rel="stylesheet">
+        </noscript>
+    {/if}
+{/block}
 {* JavaScripts *}
-{block name="footer-js"}
+{block name="layout-footer-js"}
+	{* aus head in footer geschoben *}
+	{if $Einstellungen.template.general.use_minify === 'N'}
+		{foreach $cPluginJsBody_arr as $cJS}
+			<script defer src="{$ShopURL}/{$cJS}?v={$nTemplateVersion}"></script>
+		{/foreach}
+	{else}
+		{foreach $minifiedJS as $key => $item}
+			{if $key == "plugin_js_body"}
+			<script defer src="{$ShopURL}/{$item}" data-text="true"></script>
+			{/if}
+		{/foreach}
+	{/if}
+	
 	<script>
 	if (navigator.userAgent.indexOf('MSIE')!==-1
 		|| navigator.appVersion.indexOf('Trident/') > -1) // If Internet Explorer
@@ -369,7 +381,6 @@
 	{$dbgBarBody}
 	{captchaMarkup getBody=false}
 {/block}
-{block name='layout-footer-js'}{/block}
 
 <div class="overlay-bg"></div>
 <div id="bodyloader" class="text-center">
@@ -379,7 +390,7 @@
 		<script>
 			if ('serviceWorker' in navigator) {ldelim}
 			  window.addEventListener('load', () => {ldelim}
-				navigator.serviceWorker.register('{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}js/snackys/pwa.js?v={$nTemplateVersion}');
+				navigator.serviceWorker.register('{$ShopURL}/pwa.js?v={$nTemplateVersion}');
 			  {rdelim});
 			{rdelim}
 		</script>
@@ -396,65 +407,333 @@
 
 			{* Google Tag Manager *}
 			{if !empty($snackyConfig.gtag|trim)}
-			<script>
-				var tagmanagerloaded = false;
-				document.addEventListener('consent.ready', function(e) {
-					km_tagManager(e.detail);
-				});
-				document.addEventListener('consent.updated', function(e) {
-					km_tagManager(e.detail);
-				});
-				function km_tagManager(detail) {
-					if (detail !== null && typeof detail.km_tagmanager !== 'undefined' && tagmanagerloaded === false) {
-						if (detail.km_tagmanager === true) {
-							tagmanagerloaded = true;
-							(function(w,d,s,l,i){ldelim}w[l]=w[l]||[];w[l].push({ldelim}'gtm.start':
-							new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-							j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-							'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-							})(window,document,'script','dataLayer','{$snackyConfig.gtag|trim}');
-						} 
-					}
-				}
+				{if $snackyConfig.gtagAllways == 'N'}
+					{inline_script}
+					<script>
+						var tagmanagerloaded = false;
+						document.addEventListener('consent.ready', function(e) {
+							km_tagManager(e.detail);
+						});
+						document.addEventListener('consent.updated', function(e) {
+							km_tagManager(e.detail);
+						});
+						function km_tagManager(detail) {
+							if (detail !== null && typeof detail.km_tagmanager !== 'undefined' && tagmanagerloaded === false) {
+								if (detail.km_tagmanager === true) {
+									tagmanagerloaded = true;
+									(function(w,d,s,l,i){ldelim}w[l]=w[l]||[];w[l].push({ldelim}'gtm.start':
+									new Date().getTime(),event:'gtm.js'{rdelim});var f=d.getElementsByTagName(s)[0],
+									j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+									'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+									{rdelim})(window,document,'script','dataLayer','{$snackyConfig.gtag|trim}');
+								} 
+							}
+						}
 
-			</script>
+					</script>
+					{/inline_script}
+				{else}
+					{inline_script}
+					<script>
+						var tagmanagerloaded = false;
+						document.addEventListener('consent.ready', function(e) {
+							km_tagManager_consent(e.detail);
+						});
+						document.addEventListener('consent.updated', function(e) {
+							km_tagManager_consent(e.detail);
+						});
+						
+						function km_tagManager_consent(detail)
+						{
+							if (detail !== null && typeof detail.km_tagmanager !== 'undefined') {
+								if (detail.km_tagmanager === true) {
+									gtagManager('consent', 'update', {
+										'ad_storage': 'granted',
+										'analytics_storage': 'granted'
+									});
+									
+								} 
+								
+								if(tagmanagerloaded == false)
+								{
+										
+										dataLayerConsent();
+										tagmanagerloaded = true;
+										(function(w,d,s,l,i){ldelim}w[l]=w[l]||[];w[l].push({ldelim}'gtm.start':
+										new Date().getTime(),event:'gtm.js'{rdelim});var f=d.getElementsByTagName(s)[0],
+										j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+										'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+										{rdelim})(window,document,'script','dataLayer','{$snackyConfig.gtag|trim}');
+								}
+							}
+							
+						}
+					</script>
+					{/inline_script}
+				{/if}
+			{/if}
+
+			{* Google Analytics 4 / Ads Tracking *}
+			{if !empty($snackyConfig.google_ads|trim) || !empty($snackyConfig.google_analytics_four|trim)}
+				{if $snackyConfig.gads_analytics_consentmode == 'Y'}
+					<script async src="https://www.googletagmanager.com/gtag/js?id={if !empty($snackyConfig.google_analytics_four|trim)}{$snackyConfig.google_analytics_four|trim}{else}{$snackyConfig.google_ads|trim}{/if}Z&l=gtagDataLayer"></script
+					<script>
+						gtagLoaded = true;
+					</script>
+				{/if}
+				{inline_script}
+					<script>
+						var gtagLoaded = false;
+						document.addEventListener('consent.ready', function(e) {
+							km_gtag_consent(e.detail);
+						});
+						document.addEventListener('consent.updated', function(e) {
+							km_gtag_consent(e.detail);
+						});
+
+						{if $snackyConfig.gads_analytics_consentmode == 'Y'}
+						function km_gtag_consent(detail)
+						{
+							if (detail !== null && (typeof detail.km_gtagAds !== 'undefined' && detail.km_gtagAds === true))
+							{
+								gtag('consent', 'update', {
+									'ad_storage': 'granted'
+								});
+							}
+							if (detail !== null && (typeof detail.km_gtagAnalytics !== 'undefined' && detail.km_gtagAnalytics === true))
+							{
+								gtag('consent', 'update', {
+									'analytics_storage': 'granted'
+								});
+							}
+
+						}
+						{else}
+						function km_gtag_consent(detail)
+						{
+							if (gtagLoaded == false && detail !== null && ((typeof detail.km_gtagAds !== 'undefined' && detail.km_gtagAds === true) || (typeof detail.km_gtagAnalytics !== 'undefined' && detail.km_gtagAnalytics === true))) {
+								gtagLoaded = true;
+
+								var f=document.getElementsByTagName('script')[0],
+										j=document.createElement('script');j.async=true;
+								j.src='https://www.googletagmanager.com/gtag/js?id={if !empty($snackyConfig.google_analytics_four|trim)}{$snackyConfig.google_analytics_four|trim}{else}{$snackyConfig.google_ads|trim}{/if}Z&l=gtagDataLayer';
+								f.parentNode.insertBefore(j,f);
+							}
+
+						}
+						{/if}
+					</script>
+				{/inline_script}
 			{/if}
 			
-			<script>
-				$(window).on('load', function () {
-					window.CM = new ConsentManager({
-						version: 1
-					});
-					var trigger = document.querySelectorAll('.trigger');
-					var triggerCall = function (e) {
-						e.preventDefault();
-						let type = e.target.dataset.consent;
-						if (CM.getSettings(type) === false) {
-							CM.openConfirmationModal(type, function () {
-								let data = CM._getLocalData();
-								if (data === null) {
-									data = { settings: {} };
-								}
-								data.settings[type] = true;
-								document.dispatchEvent(new CustomEvent('consent.updated', { detail: data.settings }));
-							});
-						}
-					}
-					for (let i = 0; i < trigger.length; ++i) {
-						trigger[i].addEventListener('click', triggerCall)
-					}
-					document.addEventListener('consent.updated', function (e) {
-						$.post('{$ShopURLSSL}/', {
-								'action': 'updateconsent',
-								'jtl_token': '{$smarty.session.jtl_token}',
-								'data': e.detail
+			{* Bing Ads *}
+			{if !empty($snackyConfig.bing_ads|trim)}
+				{inline_script}
+				<script>
+						var bingLoaded = false;
+						document.addEventListener('consent.ready', function(e) {
+							km_bing_consent(e.detail);
+						});
+						document.addEventListener('consent.updated', function(e) {
+							km_bing_consent(e.detail);
+						});
+						
+						function km_bing_consent(detail)
+						{
+							if (bingLoaded == false && detail !== null && typeof detail.km_bing !== 'undefined' && detail.km_bing === true) {
+								bingLoaded = true;
+								(function(w,d,t,r,u)
+								{
+									var f,n,i;
+									w[u]=w[u]||[],f=function()
+									{
+										var o={
+											ti:"{$snackyConfig.bing_ads|trim}"
+										};
+										o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")
+									},
+									n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function()
+									{
+										var s=this.readyState;
+										s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)
+									},
+									i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)
+								})
+								(window,document,"script","//bat.bing.com/bat.js","uetq");
 							}
-						);
-					});
+							
+						}
+				</script>
+				{/inline_script}
+			{/if}
+			
+			{* Matomo *}
+			{if !empty($snackyConfig.matomo|trim)}
+				{inline_script}
+				<script>
+					var _paq = window._paq = window._paq || [];
+					_paq.push(["setExcludedQueryParams", ["v"]]);
+					_paq.push(['trackPageView']);
+					_paq.push(['enableLinkTracking']);
+					
+					{if $snackyConfig.matomoConsent != 'Y'}
+						(function(){
+							var u="{$snackyConfig.matomo|trim}";
+							_paq.push(['setTrackerUrl', u+'matomo.php']);
+							_paq.push(['setSiteId', '{$snackyConfig.matomoSiteId}']);
+							var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+							g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+						})();
+					{else}
+						var matomoLoaded = false;
+						document.addEventListener('consent.ready', function(e) {
+							km_matomo_consent(e.detail);
+						});
+						document.addEventListener('consent.updated', function(e) {
+							km_matomo_consent(e.detail);
+						});
+						function km_matomo_consent(detail)
+						{
+							if (matomoLoaded == false && detail !== null && typeof detail.km_matomo !== 'undefined' && detail.km_matomo === true) {
+								var u="{$snackyConfig.matomo|trim}";
+								_paq.push(['setTrackerUrl', u+'matomo.php']);
+								_paq.push(['setSiteId', '{$snackyConfig.matomoSiteId}']);
+								var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+								g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+								matomoLoaded = true;
+							}
+						}
+					{/if}
+				</script>
+				{/inline_script}
+			{/if}
+			
+			{inline_script}
+			<script>
+				document.addEventListener('consent.updated', function(e) {
+					$.post('{$ShopURLSSL}/', {
+							'action': 'updateconsent',
+							'jtl_token': '{$smarty.session.jtl_token}',
+							'data': e.detail
+						}
+					);
 				});
+				{if !isset($smarty.session.consents)}
+					document.addEventListener('consent.ready', function(e) {
+						document.dispatchEvent(new CustomEvent('consent.updated', { detail: e.detail }));
+					});
+				{/if}
+
+				window.CM = new ConsentManager({
+					version: 1
+				});
+				var trigger = document.querySelectorAll('.trigger')
+				var triggerCall = function(e) {
+					e.preventDefault();
+					let type = e.target.dataset.consent;
+					if (CM.getSettings(type) === false) {
+						CM.openConfirmationModal(type, function() {
+							let data = CM._getLocalData();
+							if (data === null ) {
+								data = { settings: {} };
+							}
+							data.settings[type] = true;
+							document.dispatchEvent(new CustomEvent('consent.updated', { detail: data.settings }));
+						});
+					}
+				}
+				for(let i = 0; i < trigger.length; ++i) {
+					trigger[i].addEventListener('click', triggerCall)
+				}
 			</script>
+			{/inline_script}
+			
+			{* Preload Stati for saving rendering time! *}
+			<script>
+				if(JSON.parse(localStorage.getItem('consent')))
+					document.getElementById('consent-manager').classList.add('mini');
+				document.getElementById('consent-manager').classList.add('active');
+			</script>
+		{else}
+			{* Google Tag Manager *}
+			{if !empty($snackyConfig.gtag|trim)}
+				{inline_script}
+				<script>
+					tagmanagerloaded = true;
+					(function(w,d,s,l,i){ldelim}w[l]=w[l]||[];w[l].push({ldelim}'gtm.start':
+					new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+					j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+					'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+					})(window,document,'script','dataLayer','{$snackyConfig.gtag|trim}');
+				</script>
+				{/inline_script}
+			{/if}
+			
+			{* Google Analytics 4 / Google Ads *}
+			{if !empty($snackyConfig.google_ads|trim) || !empty($snackyConfig.google_analytics_four|trim)}
+				{inline_script}
+				<script async src="https://www.googletagmanager.com/gtag/js?id={if !empty($snackyConfig.google_analytics_four|trim)}{$snackyConfig.google_analytics_four|trim}{else}{$snackyConfig.google_ads|trim}{/if}Z&l=gtagDataLayer"></script
+				<script>
+					gtagLoaded = true;
+				</script>
+				{/inline_script}
+			{/if}
+			
+
+			{* Bing Ads *}
+			{if !empty($snackyConfig.bing_ads|trim)}
+				{inline_script}
+				<script>
+					var bingLoaded = true;
+					(function(w,d,t,r,u)
+					{
+						var f,n,i;
+						w[u]=w[u]||[],f=function()
+						{
+							var o={
+								ti:"{$snackyConfig.bing_ads|trim}"
+							};
+							o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")
+						},
+						n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function()
+						{
+							var s=this.readyState;
+							s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)
+						},
+						i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)
+					})
+					(window,document,"script","//bat.bing.com/bat.js","uetq");
+				</script>
+				{/inline_script}
+			{/if}
+			
+			{* Matomo *}
+			{if !empty($snackyConfig.matomo|trim)}
+				{inline_script}
+				<script>
+					var _paq = window._paq = window._paq || [];
+					/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+					_paq.push(["setExcludedQueryParams", ["v"]]);
+					_paq.push(['trackPageView']);
+					_paq.push(['enableLinkTracking']);
+					(function() {
+						var u="{$snackyConfig.matomo|trim}";
+						_paq.push(['setTrackerUrl', u+'matomo.php']);
+						_paq.push(['setSiteId', '{$snackyConfig.matomoSiteId}']);
+						var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+						g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+					})();
+				</script>
+				{/inline_script}
+			{/if}
 		{/if}
 	{/block}
+	
+	
+	{block name="rich-snippets"}
+		{include file='snippets/rich-snippets.tpl'}
+	{/block}
+	
 	{snackys_content id="html_body_end" title="html_body_end"}
 
 </body>

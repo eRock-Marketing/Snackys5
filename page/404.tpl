@@ -8,6 +8,7 @@
         {else}
             <h1 class="xl m0">404</h1>
         {/if}
+        {include file="snippets/zonen.tpl" id="opc_after_heading"}
         {if !empty($Link->getContent()) && $Link->getLinkType() != $smarty.const.LINKTYP_STARTSEITE}
             {if $snackyConfig.optimize_content == "Y"}{$Link->getContent()|optimize}{else}{$Link->getContent()}{/if}
         {else}

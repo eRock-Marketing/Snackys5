@@ -1,10 +1,10 @@
 /* Endles Scrolling Spinner */
 .el-sc:last-child{
     height: 3.4rem;
-    z-index: 11;
+    z-index: 8;
     position: relative;
 }
-.el-sc:last-child button{
+.el-sc:last-child button:not(#view-next-click){
 	position: absolute;
 	bottom: 0;
     width: 2.1rem;
@@ -16,6 +16,8 @@
 	animation: 1.2s ease-in-out 0s infinite both spin;
     box-shadow: none;
     background: none;
+    font-size: 0;
+    transition: font-size 0s;
 }
 .sidecart-open .dropdown.open .c-dp>.inside{
 	animation: .4s ease .1s 1 both slide-in;
@@ -44,13 +46,15 @@
 }
 /* Active Filters */
 .active-filters .btn:not(.btn-block){
-    margin: 0 .2rem .2rem 0;
+    margin: 0 .4rem .4rem 0;
 }
-.active-filters .btn-block{
-    margin: .2rem 0;
-    display: flex;
+@media screen and (max-width: 767px){
+    .active-filters .btn:not(.btn-block){
+        margin: 0 .2rem .2rem 0;
+    }
 }
-.active-filters .btn-block .img-ct{
-    margin: 0 0 0 auto;
-    order: 1;
+/* Amazon Button */
+.lpa-button-content,
+.lpa-button-tooltip-wrapper{
+    max-width: 100%;
 }

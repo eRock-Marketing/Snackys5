@@ -1,11 +1,11 @@
-/*
+/*!
  * Responsive Bootstrap Toolkit
  * Author:    Maciej Gurban
  * License:   MIT
- * Version:   2.5.1 (2015-11-02)
+ * Version:   2.6.3 (2016-06-21)
  * Origin:    https://github.com/maciej-gurban/responsive-bootstrap-toolkit
  */
-;var ResponsiveBootstrapToolkit = (function($){
+var ResponsiveBootstrapToolkit = (function($){
 
     // Internal methods
     var internal = {
@@ -15,11 +15,17 @@
          */
         detectionDivs: {
             // Bootstrap 3
-            bootstrap: {
+            /*bootstrap: {
                 'xs': $('<div class="device-xs visible-xs visible-xs-block"></div>'),
                 'sm': $('<div class="device-sm visible-sm visible-sm-block"></div>'),
                 'md': $('<div class="device-md visible-md visible-md-block"></div>'),
                 'lg': $('<div class="device-lg visible-lg visible-lg-block"></div>')
+            },*/
+            bootstrap: {
+                'xs': $('<div class="device-xs d-block d-sm-none"></div>'),
+                'sm': $('<div class="device-sm d-none d-sm-block d-md-none"></div>'),
+                'md': $('<div class="device-md d-none d-md-block d-lg-none"></div>'),
+                'lg': $('<div class="device-lg d-none d-lg-block"></div>')
             },
             // Foundation 5
             foundation: {
@@ -30,7 +36,7 @@
             }
         },
 
-         /**
+        /**
          * Append visibility divs after DOM laoded
          */
         applyDetectionDivs: function() {
@@ -232,3 +238,7 @@
     return self;
 
 })(jQuery);
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = ResponsiveBootstrapToolkit;
+}

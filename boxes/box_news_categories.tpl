@@ -11,7 +11,6 @@
             <div class="panel-body">
                 <ul class="nav blanklist">
                     {foreach $oBox->getItems() as $newsCategory}
-                        {if $newsCategory@index === 10}{break}{/if}
                         <li class="nav-it">
                             <a href="{$newsCategory->cURLFull}" title="{$newsCategory->cName}" class="dpflex">
                                 <span class="name">{$newsCategory->cName}</span>

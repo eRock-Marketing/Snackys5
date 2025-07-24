@@ -37,7 +37,7 @@
                             </div>
                             {/if}
                             <div class="cols-name{if $Einstellungen.kaufabwicklung.warenkorb_produktbilder_anzeigen != 'Y'} noimg{/if}">
-                                {$oPosition->nAnzahl|replace_delim}{if $oPosition->Artikel->cEinheit}{$oPosition->Artikel->cEinheit}{else}&times;{/if}
+                                {$oPosition->nAnzahl|replace_delim}{if $oPosition->Artikel->cEinheit} {$oPosition->Artikel->cEinheit}{else}&times;{/if}
                                 <a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|trans|escape:"html"}">
                                     {$oPosition->cName|trans}
                                 </a>
@@ -49,15 +49,15 @@
                                     <strong>{$oPosition->cEinzelpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}</strong>
                                 {/if}
                             </div>
-							<button class="editpos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<button class="editpos" type="button" data-toggle="collapse" data-target="#edit_{$oPosition@iteration}">
 								<span class="img-ct icon icon">
 									<svg>
-									  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-info"></use>
+									  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-info"></use>
                                     </svg>
 								</span>
 							</button>
 							</div>
-							<div class="edit-item">
+							<div class="edit-item" id="edit_{$oPosition@iteration}">
 								<ul class="list-unstyled text-muted small blanklist m0 w100">
                                     <li class="sku"><strong>{lang key="productNo" section="global"}:</strong> {$oPosition->Artikel->cArtNr}</li>
                                     {if isset($oPosition->Artikel->dMHD) && isset($oPosition->Artikel->dMHD_de) && $oPosition->Artikel->dMHD_de !== null}
@@ -163,7 +163,7 @@
 							<button class="editpos invisible">
 								<span class="img-ct icon icon">
 									<svg>
-									  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-info"></use>
+									  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-info"></use>
                                     </svg>
 								</span>
 							</button>
@@ -210,7 +210,7 @@
                     {else}
                         {$shippingCosts = $FavourableShipping->cPriceLocalized[$NettoPreise]}
                     {/if}
-						<div class="card text-muted shipping-costs dpflex-j-between cols-sums">
+						<div class="card mt-xxs mb-xxs text-muted shipping-costs dpflex-j-between cols-sums">
 							<div class="panel small">
 								{lang|sprintf:$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL():$shippingCosts:$FavourableShipping->country->getName() key='shippingInformationSpecific' section='basket'}
 							</div>
@@ -219,7 +219,7 @@
                         <td colspan="4"><small></small></td>
                     </tr>
                 {elseif empty($FavourableShipping) && empty($smarty.session.Versandart)}
-						<div class="card text-muted shipping-costs dpflex-j-between cols-sums">
+						<div class="card mt-xxs mb-xxs text-muted shipping-costs dpflex-j-between cols-sums">
 							<div class="panel small">
 								{lang|sprintf:$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL() key='shippingInformation' section='basket'}
 							</div>

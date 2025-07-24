@@ -22,7 +22,7 @@
         </span>
         </div>
     </div>*}
-    <ul class="{*p-sl no-scrollbar *}dpflex-a-center dpflex-j-center blanklist dpflex-wrap{if $snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 6} no-scrollbar{/if}">
+    <ul class="{*p-sl no-scrollbar *}dpflex-a-center dpflex-j-center blanklist dpflex-wrap{if $snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 6} no-scrollbar{/if}" id="cat-ul">
         {if $snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 6}
             <div class="dpflex-a-center dpflex-j-between nowrap fullscreen-title">
                 <span class="m0 notextov block h3">{lang key="menu" section="custom"}</span>

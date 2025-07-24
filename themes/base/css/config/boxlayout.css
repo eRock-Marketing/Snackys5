@@ -4,6 +4,9 @@
 body{
     background: white;
 }
+#bxt-w{
+    background: white;
+}
 @media screen and (min-width: @maxPageWidthpx){
 	body{
 		background: @bgBoxed;

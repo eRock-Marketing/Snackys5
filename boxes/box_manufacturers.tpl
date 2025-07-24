@@ -11,7 +11,6 @@
                 <div class="panel-body">
                     <ul class="nav blanklist">
                         {foreach $oBox->getManufacturers() as $manufacturer}
-                            {if $manufacturer@index === 10}{break}{/if}
                             <li class="nav-it">
                                 <a href="{$manufacturer->cSeo}" title="{$manufacturer->cName|escape:'html'}" class="dpflex">
                                     <span class="name">{$manufacturer->cName|escape:'html'}</span>

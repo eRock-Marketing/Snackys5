@@ -31,7 +31,7 @@
 }
 #add-to-cart .submit,
 .exp .btn-primary,
-.qty-btns input,
+.qty-btns .btn,
 .qty-btns .unit{
     -webkit-user-select: none;
     -moz-user-select: none;

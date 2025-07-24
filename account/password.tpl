@@ -15,7 +15,7 @@
                 <div class="alert alert-danger">{$cFehler}</div>
             {/if}
             {block name="password-reset-form-body"}
-            <form id="passwort_vergessen" action="{get_static_route id='pass.php'}{if $bExclusive === true}?exclusive_content=1{/if}" method="post" class="panel evo-validate">
+            <form id="passwort_vergessen" action="{get_static_route id='pass.php'}{if $bExclusive === true}?exclusive_content=1{/if}" method="post" class="panel jtl-validate">
                 {$jtl_token}
                 <legend>{lang key="createNewPassword" section="forgot password"}</legend>
                 {$alertList->displayAlertByKey('forgotPasswordDesc')}
@@ -50,7 +50,7 @@
             <div class="alert alert-danger">{$cFehler}</div>
         {/if}
             {block name="password-reset-confirm-body"}
-            <form id="passwort_vergessen" action="{get_static_route id='pass.php'}{if $bExclusive === true}?exclusive_content=1{/if}" method="post" class="panel evo-validate">
+            <form id="passwort_vergessen" action="{get_static_route id='pass.php'}{if $bExclusive === true}?exclusive_content=1{/if}" method="post" class="panel jtl-validate">
                 {$jtl_token}
                 <fieldset>
                     <div class="form-group required">

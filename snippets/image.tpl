@@ -7,6 +7,8 @@
         {$webp        = $webp|default:true}
         {$sizes       = $sizes|default:'auto'}
         {$class       = $class|default:''}
+        {$width       = $width|default:''}
+        {$height      = $height|default:''}
         {$squareClass = $squareClass|default:''}
         {$srcSize     = $srcSize|default:'md'}
         {$center      = $center|default:false}
@@ -97,7 +99,7 @@
                             {$item->getImage(\JTL\Media\Image::SIZE_SM)} {$klein}w,
                             {$item->getImage(\JTL\Media\Image::SIZE_MD)} {$normal}w,
                             {$item->getImage(\JTL\Media\Image::SIZE_LG)} {$gross}w"
-                    alt=$alt|strip_tags|escape:'quotes'|escape:'html'
+                    alt=$alt|strip_tags|escape:'quotes'
                     sizes=$sizes
                     class=$class
                 }
@@ -112,16 +114,28 @@
 				<div class="inner">
 			{/if}
 				{block name='snippets-image-main-image'}
-					{image fluid=$fluid lazy=$lazy webp=$webp center=$center
-						src=$second->getImage($srcSize)
-						srcset="{$second->getImage(\JTL\Media\Image::SIZE_XS)} {$mini}w,
-								{$second->getImage(\JTL\Media\Image::SIZE_SM)} {$klein}w,
-								{$second->getImage(\JTL\Media\Image::SIZE_MD)} {$normal}w,
-								{$second->getImage(\JTL\Media\Image::SIZE_LG)} {$gross}w"
-						alt=$alt|strip_tags|escape:'quotes'|escape:'html'
-						sizes=$sizes
-						class=$class
-					}
+                {if $item->getImage($srcSize)|strpos:'keinBild.gif' !== false}
+                    {image fluid=$fluid lazy=$lazy webp=$webp center=$center
+                        src=$item->getImage($srcSize)
+                        alt=$alt|strip_tags|escape:'quotes'|escape:'html'
+                        width=130
+                        height= 130
+                        class=$class|cat:" img-aspect-ratio"
+                    }
+                {else}
+                    {image fluid=$fluid lazy=$lazy webp=$webp center=$center
+                        src=$item->getImage($srcSize)
+                        srcset="{$item->getImage(\JTL\Media\Image::SIZE_XS)} {$mini}w,
+                                {$item->getImage(\JTL\Media\Image::SIZE_SM)} {$klein}w,
+                                {$item->getImage(\JTL\Media\Image::SIZE_MD)} {$normal}w,
+                                {$item->getImage(\JTL\Media\Image::SIZE_LG)} {$gross}w"
+                        alt=$alt|strip_tags|escape:'quotes'|escape:'html'
+                        sizes=$sizes
+                        width=$width
+                        height=$height
+                        class=$class
+                    }
+                {/if}
 				{/block}
 			{if $square}
 				</div>

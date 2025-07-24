@@ -6,11 +6,11 @@
 	margin: .5rem;
 }
 #pay-f li.text{
-	padding: 0.4rem 0.8rem;
+	padding: .5rem .8rem;
 	border-radius: .3rem;
 	border: 1px solid @defaultborder;
 	font-size: 0.95rem;
-	color: @lighttext;
+	color: @defaulttext;
 }
 #pay-f li:empty{
 	display: none;

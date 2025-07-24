@@ -3,13 +3,11 @@
 	scroll-snap-type: x mandatory;
 	pointer-events: auto;
 }
-.panel-slider .sl-ar.inactive,
 .panel-slider .sl-ar{
 	opacity: .65;
 }
-/* Trusted bei Sidebar-Open ausblenden */
-.shw-sb .etrusted-badge-container.etrusted-badge-container--left{
-	display: none;
+.panel-slider .sl-ar.inactive{
+    opacity: .3;
 }
 /* Mobile-Link nicht Klickbar */
 @media screen and (max-width: 768px){

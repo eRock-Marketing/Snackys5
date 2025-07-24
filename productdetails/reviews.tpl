@@ -75,14 +75,24 @@
         {/block}
     {if $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0}
     <div id="rv-wp">
-		{if $ratingPagination->getPageItemCount() > 0 || isset($Artikel->HilfreichsteBewertung->oBewertung_arr[0]->nHilfreich) &&
+		{* if $ratingPagination->getPageItemCount() > 0 || isset($Artikel->HilfreichsteBewertung->oBewertung_arr[0]->nHilfreich) &&
         $Artikel->HilfreichsteBewertung->oBewertung_arr[0]->nHilfreich > 0}
-            {*<p class="alert alert-info m0">{lang key='reviewsInCurrLang' section='product rating'}</p>
-            <hr class="invisible hr-sm">*}
+            <p>
+                {if $Einstellungen.bewertung.bewertung_alle_sprachen === 'Y'}
+                    {lang key='reviewsInAllLang' section='product rating'}
+                {else}
+                    {lang key='reviewsInCurrLang' section='product rating'}
+                {/if}
+            </p>
         {else}
-            <p class="alert alert-info m0">{lang key='noReviewsInCurrLang' section='product rating'}</p>
-            <hr class="invisible hr-sm">
-        {/if}
+            <p>
+                {if $Einstellungen.bewertung.bewertung_alle_sprachen === 'Y'}
+                    {lang key='noReviewsInAllLang' section='product rating'}
+                {else}
+                    {lang key='noReviewsInCurrLang' section='product rating'}
+                {/if}
+            </p>
+        {/if *}
         {if isset($Artikel->HilfreichsteBewertung->oBewertung_arr[0]->nHilfreich) &&
             $Artikel->HilfreichsteBewertung->oBewertung_arr[0]->nHilfreich > 0
         }

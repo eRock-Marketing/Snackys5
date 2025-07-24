@@ -1,0 +1,3 @@
+.bootstrap-select > .btn.dropdown-toggle{
+    border: 1px solid @defaultborder;
+}

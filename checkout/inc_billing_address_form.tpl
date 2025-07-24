@@ -47,7 +47,7 @@
                     class="form-control" 
                     placeholder="{lang key="title" section="account data"}" 
                     {if $Einstellungen.kunden.kundenregistrierung_abfragen_titel === 'Y'}required{/if} 
-				    {if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternTitel)}pattern="{$snackyConfig.patternTitel}"{/if}
+				    {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTitel)}pattern="{$snackyConfig.patternTitel}"{/if}
 				    spellcheck="false" 
 				    autocorrect="off"
                     >
@@ -78,7 +78,7 @@
                 class="form-control" 
                 placeholder="{lang key="firstName" section="account data"}" 
                 {if $Einstellungen.kunden.kundenregistrierung_pflicht_vorname === 'Y'} required{/if} 
-				{if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternVorname)}pattern="{$snackyConfig.patternVorname}"{/if}
+				{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternVorname)}pattern="{$snackyConfig.patternVorname}"{/if}
 				spellcheck="false" 
 				autocorrect="off"
                 >
@@ -109,7 +109,7 @@
                 class="form-control" 
                 placeholder="{lang key="lastName" section="account data"}" 
                 required  
-				{if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternNachname)}pattern="{$snackyConfig.patternNachname}"{/if}
+				{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternNachname)}pattern="{$snackyConfig.patternNachname}"{/if}
 				spellcheck="false" 
 				autocorrect="off" 
                 >
@@ -203,7 +203,7 @@
                 class="form-control" 
                 placeholder="{lang key="street" section="account data"}" 
                 required  
-				{if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternStrasse)}pattern="{$snackyConfig.patternStrasse}"{/if}
+				{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternStrasse)}pattern="{$snackyConfig.patternStrasse}"{/if}
 				spellcheck="false" 
 				autocorrect="off"  
                 >
@@ -231,7 +231,7 @@
                 class="form-control" 
                 placeholder="{lang key="streetnumber" section="account data"}" 
                 required  
-				{if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternHausnummer)}pattern="{$snackyConfig.patternHausnummer}"{/if} 
+				{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternHausnummer)}pattern="{$snackyConfig.patternHausnummer}"{/if} 
 				spellcheck="false" 
 				autocorrect="off"
                 >
@@ -262,7 +262,7 @@
                     class="form-control"
                     placeholder="{lang key="street2" section="account data"}" 
                     {if $Einstellungen.kunden.kundenregistrierung_abfragen_adresszusatz === 'Y'} required{/if}
-					{if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternAdresszusatz)}pattern="{$snackyConfig.patternAdresszusatz}"{/if} 
+					{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternAdresszusatz)}pattern="{$snackyConfig.patternAdresszusatz}"{/if} 
 				    spellcheck="false" 
 				    autocorrect="off"
                     />
@@ -277,21 +277,26 @@
     {/if}
     {* country *}
     {if isset($cPost_var['land'])}
-        {assign var='cIso' value=$cPost_var['land']}
+        {$countryISO=$cPost_var['land']}
     {elseif !empty($Kunde->cLand)}
-        {assign var='cIso' value=$Kunde->cLand}
+        {$countryISO=$Kunde->cLand}
+	{elseif !empty($Einstellungen.kunden.kundenregistrierung_standardland)}
+		  {$countryISO=$Einstellungen.kunden.kundenregistrierung_standardland}
     {else}
-        {assign var='cIso' value=$shippingCountry}
+        {$countryISO=$shippingCountry}
     {/if}
+    {getCountry iso=$countryISO assign='selectedCountry'}
     <div class="row">
         <div class="col-12 col-md-6">
             <div class="form-group float-label-control required{if isset($fehlendeAngaben.land)} has-error{/if}">
                 <label class="control-label" for="country">{lang key="country" section="account data"}</label>
-                <select name="land" id="country" class="country_input form-control" required
+                <select name="land" id="billing_address-country" class="country_input form-control js-country-select" required
 				 autocomplete="billing country">
                 <option value="" disabled>{lang key="country" section="account data"}</option>
-                {foreach $laender as $land}
-                        <option value="{$land->getISO()}" {if $cIso === $land->getISO()}selected="selected"{/if}>{$land->getName()}</option>
+                {foreach $countries as $country}
+                    {if $country->isPermitRegistration()}
+                        <option value="{$country->getISO()}" {if $selectedCountry->getISO() === $country->getISO()}selected="selected"{/if}>{$country->getName()}</option>
+                    {/if}
                 {/foreach}
                 </select>
                 {if isset($fehlendeAngaben.land)}
@@ -306,29 +311,29 @@
     {/if} {* close row if there won't follow another form-group *}
 
     {if $Einstellungen.kunden.kundenregistrierung_abfragen_bundesland !== 'N'}
-        {getStates cIso=$cIso assign='oStates'}
         {if isset($cPost_var['bundesland'])}
-            {assign var='cState' value=$cPost_var['bundesland']}
+            {assign var=selectedState value=$cPost_var['bundesland']}
         {elseif !empty($Kunde->cBundesland)}
-            {assign var='cState' value=$Kunde->cBundesland}
+            {assign var=selectedState value=$Kunde->cBundesland}
         {else}
-            {assign var='cState' value=''}
+            {assign var=selectedState value=''}
         {/if}
         <div class="col-12 col-md-6">
             <div class="form-group float-label-control{if isset($fehlendeAngaben.bundesland)} has-error{/if}{if $Einstellungen.kunden.kundenregistrierung_abfragen_bundesland === 'Y'} required{/if}">
-                <label class="control-label" for="state">{lang key="state" section="account data"}</label>
-                {if !empty($oStates)}
+                <label class="control-label" for="state">{lang key="state" section="account data"}<span class="state-optional optional {if $Einstellungen.kunden.kundenregistrierung_abfragen_bundesland === 'Y' || $selectedCountry->isRequireStateDefinition()}hidden{/if}"> - {lang key='optional'}</span></label>
+                {if !empty($selectedCountry)}
                     <select
                     title="{lang key=pleaseChoose}"
                     name="bundesland"
-                    id="state"
+                    id="billing_address-state"
                     class="form-control state-input"
                     autocomplete="billing address-level1"
-                    {if $Einstellungen.kunden.kundenregistrierung_abfragen_bundesland === 'Y'} required{/if}
+                    data-defaultoption="{lang key=pleaseChoose}"
+                    {if $Einstellungen.kunden.kundenregistrierung_abfragen_bundesland === 'Y' || $selectedCountry->isRequireStateDefinition()} required{/if}
                     >
                         <option value="" selected disabled>{lang key='pleaseChoose'}</option>
-                        {foreach $oStates as $oState}
-                            <option value="{$oState->cCode}" {if $cState === $oState->cName || $cState === $oState->cCode}selected{/if}>{$oState->cName}</option>
+                        {foreach $selectedCountry->getStates() as $state}
+                            <option value="{$state->getISO()}" {if $selectedState === $state->getName() || $selectedState === $state->getISO()}selected{/if}>{$state->getName()}</option>
                         {/foreach}
                     </select>
                 {else}
@@ -336,12 +341,12 @@
                     type="text"
                     title="{lang key=pleaseChoose}"
                     name="bundesland"
-                    value="{$cState}"
+                    value="{$selectedState}"
                     id="state"
                     class="form-control"
                     placeholder="{lang key='state' section='account data'}"
                     autocomplete="billing address-level1"
-                    {if $Einstellungen.kunden.kundenregistrierung_abfragen_bundesland === 'Y'} required{/if}
+                    {if $Einstellungen.kunden.kundenregistrierung_abfragen_bundesland === 'Y' || $selectedCountry->isRequireStateDefinition()} required{/if}
                     >
                 {/if}
                 {if isset($fehlendeAngaben.bundesland)}
@@ -366,7 +371,7 @@
                 class="postcode_input form-control"
                 placeholder="{lang key="plz" section="account data"}"
                 required
-				{if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternPLZ)}pattern="{$snackyConfig.patternPLZ}"{/if}
+				{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternPLZ)}pattern="{$snackyConfig.patternPLZ}"{/if}
 				spellcheck="false" 
 				autocorrect="off"
 				autocomplete="billing postal-code"
@@ -394,7 +399,7 @@
                 class="city_input form-control typeahead"
                 placeholder="{lang key="city" section="account data"}" 
                 required 
-				{if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternOrt)}pattern="{$snackyConfig.patternOrt}"{/if}
+				{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternOrt)}pattern="{$snackyConfig.patternOrt}"{/if}
 				spellcheck="false" 
 				autocorrect="off"
 				autocomplete="billing address-level2"
@@ -425,7 +430,7 @@
                 class="form-control" 
                 placeholder="{lang key="ustid" section="account data"}" 
                 {if $Einstellungen.kunden.kundenregistrierung_abfragen_ustid === 'Y'} required{/if} 
-				{if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternUst)}pattern="{$snackyConfig.patternUst}"{/if}
+				{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternUst)}pattern="{$snackyConfig.patternUst}"{/if}
 				spellcheck="false" 
 				autocorrect="off"
                 >
@@ -521,7 +526,7 @@
                     class="form-control"
                     placeholder="{lang key="tel" section="account data"}" 
                     {if $Einstellungen.kunden.kundenregistrierung_abfragen_tel === 'Y'} required{/if} 
-					{if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternTelefon)}pattern="{$snackyConfig.patternTelefon}"{/if}
+					{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTelefon)}pattern="{$snackyConfig.patternTelefon}"{/if}
 				    spellcheck="false" 
 				    autocorrect="off"
                     />
@@ -555,7 +560,7 @@
                     class="form-control"
                     placeholder="{lang key="fax" section="account data"}" 
                     {if $Einstellungen.kunden.kundenregistrierung_abfragen_fax === 'Y'} required{/if}
-					{if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternFax)}pattern="{$snackyConfig.patternFax}"{/if}
+					{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternFax)}pattern="{$snackyConfig.patternFax}"{/if}
 				    spellcheck="false" 
 				    autocorrect="off"
                     />
@@ -593,7 +598,7 @@
                         class="form-control"
                         placeholder="{lang key="mobile" section="account data"}" 
                         {if $Einstellungen.kunden.kundenregistrierung_abfragen_mobil === 'Y'} required{/if} 
-						{if $snackyConfig.formvalidActive === '0' && isset($snackyConfig.patternMobil)}pattern="{$snackyConfig.patternMobil}"{/if}
+						{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternMobil)}pattern="{$snackyConfig.patternMobil}"{/if}
 						spellcheck="false" 
 						autocorrect="off"
                         />

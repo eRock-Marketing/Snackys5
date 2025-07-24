@@ -1,11 +1,12 @@
 {block name='productdetails-bundle'}
 {if !empty($Products)}
     <hr class="invisible">
-    <form action="{if !empty($ProductMain->cURLFull)}{$ProductMain->cURLFull}{else}index.php{/if}" method="post" id="form_bundles" class="evo-validate">
+    <form action="{if !empty($ProductMain->cURLFull)}{$ProductMain->cURLFull}{else}{get_static_route id='index.php'}{/if}" method="post" id="form_bundles" class="jtl-validate mb-lg">
+		{$jtl_token}
+		<input type="hidden" name="a" value="{$ProductMain->kArtikel}" />
+		<input type="hidden" name="addproductbundle" value="1" />
+		<input type="hidden" name="aBundle" value="{$ProductKey}" />
         <div class="panel-default panel-slider">
-            <input type="hidden" name="a" value="{$ProductMain->kArtikel}" />
-            <input type="hidden" name="addproductbundle" value="1" />
-            <input type="hidden" name="aBundle" value="{$ProductKey}" />
             {block name="productdetails-bundle-main"}{* for additional hidden inputs use block prepend *}
             <div class="panel-heading">
 				<div class="panel-title dpflex-a-center dpflex-j-between mb-spacer mb-xs">

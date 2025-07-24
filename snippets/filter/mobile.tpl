@@ -10,8 +10,9 @@
         {/block}
         <ul class="productlist-filter-accordion border-md-bottom border-lg-bottom-0">
         {block name='snippets-filter-mobile-sorting'}
+            {if count($Suchergebnisse->getSortingOptions()) > 0}
             <li class="snippets-filter-mobile-sorting">
-                {link class="snippets-filter-mobile-sorting-link filter-type-FilterItemSort"
+                {link class="snippets-filter-mobile-sorting-link filter-type-FilterItemSort" rel="nofollow"
                     data=["toggle"=> "collapse", "target"=>"#sorting-collapse"]}
                     {lang key='sorting' section='productOverview'}
                     <span class="font-italic text-truncate">
@@ -31,6 +32,7 @@
                     {/foreach}
                 {/collapse}
             </li>
+            {/if}
         {/block}
         {if $show_filters}
             {if count($NaviFilter->getAvailableContentFilters()) > 0}
@@ -43,7 +45,7 @@
                                     && $filter->getOptions()|count > 0}
                                     <li class="snippets-filter-mobile-item">
                                         {block name='snippets-filter-mobile-filters-button'}
-                                            {link class="collapsed"
+                                            {link class="collapsed" rel="nofollow"
                                                 data=["toggle"=> "collapse", "target"=>"#filter-collapse-{$subFilter->getFrontendName()|@seofy}"]}
                                                 <span class="characteristic-collapse-btn-inner">
                                                     {$img = $subFilter->getImage(\JTL\Media\Image::SIZE_XS)}
@@ -84,7 +86,7 @@
                             <li class="snippets-filter-mobile-item">
                                 {if $filter->getClassName() === "JTL\Filter\Items\PriceRange"}
                                     {block name='snippets-filter-mobile-filters-price-range'}
-                                        {link class="collapsed"
+                                        {link class="collapsed" rel="nofollow"
                                             data=["toggle"=> "collapse", "target"=>"#filter-collapse-{$filter->getFrontendName()|@seofy}"]}
                                             {$filter->getFrontendName()}
                                         {/link}
@@ -99,7 +101,7 @@
                                     {/block}
                                 {elseif $filter->getClassName() === "JTL\Filter\Items\Search"}
                                     {block name='snippets-filter-mobile-filters-search'}
-                                        {link class="collapsed"
+                                        {link class="collapsed" rel="nofollow"
                                             data=["toggle"=> "collapse", "target"=>"#filter-collapse-{$filter->getFrontendName()|@seofy}"]}
                                             {$filter->getFrontendName()}
                                         {/link}
@@ -113,7 +115,7 @@
                                     {/block}
                                 {elseif $filter->getClassName() === "JTL\Filter\Items\Manufacturer"}
                                     {block name='snippets-filter-mobile-filters-manufacturer'}
-                                        {link class="collapsed"
+                                        {link class="collapsed" rel="nofollow"
                                             data=["toggle"=> "collapse", "target"=>"#filter-collapse-{$filter->getFrontendName()|@seofy}"]}
                                             <span class="text-truncate">{$filter->getFrontendName()}</span>
                                         {/link}
@@ -127,7 +129,7 @@
                                     {/block}
                                 {elseif $filter->getOptions()|count > 0}
                                     {block name='snippets-filter-mobile-filters-generic'}
-                                        {link data=["toggle"=> "collapse", "target"=>"#filter-collapse-{$filter->getFrontendName()|@seofy}"]}
+                                        {link data=["toggle"=> "collapse", "target"=>"#filter-collapse-{$filter->getFrontendName()|@seofy}"] rel="nofollow"}
                                             <span class="text-truncate">{$filter->getFrontendName()}</span>
                                         {/link}
                                         {collapse id="filter-collapse-{$filter->getFrontendName()|@seofy}"

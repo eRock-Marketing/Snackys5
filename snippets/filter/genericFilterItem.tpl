@@ -5,7 +5,7 @@
             {assign var=filterIsActive value=$filterOption->isActive() || $NaviFilter->getFilterValue($filter->getClassName()) === $filterOption->getValue()}
             {block name='snippets-filter-genericFilterItem-nav-main'}
             <li class="nav-it">
-                <a class="filter-item dpflex-a-center{if $filterIsActive === true} active{/if}{if isset($itemClass)} {$itemClass}{/if}" href="{if $filterOption->isActive()}{$filter->getUnsetFilterURL($filterOption->getValue())}{else}{$filterOption->getURL()}{/if}" nofollow=true>
+                <a class="filter-item dpflex-a-center{if $filterIsActive === true} active{/if}{if isset($itemClass)} {$itemClass}{/if}" href="{if $filterOption->isActive()}{$filter->getUnsetFilterURL($filterOption->getValue())}{else}{$filterOption->getURL()}{/if}" rel="nofollow">
                     <span class="name{if $filter->getNiceName() === 'Rating'} dpflex-wrap{/if}">
                     {if $filter->getNiceName() === 'Rating'}
                         {block name='snippets-filter-genericFilterItem-include-rating-nav'}

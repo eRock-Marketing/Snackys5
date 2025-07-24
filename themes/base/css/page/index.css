@@ -1,0 +1,6 @@
+#content-wrapper{
+	margin-top: 3rem;
+}
+#extension-container + #content-wrapper{
+	margin-top: 0;
+}

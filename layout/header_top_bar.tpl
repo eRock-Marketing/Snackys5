@@ -21,27 +21,7 @@
         {/block}
         {block name="top-bar-user-settings-language"}
         {if isset($smarty.session.Sprachen) && $smarty.session.Sprachen|@count > 1}
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle dpflex-a-center" data-toggle="dropdown" itemprop="inLanguage" itemscope itemtype="http://schema.org/Language" title="{lang key='selectLang'}">
-					{foreach from=$smarty.session.Sprachen item=Sprache}
-						{if $Sprache->kSprache == $smarty.session.kSprache}
-							<span class="lang-{$lang}" itemprop="name">{$Sprache->displayLanguage}</span>
-						{/if}
-					{/foreach}
-					<span class="caret"></span>
-				</a>
-				<ul class="dropdown-menu">
-				{foreach from=$smarty.session.Sprachen item=oSprache}
-					{if $oSprache->kSprache != $smarty.session.kSprache}
-						<li>
-							<a href="{$oSprache->url}" rel="nofollow" class="link_lang {$oSprache->iso}">
-								<span>{$oSprache->displayLanguage}</span>
-							</a>
-						</li>
-					{/if}
-					{/foreach}
-				</ul>
-			</li>
+			{include file="snippets/language_dropdown.tpl"}
         {* /language-dropdown *}
         {/if}
         {/block}

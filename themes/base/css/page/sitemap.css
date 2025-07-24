@@ -1,0 +1,23 @@
+#km_sm ul{
+    list-style: none;
+}
+#km_sm ul ul{
+    padding-left: 1rem;
+}
+#km_sm li{
+    padding: .2rem 0;
+}
+#km_sm .card-header{
+    font-weight: bold;
+    color: @darktext;
+}
+@media screen and (min-width: 768px){
+    #km_sm .card-body{
+        padding: 2rem;
+    }
+}
+@media screen and (max-width: 767px){
+    #shop-nav{
+        margin-bottom: 1.5rem;
+    }
+}

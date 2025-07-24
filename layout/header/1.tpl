@@ -7,13 +7,13 @@
 				<div id="sr-tg-m">
 					<span class="img-ct icon">
 						<svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
-						  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg#icon-search"></use>
+						  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-search"></use>
 						</svg>
 					</span>
 					<span class="close close-btn"></span>
 				</div>
 			</div>
-			<div class="col-4 col-sm-6 col-md-6 col-lg-2" id="logo" itemprop="publisher" itemscope itemtype="http://schema.org/Organization" itemid="">
+			<div class="col-4 col-sm-6 col-md-6 col-lg-2 dpflex-a-c dpflex-j-c text-center" id="logo">
 				{include file='layout/shoplogo.tpl'}
 			</div>
 			{if $nSeitenTyp !== 11}

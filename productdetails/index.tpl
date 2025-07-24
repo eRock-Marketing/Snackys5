@@ -1,4 +1,5 @@
 {block name='productdetails-index'}
+{if !isset($viewportImages)}{assign var="viewportImages" value=0}{/if}
 {block name="header"}
     {if !isset($bAjaxRequest) || !$bAjaxRequest}
         {include file='layout/header.tpl'}
@@ -18,8 +19,7 @@
             {include file='productlist/item_box.tpl'}
         {/if}
     {else}
-        <div id="result-wrapper" data-wrapper="true" itemprop="mainEntity" itemscope  itemtype="http://schema.org/Product" itemid="{$ShopURL}/{$Artikel->cSeo}" variations-type="{if isset($varKombiArr) && $varKombiArr|@count > 0}varkombi{else if $Artikel->Variationen}simple{else}none{/if}">
-            <meta itemprop="url" content="{$ShopURL}/{$Artikel->cSeo}">
+        <div id="result-wrapper" data-wrapper="true" variations-type="{if isset($varKombiArr) && $varKombiArr|@count > 0}varkombi{else if $Artikel->Variationen}simple{else}none{/if}">
         {include file="snippets/extension.tpl"}
         {include file='productdetails/details.tpl'}
         </div>

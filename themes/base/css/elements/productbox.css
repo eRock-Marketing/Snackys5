@@ -6,13 +6,11 @@
 }
 .p-c{
     height: 100%;
+    width: 100%;
 }
 .p-c .form-basket{
     position: static;
     margin-top: auto;
-}
-.p-c .img-ct{
-    transition: box-shadow .3s ease, transform .3s ease;
 }
 .p-c .price{
     font-size: 1.4rem;
@@ -29,10 +27,6 @@
 .p-c strong.price .old-price{
 	color: @defaulttext;
 	font-weight: 400;
-}
-.p-c .img-w:hover .img-ct{
-    box-shadow: 0 16px 16px rgba(0,0,0,.1);
-    transform: translateY(-4px);
 }
 .p-c .rating{
     margin: .3rem 0;
@@ -58,30 +52,28 @@
     color: @backgroundtext;
     background: @darkbg;
 }
-.ov-t.lagerbestand0,
-.ov-t.sonderangebote{
+.ov-t.ov-t-7,
+.ov-t.ov-t-2,
+.ov-t.ov-t-sp{
     background: @danger;
 }
-.ov-t.topangebote{
+.ov-t.ov-t-4,
+.ov-t.ov-t-6{
     background: @success;
 }
-.ov-t.bestseller{
+.ov-t.ov-t-1,
+.ov-t.ov-t-5,
+.ov-t.ov-t-8,
+.ov-t.ov-t-9{
 	background: @info;
 }
-.ov-t.neuimsortiment{
+.ov-t.ov-t-3{
 	background: @warning;
 }
 #product-offer .price_label,
 .p-c .price_label{
     font-size: .85rem;
     display: inline-flex;
-    /*
-    font-size: .7rem;
-    padding: .02rem .2rem;
-    background: @darkbg;
-    color: white;
-    border-radius: .2rem;
-    */
 }
 .p-c .delivery-status{
     z-index: 3;
@@ -113,6 +105,35 @@ body.ie a:hover .second-img,
 body.edge a:hover .second-img{
     display: block;
 }
+/* Sale Countdown */
+.sale-ct{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,.7);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    padding: .4rem .3rem;
+    border-radius: 0 0 .8rem .8rem;
+    color: @defaulttext;
+}
+.sale-ct .ct-un{
+    font-size: .6rem;
+}
+.sale-ct .ct-wp{
+    padding: 0 .2rem;
+}
+.sale-ct ~ .ov-t{
+    bottom: 4rem;
+}
+.ov-t ~ .ov-t{
+    bottom: 4.2rem;
+}
+.ov-t.ov-t-sp{
+    text-transform: none;
+    letter-spacing: 0;
+}
 @media screen and (max-width: 767px){
     .p-c .price{
         font-size: 1.2rem;
@@ -122,5 +143,11 @@ body.edge a:hover .second-img{
     .ov-t{
         bottom: 1.5rem;
         font-size: .7rem;
+    }
+    .ov-t.ov-t-sp{
+        font-size: .7rem;
+    }
+    .ov-t~.ov-t {
+        bottom: 3.5rem;
     }
 }

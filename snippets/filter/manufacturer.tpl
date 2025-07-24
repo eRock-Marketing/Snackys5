@@ -10,7 +10,7 @@
             {else}
                 {$tooltip = []}
             {/if}
-            <a href="{if !empty($filterOption->getURL())}{$filterOption->getURL()}{else}#{/if}" title="{$filterOption->getName()}: {$filterOption->getCount()}" data=$tooltip class="filter-item dpflex-a-center {if $filterOption->isActive()}active{/if}">
+            <a href="{if !empty($filterOption->getURL())}{$filterOption->getURL()}{else}#{/if}" title="{$filterOption->getName()}: {$filterOption->getCount()}" data=$tooltip class="filter-item dpflex-a-center {if $filterOption->isActive()}active{/if}" rel="nofollow">
                 {if $Einstellungen.navigationsfilter.hersteller_anzeigen_als == 'B'}
                     {block name='snippets-filter-manufacturer-item-image'}
                     <span class="img-ct icon ic-lg icon-wt">

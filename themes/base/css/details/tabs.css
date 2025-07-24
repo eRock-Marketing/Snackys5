@@ -1,27 +1,103 @@
+/* Tab Beschreibung */
+#tab-description .desc a{
+    text-decoration: underline;
+    color: @brand;
+}
+#tab-description img{
+    max-width: 100%;
+    height: auto;
+}
+/* Tab Bewertung */
+#tab-votes .progress,
+#tab-votes .progress-bar{
+    border-radius: 1rem;
+    font-size: 0;
+    height: .5rem;
+    background: @lightfocusbg;
+}
+#tab-votes .progress-bar{
+    background: @darkbg;
+}
+#article_votes .text{
+    width: 6rem;
+}
+#article_votes .progress{
+    flex-grow: 1;
+}
+.add-review:not(.m0){
+    margin-top: 1rem;
+}
+.review p{
+    margin: .5rem 0;
+}
+#tab-votes .pagination-wrapper{
+    margin-bottom: 1rem;
+}
+#tab-votes .pagination-wrapper .form-group:not(:first-child){
+    margin-left: .5rem;
+}
+#reviews-overview{
+    min-width: 25rem;
+    order: 1;
+}
+#rv-wp{
+    flex-grow: 1;
+    margin-right: 4rem;
+}
+.card.answer{
+    margin: 1rem 0;
+    background: @defaultborder;
+}
+.not_helpful .img-ct{
+    transform: rotate(180deg);
+}
 #tab-wp{
     max-width: @maxTabsWidthpx;
     margin-left: auto;
     margin-right: auto;
 }
-.tab-ct > .panel-heading{
-    padding: 1.6rem 0;
-    border-bottom: 1px solid @lightborder;
-    margin: 0;
-    cursor: pointer;
+/* Trusted Shops Tab */
+#tab-votes-ts:not(.active){
+    display: none;
 }
-.tab-ct.open-show > .panel-heading .img-ct{
-    transform: scaleY(-1);
+/* Mediendateien */
+#tab-musik audio{
+	width: 100%;
 }
-.tab-ct > .panel-body{
-    margin-top: 1.5rem;
+/* Maxwidth Priceflow */
+#priceFlowContainer{
+	max-width: 50rem;
+} 
+/* Mediafiles */
+.needs-consent.youtube,
+.give-consent.hidden{
+    display: none;
+}
+@media screen and (max-width: 1600px){
+    #rv-wp{
+        margin-right: 2.5rem;
+    }
+    #reviews-overview{
+        min-width: 22rem;
+    }
+}
+@media screen and (max-width: 1199px){
+    #reviews-overview{
+        min-width: 20rem;
+    }
 }
 @media screen and (max-width: 991px){
+    #tab-votes > .dpflex{
+        flex-wrap: wrap;
+    }
     #tab-votes > .panel-body > .dpflex{
         flex-wrap: wrap;
     }
-}
-@media screen and (max-width: 767px){
-    .tab-ct > .panel-heading{
-        padding: 1rem 0;
+    #reviews-overview{
+        min-width: 100%;
+        order: 0;
+    }
+    #rv-wp{
+        margin-right: 0;
     }
 }

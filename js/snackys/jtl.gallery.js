@@ -8,6 +8,7 @@
     GalleryClass.DEFAULTS = {
         items: [],
         size: 'md',
+        hasWebP: false,
         fullscreen: false,
         template: {
             inline: '<div class="image-gallery has-thumbs">' +
@@ -159,6 +160,23 @@
         },
 		zoom: function(e){
 		},
+
+        hasWebP: function()
+        {
+            if(this.hasWebP)
+                return true;
+
+            //Now check and save result!
+            this.hasWebP = new Promise(res => {
+                const webP = new Image();
+                webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+                webP.onload = webP.onerror = () => {
+                    res(webP.height === 2);
+                };
+            });
+
+            return this.hasWebP;
+        },
         adjust: function() {
 			var self = this,
 				i = 0;
@@ -177,12 +195,13 @@
 				
 			if(!$('body').hasClass('mobile') || $('body').hasClass('tablet'))
 			{
+                var self  = this;
 				//mouseover des hauptbildes
 				if($('#gallery').hasClass('zoom'))
 					$('#gallery a').each(function(){
 						var that = this;
 						$(that).zoom({
-							url: $(that).find('img').attr('data-big'),
+							url: ($(that).find('img').attr('data-big-webp') && self.hasWebP()) ? $(that).find('img').attr('data-big-webp') : $(that).find('img').attr('data-big'),
 							touch: false
 						});
 					});

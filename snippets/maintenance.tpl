@@ -17,7 +17,7 @@
 			<div class="col-3 col-sm-5 hidden-xs">
 				<div class="icon-container">
 					<span class="img-ct icon icon-xl">
-                        <img src="{$tDir}img/icons/icon-wartung.svg" alt="{lang key="maintainance" section="global"}">
+                        <img src="{$ShopURL}/{$tDir}img/icons/icon-wartung.svg" alt="{lang key="maintainance" section="global"}">
 					</span>
 				</div>
 			</div>

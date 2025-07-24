@@ -17,6 +17,16 @@ img.rounded{
     display: block;
     margin-bottom: 1rem;
 }
+.opc-Video .embed-responsive{
+    width: 100%;
+}
+.give-consent.d-none{
+    display: none;
+}
+.img-ct .give-consent{
+    align-self: center;
+    margin: auto;
+}
 .embed-responsive iframe{
     border: 0;
     max-width: none;
@@ -27,24 +37,6 @@ img.rounded{
     bottom: 0;
     width: 100%;
     height: 100%;
-}
-.opc-Accordion .card-header .btn{
-    background: none;
-    padding: 0;
-    display: block;
-}
-.opc-Accordion .card-header .btn:hover{
-    box-shadow: none;
-    color: @brand;
-}
-.opc-Accordion .opc-Accordion-group{
-    border-radius: 0;
-}
-.opc-Accordion .opc-Accordion-group:first-child{
-    border-radius: .5rem .5rem 0 0;
-}
-.opc-Accordion .opc-Accordion-group:last-child{
-    border-radius: 0 0 .5rem .5rem;
 }
 .opc-Flipcard-inner{
     cursor: pointer;
@@ -64,31 +56,39 @@ img.rounded{
 .card.border-info{
     border-color: @info;
 }
-.opc-Tabs .nav-tabs{
+.nav-tabs{
 	overflow: auto;
     border-bottom: 1px solid @lightborder;
-}
-.opc-Tabs .nav-tabs{
     display: flex;
 }
-.opc-Tabs .nav-tabs a{
+.nav-tabs a{
     padding: .7rem 1.2rem;
     font-size: 1rem;
-    border: 1px solid @lightborder;
     border-bottom: 0;
     display: inline-block;
-}
-.opc-Tabs .nav-item:hover a,
-.opc-Tabs .active a{
+    border: 0;
     background: @lightbg;
+    cursor: pointer;
 }
-.opc-Tabs .tab-pane{
+.nav-tabs .nav-item:hover a,
+.nav-tabs a.active{
+    background: @brand;
+    color: white;
+}
+.nav-tabs .nav-item:first-child{
+    border-top-left-radius: .3rem;
     overflow: hidden;
 }
-.opc-Tabs .tab-pane:not(.active){
-    display: none;
+.nav-tabs .nav-item:last-child{
+    border-top-right-radius: .3rem;
+    overflow: hidden;
 }
-.opc-Video .give-consent-preview.hidden{
+.tab-content .tab-pane:not(.active){
+    display: none;
+    overflow: hidden;
+}
+.opc-Video .give-consent-preview.hidden,
+.opc-Video .give-consent-preview.d-none{
     display: none;
 }
 .slick-slider{
@@ -139,20 +139,20 @@ img.rounded{
 #content .opc-product-slider .title{
     color: @defaulttext;
 }
+.consent-ct{
+    background: @darkbg;
+}
 @media screen and (min-width: 768px){
-    .opc-Tabs .nav-item:not(:first-child) a{
+    .nav-tabs .nav-item:not(:first-child) a{
         border-left: 0;
     }
 }
 @media screen and (max-width: 767px){
-    .opc-Tabs .nav-tabs{
+    .nav-tabs{
         flex-wrap: wrap;
     }
-    .opc-Tabs .nav-item a,
-    .opc-Tabs .nav-item{
-        width: 100%;
-    }
-    .opc-Tabs .nav-item{
+    nav-tabs .nav-item a,
+    nav-tabs .nav-item{
         width: 100%;
     }
     .slick-arrow{
