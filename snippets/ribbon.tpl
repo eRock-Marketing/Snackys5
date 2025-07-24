@@ -4,11 +4,11 @@
     {/if}
 
     {block name="km-sonderpreis-bis"}
-        {if !empty($Artikel->dSonderpreisEnde_de) && $Artikel->dSonderpreisEnde_de|date_format:"%y%m%d" >= $smarty.now|date_format:"%y%m%d" && $Artikel->dSonderpreisStart_de|date_format:"%y%m%d" <= $smarty.now|date_format:"%y%m%d"}
+        {if !empty($Artikel->dSonderpreisEnde_de) && $Artikel->dSonderpreisEnde_de|date_format:"%y%m%d" >= $smarty.now|date_format:"%y%m%d" && $Artikel->dSonderpreisStart_de|date_format:"%y%m%d" <= $smarty.now|date_format:"%y%m%d" && $Artikel->Preise->Sonderpreis_aktiv == 1}
             {if $snackyConfig.specialpriceDate == "C"}
                 {assign var="uid" value="art_c_{$Artikel->kArtikel}_{1|mt_rand:20}"}
                 <div id="{$uid}" class="sale-ct">
-                    <div class="dpflex-j-c text-center">
+                    <div class="flx-jc text-center">
                         <div class="ct-wp days{if $Artikel->dSonderpreisEnde_de|date_format:"%y%m%d" == $smarty.now|date_format:"%y%m%d"} d-none{/if}">
                             <div class="ct-it"></div>
                             <div class="ct-un">{lang key='days'}</div>
@@ -69,7 +69,7 @@
     {/block}
 
     {block name='snippets-ribbon-main'}
-        {if $Artikel->oSuchspecialBild->getType() == 2 && $snackyConfig.saleprozent == 'Y'}
+        {if $Artikel->oSuchspecialBild->getType() == 2 && $snackyConfig.saleprozent == 'Y' && $Artikel->Preise->alterVKNetto-$Artikel->Preise->fVKNetto > 0}
             {assign var="rabatt" value=($Artikel->Preise->alterVKNetto-$Artikel->Preise->fVKNetto)/$Artikel->Preise->alterVKNetto*100}
             <span class="ov-t ov-t-2">- {$rabatt|round:0}%</span>
         {else}

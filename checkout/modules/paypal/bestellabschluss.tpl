@@ -8,7 +8,6 @@
             });
         </script>{/inline_script}
     {/block}
-
     {block name='checkout-modules-paypal-bestellabschluss-content'}
         <div style="margin:10px 0;">
             {strip}

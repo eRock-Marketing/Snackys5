@@ -1,3 +1,3 @@
 {block name='snackys-content-html'}
-{$entry->cContent}
+    {$entry->cContent}
 {/block}

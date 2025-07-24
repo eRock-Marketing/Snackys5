@@ -35,7 +35,7 @@
 {/if}
 
 {block name="megamenu-categories"}
-{if isset($snackyConfig.show_categories) && $snackyConfig.show_categories !== 'N' && isset($Einstellungen.global.global_sichtbarkeit) && ($Einstellungen.global.global_sichtbarkeit != 3 || isset($smarty.session.Kunde->kKunde) && $smarty.session.Kunde->kKunde != 0)}
+{if isset($snackyConfig.show_categories) && $snackyConfig.show_categories !== 'N' && isset($Einstellungen.global.global_sichtbarkeit) && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
     {assign var='show_subcategories' value=false}
     {if isset($snackyConfig.show_subcategories) && $snackyConfig.show_subcategories !== 'N'}
         {assign var='show_subcategories' value=true}
@@ -141,9 +141,7 @@
 
 {block name="megamenu-manufacturers"}
 {if isset($snackyConfig.show_manufacturers) && $snackyConfig.show_manufacturers !== 'N' 
-    && ($Einstellungen.global.global_sichtbarkeit != 3
-        || isset($smarty.session.Kunde->kKunde)
-        && $smarty.session.Kunde->kKunde != 0)}
+    && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
     {get_manufacturers assign='manufacturers'}
     {if !empty($manufacturers)}
         <li class="dropdown-style mgm-fw{if $NaviFilter->hasManufacturer() || $nSeitenTyp == PAGE_HERSTELLER} active{/if}">
@@ -162,7 +160,7 @@
             {/if}
             <ul class="dropdown-menu keepopen dropdown-manu first">
 				{foreach name=hersteller from=$manufacturers item=hst}
-					<li class="title{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}"><a href="{$hst->cURLFull}" class="dropdown-link defaultlink"><span class="notextov">{$hst->cName}</span></a></li>
+					<li class="title{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}"><a href="{$hst->getURL()}" class="dropdown-link defaultlink"><span class="notextov">{$hst->getName()|escape:'html'}</span></a></li>
 				{/foreach}
             </ul>
         </li>

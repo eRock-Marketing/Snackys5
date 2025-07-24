@@ -4,13 +4,13 @@
     <div class="banner">
         {block name="banner-map"}
             {if ($snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 5 || $snackyConfig.headerType == 5.5) && $nSeitenTyp === 18 && $snackyConfig.fullscreenElement == 2}
-                {image lazy=true src=$oImageMap->cBildPfad alt=$oImageMap->cTitel}
+                {image lazy=true src=$oImageMap->cBildPfad alt=$oImageMap->cTitel width=$oImageMap->fWidth height=$oImageMap->fHeight}
             {else}
-                {image fluid=true lazy=true src=$oImageMap->cBildPfad alt=$oImageMap->cTitel}
+                {image fluid=true lazy=true src=$oImageMap->cBildPfad alt=$oImageMap->cTitel width=$oImageMap->fWidth height=$oImageMap->fHeight}
                 {foreach $oImageMap->oArea_arr as $oImageMapArea}
                     {strip}
-                    <{if !$isMobile}a href="{$oImageMapArea->cUrl}"{else}span{/if} class="area {$oImageMapArea->cStyle}" style="left:{math equation="100/bWidth*posX" bWidth=$oImageMap->fWidth posX=$oImageMapArea->oCoords->x}%;top:{math equation="100/bHeight*posY" bHeight=$oImageMap->fHeight posY=$oImageMapArea->oCoords->y}%;width:{math equation="100/bWidth*aWidth" bWidth=$oImageMap->fWidth aWidth=$oImageMapArea->oCoords->w}%;height:{math equation="100/bHeight*aHeight" bHeight=$oImageMap->fHeight aHeight=$oImageMapArea->oCoords->h}%" title="{$oImageMapArea->cTitel|strip_tags|escape:"html"|escape:"quotes"}">
-                        {if $oImageMapArea->oArtikel || $oImageMapArea->cBeschreibung|@strlen > 0}
+                    <{if !$isMobile}a href="{$oImageMapArea->cUrl}"{else}span{/if} class="area {$oImageMapArea->cStyle}" style="left:{math equation="(100/bWidth)*posX" bWidth=$oImageMap->fWidth posX=$oImageMapArea->oCoords->x}%;top:{math equation="(100/bHeight)*posY" bHeight=$oImageMap->fHeight posY=$oImageMapArea->oCoords->y}%;width:{math equation="(100/bWidth)*aWidth" bWidth=$oImageMap->fWidth aWidth=$oImageMapArea->oCoords->w}%;height:{math equation="(100/bHeight)*aHeight" bHeight=$oImageMap->fHeight aHeight=$oImageMapArea->oCoords->h}%" title="{$oImageMapArea->cTitel|strip_tags|escape:'html'|escape:'quotes'}">
+                        {if $oImageMapArea->oArtikel || $oImageMapArea->cBeschreibung|strlen > 0}
                             {assign var="oArtikel" value=$oImageMapArea->oArtikel}
                             <{if $isMobile}a href="{$oImageMapArea->cUrl}"{else}div{/if} class="area-desc">
                                 <div class="inside text-center pr">
@@ -25,7 +25,7 @@
                                     {if $oImageMapArea->oArtikel !== null}
                                         {include file="productdetails/price.tpl" Artikel=$oArtikel tplscope="box"}
                                     {/if}
-                                    {if $oImageMapArea->cBeschreibung|@strlen > 0}
+                                    {if $oImageMapArea->cBeschreibung|strlen > 0}
                                         <p>
                                             {$oImageMapArea->cBeschreibung}
                                         </p>

@@ -1,7 +1,7 @@
 /* Tab Beschreibung */
 #tab-description .desc a{
     text-decoration: underline;
-    color: @brand;
+    color: var(--bod-l);
 }
 #tab-description img{
     max-width: 100%;
@@ -13,10 +13,10 @@
     border-radius: 1rem;
     font-size: 0;
     height: .5rem;
-    background: @lightfocusbg;
+    background: var(--prg-b);
 }
 #tab-votes .progress-bar{
-    background: @darkbg;
+    background: var(--prg-b-h);
 }
 #article_votes .text{
     width: 6rem;
@@ -46,13 +46,13 @@
 }
 .card.answer{
     margin: 1rem 0;
-    background: @defaultborder;
+    background: var(--bod-b-l);
 }
 .not_helpful .img-ct{
     transform: rotate(180deg);
 }
 #tab-wp{
-    max-width: @maxTabsWidthpx;
+    max-width: var(--wdt-tab);
     margin-left: auto;
     margin-right: auto;
 }
@@ -87,10 +87,10 @@
     }
 }
 @media screen and (max-width: 991px){
-    #tab-votes > .dpflex{
+    #tab-votes > .flx{
         flex-wrap: wrap;
     }
-    #tab-votes > .panel-body > .dpflex{
+    #tab-votes > .panel-body > .flx{
         flex-wrap: wrap;
     }
     #reviews-overview{

@@ -24,6 +24,14 @@
     width: 100%;
     text-align: left;
     padding-right: 2.3rem;
+    border: 1px solid var(--drbtn-r);
+    background-color: var(--drbtn-b);
+    color: var(--drbtn-t);
+}
+.bootstrap-select > .btn.dropdown-toggle:hover{
+    border: 1px solid var(--drbtn-r-h);
+    background-color: var(--drbtn-b-h);
+    color: var(--drbtn-t-h);
 }
 .bootstrap-select .bs-caret{
     margin-left: auto;

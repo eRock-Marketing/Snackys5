@@ -1,5 +1,6 @@
 #manu-row .img-ct{
-	border: 1px solid @lightborder;
+	border: 1px solid var(--man-r);
+	background: var(--man-b);
 }
 #manu-row img{
     transform: scale(.9);

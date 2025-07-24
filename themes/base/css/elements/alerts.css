@@ -13,8 +13,9 @@
 .alert{
     padding: .75rem 1rem;
     border-radius: .25rem;
-    color: @alertTxt;
-    background: @alertBg;
+    color: var(--alrt-t);
+    background: var(--alrt-b);
+    border: 1px solid var(--alrt-r);
     font-size: .95em;
     position: relative;
 }
@@ -23,7 +24,7 @@
     top: 0;
     right: 0;
     background: none;
-    color: @darktext;
+    color: currentColor;
 }
 .alert:not(:first-child){
     margin-top: 1rem;
@@ -33,7 +34,7 @@
 }
 .alert a:not(.btn){
     text-decoration: underline;
-    color: @darktext;
+    color: currentColor;
 }
 .alert > *:first-child{
     margin-top: 0;
@@ -42,22 +43,29 @@
     margin-bottom: 0;
 }
 .alert-info{
-    background: @alertInfoBg;
-    color: @alertInfoTxt;
+    background: var(--info-b);
+    border: 1px solid var(--info-r);
+    color: var(--info-t);
 }
 .alert-warning{
-    background: @alertWarningBg;
-    color: @alertWarningTxt;
+    background: var(--warn-b);
+    border: 1px solid var(--warn-r);
+    color: var(--warn-t);
 }
 .alert-danger{
-    background: @alertDangerBg;
-    color: @alertDangerTxt;
+    background: var(--dang-b);
+    border: 1px solid var(--dang-r);
+    color: var(--dang-t);
 }
 .alert-success{
-    background: @alertSuccessBg;
-    color: @alertSuccessTxt;
+    background: var(--succ-b);
+    border: 1px solid var(--succ-r);
+    color: var(--succ-t);
 }
 .alert-hotstock{
-    background: @alertHotstockBg;
-    color: @alertHotstockTxt;
+    background: var(--det-hot-b);
+    color: var(--det-hot-t);
+}
+.alert *:not(a){
+    color: currentColor;
 }

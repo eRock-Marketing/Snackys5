@@ -4,7 +4,7 @@
             {foreach $Artikel->oVariationKombiKinderAssoc_arr as $child}
                 {if $Einstellungen.artikeldetails.artikeldetails_warenkorbmatrix_lagerbeachten !== 'Y' ||
                 ($Einstellungen.artikeldetails.artikeldetails_warenkorbmatrix_lagerbeachten === 'Y' && $child->inWarenkorbLegbar == 1)}
-                    {row class="matrix-list mtrx dpflex-a-c mtrx-l"}
+                    {row class="matrix-list mtrx flx-ac mtrx-l"}
                         {block name='productdetails-matrix-list-image'}
                             {col cols=6 md=2}
                                 <span class="img-ct">

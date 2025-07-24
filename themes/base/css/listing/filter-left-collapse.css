@@ -14,5 +14,5 @@
     margin-bottom: 1.25rem;
 }
 #sp-l .panel{
-    box-shadow: 0 0 0 0.25rem #f6f6f6;
+    box-shadow: 0 0 0 0.25rem var(--spl-b);
 }

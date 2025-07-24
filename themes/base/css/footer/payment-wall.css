@@ -1,5 +1,5 @@
 #pay-f{
-	border-top: 1px solid @lightborder;
+	border-top: 1px solid var(--hr-li);
 	padding-top: 3.5rem;
 }
 #pay-f li{
@@ -8,9 +8,9 @@
 #pay-f li.text{
 	padding: .5rem .8rem;
 	border-radius: .3rem;
-	border: 1px solid @defaultborder;
+	border: 1px solid var(--hr);
 	font-size: 0.95rem;
-	color: @defaulttext;
+	color: var(--bod-t);
 }
 #pay-f li:empty{
 	display: none;

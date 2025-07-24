@@ -1,8 +1,3 @@
-#snackys-tpl body > [id|="trustbadge"],
-#snackys-tpl [id|="minimized-trustbadge"],
-#snackys-tpl [id|="maximized-trustbadge"]{
-    bottom: @ts_os_bpx !important;
-}
 /* Ausblenden bei Modals / SidebarWK / Sidebar  */
 #snackys-tpl .sidebasket-open > [id*="trustbadge"],
 #snackys-tpl .shw-sb > [id*="trustbadge"],

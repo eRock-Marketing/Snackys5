@@ -1,11 +1,28 @@
+#footer{
+    background: var(--foo-b);
+    color: var(--foo-t);
+}
+#footer a:not(.btn){
+    color: var(--foo-l);
+}
+#footer a:not(.btn):hover{
+    color: var(--foo-l-h);
+}
 #footer-boxes{
     padding: 4.5rem 0;
     font-size: .95rem;
+    border-top: 1px solid var(--foo-hr);
+    border-bottom: 1px solid var(--foo-hr);
 }
 #footer-boxes .panel{
     padding: 0;
+    border: 0;
     background: none;
     box-shadow: none;
+}
+#footer-boxes .panel-heading,
+#footer-boxes .panel-title{
+    color: var(--foo-s);
 }
 #logo-footer img{
     max-width: 10rem;
@@ -26,6 +43,7 @@
 #copyright{
     padding-top: 3rem;
     padding-bottom: 3rem;
+    color: var(--bod-t-l);
 }
 #footer-boxes .col-6:empty{
     display: none;

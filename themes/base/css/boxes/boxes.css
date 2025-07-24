@@ -1,3 +1,8 @@
+.ctr{
+    margin-left: auto;    
+    padding-left: .5rem;
+    color: var(--brand);
+}
 /* Rating Stars */
 .nav-it .rating{
     width: 100%;
@@ -7,6 +12,11 @@
     height: 2rem;
     border-radius: .5rem;
     padding: 0.4rem;
+    background: var(--btn-df-b);
+    border: 1px solid var(--btn-df-r);
+}
+.ic-bd svg{
+    fill: var(--btn-df-t);
 }
 .box .p-sl{
     padding: 0;
@@ -34,6 +44,9 @@
     border-radius: 0;
 }
 /* Range Slider */
+.box .noUi-connect{
+    background: var(--brand);
+}
 #price-slider-box:not(.noUi-target),
 #price-slider-box:not(.noUi-target) + .unit{
     height: 20px;
@@ -44,6 +57,7 @@
     box-shadow: none;
     margin: 0 10px 4px 10px;
     border-radius: 3rem;
+    background: #ddd;
 }
 html:not([dir=rtl]) .box .noUi-horizontal .noUi-origin{
     height: 100%;
@@ -55,6 +69,7 @@ html:not([dir=rtl]) .box .noUi-horizontal .noUi-handle {
     border: 0;
     border-radius: 50%;
     background: white;
+    box-shadow: inset 0 0 0 1px #ddd;
     top: 0;
     cursor: pointer;
 }
@@ -78,6 +93,9 @@ html:not([dir=rtl]) .box .noUi-horizontal .noUi-handle {
     line-height: normal;
     padding-top: 0.15rem;
     white-space: nowrap;
+}
+.box-categories .active > a{
+    font-weight: bold;
 }
 /* JTL Search */
 .box-jtl-search > hr{
@@ -104,6 +122,7 @@ html:not([dir=rtl]) .box .noUi-horizontal .noUi-handle {
     line-height: normal;
     font-weight: 400;
     margin-left: auto;
+    color: var(--brand);
 }
 .box-jtl-search .layout-slider table{
     margin: 0;
@@ -121,6 +140,7 @@ html:not([dir=rtl]) .box .noUi-horizontal .noUi-handle {
 }
 #sp-l .jslider-pointer{
     border-radius: 50%;
+    background: var(--brand);
 }
 #sp-l .jslider-bg i{
     background: #ddd;

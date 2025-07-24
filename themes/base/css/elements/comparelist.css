@@ -14,7 +14,7 @@
 .cpr-f.title > .col-{
     padding-bottom: .7rem;
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid @lightborder;
+    border-bottom: 1px solid var(--hr-li);
 }
 .cpr-f.in{
     display: flex;

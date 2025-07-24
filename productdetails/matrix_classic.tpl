@@ -4,13 +4,13 @@
 <div class="table-responsive w100 mtrx">
     <table class="table table-striped variation-matrix">
         {* ****** 2-dimensional ****** *}
-        {if $Artikel->VariationenOhneFreifeld|@count == 2}
+        {if $Artikel->VariationenOhneFreifeld|count == 2}
             <thead>
             <tr>
                 <td>&nbsp;</td>
                 {foreach $Artikel->VariationenOhneFreifeld[0]->Werte as $oVariationWertHead}
                     <td class="vcenter">
-                        {if $Artikel->oVariBoxMatrixBild_arr|@count > 0 && (($Artikel->nIstVater == 1 && $Artikel->oVariBoxMatrixBild_arr[0]->nRichtung == 0) || $Artikel->nIstVater == 0)}
+                        {if $Artikel->oVariBoxMatrixBild_arr|count > 0 && (($Artikel->nIstVater == 1 && $Artikel->oVariBoxMatrixBild_arr[0]->nRichtung == 0) || $Artikel->nIstVater == 0)}
                             {foreach $Artikel->oVariBoxMatrixBild_arr as $oVariBoxMatrixBild}
                                 {if $oVariBoxMatrixBild->kEigenschaftWert == $oVariationWertHead->kEigenschaftWert}
                                     {image src=$oVariBoxMatrixBild->cBild fluid=true lazy=true alt=$oVariationWertHead->cName}<br>
@@ -29,7 +29,7 @@
                     {assign var=kEigenschaftWert1 value=$oVariationWert1->kEigenschaftWert}
                     <tr>
                         <td class="vcenter">
-                            {if $Artikel->oVariBoxMatrixBild_arr|@count > 0 && (($Artikel->nIstVater == 1 && $Artikel->oVariBoxMatrixBild_arr[0]->nRichtung == 1) || $Artikel->nIstVater == 0)}
+                            {if $Artikel->oVariBoxMatrixBild_arr|count > 0 && (($Artikel->nIstVater == 1 && $Artikel->oVariBoxMatrixBild_arr[0]->nRichtung == 1) || $Artikel->nIstVater == 0)}
                                 {foreach $Artikel->oVariBoxMatrixBild_arr as $oVariBoxMatrixBild}
                                     {if $oVariBoxMatrixBild->kEigenschaftWert == $oVariationWert1->kEigenschaftWert}
                                         {image src=$oVariBoxMatrixBild->cBild fluid=true lazy=true alt=$oVariationWert1->cName}<br>
@@ -98,12 +98,12 @@
                                                 value="{if isset($smarty.session.variBoxAnzahl_arr[$cVariBox]->fAnzahl)}{$smarty.session.variBoxAnzahl_arr[$cVariBox]->fAnzahl|replace_delim}{/if}">
                                             {if $Artikel->nIstVater == 1}
                                                 {if isset($child->Preise->cVKLocalized[$NettoPreise]) && $child->Preise->cVKLocalized[$NettoPreise] > 0}
-                                                    <span class="input-group-addon add dpflex-a-c nowrap">
+                                                    <span class="input-group-addon add flx-ac nowrap">
                                                         &times; {$child->Preise->cVKLocalized[$NettoPreise]}&nbsp;<span class="footnote-reference">*</span>{if !empty($child->Preise->cPreisVPEWertInklAufpreis[$NettoPreise])} <small>({$child->Preise->cPreisVPEWertInklAufpreis[$NettoPreise]})</small>{/if}
                                                     </span>
                                                 {elseif isset($child->Preise->cVKLocalized[$NettoPreise]) && $child->Preise->cVKLocalized[$NettoPreise]}
                                                     {assign var=cVariBox value=$oVariationWert1->kEigenschaft|cat:':'|cat:$oVariationWert1->kEigenschaftWert|cat:'_'|cat:$oVariationWert0->kEigenschaft|cat:':'|cat:$oVariationWert0->kEigenschaftWert}
-                                                    <span class="input-group-addon add dpflex-a-c nowrap">
+                                                    <span class="input-group-addon add flx-ac nowrap">
                                                         &times; {$child->Preise->cVKLocalized[$NettoPreise]}&nbsp;<span class="footnote-reference">*</span>{if !empty($child->Preise->cPreisVPEWertInklAufpreis[$NettoPreise])} <small>({$child->Preise->cPreisVPEWertInklAufpreis[$NettoPreise]})</small>{/if}
                                                     </span>
                                                 {/if}
@@ -120,7 +120,7 @@
                                                 {/if}
 
                                                 {math equation='x+y' x=$ovw0 y=$ovw1 assign='fAufpreis'}
-                                                <span class="input-group-addon add dpflex-a-c nowrap">
+                                                <span class="input-group-addon add flx-ac nowrap">
                                                     {gibPreisStringLocalizedSmarty bAufpreise=true fAufpreisNetto=$fAufpreis fVKNetto=$Artikel->Preise->fVKNetto kSteuerklasse=$Artikel->kSteuerklasse nNettoPreise=$NettoPreise fVPEWert=$Artikel->fVPEWert cVPEEinheit=$Artikel->cVPEEinheit FunktionsAttribute=$Artikel->FunktionsAttribute}
                                                 </span>
                                             {elseif $Einstellungen.artikeldetails.artikel_variationspreisanzeige == 2 && ($oVariationWert0->fAufpreisNetto != 0 || $oVariationWert1->fAufpreisNetto != 0)}
@@ -136,7 +136,7 @@
                                                 {/if}
 
                                                 {math equation='x+y' x=$ovw0 y=$ovw1 assign='fAufpreis'}
-                                                <span class="input-group-addon add dpflex-a-c nowrap">
+                                                <span class="input-group-addon add flx-ac nowrap">
                                                     &times; {gibPreisStringLocalizedSmarty bAufpreise=false fAufpreisNetto=$fAufpreis fVKNetto=$Artikel->Preise->fVKNetto kSteuerklasse=$Artikel->kSteuerklasse nNettoPreise=$NettoPreise fVPEWert=$Artikel->fVPEWert cVPEEinheit=$Artikel->cVPEEinheit FunktionsAttribute=$Artikel->FunktionsAttribute}&nbsp;<span class="footnote-reference">*</span>
                                                 </span>
                                             {/if}
@@ -187,7 +187,7 @@
                         {if $Einstellungen.global.artikeldetails_variationswertlager != 3 || (!isset($oVariationWertHead->nNichtLieferbar) || $oVariationWertHead->nNichtLieferbar != 1)}
                             {assign var=cVariBox value=$oVariationWertHead->kEigenschaft|cat:':'|cat:$oVariationWertHead->kEigenschaftWert}
                             <td class="vcenter text-center" style="width: {100/$Artikel->VariationenOhneFreifeld[0]->Werte|count}%;">
-                                {if $Artikel->oVariBoxMatrixBild_arr|@count > 0}
+                                {if $Artikel->oVariBoxMatrixBild_arr|count > 0}
                                     {foreach $Artikel->oVariBoxMatrixBild_arr as $oVariBoxMatrixBild}
                                         {if $oVariBoxMatrixBild->kEigenschaftWert == $oVariationWertHead->kEigenschaftWert}
                                         <span class="img-ct ma mb-xxs">
@@ -259,11 +259,11 @@
                                             value="{if isset($smarty.session.variBoxAnzahl_arr[$cVariBox]->fAnzahl)}{$smarty.session.variBoxAnzahl_arr[$cVariBox]->fAnzahl|replace_delim}{/if}"{if isset($smarty.session.variBoxAnzahl_arr[$cVariBox]->bError) && $smarty.session.variBoxAnzahl_arr[$cVariBox]->bError} style="background-color: red;"{/if} />
                                         {if $Artikel->nVariationAnzahl == 1 && ($Artikel->kVaterArtikel > 0 || $Artikel->nIstVater == 1)}
                                             {assign var=kEigenschaftWert value=$oVariationWertHead->kEigenschaftWert}
-                                            <span class="input-group-addon add dpflex-a-c nowrap">&times; {$Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->cVKLocalized[$NettoPreise]}&nbsp;<span class="footnote-reference">*</span>{if isset($Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->PreisecPreisVPEWertInklAufpreis[$NettoPreise]) && !empty($Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->PreisecPreisVPEWertInklAufpreis[$NettoPreise])} <small>({$Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->PreisecPreisVPEWertInklAufpreis[$NettoPreise]}){/if}</small></span>
+                                            <span class="input-group-addon add flx-ac nowrap">&times; {$Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->cVKLocalized[$NettoPreise]}&nbsp;<span class="footnote-reference">*</span>{if isset($Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->PreisecPreisVPEWertInklAufpreis[$NettoPreise]) && !empty($Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->PreisecPreisVPEWertInklAufpreis[$NettoPreise])} <small>({$Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->PreisecPreisVPEWertInklAufpreis[$NettoPreise]}){/if}</small></span>
                                         {elseif $Einstellungen.artikeldetails.artikel_variationspreisanzeige == 1 && $oVariationWertHead->fAufpreisNetto != 0}
-                                            <span class="input-group-addon add dpflex-a-c nowrap">{$oVariationWertHead->cAufpreisLocalized[$NettoPreise]}&nbsp;<span class="footnote-reference">*</span>{if !empty($oVariationWertHead->cPreisVPEWertAufpreis[$NettoPreise])} <small>({$oVariationWertHead->cPreisVPEWertAufpreis[$NettoPreise]})</small>{/if}</span>
+                                            <span class="input-group-addon add flx-ac nowrap">{$oVariationWertHead->cAufpreisLocalized[$NettoPreise]}&nbsp;<span class="footnote-reference">*</span>{if !empty($oVariationWertHead->cPreisVPEWertAufpreis[$NettoPreise])} <small>({$oVariationWertHead->cPreisVPEWertAufpreis[$NettoPreise]})</small>{/if}</span>
                                         {elseif $Einstellungen.artikeldetails.artikel_variationspreisanzeige == 2 && $oVariationWertHead->fAufpreisNetto != 0}
-                                            <span class="input-group-addon add dpflex-a-c nowrap">&times; {$oVariationWertHead->cPreisInklAufpreis[$NettoPreise]}&nbsp;<span class="footnote-reference">*</span>{if !empty($oVariationWertHead->cPreisVPEWertInklAufpreis[$NettoPreise])} <small>({$oVariationWertHead->cPreisVPEWertInklAufpreis[$NettoPreise]})</small>{/if}</span>
+                                            <span class="input-group-addon add flx-ac nowrap">&times; {$oVariationWertHead->cPreisInklAufpreis[$NettoPreise]}&nbsp;<span class="footnote-reference">*</span>{if !empty($oVariationWertHead->cPreisVPEWertInklAufpreis[$NettoPreise])} <small>({$oVariationWertHead->cPreisVPEWertInklAufpreis[$NettoPreise]})</small>{/if}</span>
                                         {/if}
                                     </div>
                                     {if isset($child->nErscheinendesProdukt) && $child->nErscheinendesProdukt == 1}
@@ -305,8 +305,8 @@
                         {/if}
                         <tr>
                             <td class="vcenter">
-                                <div class="dpflex-a-center">
-                                    {if $Artikel->oVariBoxMatrixBild_arr|@count > 0}
+                                <div class="flx-ac">
+                                    {if $Artikel->oVariBoxMatrixBild_arr|count > 0}
                                         {foreach $Artikel->oVariBoxMatrixBild_arr as $oVariBoxMatrixBild}
                                             {if $oVariBoxMatrixBild->kEigenschaftWert == $oVariationWertHead->kEigenschaftWert}
                                                 <span class="img-ct mr-xxs">
@@ -365,15 +365,15 @@
                                             type="text" value="{if isset($smarty.session.variBoxAnzahl_arr[$cVariBox]->fAnzahl)}{$smarty.session.variBoxAnzahl_arr[$cVariBox]->fAnzahl|replace_delim}{/if}">
                                     {if $Artikel->nVariationAnzahl == 1 && ($Artikel->kVaterArtikel > 0 || $Artikel->nIstVater == 1)}
                                         {assign var=kEigenschaftWert value=$oVariationWertHead->kEigenschaftWert}
-                                        <span class="input-group-addon add dpflex-a-c nowrap">
+                                        <span class="input-group-addon add flx-ac nowrap">
                                             &times; {$Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->cVKLocalized[$NettoPreise]}&nbsp;<span class="footnote-reference">*</span>{if isset($Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->PreisecPreisVPEWertInklAufpreis[$NettoPreise]) && !empty($Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->PreisecPreisVPEWertInklAufpreis[$NettoPreise])} <small>({$Artikel->oVariationDetailPreis_arr[$kEigenschaftWert]->Preise->PreisecPreisVPEWertInklAufpreis[$NettoPreise]})</small>{/if}
                                         </span>
                                     {elseif $Einstellungen.artikeldetails.artikel_variationspreisanzeige == 1 && $oVariationWertHead->fAufpreisNetto!=0}
-                                        <span class="input-group-addon add dpflex-a-c nowrap">
+                                        <span class="input-group-addon add flx-ac nowrap">
                                             {$oVariationWertHead->cAufpreisLocalized[$NettoPreise]}&nbsp;<span class="footnote-reference">*</span>{if !empty($oVariationWertHead->cPreisVPEWertAufpreis[$NettoPreise])} <small>({$oVariationWertHead->cPreisVPEWertAufpreis[$NettoPreise]})</small>{/if}
                                         </span>
                                     {elseif $Einstellungen.artikeldetails.artikel_variationspreisanzeige == 2 && $oVariationWertHead->fAufpreisNetto!=0}
-                                        <span class="input-group-addon add dpflex-a-c nowrap">
+                                        <span class="input-group-addon add flx-ac nowrap">
                                             &times; {$oVariationWertHead->cPreisInklAufpreis[$NettoPreise]}&nbsp;<span class="footnote-reference">*</span>{if !empty($oVariationWertHead->cPreisVPEWertInklAufpreis[$NettoPreise])} <small>({$oVariationWertHead->cPreisVPEWertInklAufpreis[$NettoPreise]})</small>{/if}
                                         </span>
                                     {/if}

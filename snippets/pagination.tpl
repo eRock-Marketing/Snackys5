@@ -1,6 +1,6 @@
 {block name='snippets-pagination'}
 {assign var=cParam_arr value=$cParam_arr|default:[]}
-{assign var=cUrlAppend value=$cParam_arr|http_build_query}
+{assign var=cUrlAppend value=http_build_query($cParam_arr)}
 {* parts list to display: label, pagination, items-per-page-options, sort-options *}
 {assign var=parts value=$parts|default:['label','pagi','count','sort']}
 
@@ -31,7 +31,7 @@
                 </div>
                 {/if}
                 {if in_array('pagi', $parts)}
-                    <ul class="pagination btn-group blanklist dpflex-a-center dpflex-j-center list-inline">
+                    <ul class="pagination btn-group blanklist flx-ac flx-jc list-inline">
                         {if $oPagination->getPage() > 0}
                             <li>
                                 <a class="block text-center" href="{$cThisUrl}?{$oPagination->getId()}_nPage={$oPagination->getPrevPage()}{$cUrlAppend}{$cAnchor}">&laquo;</a>
@@ -106,7 +106,7 @@
                     </select>
                 </div>
             {/if}
-            {if $oPagination->getSortByOptions()|@count > 0 && in_array('sort', $parts)}
+            {if $oPagination->getSortByOptions()|count > 0 && in_array('sort', $parts)}
                 <div class="form-group filter-group">
                     <select class="form-control" name="{$oPagination->getId()}_nSortByDir"
                             id="{$oPagination->getId()}_nSortByDir" onchange="this.form.submit()"

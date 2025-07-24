@@ -35,7 +35,7 @@
 	}
 	#cat-w .mgm > ul.blanklist > li{
         width: 25%;
-        background: white;
+        background: var(--meg-b);
 		position: static;
 	}
 	#cat-w .dropdown-menu{
@@ -51,15 +51,15 @@
 	}
 	#cat-w .mm-mainlink,
 	.mgm .home-icon svg{
-		color: @defaulttext;
-		fill: @defaulttext;
+		color: var(--meg-l);
+		fill: var(--meg-l);
 	}
-	#cat-w .mm-mainlink:hover,
-	#cat-w .active > .mm-mainlink,
-	#cat-w .mm-mainlink:hover svg,
-	#cat-w .active > .mm-mainlink svg{
-		color: @brand;
-		fill: @brand;
+	#cat-w li .mm-mainlink:hover,
+	#cat-w li.active > .mm-mainlink,
+	#cat-w li .mm-mainlink:hover svg,
+	#cat-w li.active > .mm-mainlink svg{
+		color: var(--meg-l-h);
+		fill: var(--meg-l-h);
 	}
 	.mgm .mgm-c{
 		border-radius: 0;
@@ -67,7 +67,7 @@
 		height: 100%;
 		max-height: none;
 		transform: translateY(0) translateX(-100%);
-		border-top: 2px solid @brand;
+		border-top: 2px solid var(--meg-r);
 	}
 	#cat-w .mgm-fw:hover .mgm-c, 
 	#cat-w .dropdown-multi:hover .mgm-c{
@@ -106,7 +106,7 @@
         position: relative;
         width: 25%;
 		padding: 2rem;
-        background: white;
+        background: var(--meg-b);
 	}
     .fullscreen-title:before{
         content: '';
@@ -115,21 +115,18 @@
         right: 0;
         top: 0;
         height: 100vh;
-        background: white;
+        background: var(--meg-b);
         z-index: -1;
         pointer-events: none;
     }
-	#cat-w li:hover > .mm-mainlink{
-		background: rgba(0,0,0,.1);
-	}
 	.dropdown-style li >.dropdown-link{
 		padding: .7rem 0;
 	}
     #cat-w .dropdown-style > .dropdown-menu{
-        background: #fff;
+        background: var(--meg-b);
         align-content: flex-start;
         padding: 3rem;
-        border-top: 2px solid @brand;
+        border-top: 2px solid var(--meg-r);
     }
     .dropdown-style .dropdown-menu{
         overflow: auto;
@@ -150,10 +147,10 @@
         position: relative;
     }
     #cat-w .dropdown-style li:not(:last-child){
-        border-bottom: 1px solid @lightborder;
+        border-bottom: 1px solid var(--hr-li);
     }
     #cat-w .dropdown-style li:first-child{
-        border-top: 1px solid @lightborder;
+        border-top: 1px solid var(--hr-li);
     }
     .dropdown-style .mgm-fw .ar{
         display: none;

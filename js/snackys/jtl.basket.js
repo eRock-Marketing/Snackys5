@@ -137,6 +137,11 @@
 					document.body.classList.add('sidecart-open');
 				}
             });
+			
+			
+				window.setTimeout(function(){
+					mainEventListener();
+				},500);
         }
     };
 

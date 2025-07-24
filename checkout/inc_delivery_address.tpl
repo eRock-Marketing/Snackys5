@@ -1,21 +1,32 @@
 {block name='checkout-inc-delivery-address'}
-{if $Lieferadresse->cFirma}
-    {$Lieferadresse->cFirma|entferneFehlerzeichen}
-    <br />
-{/if}
-{if $Lieferadresse->cZusatz}
-    {$Lieferadresse->cZusatz|entferneFehlerzeichen}
-    <br />
-{/if}
-{$Lieferadresse->cTitel} {$Lieferadresse->cVorname} {$Lieferadresse->cNachname|entferneFehlerzeichen}
-<br />{$Lieferadresse->cStrasse|entferneFehlerzeichen} {$Lieferadresse->cHausnummer}
-<br />{if $Lieferadresse->cAdressZusatz}{$Lieferadresse->cAdressZusatz}<br />{/if}
-{$Lieferadresse->cPLZ} {$Lieferadresse->cOrt}<br />{if $Lieferadresse->cBundesland}{$Lieferadresse->cBundesland}
-    <br />
-{/if}
-{if $Lieferadresse->angezeigtesLand}{$Lieferadresse->angezeigtesLand}<br /><br />{/if}
-{if $Lieferadresse->cTel}{lang key='tel' section='account data'}: {$Lieferadresse->cTel}<br />{/if}
-{if $Lieferadresse->cFax}{lang key='fax' section='account data'}: {$Lieferadresse->cFax}<br />{/if}
-{if $Lieferadresse->cMobil}{lang key='mobile' section='account data'}: {$Lieferadresse->cMobil}<br />{/if}
-{if $Lieferadresse->cMail}{$Lieferadresse->cMail}<br />{/if}
+    {$hideMainInfo=$hideMainInfo|default:false}
+    <ul class="blanklist">
+        {if isset($orderDetail)}
+            {if $Lieferadresse->cFirma}<li>{$Lieferadresse->cFirma|entferneFehlerzeichen}</li>{/if}
+            {if $Lieferadresse->cZusatz}<li>{$Lieferadresse->cZusatz|entferneFehlerzeichen}</li>{/if}
+            <li>{$Lieferadresse->cTitel} {$Lieferadresse->cVorname} {$Lieferadresse->cNachname|entferneFehlerzeichen}</li>
+            <li>
+                {$Lieferadresse->cStrasse|entferneFehlerzeichen} {$Lieferadresse->cHausnummer}, {if $Lieferadresse->cAdressZusatz}{$Lieferadresse->cAdressZusatz},{/if}
+                {$Lieferadresse->cPLZ} {$Lieferadresse->cOrt},
+                {if $Lieferadresse->cLand}{$Lieferadresse->cLand}{/if}
+            </li>
+        {else}
+            {if !$hideMainInfo}
+                {if $Lieferadresse->cFirma}<li>{$Lieferadresse->cFirma|entferneFehlerzeichen}</li>{/if}
+                {if $Lieferadresse->cZusatz}<li>{$Lieferadresse->cZusatz|entferneFehlerzeichen}</li>{/if}
+                <li>{$Lieferadresse->cTitel} {$Lieferadresse->cVorname} {$Lieferadresse->cNachname|entferneFehlerzeichen}</li>
+                <li>{$Lieferadresse->cStrasse|entferneFehlerzeichen} {$Lieferadresse->cHausnummer}</li>
+            {/if}
+            {if $Lieferadresse->cAdressZusatz}<li>{$Lieferadresse->cAdressZusatz}</li>{/if}
+            {if !$hideMainInfo}
+                <li>{$Lieferadresse->cPLZ} {$Lieferadresse->cOrt}</li>
+            {/if}
+            {if $Lieferadresse->cBundesland}<li>{$Lieferadresse->cBundesland}</li>{/if}
+            {if $Lieferadresse->angezeigtesLand}<li>{$Lieferadresse->angezeigtesLand}</li>{/if}
+        {/if}
+        {if $Lieferadresse->cTel}<li>{lang key='tel' section='account data'}: {$Lieferadresse->cTel}</li>{/if}
+        {if $Lieferadresse->cFax}<li>{lang key='fax' section='account data'}: {$Lieferadresse->cFax}</li>{/if}
+        {if $Lieferadresse->cMobil}<li>{lang key='mobile' section='account data'}: {$Lieferadresse->cMobil}</li>{/if}
+        {if $Lieferadresse->cMail}<li>{$Lieferadresse->cMail}</li>{/if}
+    </ul>
 {/block}

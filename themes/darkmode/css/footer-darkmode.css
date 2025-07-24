@@ -1,27 +1,8 @@
-#footer,
-#footer .dropdown-menu{
-    background: @blackbg;
-}
-#footer,
-#footer .panel-heading,
-#footer .panel-title{
-    color: white;
-}
-#footer a:not(.btn):not(:hover){
-    color: @lightbg;
-}
-#footer-boxes{
-    border-color: @darkbg;
-}
-#footer svg{
-    fill: white;
-}
-[data-page="11"] #footer{
-    padding-top: 3rem;
-}
-#footer .fa-caret-down{
-    filter: invert(100%);
-}
-#footer .p-c strong.price .old-price{
-    color: white;
+:root{   
+    --foo-b: #000;
+    --foo-hr: #222;
+    --foo-t: #fff;
+    --foo-s: #fff;
+    --foo-l: #fff;
+    --foo-l-h: var(--brand);
 }

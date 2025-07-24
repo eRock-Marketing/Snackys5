@@ -4,7 +4,7 @@ h1{
 @media screen and (min-width: 992px){
     .lpa-checkout-wrapper{
         padding: 2.5rem;
-        border: 2px solid @lightborder;
+        border: 2px solid var(--hr-li);
         border-radius: .5rem;
     }
 }
@@ -18,7 +18,7 @@ h1{
 #lpaChangeAddressButton,
 #lpaChangePaymentButton{
     font-size: .9rem;
-    color: @brand;
+    color: var(--brand);
     text-decoration: underline;
 }
 .lpa-checkout-wrapper > .row:not(:last-of-type),
@@ -29,7 +29,7 @@ h1{
 .lpa-checkout-wrapper .custom-checkbox{
     display: flex;
     align-items: center;
-    border-bottom: 1px solid @lightborder;
+    border-bottom: 1px solid var(--hr-li);
     padding: .7rem 0;
 }
 .lpa-checkout-wrapper .custom-radio input,

@@ -87,6 +87,14 @@
 
             return $current;
         },
+		
+		incrementProductVisitCount: function() {
+			//not in use
+		},
+		
+		navigateBackToList: function() {
+			//not in use
+		},
 
         register: function(wrapper) {
             var $wrapper = this.getWrapper(wrapper);
@@ -127,6 +135,7 @@
 						$(quantity)[0].stepDown();
 					} catch(ex) {
 						var step = $(quantity)[0].step;
+						if(step == 'any') step = 1;
 						if(!step) step=1;
 						var min = $(quantity)[0].min;
 						var inputVal =Number($(quantity)[0].value) - Number(step);
@@ -144,6 +153,7 @@
 						$(quantity)[0].stepUp();
 					} catch(ex) {
 						var step = $(quantity)[0].step;
+						if(step == 'any') step = 1;
 						if(!step) step=1;
 						var max = $(quantity)[0].max; 
 						var inputVal =Number($(quantity)[0].value) + Number(step);
@@ -409,6 +419,10 @@
                     });
             }
         },
+		
+		registerImageHover: function($wrapper) {
+			//not in use
+		},
 
         registerFinish: function($wrapper) {
             $('#jump-to-votes-tab', $wrapper).on('click',function () {
@@ -463,7 +477,7 @@
         loadModalArticle: function(url, wrapper, done, fail) {
             var that       = this,
                 $wrapper   = this.getWrapper(wrapper),
-                id         = wrapper.substring(1),
+                id         = wrapper.slice(1),
                 $modalBody = $('.modal-body', this.modalView);
 
             $wrapper.addClass('loading');
@@ -503,7 +517,7 @@
                         // Configurator in child article!? Currently not supported!
                         $config.remove();
                         $modalBody.addClass('loading');
-                        var spinner = $.evo.extended().spinner($modalBody.get(0));
+                        //var spinner = $.evo.extended().spinner($modalBody.get(0));
                         location.href = url;
                     }
 
@@ -663,7 +677,7 @@
 
        addToWishlist: function(data) {
             var productId = parseInt(data[this.options.input.id]);
-            var qty =  parseInt(data[this.options.input.quantity]);
+            var qty =  parseFloat(data[this.options.input.quantity]);
             if (isNaN(qty)) {
                 qty = 1;
             }
@@ -789,7 +803,9 @@
                 case this.options.action.compareListRemove:
                     return this.removeFromCompareList(data);
                 case this.options.action.wishList:
-                    data[this.options.input.quantity] = $('#buy_form_'+data.a+' '+this.options.selector.quantity).val();
+                    data[this.options.input.quantity] = $('input[data-product-id="' + data.a + '"]').val()
+                        || $('#buy_form_'+data.a+' '+this.options.selector.quantity).val()
+                        || $('#quantity').val();
                     return this.addToWishlist(data);
                 case this.options.action.wishListRemove:
                     return this.removeFromWishList(data);
@@ -1005,6 +1021,7 @@
 
             if (this.isSingleArticle()) {
                 $('#product-offer .price', $wrapper).html(fmtPrice);
+				$('#product-offer meta[itemprop="price"]', $wrapper).attr('content',price);
                 if (priceLabel && priceLabel.length > 0) {
                     $('#product-offer .price_label', $wrapper).html(priceLabel);
                 }
@@ -1083,22 +1100,25 @@
 
         setArticleContent: function(id, variation, url, variations, wrapper) {
             var $wrapper  = this.getWrapper(wrapper),
-                listStyle = $('#ed_list.active').length > 0 ? 'list' : 'gallery',
-                $spinner  = $.evo.extended().spinner($wrapper.get(0));
+                listStyle = $('#ed_list.active').length > 0 ? 'list' : 'gallery';
+                //$spinner  = $.evo.extended().spinner($wrapper.get(0));
 
             if (this.modalShown) {
                 this.loadModalArticle(url, wrapper,
                     function() {
                         var article = new ArticleClass();
                         article.register(wrapper);
-                        $spinner.stop();
+                        //$spinner.stop();
                     },
                     function() {
-                        $spinner.stop();
+                        //$spinner.stop();
                         $.evo.error('Error loading ' + url);
                     }
                 );
             } else if (this.isSingleArticle()) {
+                if($('#opc-startmenu').length > 0) {
+                    return this.redirectToArticle(id, variation, url, variations, wrapper);
+                }
                 $.evo.extended().loadContent(url, function (content) {
                     $.evo.extended().register();
                     $.evo.article().register(wrapper);
@@ -1111,10 +1131,10 @@
                         history.pushState({a: id, a2: variation, url: url, variations: variations}, "", url);
                     }
 
-                    $spinner.stop();
+                    //$spinner.stop();
                 }, function () {
                     $.evo.error('Error loading ' + url);
-                    $spinner.stop();
+                    //$spinner.stop();
                 }, false, wrapper);
             } else {
                 $.evo.extended().loadContent(url + (url.indexOf('?') >= 0 ? '&' : '?') + 'isListStyle=' + listStyle, function (content) {
@@ -1139,16 +1159,27 @@
                     if (!$wrapper.hasClass('hv-e')) {
                         $.evo.extended().autoheight();
                     }
-                    $spinner.stop();
+                    //$spinner.stop();
                 }, function () {
                     $.evo.error('Error loading ' + url);
-                    $spinner.stop();
+                    //$spinner.stop();
                 }, false, wrapper);
             }
 			/*
 			if(sImages)
 				sImages.rewatch();
 			*/
+        },
+
+        redirectToArticle: function(id, variation, url, variations, wrapper) {
+            var $wrapper  = this.getWrapper(wrapper),
+                listStyle = $('#product-list-type').val();
+
+            //$.evo.extended().startSpinner($wrapper);
+
+            window.open(url, '_top');
+
+            //$.evo.extended().stopSpinner($wrapper);
         },
 
         variationResetAll: function(wrapper) {
@@ -1415,6 +1446,12 @@
             $('[role="tooltip"]', $wrapper).remove();
         },
 		
+        showGalleryVariation: function(key, wrapper) {
+            var $wrapper = this.getWrapper(wrapper),
+                $item    = $('.variation-' + key, $wrapper);
+
+            $item.collapse();
+        },
 
         initMinMaxAbnahme: function() {
 			$('#quantity').on('change', function () {

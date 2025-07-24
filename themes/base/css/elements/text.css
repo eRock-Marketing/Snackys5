@@ -1,5 +1,5 @@
 #content a.title{
-    color: @darktext;
+    color: var(--bod-s);
 }
 #content a.title:hover{
     text-decoration: underline;
@@ -9,13 +9,16 @@
 }
 .status-0,
 .text-danger{
-    color: @danger;
+    color: var(--txt-da);
 }
 .status-1,
 .text-warning{
-    color: @warning;
+    color: var(--txt-wa);
 }
 .status-2,
 .text-success{
-    color: @success;
+    color: var(--txt-su);
+}
+.text-info{
+    color: var(--txt-in);
 }

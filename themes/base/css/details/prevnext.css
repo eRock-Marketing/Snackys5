@@ -1,6 +1,6 @@
 /* Prev/Next */
 #prevNextRow .button{
-	background: @darkbg;
+	background: var(--det-pna-b);
 	height: 5rem;
 	width: 2rem;
 	position: relative;
@@ -30,7 +30,7 @@
 	transition: transform .2s ease, opacity .2s ease;
 }
 #prevNextRow .ar{
-	border-color: white;
+	border-color: var(--det-pna-i);
 }
 #prevNextRow .product-pagination{
     width: 7.5rem;

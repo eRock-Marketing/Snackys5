@@ -30,14 +30,14 @@
             {/card}
         {/block}
     {/if}
-    {if $Einstellungen.sitemap.sitemap_kategorien_anzeigen === 'Y' && isset($oKategorieliste->elemente) && $oKategorieliste->elemente|@count > 0}
+    {if $Einstellungen.sitemap.sitemap_kategorien_anzeigen === 'Y' && isset($oKategorieliste->elemente) && $oKategorieliste->elemente|count > 0}
         {block name='page-sitemap-categories'}
             {opcMountPoint id='opc_before_categories' inContainer=false}
             {card header={lang key='sitemapKats'} class="mb-md"}
                 {block name='page-sitemap-categories-content'}
                     {row class="row-multi"}
                         {foreach $oKategorieliste->elemente as $oKategorie}
-                            {if $oKategorie->getChildren()|@count > 0}
+                            {if $oKategorie->getChildren()|count > 0}
                                 {col cols=12 md=4 lg=3}
                                     <ul class="nav">
                                         <li>
@@ -51,7 +51,7 @@
                                                     {$oSubKategorie->getShortName()}
                                                 {/link}
                                             </li>
-                                            {if $oSubKategorie->getChildren()|@count > 0}
+                                            {if $oSubKategorie->getChildren()|count > 0}
                                                 <li>
                                                     <ul class="sub-categories list-unstyled">
                                                         {foreach $oSubKategorie->getChildren() as $oSubSubKategorie}
@@ -74,7 +74,7 @@
                         {col cols=12 md=4 lg=3}
                             <ul class="nav">
                                 {foreach $oKategorieliste->elemente as $oKategorie}
-                                    {if $oKategorie->getChildren()|@count == 0}
+                                    {if $oKategorie->getChildren()|count == 0}
                                         <li>
                                             &nbsp;&nbsp;{link href=$oKategorie->getURL() title=$oKategorie->getName()|escape:'html' class="nice-deco"}
                                                 {$oKategorie->getShortName()}
@@ -89,7 +89,7 @@
             {/card}
         {/block}
     {/if}
-    {if $Einstellungen.sitemap.sitemap_hersteller_anzeigen === 'Y' && $oHersteller_arr|@count > 0}
+    {if $Einstellungen.sitemap.sitemap_hersteller_anzeigen === 'Y' && $oHersteller_arr|count > 0}
         {block name='page-sitemap-manufacturer'}
             {opcMountPoint id='opc_before_manufacturers' inContainer=false}
             {card header={lang key='sitemapNanufacturer'} class="mb-md"}
@@ -97,7 +97,7 @@
                     {row class="row-multi"}
                         {foreach $oHersteller_arr as $oHersteller}
                             {col cols=12 md=4 lg=3 class="sitemap-group-item"}
-                                {link href=$oHersteller->cURL  class="nice-deco"}{$oHersteller->cName}{/link}
+                                {link href=$oHersteller->getURL()  class="nice-deco"}{$oHersteller->getName()}{/link}
                             {/col}
                         {/foreach}
                     {/row}
@@ -105,14 +105,14 @@
             {/card}
         {/block}
     {/if}
-    {if $Einstellungen.news.news_benutzen === 'Y' && $Einstellungen.sitemap.sitemap_news_anzeigen === 'Y' && !empty($oNewsMonatsUebersicht_arr) && $oNewsMonatsUebersicht_arr|@count > 0}
+    {if $Einstellungen.news.news_benutzen === 'Y' && $Einstellungen.sitemap.sitemap_news_anzeigen === 'Y' && !empty($oNewsMonatsUebersicht_arr) && $oNewsMonatsUebersicht_arr|count > 0}
         {block name='page-sitemap-news'}
             {opcMountPoint id='opc_before_news' inContainer=false}
             {card header={lang key='sitemapNews'} class="mb-md"}
                 {block name='page-sitemap-news-content'}
                     {row class="row-multi"}
                         {foreach $oNewsMonatsUebersicht_arr as $oNewsMonatsUebersicht}
-                            {if $oNewsMonatsUebersicht->oNews_arr|@count > 0}
+                            {if $oNewsMonatsUebersicht->oNews_arr|count > 0}
                                 {math equation='x-y' x=$oNewsMonatsUebersicht@iteration y=1 assign='i'}
                                 {col cols=12 md=4 lg=3}
                                     <strong class="block mb-xxs">{link href=$oNewsMonatsUebersicht->cURLFull class="nice-deco"}{$oNewsMonatsUebersicht->cName}{/link}</strong>
@@ -132,7 +132,7 @@
     {if $Einstellungen.news.news_benutzen === 'Y'
         && $Einstellungen.sitemap.sitemap_newskategorien_anzeigen === 'Y'
         && !empty($oNewsKategorie_arr)
-        && $oNewsKategorie_arr|@count > 0
+        && $oNewsKategorie_arr|count > 0
     }
         {block name='page-sitemap-news-categories'}
             {opcMountPoint id='opc_before_news_categories' inContainer=false}
@@ -140,7 +140,7 @@
                 {block name='page-sitemap-news-categories-content'}
                     {row class="row-multi"}
                         {foreach $oNewsKategorie_arr as $oNewsKategorie}
-                            {if $oNewsKategorie->oNews_arr|@count > 0}
+                            {if $oNewsKategorie->oNews_arr|count > 0}
                                 {col cols=12 md=4 lg=3}
                                     <strong class="block mb-xxs">{link href=$oNewsKategorie->cURLFull}{$oNewsKategorie->cName}{/link}</strong>
                                     <ul class="nav">

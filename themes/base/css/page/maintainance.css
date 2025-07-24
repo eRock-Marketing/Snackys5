@@ -9,7 +9,7 @@ body,
     max-width: 100%;
 }
 body.body-offcanvas{
-	background: @lightbg;
+	background: var(--bod-b-l);
 }
 #content{
 	display: flex;
@@ -27,7 +27,7 @@ body.body-offcanvas{
 }
 #logo-wrapper{
 	margin-bottom: 1.5rem;
-	border-bottom: 1px solid @lightborder;
+	border-bottom: 1px solid var(--hr-li);
 	padding-bottom: 1.5rem;
 }
 #logo img{
@@ -49,10 +49,10 @@ body.body-offcanvas{
 	width: 50rem;
 	max-width: 90vw;
 	position: relative;
-	background: white;
+	background: var(--bod-b);
 }
 #maintenance-notice .topbar{
-	background: @info;
+	background: var(--brand);
 	color: white;
 	position: absolute;
 	top: 0;
@@ -85,7 +85,7 @@ body #bxt-w{
 	fill: #bbb;
 }
 #maintenance-notice .icon-container{
-	background: @lightbg;
+	background: #eee;
 	border-radius: 50%;
 	padding: 3rem;
 }
@@ -117,4 +117,15 @@ body #bxt-w{
 	#maintenance-notice .text-col{
 		padding: 0;
 	}
+}
+.btn-link{
+	-webkit-appearance: inherit;
+	border: 0;
+	background: none;
+	color: var(--bod-l);
+	padding: 0;
+	text-decoration: underline;
+}
+.btn-link:hover{
+	color: var(--bod-l-h);
 }

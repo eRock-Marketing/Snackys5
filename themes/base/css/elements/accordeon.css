@@ -13,7 +13,7 @@
 .accordion .card-header .btn:hover,
 .accordion .card-header .btn:focus{
     box-shadow: none;
-    color: @brand;
+    color: var(--bod-l-h);
 }
 .accordion .card{
     border-radius: 0;

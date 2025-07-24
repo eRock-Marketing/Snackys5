@@ -29,7 +29,7 @@
                     {assign var='activeParent' value=$activeParents[$i]}
                 {/if}
 				<li class="title{if $li->getIsActive() || (isset($activeParent) && $activeParent == $li->getID())} active{/if}{if $snackyConfig.dropdown_plus == 1 && $hasItems} dd-plus{/if}">
-					<a href="{$li->getURL()}" class="dropdown-link defaultlink"{if $li->getNoFollow()} rel="nofollow"{/if}{if !empty($li->getTitle())} title="{$li->getTitle()}"{/if} data-ref="{$li->getID()}">
+					<a href="{$li->getURL()}" class="dropdown-link defaultlink"{if $li->getNoFollow()} rel="nofollow"{/if}{if !empty($li->getTitle())} title="{$li->getTitle()}"{/if} data-ref="{$li->getID()}" target="{$li->getTarget()}">
 						<span class="notextov">{$li->getName()}</span>
                         {if $hasItems}
                             <span class="ar ar-r hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}

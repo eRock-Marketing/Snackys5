@@ -29,7 +29,7 @@
                     {assign var='activeParent' value=$activeParents[$i]}
                 {/if}
 				<li class="{if $li->getChildLinks()->count() > 0 && isset($dropdownSupport)}mgm-fw dropdown-style{/if}{if $li->getIsActive() || (isset($activeParent) && $activeParent == $li->getID())} active{/if}">
-					<a href="{$li->getURL()}" class="mm-mainlink"{if $li->getNoFollow()} rel="nofollow"{/if}{if !empty($li->getTitle())} title="{$li->getTitle()}"{/if} data-ref="{$li->getID()}">
+					<a href="{$li->getURL()}" class="mm-mainlink"{if $li->getNoFollow()} rel="nofollow"{/if}{if !empty($li->getTitle())} title="{$li->getTitle()}"{/if} data-ref="{$li->getID()}" target="{$li->getTarget()}">
 						{$li->getName()}
 						{if $li->getChildLinks()->count() > 0 && isset($dropdownSupport) && $hasItems}<span class="caret hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}{/if}
 					</a>
@@ -37,7 +37,7 @@
 						<ul class="dropdown-menu keepopen">
 							{if $snackyConfig.mmenu_link_clickable == 'N'}
 							<li class="title{if $li->getIsActive()} active{/if}">
-								<a href="{$li->getURL()}" class="mm-mainlink"{if $li->getNoFollow()} rel="nofollow"{/if}{if !empty($li->getTitle())} title="{$li->getTitle()}"{/if} data-ref="{$li->kLink}">
+								<a href="{$li->getURL()}" class="mm-mainlink"{if $li->getNoFollow()} rel="nofollow"{/if}{if !empty($li->getTitle())} title="{$li->getTitle()}"{/if} data-ref="{$li->kLink}" target="{$li->getTarget()}">
 									{lang key="showAll" section="global"}
 								</a>
 							</li>

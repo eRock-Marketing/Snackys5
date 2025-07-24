@@ -6,7 +6,9 @@
 	min-width: 3rem;
 }
 .mtrx .add{
-    background: @defaultborder;
+    background: var(--inp-b);
+    border: 1px solid var(--inp-r);
+    color: var(--inp-t);
     padding: 0 .7rem;
     border-radius: 0 .3rem .3rem 0;
     font-size: .9rem;

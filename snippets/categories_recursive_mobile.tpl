@@ -39,7 +39,7 @@
                     {assign var='activeParent' value=$activeParents[$i]}
                 {/if}
 				{assign var="catFunctions" value=$category->getFunctionalAttributes()}
-                <li class="{if $hasItems}mgm-fw dropdown-style{/if}{if $category->getID() == $activeId || ((isset($activeParent) && isset($activeParent->getID())) && $activeParent->getID() == $category->getID())} active{/if}{if is_array($catFunctions) && !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}">
+                <li class="{if $hasItems}mgm-fw dropdown-style{/if}{if $category->getID() == $activeId || (isset($activeParent) && $activeParent->getID() === $category->getID())} active{/if}{if is_array($catFunctions) && !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}">
                     <a href="{$category->getURL()}" class="mm-mainlink" data-ref="{$category->getID()}" title="{$category->getShortName()|escape:'html'}">
                         {$category->getShortName()}
                         {if $hasItems}

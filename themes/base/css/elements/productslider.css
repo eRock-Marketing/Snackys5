@@ -21,10 +21,13 @@
 	display: none;
 }
 .panel-slider .sl-ar{
-    background: @lightfocusbg;
+    background: var(--sl-ar-b);
 }
 .panel-slider .sl-ar:not(.inactive):hover{
-    background: #bbb;
+    background: var(--sl-ar-b-h);
+}
+.panel-slider .sl-ar .ar{
+	border-color: var(--sl-ar-i);
 }
 .panel-slider .sl-ar,
 #gallery .sl-ar{

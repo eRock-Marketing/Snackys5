@@ -3,14 +3,14 @@
     margin-bottom: .5rem;
 }
 #gallery-thumbs .img-ct{
-    box-shadow: 0 0 0 1px @lightborder;
+    box-shadow: 0 0 0 1px var(--pbx-im-r);
     transition: box-shadow .3s ease;
     border-radius: .5rem;
-    background: white;
+    background: var(--pbx-im-b);
 }
 #gallery-thumbs .img-w.active .img-ct,
 #gallery-thumbs .img-w:hover .img-ct{
-    box-shadow: 0 0 0 1px @brand;
+    box-shadow: 0 0 0 1px var(--pbx-im-r-h);
     transform: none;
 }
 #gallery-thumbs img{
@@ -27,6 +27,7 @@
 #gallery a{
     display: block; 
     cursor: zoom-in;
+    border-radius: 0.8rem;
 }
 #gallery a:not(.active){
     display: none;
@@ -40,20 +41,26 @@
 	top: 50%;
 	transform: translateY(-50%);
 	z-index: 9;
-	background: @lightbg;
+	background: var(--sl-ar-b);
 	padding: 0.5rem 1rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
+#gallery .sl-ar .ar{
+    border-color: var(--sl-ar-i);
+}
 #gallery .sl-ar:hover{
-    background: @lightfocusbg;
+    background: var(--sl-ar-b-h);
 }
 #gallery .sl-nx{
     right: 15px;
 }
 .zoomImg{
-    background: white;
+    background: var(--pbx-im-b);
+}
+#gallery.no-lb a{
+    pointer-events: none;
 }
 @media screen and (max-width: 991px){
     body:not(.lightbox-shown) #gallery-thumbs{

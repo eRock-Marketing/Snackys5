@@ -4,8 +4,7 @@
     display: flex;
     padding: 0;
 }
-#sp-l li.dpflex-a-c,
-#sp-l li.dpflex-a-center{
+#sp-l li.flx-ac{
     display: flex;
 }
 #basket-shipping-estimate-form select{
@@ -22,7 +21,7 @@
     background: none;
 }
 .label{
-    color: @defaulttext;
+    color: var(--lab-t);
 }
 .dropdown-toggle:after{
     display: none;

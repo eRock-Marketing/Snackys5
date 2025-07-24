@@ -3,13 +3,14 @@
     margin: auto;
 }
 #nw-ct{
-    max-width: @maxNewsWidthpx;
+    max-width: var(--wdt-nws);
     margin: auto;
 }
 #nw-ct a:not(.btn){
-    color: @brand;
+    color: var(--bod-l);
 }
 #nw-ct a:not(.btn):hover{
+    color: var(--bod-l-h);
     text-decoration: underline;
 }
 .newscats .btn-xs{

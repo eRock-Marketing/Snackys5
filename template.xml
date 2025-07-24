@@ -3,8 +3,8 @@
     <Name>Snackys</Name>
     <Author>eRock Marketing</Author>
     <URL>https://www.erock-marketing.de</URL>
-    <MinShopVersion>5.1.0</MinShopVersion>
-    <Version>5.1.7</Version>
+    <MinShopVersion>5.2.0</MinShopVersion>
+    <Version>5.2.7</Version>
     <Preview>preview-snackys.png</Preview>
     <Description>Ultraschnelles responsive JTL Template von eRock Marketing</Description>
     <Framework>Bootstrap4</Framework>
@@ -30,8 +30,8 @@
 		</Section>
 		<Section Name="Theme" Key="theme">
 			<Setting Description="Theme" Key="theme_default" Type="select" Value="snackys" override="true">
-				<Option Value="snackys">Snackys - with <![CDATA[&hearts;]]> by Knoell Marketing</Option>
-				<Option Value="darkmode">Snackys Darkmode - with <![CDATA[&hearts;]]> by Knoell Marketing</Option>
+				<Option Value="snackys">Snackys - with <![CDATA[&hearts;]]> by eRock Marketing</Option>
+				<Option Value="darkmode">Snackys Darkmode - with <![CDATA[&hearts;]]> by eRock Marketing</Option>
 				<Option Value="custom">Custom - eigenes Theme</Option>
 			</Setting>
             <Setting Description="Favicon" Key="favicon" Type="upload" Value="favicon.ico" maxFileSize="123456" showPreview="false" allowedFileExtensions="['ico','png']" accept="image/*" target="" targetFileName="favicon.ico">
@@ -118,6 +118,7 @@
 				<File Path="js/snackys/jtl.io.js"/>
 				<File Path="js/snackys/jtl.gallery.js"/>
 				<File Path="js/snackys/jquery.zoom.min.js"/>
+				<File Path="js/parallax.min.js"/>
 				<File Path="js/snackys/spin.js"/>
 				<File Path="js/snackys/global.js"/>
 				<File Path="js/snackys/listing.js" />
@@ -126,7 +127,8 @@
 				<File Path="js/nouislider.min.js" />
 				<File Path="js/slick-lightbox.min.js" />
 				<File Path="js/consent.js" />
-				
+				<File Path="js/snackys/livesearch.js" />
+
 				
 				<File Path="js/typeahead.bundle.js" DependsOnSettingGroup="CONF_TEMPLATE" DependsOnSetting="template.general.use_typehead" DependsOnSettingValue="Y"/>
 				<File Path="js/typeahead.fallback.js" DependsOnSettingGroup="CONF_TEMPLATE" DependsOnSetting="template.general.use_typehead" DependsOnSettingValue="N"/>
@@ -156,9 +158,6 @@
 			<File Path="/templates/Snackys/themes/base/css/elements/productslider.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/accordeon.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/pagination_critical.css"/>
-			<File Path="/templates/Snackys/themes/base/css/bootstrap/bootstrap-select_critical.css"/>
-			<File Path="/templates/Snackys/themes/base/css/basket/sidebasket_critical.css"/>
-			<File Path="/templates/Snackys/themes/base/css/boxes/boxes_critical.css"/>
 			<File Path="/templates/Snackys/themes/base/consent.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/opc.css"/>
 	</CSSMain>

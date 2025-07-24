@@ -1,12 +1,13 @@
 #header-promo{
-	color: white;
+	color: var(--pro-t);
 	padding: .5rem 3rem;
 	font-weight: 400;
 	position: relative;
 	font-size: .9rem;
-	background: @headerPromoStyle;
+	background-color: var(--pro-b);
 }
 #header-promo-close{
+	color: var(--pro-i);
 	position: absolute;
 	right: 1rem;
 	top: 0;

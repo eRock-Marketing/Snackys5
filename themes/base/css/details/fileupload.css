@@ -13,10 +13,10 @@
 #dt-upload .btn-file,
 #fileupload-wrapper .btn-file{
     border-radius: .5rem;
-    background: @brand;
-    @gradientbrand;
+    background: var(--btn-pr-b);
+    border: 1px solid var(--btn-pr-r);
     justify-content: center;
-    color: white;
+    color:  var(--btn-pr-t);
     width: 100%;
 }
 #dt-upload .btn-file .hidden-xs,

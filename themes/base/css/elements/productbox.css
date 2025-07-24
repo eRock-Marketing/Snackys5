@@ -8,13 +8,19 @@
     height: 100%;
     width: 100%;
 }
+#content .p-c .title{
+    color: var(--pbx-tt);
+}
+#content .p-c .title:hover{
+    color: var(--pbx-tt-h);
+}
 .p-c .form-basket{
     position: static;
     margin-top: auto;
 }
 .p-c .price{
     font-size: 1.4rem;
-    color: @brand;
+    color: var(--pbx-pr);
     white-space: normal;
 }
 .p-c .footnote-reference{
@@ -25,7 +31,7 @@
     left: -0.2em;
 }
 .p-c strong.price .old-price{
-	color: @defaulttext;
+	color: var(--bod-t);
 	font-weight: 400;
 }
 .p-c .rating{
@@ -36,39 +42,42 @@
 }
 .product-border .p-c .img-w .img-ct, 
 .product-border .sc-w .img-ct{
-	border: 1px solid #eee;
+	border: 1px solid var(--pbx-im-r);
 	overflow: hidden;
 }
 .ov-t{
     position: absolute;
     left: 0;
     bottom: 2rem;
-    background: #eee;
     padding: .4rem .6rem;
     font-size: .85rem;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: .5px;
-    color: @backgroundtext;
-    background: @darkbg;
+    color: var(--alrt-t);
+    background: var(--alrt-b);
 }
 .ov-t.ov-t-7,
 .ov-t.ov-t-2,
 .ov-t.ov-t-sp{
-    background: @danger;
+    background: var(--dang-b);
+    color: var(--dang-t);
 }
 .ov-t.ov-t-4,
 .ov-t.ov-t-6{
-    background: @success;
+    background: var(--succ-b);
+    color: var(--succ-t);
 }
 .ov-t.ov-t-1,
 .ov-t.ov-t-5,
 .ov-t.ov-t-8,
 .ov-t.ov-t-9{
-	background: @info;
+	background: var(--info-b);
+    color: var(--info-t);
 }
 .ov-t.ov-t-3{
-	background: @warning;
+	background: var(--warn-b);
+    color: var(--warn-t);
 }
 #product-offer .price_label,
 .p-c .price_label{
@@ -78,9 +87,10 @@
 .p-c .delivery-status{
     z-index: 3;
 }
+/* Overrite Signal Image Color
 .p-c .signal_image{
-    color: @defaulttext;
-}
+    color: var(--bod-t);
+}*/
 .p-c .caption{
     position: relative;
     z-index: 3;
@@ -92,7 +102,7 @@
     opacity: 0; transition: .3s ease;
 }
 .second-img img {
-    background: white
+    background: var(--bod-b);
 }
 a:hover .second-img {
     opacity: 1;
@@ -111,12 +121,12 @@ body.edge a:hover .second-img{
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255,255,255,.7);
+    background: var(--pbx-ct-b);
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     padding: .4rem .3rem;
     border-radius: 0 0 .8rem .8rem;
-    color: @defaulttext;
+    color: var(--pbx-ct-t);
 }
 .sale-ct .ct-un{
     font-size: .6rem;

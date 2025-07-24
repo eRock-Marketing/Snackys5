@@ -18,6 +18,12 @@
 	#shop-nav .social-icons .img-ct{
 		width: 1.5rem;
 	}
+	#shop-nav .social-icons svg{
+		fill: var(--hed-i);
+	}
+	#shop-nav .social-icons a:hover svg{
+		fill: var(--hed-i-h);
+	}
 	/* Megamenü */
 	#cat-w{
 		box-shadow: none;

@@ -2,7 +2,7 @@
     padding: .5rem;
 }
 .p-att li:nth-child(even){
-    background: #f6f6f6;
+    background: var(--bod-b-l);
 }
 .p-att .first{
     width: 15rem;

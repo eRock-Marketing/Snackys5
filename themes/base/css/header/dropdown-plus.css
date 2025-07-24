@@ -41,4 +41,7 @@
     .dd-plus > .dropdown-link{
         padding-right: 2.2rem;
     }
+	.mobile #cat-ul .dropdown-style .mgm-fw .ar{
+		transform: rotate(45deg);
+	}
 }

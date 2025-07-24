@@ -38,7 +38,7 @@
 {/if}
 {/block}
 {block name="megamenu-categories"}
-{if isset($snackyConfig.show_categories) && $snackyConfig.show_categories !== 'N' && isset($Einstellungen.global.global_sichtbarkeit) && ($Einstellungen.global.global_sichtbarkeit != 3 || isset($smarty.session.Kunde->kKunde) && $smarty.session.Kunde->kKunde != 0)}
+{if isset($snackyConfig.show_categories) && $snackyConfig.show_categories !== 'N' && isset($Einstellungen.global.global_sichtbarkeit) && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
     {assign var='show_subcategories' value=false}
     {if isset($snackyConfig.show_subcategories) && $snackyConfig.show_subcategories !== 'N'}
         {assign var='show_subcategories' value=true}
@@ -58,7 +58,7 @@
             {/if}
 
             {assign var="catFunctions" value=$category->getFunctionalAttributes()}
-            <li class="{if $isDropdown}mgm-fw{/if}{if $category->getID() == $activeId || (isset($activeParents[0]) && $activeParents[0]->getID() == $category->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}">
+            <li class="{if $isDropdown}mgm-fw{/if}{if $category->getID() == $activeId || (isset($activeParent) && $activeParent->getID() === $category->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}">
                 <a href="{$category->getURL()}" class="mm-mainlink" title="{$category->getName()|escape:'html'}">
                     {$category->getShortName()}
                     {if $isDropdown}<span class="caret hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}{/if}
@@ -67,7 +67,7 @@
                     <ul class="dropdown-menu keepopen">
                         <li class="mgm-c mw-container">
 						    {include file="snippets/zonen.tpl" id="before_megamenu_content_{$category->getID()}" title="before_megamenu_content_{$category->getID()}"}
-                                <div class="row dpflex-a-start">
+                                <div class="row flx-as">
                                     {assign var=hasInfoColumn value=false}
                                     {if isset($snackyConfig.show_maincategory_info) && $snackyConfig.show_maincategory_info !== 'N' && ($category->getImageUrl() !== $noImgUrl || !empty($category->getDescription()))}
                                         {assign var=hasInfoColumn value=true}
@@ -170,9 +170,7 @@
 
 {block name="megamenu-manufacturers"}
 {if isset($snackyConfig.show_manufacturers) && $snackyConfig.show_manufacturers !== 'N' 
-    && ($Einstellungen.global.global_sichtbarkeit != 3
-        || isset($smarty.session.Kunde->kKunde)
-        && $smarty.session.Kunde->kKunde != 0)}
+    && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
     {get_manufacturers assign='manufacturers'}
     {if !empty($manufacturers)}
         <li class="mgm-fw mm-manu{if $NaviFilter->hasManufacturer() || $nSeitenTyp == PAGE_HERSTELLER} active{/if}">
@@ -194,9 +192,9 @@
                     {include file="snippets/zonen.tpl" id="before_megamenu_content_manufacturers" title="before_megamenu_content_manufacturers"}
 					<div class="row row-multi">
 						{foreach name=hersteller from=$manufacturers item=hst}
-							<div class="col-12 col-sm-3 col-md-3{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-2{/if}{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}">
+							<div class="col-12 col-sm-3 col-md-3 col-lg-2{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-2{/if}{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}">
 								{if isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N'}
-									<a class="block hidden-xs img-w" href="{$hst->cURLFull}">
+									<a class="block hidden-xs img-w" href="{$hst->getURL()}">
 										<span class="img-ct">
 											{include file='snippets/image.tpl'
 												class='submenu-headline-image'
@@ -206,8 +204,8 @@
 										</span>
 									</a>
 								{/if}
-								<a class="defaultlink h6 title block" href="{$hst->cURLFull}">
-									<span>{$hst->cName}</span>
+								<a class="defaultlink h6 title block" href="{$hst->getURL()}">
+									<span>{$hst->getName()|escape:'html'}</span>
 								</a>
 							</div>
 						{/foreach}

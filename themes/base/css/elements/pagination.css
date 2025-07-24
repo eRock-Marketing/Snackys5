@@ -2,6 +2,9 @@
     margin: 2rem 0;
     font-weight: 600;
 }
+.pagination .active .block{
+    color: var(--bod-l-h);
+}
 .pagination-group > span{
     order: 1;
 }
@@ -10,5 +13,5 @@
     min-width: 2rem;
     padding: 0 .5rem;
     border-radius: 5rem;
-   justify-content: center;
+    justify-content: center;
 }

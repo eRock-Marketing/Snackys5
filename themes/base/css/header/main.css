@@ -2,6 +2,7 @@
 #shop-nav{
     padding-top: 1.3rem;
     padding-bottom: 1.3rem;
+    background: var(--hed-b);
 }
 #shop-nav > .mw-container > div{
     padding: 0;
@@ -15,10 +16,12 @@
     border: 0;
     padding: 1rem 3.125rem 1rem 1rem;
     border-radius: .5rem;
-    background: @lightbg;
+    background: var(--ser-b);
+    border: 1px solid var(--ser-r);
+    color: var(--ser-t);
 }
 #search input:focus{
-    background: @lightfocusbg;
+    background: var(--ser-b-h);
 }
 #search-submit-button{
     border: 0;
@@ -28,6 +31,9 @@
 	position: absolute;
 	right: 0;
     z-index: 2;
+}
+#search svg{
+    fill: var(--ser-i);
 }
 /* Logo */
 #logo{
@@ -59,6 +65,18 @@
     top: -.5rem;
     right: -.5rem;
 }
+.hdr-nav .icon-xl svg{
+    fill: var(--hed-i);
+}
+.hdr-nav .icon-xl:hover svg{
+    fill: var(--hed-i-h);
+}
+.hdr-nav .caret{
+    border-top-color: var(--hed-i);
+}
+.hdr-nav a:hover > .caret{
+    border-top-color: var(--hed-i-h);
+}
 /* Nav Toggle */
 #mob-nt{
 	width: 1.8rem;
@@ -69,10 +87,13 @@
 .burger-line{
 	width: 100%;
 	height: .15rem;
-	background: @defaulttext;
+	background: var(--hed-i);
 	position: absolute;
 	border-radius: .2rem;
 	top: .2rem
+}
+#mob-nt:hover .burger-line{
+    background: var(--hed-i-h);
 }
 .burger-line.last{
 	top: auto;
@@ -115,10 +136,17 @@
         left: 2.75rem;
         transition: .5s ease;
 		top: 0;
+        cursor: pointer;
     }
     #sr-tg-m .img-ct{
         width: 1.6rem;
         min-width: 1.6rem;
+    }
+    #sr-tg-m svg{
+        fill: var(--hed-i);
+    }
+    #sr-tg-m:hover svg{
+        fill: var(--hed-i-h);
     }
     #sr-tg-m .close{
         width: 0;
@@ -146,9 +174,8 @@
 		position: -webkit-sticky;
 		position: sticky;
 		top: 0;
-		background: #fff;
 		z-index: 10;
-		border-bottom: 1px solid @lightborder;
+		border-bottom: 1px solid var(--hr-li);
         margin-bottom: 1.5rem;
 	}
     [data-page="1"] #shop-nav,

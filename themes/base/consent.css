@@ -10,10 +10,6 @@
 .consent-btn{
     font-size: .8rem;
 }
-.consent-btn-outline-primary{
-    background: none;
-    border: 1px solid @defaultborder;
-}
 .consent-btn-helper{
     margin: -.25rem;
     display: flex;
@@ -45,7 +41,6 @@
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     flex-direction: column;
-    align-items: left;
 }
 .consent-btn-holder > div:last-child{
     margin: 0 0 0 auto;
@@ -58,8 +53,7 @@
     display: none;
 }
 .consent-switch .consent-input:checked ~ .consent-label::before{
-    background: @brand;
-    @gradientbrand;
+    background: var(--csm-sw-b-h);
 }
 .consent-switch .consent-input:checked ~ .consent-label::after{
     left: 1.375rem;
@@ -82,7 +76,7 @@
     cursor: pointer;
 }
 .consent-switch .consent-label::before{
-    background: @lightfocusbg;
+    background: var(--csm-sw-b);
     border-radius: 10rem;
     width: 2.5rem;
     height: 1.25rem;
@@ -119,14 +113,14 @@
     margin: 2rem auto 0;
     max-width: 40rem;
     padding: 1rem;
-    background: white;
+    background: var(--csm-b);
     border-radius: 0.5rem;
     position: relative;
 }
 .consent-modal-close{
     border: 0;
     background: transparent;
-    color: #888;
+    color: var(--csm-l);
     position: absolute;
     right: 0;
     top: 0;
@@ -140,24 +134,20 @@
     height: 1.5rem;
 }
 .consent-modal-close:hover{
-    color: #324350;
+    color: var(--csm-l-h);
 }
 .consent-modal-icon{
     display: none;
 }
 #consent-manager{
     @fontfamily;
-    color: @defaulttext;
+    color: var(--csm-t);
     font-size: 0.8rem;
     position: fixed;
     z-index: 100000;
     bottom: 2rem;
     left: 1rem;
     right: 1rem;
-}
-#consent-manager a{
-    color: @darktext;
-    text-decoration: underline;
 }
 #consent-manager p{
     margin: 0 0 1rem;
@@ -171,7 +161,7 @@
 }
 #consent-manager strong{
     font-weight: 600;
-    color: @darktext;
+    color: var(--csm-tt);
 }
 #consent-manager ul{
     margin: 1rem 0;
@@ -191,7 +181,7 @@
     margin-left: 0.25em;
 }
 .consent-help{
-    color: @defaulttext;
+    color: var(--csm-t);
     font-size: .9em;
     margin-top: .5rem;
     display: block;
@@ -200,7 +190,7 @@
 .consent-display-2,
 .consent-display-1{
     font-weight: 600;
-    color: @darktext;
+    color: var(--csm-tt);
     margin-bottom: .5rem;
     display: block;
 }
@@ -214,15 +204,23 @@
     font-size: 0.85rem;
 }
 #consent-banner{
-    border: 1px solid @defaultborder;
+    border: 1px solid var(--csm-r);
     border-radius: .5rem;
-    background: white;
+    background: var(--csm-b);
+    color: var(--csm-t);
     width: 100%;
     max-width: 75rem;
     margin: auto;
     transition: all .2s;
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
     padding: 1rem;
+}
+#consent-manager a:not(.btn){
+    color: var(--csm-l);
+    text-decoration: underline;
+}
+#consent-manager a:not(.btn):hover{
+    color: var(--csm-l-h);
 }
 :not(.fading) > #consent-banner{
     position: relative;
@@ -269,7 +267,7 @@
     margin: 0;
 }
 .consent-more-description{
-    background: #f5f7fa;
+    background: var(--csm-b-l);
     padding: 1rem;
     border-radius: 0.125rem;
     margin-top: 1rem;
@@ -277,7 +275,7 @@
 .consent-info{
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
-    border: 0.0625rem solid #dddddd;
+    border: 0.0625rem solid var(--hr);
     border-radius: 0.125rem;
     padding: 0.5rem 1rem;
 }
@@ -286,7 +284,8 @@
     left: 1rem;
     bottom: 1rem;
     z-index: 100000;
-    background: #ffffff;
+    background: var(--btn-df-b);
+    color: var(--btn-df-t);
     border-radius: 10rem;
     padding: 0.5rem;
     width: 2.5rem;
@@ -298,7 +297,8 @@
 }
 #consent-settings-btn:hover,
 #consent-settings-btn:focus{
-    background: @lightbg;
+    background: var(--btn-df-b-h);
+    color: var(--btn-df-t-h);
 }
 :not(.mini) > #consent-settings-btn{
     opacity: 0;
@@ -314,9 +314,29 @@
 #consent-manager:not(.mini) ~ [id*="trustbadge-container"]{
     display: none;
 }
-.consent-btn-tertiary{
-    background: @blackbg;
-    color: white;
+#consent-banner-btn-all,
+#consent-manager .consent-btn-tertiary{
+    background: var(--csm-btn-a-b);
+    border: 1px solid var(--csm-btn-a-r);
+    color: var(--csm-btn-a-l);
+}
+#consent-banner-btn-all:hover,
+#consent-manager .consent-btn-tertiary:hover{
+    background: var(--csm-btn-a-b-h);
+    border: 1px solid var(--csm-btn-a-r-h);
+    color: var(--csm-btn-a-l-h);
+}
+#consent-banner-btn-close,
+#consent-banner-btn-settings{
+    background: var(--csm-btn-d-b);
+    border: 1px solid var(--csm-btn-d-r);
+    color: var(--csm-btn-d-l);
+}
+#consent-banner-btn-close:hover,
+#consent-banner-btn-settings:hover{
+    background: var(--csm-btn-d-b-h);
+    border: 1px solid var(--csm-btn-d-r-h);
+    color: var(--csm-btn-d-l-h);
 }
 @media (min-width: 768px){
     .consent-btn-holder{

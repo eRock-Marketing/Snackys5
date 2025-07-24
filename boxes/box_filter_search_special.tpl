@@ -6,14 +6,16 @@
         && (!empty($Suchergebnisse->getSearchSpecialFilterOptions()) || $ssf->isInitialized())}
         {if $nSeitenTyp === $smarty.const.PAGE_ARTIKELLISTE}
             <section id="sidebox{$oBox->getID()}" class="box box-filter-special panel">
-                    <div class="h5 panel-heading dpflex-a-c">
-                        {$ssf->getFrontendName()}
-                        {if ($snackyConfig.filterOpen == 1 && $oBox->getPosition() == 'left') || ($oBox->getPosition() == 'bottom' && $snackyConfig.footerBoxesOpen === '0')}<span class="caret"></span>{/if}
-                    </div>
+					{block name='boxes-box-filter-search-special-headline'}
+						<div class="h5 panel-heading flx-ac">
+							{$ssf->getFrontendName()}
+							{if ($snackyConfig.filterOpen == 1 && $oBox->getPosition() == 'left') || ($oBox->getPosition() == 'bottom' && $snackyConfig.footerBoxesOpen === '0')}<span class="caret"></span>{/if}
+						</div>
+					{/block}
                     {block name='boxes-box-filter-search-special-content'}
-                    <div class="panel-body">
-                        {include file='snippets/filter/genericFilterItem.tpl' filter=$ssf}
-                    </div>
+						<div class="panel-body">
+							{include file='snippets/filter/genericFilterItem.tpl' filter=$ssf}
+						</div>
                     {/block}
             </section>
         {/if}

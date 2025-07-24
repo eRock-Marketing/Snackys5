@@ -37,7 +37,7 @@ body:not([data-page="18"]) #selection_wizard{
 #selection_wizard .answers > span > a,
 #selection_wizard .answers > span > span{
 	padding: .3rem 1rem;
-	border: 1px solid @defaultborder;
+	border: 1px solid var(--hr);
 	border-radius: .3rem;
 	display: inline-block;
 	margin: .35rem .35rem .35rem 0;
@@ -54,7 +54,7 @@ body:not([data-page="18"]) #selection_wizard{
 	margin-left: .5rem;
 }
 #selection_wizard .answers > span > a:hover{
-	background: @lightbg;
+	background: var(--bod-b-l);
 }
 #selection_wizard .disabled{
 	pointer-events: all;

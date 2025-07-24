@@ -73,9 +73,9 @@
 /* PayPal Finanzierung*/
 .ppf-container{
 	position: relative;
-	background: @info;
+	background: var(--btn-in-b);
 	border: 0;
-	color: #fff;
+	color: var(--btn-in-t);
 }
 .ppf-container p{
 	margin: 0;
@@ -129,7 +129,6 @@
 .ppf-container{
 	margin: 1rem 0;
 	border-radius: .3rem;
-	border-color: @defaultborder
 }
 .ppf-container p:first-child{
 	margin-top: 0;
@@ -147,7 +146,7 @@
 }
 /* Sonderpreis bis */
 .sale-wp{
-    color: @darktext;
+    color: var(--bod-s);
 }
 .sale-wp .ct-it{
     font-size: 2.6rem;

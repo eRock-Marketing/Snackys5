@@ -10,7 +10,7 @@
     opacity: .3;
 }
 /* Mobile-Link nicht Klickbar */
-@media screen and (max-width: 768px){
+@media screen and (max-width: 767px){
 	.mmlca-n #cat-w li:not(.open) > .mm-mainlink .fa-caret-down.visible-xs{
 		left: 0;
 		width: 100%;
@@ -21,4 +21,21 @@
 /* Mobile Filter nicht scrollen */
 #sp-l.scrollBoxes .box-body{
 	max-height: none
+}
+/* Mobile Menu on Desktop */
+@media screen and (min-width: 768px){
+	#cat-w .dropdown-menu .mm-mainlink{
+		font-weight: 400;
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+		font-size: 1rem;
+	}
+}
+/* Mobile-Menu Full-Click */
+#cat-w .dropdown-style:not(.open) .l-full .fa-caret-down{
+	left: 0;
+	right: 0;
+	width: 100%;
+	justify-content: flex-end;
+	padding-right: 1.2rem;
 }

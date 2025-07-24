@@ -26,6 +26,12 @@
         closePanels: function() {
             for (var e = document.getElementById("sp-l").getElementsByClassName("panel-heading"), t = 0; t < e.length; t++) e[t].parentNode.classList.remove("open")
         },
+	
+
+        resetForParallax: function() {
+            $(window).trigger('resize').trigger('scroll');
+        },
+
         generateSlickSlider: function() {
 			if($('.evo-slider:not(.slick-initialized)').length)
 			{
@@ -83,6 +89,10 @@
                 $priceRangeFrom = $("#" + priceRangeID + "-from"),
                 $priceRangeTo = $("#" + priceRangeID + "-to"),
                 $priceSlider = document.getElementById(priceRangeID);
+				
+            if($priceSlider === null) {
+                return;
+            }
 
             if (priceRange) {
                 var priceRangeMinMax = priceRange.split('_');
@@ -91,43 +101,58 @@
                 $priceRangeFrom.val(currentPriceMin);
                 $priceRangeTo.val(currentPriceMax);
             }
-            noUiSlider.create($priceSlider, {
-                start: [parseInt(currentPriceMin), parseInt(currentPriceMax)],
-                connect: true,
-                range: {
-                    'min': parseInt(priceRangeMin),
-                    'max': parseInt(priceRangeMax)
-                },
-                step: 1,
-                format: {
-                    to: function (value) {
-                        return parseInt(value);
-                    },
-                    from: function (value) {
-                        return parseInt(value);
-                    }
-                }
-            });
-            $priceSlider.noUiSlider.on('change', function (values, handle) {
-                setTimeout(function(){
-                    $.evo.redirectToNewPriceRange(values[0] + '_' + values[1], redirect, $wrapper);
-                },0);
-            });
-            $priceSlider.noUiSlider.on('update', function (values, handle) {
-                $priceRangeFrom.val(values[0]);
-                $priceRangeTo.val(values[1]);
-            });
-            $('.price-range-input').on('change', function () {
-                var prFrom = parseInt($priceRangeFrom.val()),
-                    prTo = parseInt($priceRangeTo.val());
-                $.evo.redirectToNewPriceRange(
-                    (prFrom > 0 ? prFrom : priceRangeMin) + '_' + (prTo > 0 ? prTo : priceRangeMax),
-                    redirect,
-                    $wrapper
-                );
-            });
+			noUiSlider.create($priceSlider, {
+				start: [parseInt(currentPriceMin), parseInt(currentPriceMax)],
+				connect: true,
+				range: {
+					'min': parseInt(priceRangeMin),
+					'max': parseInt(priceRangeMax)
+				},
+				step: 1,
+				format: {
+					to: function (value) {
+						return parseInt(value);
+					},
+					from: function (value) {
+						return parseInt(value);
+					}
+				}
+			});
+			$priceSlider.noUiSlider.on('change', function (values, handle) {
+				setTimeout(function(){
+					$.evo.redirectToNewPriceRange(values[0] + '_' + values[1], redirect, $wrapper);
+				},0);
+			});
+			$priceSlider.noUiSlider.on('update', function (values, handle) {
+				$priceRangeFrom.val(values[0]);
+				$priceRangeTo.val(values[1]);
+			});
+			$('.price-range-input').on('change', function () {
+				var prFrom = parseInt($priceRangeFrom.val()),
+					prTo = parseInt($priceRangeTo.val());
+				$.evo.redirectToNewPriceRange(
+					(prFrom > 0 ? prFrom : priceRangeMin) + '_' + (prTo > 0 ? prTo : priceRangeMax),
+					redirect,
+					$wrapper
+				);
+			});
+			
+			$('#'+priceRangeID+'-submit').on('click', function()
+			{
+				if($(this).data('url'))
+					window.location.href = $(this).data('url');
+			});
+			
         },
 
+        startSpinner: function (target) {
+			//nothing to do - with our performance we dont need a spinner! :-)
+        },
+
+        stopSpinner: function () {
+			//nothing to do - with our performance we dont need a spinner! :-)
+        },
+		
         initFilters: function (href) {
             var $wrapper = $('.js-collapse-filter');
             //$.evo.extended().startSpinner($wrapper);
@@ -204,9 +229,13 @@
         },
 
         redirectToNewPriceRange: function (priceRange, redirect, $wrapper) {
+			redirect = false;
             var currentURL  = window.location.href;
             if (!redirect) {
                 currentURL  = $wrapper.find('[data-id="js-price-range-url"]').val();
+            }
+            if (!currentURL) {
+                currentURL  = window.location.href;
             }
             var redirectURL = $.evo.updateURLParameter(
                 currentURL,
@@ -216,12 +245,16 @@
             if (redirect) {
                 window.location.href = redirectURL;
             } else {
+				var currentID  = $wrapper.find('[data-id="js-price-range-id"]').val();
+				$('#'+currentID+'-submit').attr('data-url',redirectURL);
                 $.evo.initFilters(redirectURL);
             }
         },
 
         updateURLParameter: function (url, param, paramVal) {
             var newAdditionalURL = '',
+                url        = url.split('#'),
+				url = url[0],
                 tempArray        = url.split('?'),
                 baseURL          = tempArray[0],
                 additionalURL    = tempArray[1],
@@ -284,8 +317,10 @@
             }
         },
 
+		/*
         productTabsPriceFlow: function() {
             $('a[href="#tab-priceFlow"]').on('shown.bs.tab', function () {
+				console.log("price-flow-tab-activated");
                 if (typeof window.priceHistoryChart !== 'undefined' && window.priceHistoryChart === null) {
                     window.priceHistoryChart = new Chart(window.ctx).Bar(window.chartData, {
                         responsive:      true,
@@ -294,6 +329,31 @@
                     });
                 }
             });
+        },*/
+		
+		
+
+        productTabsPriceFlow: function() {
+			// using cards
+			$('#tab-priceFlow').on('shown.bs.collapse', function () {
+				if (typeof window.priceHistoryChart !== 'undefined' && window.priceHistoryChart === null) {
+					window.priceHistoryChart = new Chart(window.ctx).Line(window.chartData, {
+						responsive:      true,
+						scaleBeginAtZero: false,
+						tooltipTemplate: "<%if (label){%><%=label%> - <%}%><%= parseFloat(value).toFixed(2).replace('.', ',') %> " + window.chartDataCurrency
+					});
+				}
+			});
+			//using tabs
+			$('a[data-toggle="tab"][aria-controls="tab-priceFlow"]').on('shown.bs.tab', function () {
+				if (typeof window.priceHistoryChart !== 'undefined' && window.priceHistoryChart === null) {
+					window.priceHistoryChart = new Chart(window.ctx).Line(window.chartData, {
+						responsive:      true,
+						scaleBeginAtZero: false,
+						tooltipTemplate: "<%if (label){%><%=label%> - <%}%><%= parseFloat(value).toFixed(2).replace('.', ',') %> " + window.chartDataCurrency
+					});
+				}
+			});
         },
 
         autoheight: function() {
@@ -500,7 +560,14 @@
 
                 $form.find('fieldset, input[type="submit"]')
                     .attr('disabled', true);
-                var url = $('#jtl-io-path').data('path') + '/bestellvorgang.php?kVersandart=' + shipmentid + '&kZahlungsart=' + paymentid;
+                var urlInstance = null;
+                if ($form.length === 1 && $form.attr('action') !== undefined) {
+                    urlInstance = new URL($form.attr('action'));
+                    urlInstance.searchParams.append('kVersandart', '' + shipmentid);
+                }
+                var url = urlInstance === null
+                    ? $('#jtl-io-path').data('path') + '/bestellvorgang.php?kVersandart=' + shipmentid
+                    : urlInstance.href
                 $.evo.loadContent(url, function() {
                     $.evo.checkout();
                 }, null, true);
@@ -523,7 +590,7 @@
                         $shippingSwitch.parent().addClass('hidden');
                         if ($shippingSwitch.prop('checked')) {
                             $shippingSwitch.prop('checked', false);
-                            $('#select_shipping_address').collapse('show');
+                            $('#select-shipping-address').collapse('show');
                         }
                     }
                 });

@@ -2,11 +2,11 @@
     {assign var='isOnWishList' value=false}
     {assign var='wishlistPos' value=0}
     {assign var='isVariationItem' value=!empty($Artikel->Variationen) && empty($Artikel->kVariKindArtikel)}
-    {if isset($smarty.session.Wunschliste) && !$isVariationItem}
-        {foreach $smarty.session.Wunschliste->CWunschlistePos_arr as $product}
-            {if $product->kArtikel === $Artikel->kArtikel || $product->kArtikel === $Artikel->kVariKindArtikel}
+    {if !$isVariationItem && \JTL\Session\Frontend::getWishlist()->getItems()|count > 0}
+        {foreach \JTL\Session\Frontend::getWishlist()->getItems() as $item}
+            {if $item->getProductID() === $Artikel->kArtikel || $item->getProductID() === $Artikel->kVariKindArtikel}
                 {$isOnWishList=true}
-                {$wishlistPos=$product->kWunschlistePos}
+                {$wishlistPos=$item->getID()}
                 {break}
             {/if}
         {/foreach}

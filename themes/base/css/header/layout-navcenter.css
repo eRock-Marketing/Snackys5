@@ -1,7 +1,6 @@
 @media screen and (min-width: 768px){
 	#shop-nav{
 		padding: 0;
-		border-bottom: 1px solid @lightborder;
 	}
 	body:not([data-page="11"]) #logo{
 		text-align: left;
@@ -27,9 +26,8 @@
 		left: 70px;
 		right: 70px;
 	}
-	#shop-nav #cat-w li:hover>.mm-mainlink, 
-	#shop-nav [id*="mm-dropdown"] .active>.dropdown-link, 
-	#shop-nav [id*="mm-dropdown"] li:hover>.dropdown-link{
+	#cat-w li.active .mm-mainlink,
+	#cat-w li:hover > .mm-mainlink{
 		background: none;
 	}
 	#cat-w{
@@ -43,25 +41,12 @@
 		padding-right: 0;
 	}
 	#cat-w .mm-mainlink{
-		color: @defaulttext;
 		font-size: 1rem;
 		padding: 3rem 1rem;
 	}
-	#cat-w .mm-mainlink:hover, 
-	#cat-w .active > .mm-mainlink{
-		background: none;
-		color: @brand;
-	}
 	.mgm .mgm-c,
 	li.dropdown-style .dropdown-menu{
-		border-top: 2px solid @brand;
-	}
-	#cat-w svg{
-		fill: @defaulttext;
-	}
-	#cat-w a:hover svg, 
-	#cat-w .active > a svg{
-		fill: @brand;
+		border-top: 2px solid var(--meg-r);
 	}
 	li.dropdown-style>.dropdown-menu .dropdown-menu{
 		top: calc(-1rem - 2px);

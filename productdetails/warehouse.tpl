@@ -3,7 +3,7 @@
 {assign var=anzeige value=$Einstellungen.artikeldetails.artikel_lagerbestandsanzeige}
 {if $anzeige !== 'nichts'
     && isset($Artikel->oWarenlager_arr)
-    && $Artikel->oWarenlager_arr|@count > 1
+    && $Artikel->oWarenlager_arr|count > 1
     && ($Artikel->cLagerBeachten !== 'Y'
         || $Artikel->cLagerKleinerNull === 'Y'
         || $Artikel->fLagerbestand > 0

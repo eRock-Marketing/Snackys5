@@ -45,7 +45,7 @@
     
     {block name="megamenu-categories"}
         {include file="snippets/zonen.tpl" id="before_mobilemenu_categories" title="before_mobilemenu_categories"}
-        {if isset($snackyConfig.show_categories) && $snackyConfig.show_categories !== 'N' && isset($Einstellungen.global.global_sichtbarkeit) && ($Einstellungen.global.global_sichtbarkeit != 3 || isset($smarty.session.Kunde->kKunde) && $smarty.session.Kunde->kKunde != 0)}
+        {if isset($snackyConfig.show_categories) && $snackyConfig.show_categories !== 'N' && isset($Einstellungen.global.global_sichtbarkeit) && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
             {include file='snippets/categories_recursive_mobile.tpl' i=0 categoryId=0 limit={$snackyConfig.mmenu_subcats} caret='right'}
         {/if}
     {/block}{* /megamenu-categories*}
@@ -59,9 +59,7 @@
 
     {block name="megamenu-manufacturers"}
         {if isset($snackyConfig.show_manufacturers) && $snackyConfig.show_manufacturers !== 'N' 
-            && ($Einstellungen.global.global_sichtbarkeit != 3
-                || isset($smarty.session.Kunde->kKunde)
-                && $smarty.session.Kunde->kKunde != 0)}
+            && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
             {include file="snippets/zonen.tpl" id="before_mobilemenu_manufacturers" title="before_mobilemenu_manufacturers"}
             {get_manufacturers assign='manufacturers'}
             {if !empty($manufacturers)}
@@ -88,7 +86,7 @@
                             </li>
                         {/if}
                         {foreach name=hersteller from=$manufacturers item=hst}
-                            <li class="title{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}"><a href="{$hst->cURLFull}" class="dropdown-link defaultlink"><span class="notextov">{$hst->cName}</span></a></li>
+                            <li class="title{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}"><a href="{$hst->getURL()}" class="dropdown-link defaultlink"><span class="notextov">{$hst->getName()|escape:'html'}</span></a></li>
                         {/foreach}
                     </ul>
                 </li>
@@ -105,15 +103,15 @@
             {block name="mobilemenu-additional-login"}
                 {include file="snippets/zonen.tpl" id="before_mobilemenu_additional_login" title="before_mobilemenu_additional_login"}
                 <li class="dropdown-style visible-xs{if $nSeitenTyp == 4} active{/if}">
-                    <a href="{get_static_route id='jtl.php'}" title="{if empty($smarty.session.Kunde->kKunde)}{lang key='login'}{else}{lang key='hello'}{/if}" class="home-icon">
-                        <span class="dpflex-a-center">
+                    <a href="{get_static_route id='jtl.php'}" title="{if JTL\Session\Frontend::getCustomer()->getID() == 0}{lang key='login'}{else}{lang key='hello'}{/if}" class="home-icon">
+                        <span class="flx-ac">
                             <span class="img-ct icon icon-wt op1">
                                 <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
                                   <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-user"></use>
                                 </svg>
                             </span>
                             <span class="visible-xs text">
-                                {if empty($smarty.session.Kunde->kKunde)}
+                                {if JTL\Session\Frontend::getCustomer()->getID() == 0}
                                 {lang key="login"}
                                 {else}
                                 {lang key='myAccount'}
@@ -123,12 +121,12 @@
                     </a>
                 </li>
             {/block}
-            {if isset($smarty.session.Wunschliste->kWunschliste) && $smarty.session.Wunschliste->CWunschlistePos_arr|count > 0}
+            {if \JTL\Session\Frontend::getWishlist()->getID() > 0}
                 {block name="mobilemenu-additional-wishlist"}
                     {include file="snippets/zonen.tpl" id="before_mobilemenu_additional_wishlist" title="before_mobilemenu_additional_wishlist"}
                     <li class="dropdown-style visible-xs{if $nSeitenTyp == 16} active{/if}">
                         <a href="{get_static_route id='wunschliste.php'}" title="{lang key="goToWishlist" sektion="global"}" class="home-icon">
-                            <span class="dpflex-a-center">
+                            <span class="flx-ac">
                                 <span class="img-ct icon icon-wt op1">
                                     <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
                                       <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-heart"></use>
@@ -142,12 +140,12 @@
                     </li>
                 {/block}
             {/if}
-            {if isset($smarty.session.Vergleichsliste) && $smarty.session.Vergleichsliste->oArtikel_arr|count > 1}
+            {if count(JTL\Session\Frontend::getCompareList()->oArtikel_arr) > 1}
                 {block name="mobilemenu-additional-comparelist"}
                     {include file="snippets/zonen.tpl" id="before_mobilemenu_additional_comparelist" title="before_mobilemenu_additional_comparelist"}
                     <li class="dropdown-style visible-xs">
                         <a href="{get_static_route id='vergleichsliste.php'}" title="{lang key="compare" sektion="global"}"{if $Einstellungen.vergleichsliste.vergleichsliste_target === 'blank'} target="_blank"{/if} class="popup home-icon">
-                            <span class="dpflex-a-center">
+                            <span class="flx-ac">
                                 <span class="img-ct icon icon-wt op1">
                                     <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
                                       <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-compare"></use>
@@ -165,7 +163,7 @@
                 {include file="snippets/zonen.tpl" id="before_mobilemenu_additional_basket" title="before_mobilemenu_additional_basket"}
                 <li class="dropdown-style visible-xs{if $nSeitenTyp == 3} active{/if}">
                     <a href="{get_static_route id='warenkorb.php'}" title="{lang key='basket'}" class="home-icon">
-                        <span class="dpflex-a-center">
+                        <span class="flx-ac">
                             <span class="img-ct icon icon-wt op1">
                                 <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">
                                   <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-{if $snackyConfig.basketType == 0}cart{else}shopping{/if}"></use>
@@ -186,13 +184,13 @@
                 {/if}
             {/block}
             {block name="mobilemenu-currency"}
-                {if isset($smarty.session.Waehrungen) && $smarty.session.Waehrungen|@count > 1}
+                {if JTL\Session\Frontend::getCurrencies()|count > 1}
                     <li class="dropdown-style visible-xs">
-                        <a href="#" class="dropdown-toggle mm-mainlink" title="{lang key='selectCurrency'}">
-                            {$smarty.session.Waehrung->getName()} {include file='snippets/mobile-menu-arrow.tpl'}
+                        <a href="#" class="dropdown-toggle mm-mainlink l-full" title="{lang key='selectCurrency'}">
+                            {JTL\Session\Frontend::getCurrency()->getName()} {include file='snippets/mobile-menu-arrow.tpl'}
                         </a>
                         <ul class="dropdown-menu">
-                        {foreach from=$smarty.session.Waehrungen item=oWaehrung}
+                        {foreach JTL\Session\Frontend::getCurrencies() item=oWaehrung}
                             <li>
                                 <a href="{$oWaehrung->getURL()}" rel="nofollow">{$oWaehrung->getName()}</a>
                             </li>

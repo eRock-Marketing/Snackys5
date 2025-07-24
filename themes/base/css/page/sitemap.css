@@ -9,7 +9,7 @@
 }
 #km_sm .card-header{
     font-weight: bold;
-    color: @darktext;
+    color: var(--bod-s);
 }
 @media screen and (min-width: 768px){
     #km_sm .card-body{

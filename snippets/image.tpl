@@ -5,10 +5,8 @@
         {$fluid       = $fluid|default:true}
         {$lazy        = $lazy|default:true}
         {$webp        = $webp|default:true}
-        {$sizes       = $sizes|default:'auto'}
+        {$sizes       = $sizes|default:'100vw'}
         {$class       = $class|default:''}
-        {$width       = $width|default:''}
-        {$height      = $height|default:''}
         {$squareClass = $squareClass|default:''}
         {$srcSize     = $srcSize|default:'md'}
         {$center      = $center|default:false}
@@ -25,63 +23,87 @@
 
 
         {$imageType = $item->getImageType()}
+        {$mini      = $item->getImageWidth('xs')}
+        {$klein     = $item->getImageWidth('sm')}
+        {$normal    = $item->getImageWidth('md')}
+        {$gross     = $item->getImageWidth('lg')}
+        {$width     = $width|default:$item->getImageWidth('lg')}
+        {$height    = $height|default:$item->getImageHeight('lg')}
 
         {if $imageType === \JTL\Media\Image::TYPE_CHARACTERISTIC_VALUE}
-            {$mini   = $Einstellungen.bilder.bilder_merkmalwert_mini_breite}
-            {$klein  = $Einstellungen.bilder.bilder_merkmalwert_klein_breite}
-            {$normal = $Einstellungen.bilder.bilder_merkmalwert_normal_breite}
-            {$gross  = $Einstellungen.bilder.bilder_merkmalwert_gross_breite}
+            {$mini   = $mini|default:$Einstellungen.bilder.bilder_merkmalwert_mini_breite}
+            {$klein  = $klein|default:$Einstellungen.bilder.bilder_merkmalwert_klein_breite}
+            {$normal = $normal|default:$Einstellungen.bilder.bilder_merkmalwert_normal_breite}
+            {$gross  = $gross|default:$Einstellungen.bilder.bilder_merkmalwert_gross_breite}
+            {$width  = $width|default:$Einstellungen.bilder.bilder_merkmalwert_gross_breite}
+            {$height = $height|default:$Einstellungen.bilder.bilder_merkmalwert_gross_hoehe}
             {$alt    = $alt|default:$item->getValue()}
         {elseif $imageType === \JTL\Media\Image::TYPE_CHARACTERISTIC}
-            {$mini   = $Einstellungen.bilder.bilder_merkmal_mini_breite}
-            {$klein  = $Einstellungen.bilder.bilder_merkmal_klein_breite}
-            {$normal = $Einstellungen.bilder.bilder_merkmal_normal_breite}
-            {$gross  = $Einstellungen.bilder.bilder_merkmal_gross_breite}
+            {$mini   = $mini|default:$Einstellungen.bilder.bilder_merkmal_mini_breite}
+            {$klein  = $klein|default:$Einstellungen.bilder.bilder_merkmal_klein_breite}
+            {$normal = $normal|default:$Einstellungen.bilder.bilder_merkmal_normal_breite}
+            {$gross  = $gross|default:$Einstellungen.bilder.bilder_merkmal_gross_breite}
+            {$width  = $width|default:$Einstellungen.bilder.bilder_merkmal_gross_breite}
+            {$height = $height|default:$Einstellungen.bilder.bilder_merkmal_gross_hoehe}
             {$alt    = $alt|default:$item->getName()}
         {elseif $imageType === \JTL\Media\Image::TYPE_PRODUCT}
-            {$mini   = $Einstellungen.bilder.bilder_artikel_mini_breite}
-            {$klein  = $Einstellungen.bilder.bilder_artikel_klein_breite}
-            {$normal = $Einstellungen.bilder.bilder_artikel_normal_breite}
-            {$gross  = $Einstellungen.bilder.bilder_artikel_gross_breite}
+            {$mini   = $item->Bilder[0]->imageSizes->xs->size->width}
+            {$klein  = $item->Bilder[0]->imageSizes->sm->size->width}
+            {$normal = $item->Bilder[0]->imageSizes->md->size->width}
+            {$gross  = $item->Bilder[0]->imageSizes->lg->size->width}
+            {$width  = $width|default:$Einstellungen.bilder.bilder_artikel_gross_breite}
+            {$height = $height|default:$Einstellungen.bilder.bilder_artikel_gross_hoehe}
             {if isset($item->Bilder[0]->cAltAttribut)}
                 {$alt=$item->Bilder[0]->cAltAttribut|truncate:60}
             {else}
                 {$alt=$item->cName|default:''}
             {/if}
         {elseif $imageType === \JTL\Media\Image::TYPE_VARIATION}
-            {$mini   = $Einstellungen.bilder.bilder_variationen_mini_breite}
-            {$klein  = $Einstellungen.bilder.bilder_variationen_klein_breite}
-            {$normal = $Einstellungen.bilder.bilder_variationen_breite}
-            {$gross  = $Einstellungen.bilder.bilder_variationen_gross_breite}
+            {$mini   = $mini|default:$Einstellungen.bilder.bilder_variationen_mini_breite}
+            {$klein  = $klein|default:$Einstellungen.bilder.bilder_variationen_klein_breite}
+            {$normal = $normal|default:$Einstellungen.bilder.bilder_variationen_breite}
+            {$gross  = $gross|default:$Einstellungen.bilder.bilder_variationen_gross_breite}
+            {$width  = $width|default:$Einstellungen.bilder.bilder_variationen_gross_breite}
+            {$height = $height|default:$Einstellungen.bilder.bilder_variationen_gross_hoehe}
             {$alt    = $alt|default:$item->cName}
         {elseif $imageType === \JTL\Media\Image::TYPE_NEWS}
-            {$mini   = $Einstellungen.bilder.bilder_news_mini_breite}
-            {$klein  = $Einstellungen.bilder.bilder_news_klein_breite}
-            {$normal = $Einstellungen.bilder.bilder_news_normal_breite}
-            {$gross  = $Einstellungen.bilder.bilder_news_gross_breite}
+            {$mini   = $mini|default:$Einstellungen.bilder.bilder_news_mini_breite}
+            {$klein  = $klein|default:$Einstellungen.bilder.bilder_news_klein_breite}
+            {$normal = $normal|default:$Einstellungen.bilder.bilder_news_normal_breite}
+            {$gross  = $gross|default:$Einstellungen.bilder.bilder_news_gross_breite}
+            {$width  = $width|default:$Einstellungen.bilder.bilder_news_gross_breite}
+            {$height = $height|default:$Einstellungen.bilder.bilder_news_gross_hoehe}
         {elseif $imageType === \JTL\Media\Image::TYPE_NEWSCATEGORY}
-            {$mini   = $Einstellungen.bilder.bilder_newskategorie_mini_breite}
-            {$klein  = $Einstellungen.bilder.bilder_newskategorie_klein_breite}
-            {$normal = $Einstellungen.bilder.bilder_newskategorie_normal_breite}
-            {$gross  = $Einstellungen.bilder.bilder_newskategorie_gross_breite}
+            {$mini   = $mini|default:$Einstellungen.bilder.bilder_newskategorie_mini_breite}
+            {$klein  = $klein|default:$Einstellungen.bilder.bilder_newskategorie_klein_breite}
+            {$normal = $normal|default:$Einstellungen.bilder.bilder_newskategorie_normal_breite}
+            {$gross  = $gross|default:$Einstellungen.bilder.bilder_newskategorie_gross_breite}
+            {$width  = $width|default:$Einstellungen.bilder.bilder_newskategorie_gross_breite}
+            {$height = $height|default:$Einstellungen.bilder.bilder_newskategorie_gross_hoehe}
             {$alt    = $alt|default:$item->getName()}
         {elseif $imageType === \JTL\Media\Image::TYPE_CONFIGGROUP}
-            {$mini   = $Einstellungen.bilder.bilder_konfiggruppe_mini_breite}
-            {$klein  = $Einstellungen.bilder.bilder_konfiggruppe_klein_breite}
-            {$normal = $Einstellungen.bilder.bilder_konfiggruppe_normal_breite}
-            {$gross  = $Einstellungen.bilder.bilder_konfiggruppe_gross_breite}
+            {$mini   = $mini|default:$Einstellungen.bilder.bilder_konfiggruppe_mini_breite}
+            {$klein  = $klein|default:$Einstellungen.bilder.bilder_konfiggruppe_klein_breite}
+            {$normal = $normal|default:$Einstellungen.bilder.bilder_konfiggruppe_normal_breite}
+            {$gross  = $gross|default:$Einstellungen.bilder.bilder_konfiggruppe_gross_breite}
+            {$width  = $width|default:$Einstellungen.bilder.bilder_konfiggruppe_gross_breite}
+            {$height = $height|default:$Einstellungen.bilder.bilder_konfiggruppe_gross_hoehe}
             {$alt    = $alt|default:$item->getSprache()->getName()}
         {elseif $imageType === \JTL\Media\Image::TYPE_MANUFACTURER}
-            {$mini   = $Einstellungen.bilder.bilder_hersteller_mini_breite}
-            {$klein  = $Einstellungen.bilder.bilder_hersteller_klein_breite}
-            {$normal = $Einstellungen.bilder.bilder_hersteller_normal_breite}
-            {$gross  = $Einstellungen.bilder.bilder_hersteller_gross_breite}
+            {$mini   = $mini|default:$Einstellungen.bilder.bilder_hersteller_mini_breite}
+            {$klein  = $klein|default:$Einstellungen.bilder.bilder_hersteller_klein_breite}
+            {$normal = $normal|default:$Einstellungen.bilder.bilder_hersteller_normal_breite}
+            {$gross  = $gross|default:$Einstellungen.bilder.bilder_hersteller_gross_breite}
+            {$width  = $width|default:$Einstellungen.bilder.bilder_hersteller_gross_breite}
+            {$height = $height|default:$Einstellungen.bilder.bilder_hersteller_gross_hoehe}
             {$alt    = $alt|default:$item->getName()}
         {else}
-            {$mini   = $Einstellungen.bilder.bilder_kategorien_mini_breite}
-            {$klein  = $Einstellungen.bilder.bilder_kategorien_klein_breite}
-            {$normal = $Einstellungen.bilder.bilder_kategorien_breite}
-            {$gross  = $Einstellungen.bilder.bilder_kategorien_gross_breite}
+            {$mini   = $mini|default:$Einstellungen.bilder.bilder_kategorien_mini_breite}
+            {$klein  = $klein|default:$Einstellungen.bilder.bilder_kategorien_klein_breite}
+            {$normal = $normal|default:$Einstellungen.bilder.bilder_kategorien_breite}
+            {$gross  = $gross|default:$Einstellungen.bilder.bilder_kategorien_gross_breite}
+            {$width  = $width|default:$Einstellungen.bilder.bilder_kategorien_gross_breite}
+            {$height = $height|default:$Einstellungen.bilder.bilder_kategorien_gross_hoehe}
             {$alt    = $alt|default:$item->getName()}
         {/if}
         {$alt = $alt|default:''}
@@ -114,13 +136,13 @@
 				<div class="inner">
 			{/if}
 				{block name='snippets-image-main-image'}
-                {if $item->getImage($srcSize)|strpos:'keinBild.gif' !== false}
+                {if strpos($item->getImage($srcSize), 'keinBild.gif') !== false}
                     {image fluid=$fluid lazy=$lazy webp=$webp center=$center
                         src=$item->getImage($srcSize)
                         alt=$alt|strip_tags|escape:'quotes'|escape:'html'
                         width=130
                         height= 130
-                        class=$class|cat:" img-aspect-ratio"
+                        class=$class
                     }
                 {else}
                     {image fluid=$fluid lazy=$lazy webp=$webp center=$center

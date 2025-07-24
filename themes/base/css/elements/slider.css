@@ -19,7 +19,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: @lightbg;
+    background: #eee;
     padding: .8rem 1rem;
 }
 .sl-w.t-light .htmlcaption{

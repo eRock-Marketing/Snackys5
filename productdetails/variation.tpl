@@ -49,8 +49,8 @@
                                         data-original="{$Variationswert->cName}"
                                         data-key="{$Variationswert->kEigenschaft}"
                                         data-value="{$Variationswert->kEigenschaftWert}"
-                                        data-content="{$cVariationsWert|escape:'html'}{if $Variationswert->notExists}<span class='tag label label-default label-not-available'>{lang key='notAvailableInSelection'}</span>{elseif !$Variationswert->inStock}<span class='tag label label-default label-not-available'>{lang key='ampelRot'}</span>{/if}"
-                                        {if !empty($Variationswert->cBildPfadMini)}
+                                        data-content="{trim($cVariationsWert)|escape:'html'}{if $Variationswert->notExists}<span class='tag label label-default label-not-available'>{lang key='notAvailableInSelection'}</span>{elseif !$Variationswert->inStock}<span class='tag label label-default label-not-available'>{lang key='ampelRot'}</span>{/if}"
+                                        {if !empty($Variationswert->getImage(\JTL\Media\Image::SIZE_XS))}
                                             data-list='{prepare_image_details item=$Variationswert json=true}'
                                             data-title='{$Variationswert->cName}'
                                         {/if}
@@ -58,7 +58,7 @@
                                             data-ref="{$Variationswert->oVariationsKombi->kArtikel}"
                                         {/if}
                                         {if $bSelected} selected="selected"{/if}>
-                                    {$cVariationsWert|trim}
+                                    {$Variationswert->cName}
                                 </option>
                             {/if}
                         {/foreach}
@@ -83,7 +83,7 @@
                                    data-original="{$Variationswert->cName}"
                                    data-key="{$Variationswert->kEigenschaft}"
                                    data-value="{$Variationswert->kEigenschaftWert}"
-                                   {if !empty($Variationswert->cBildPfadMini)}
+                                   {if !empty($Variationswert->getImage(\JTL\Media\Image::SIZE_XS))}
                                         data-list='{prepare_image_details item=$Variationswert json=true}'
                                         data-title='{$Variationswert->cName}{if $Variationswert->notExists} - {lang key='notAvailableInSelection'}{elseif !$Variationswert->inStock} - {lang key='ampelRot'}{/if}'
                                    {/if}
@@ -106,7 +106,7 @@
                         {/if}
                     {/foreach}
                 {elseif $Variation->cTyp === 'IMGSWATCHES' || $Variation->cTyp === 'TEXTSWATCHES'}
-                    <div class="dpflex-wrap swatches {$Variation->cTyp|lower}">
+                    <div class="flx-w swatches {$Variation->cTyp|lower}">
                         {foreach name=Variationswerte from=$Variation->Werte key=y item=Variationswert}
                             {assign var="bSelected" value=false}
                             {if isset($oVariationKombi_arr[$Variationswert->kEigenschaft])}
@@ -121,13 +121,13 @@
                                 {* /do nothing *}
                             {else}
                                 {block name='productdetails-info-variation-swatch'}
-                                    <label class="variation block btn btn-default{if $bSelected} active{/if}{if $Variationswert->notExists} not-available{/if}{if isset($smallView) && $smallView} btn-xs{/if}{if !empty($Variationswert->cBildPfadMiniFull)} btn-img{/if}"
+                                    <label class="variation block btn btn-default{if $bSelected} active{/if}{if $Variationswert->notExists} not-available{/if}{if isset($smallView) && $smallView} btn-xs{/if}{if !empty($Variationswert->getImage(\JTL\Media\Image::SIZE_XS))} btn-img{/if}"
                                             data-type="swatch"
                                             data-original="{$Variationswert->cName}"
                                             data-key="{$Variationswert->kEigenschaft}"
                                             data-value="{$Variationswert->kEigenschaftWert}"
                                             for="{if $modal}modal-{elseif isset($smallView) && $smallView}a-{$Artikel->kArtikel}{/if}vt{$Variationswert->kEigenschaftWert}"
-                                            {if !empty($Variationswert->cBildPfadMini)}
+                                            {if !empty($Variationswert->getImage(\JTL\Media\Image::SIZE_XS))}
                                                 data-list='{prepare_image_details item=$Variationswert json=true}'
                                             {/if}
                                             {if $Variationswert->notExists}
@@ -155,9 +155,9 @@
                                                {if $smarty.foreach.Variationswerte.index === 0 && !$showMatrix} required{/if}
                                                />
                                        <span class="label-variation">
-                                            {if !empty($Variationswert->cBildPfadMiniFull)}
+                                            {if !empty($Variationswert->getImage(\JTL\Media\Image::SIZE_XS))}
                                            <span class="img-ct">
-                                                <img src="{$Variationswert->cBildPfadMiniFull}" alt="{$Variationswert->cName|escape:'quotes'}"
+                                                <img src="{$Variationswert->getImage(\JTL\Media\Image::SIZE_XS)}" alt="{$Variationswert->cName|escape:'quotes'}"
                                                      data-list='{prepare_image_details item=$Variationswert json=true}'
                                                      title="{$Variationswert->cName}" />
                                                </span>

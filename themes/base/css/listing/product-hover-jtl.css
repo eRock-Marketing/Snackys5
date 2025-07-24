@@ -1,8 +1,8 @@
 .p-w.hv-e:hover{
 	position: relative;
 	z-index: 9;
-	background: white;
-    box-shadow: 0 0 0 .4rem white, 0 0 0 300vw rgba(0,0,0,.3);
+	background: var(--pbx-h-b);
+    box-shadow: 0 0 0 .4rem var(--pbx-h-b), 0 0 0 300vw rgba(0,0,0,.3);
     border-radius: .6rem .6rem 0 0;
 }
 .p-w:hover .p-c.hv-e:after{
@@ -21,7 +21,7 @@
 	z-index: 2;
     display: none;
 	opacity: 0;
-	box-shadow: 0 0 0 .4rem white;
+	box-shadow: 0 0 0 .4rem var(--pbx-h-b);
 }
 .p-c.hv-e .exp:focus-within{
 	z-index: 3;
@@ -38,7 +38,7 @@
 	left: -15px;
 	right: -15px;
 	padding: 15px;
-	background: white;
+	background: var(--pbx-h-b);
     border-radius: 0 0 .6rem .6rem;
     top: 100%;
 }
@@ -78,7 +78,7 @@
     width: 0;
 }
 .var-it .control-hidden:checked + label{
-    border-color: @brand;
+    border-color: var(--brand);
 }
 .var-it label{
     font-weight: 400;
@@ -91,7 +91,7 @@
     transition: color .2s ease;
 }
 .var-it label[data-type="radio"]:hover{
-    color: @brand;
+    color: var(--brand);
 }
 .var-it label[data-type="radio"] input{
     margin-right: .5rem;
@@ -103,10 +103,10 @@
 }
 .var-it .swatches .btn-default:not(.active){
     background: none;
-    box-shadow: inset 0 0 0 1px @defaultborder;
+    box-shadow: inset 0 0 0 1px var(--hr);
 }
 .var-it .swatches .btn-default:hover{
-    border-color: @brand;
+    border-color: var(--brand);
 }
 .var-it .swatches .btn-default .label-info{
     display: block;
@@ -125,7 +125,7 @@
 }
 .var-it .swatches .btn-img:hover .img-ct,
 .var-it .swatches .btn-img.active .img-ct{
-    box-shadow: 0 0 0 1px @brand;    
+    box-shadow: 0 0 0 1px var(--brand);    
 }
 .var-it .textswatches .btn-default .label-info{
     display: block;

@@ -1,5 +1,262 @@
 :root {
     color-scheme: light !important;
+    /* general */
+    --brand: @brand;
+    --price: @price;
+    --bod-b: @siteBackground;
+    --bod-b-l: @siteBackgroundLight;
+    --bod-t: @defaulttext;
+    --bod-t-l: @lighttext;
+    --bod-s: @darktext;
+    --bod-l: @defaultLink;
+    --bod-l-h: @defaultLinkHover;
+    --hr: @defaultborder;
+    --hr-li: @lightborder;
+    --icon: @iconGeneral;
+    /* text */
+    --h1-t: @headlineH1;
+    --h2-t: @headlineH2;
+    --h3-t: @headlineH3;
+    --h4-t: @headlineH4;
+    --h5-t: @headlineH5;
+    --h6-t: @headlineH6;
+    --txt-da: @textDanger;
+    --txt-su: @textSuccess;
+    --txt-wa: @textWarning;
+    --txt-in: @textInfo;
+    /* Alerts */
+    --alrt-b: @alertBg;
+    --alrt-r: @alertBorder;
+    --alrt-t: @alertTxt;
+    --succ-b: @alertSuccessBg;
+    --succ-r: @alertSuccessBorder;
+    --succ-t: @alertSuccessTxt;
+    --warn-b: @alertWarningBg;
+    --warn-r: @alertWarningBorder;
+    --warn-t: @alertWarningTxt;
+    --info-b: @alertInfoBg;
+    --info-r: @alertInfoBorder;
+    --info-t: @alertInfoTxt;
+    --dang-b: @alertDangerBg;
+    --dang-r: @alertDangerBorder;
+    --dang-t: @alertDangerTxt;
+    /* Promotionbar */
+    --pro-b: @headerPromoStyle; 
+    --pro-t: @headerPromoText;
+    --pro-i: @headerPromoIcon;
+    /* Benefits */
+    --ben-b: @headerBenefitBackground;
+    --ben-t: @headerBenefitText;
+    --ben-i: @headerBenefitIcon;
+    /* Topbar */
+    --top-b: @topbarBackground;
+    --top-l: @topbarLink;
+    --top-l-h: @topbarLinkHover;
+    --top-r: @topbarBorder;
+    /* Header > Shopnav */
+    --hed-b: @shopnavBackground;
+    --hed-i: @shopnavIcon;
+    --hed-i-h: @shopnavIconHover;
+    /* Header > Search */
+    --ser-b: @searchBackground;
+    --ser-b-h: @searchBackgroundHover;
+    --ser-r: @searchBorder;
+    --ser-t: @searchText;
+    --ser-i: @searchIcon;
+    /* Header Menu Bar */
+    --nav-b: @navBackground;
+    --nav-r: @navBorder;
+    --nav-l: @navLink;
+    --nav-l-h: @navLinkHover;
+    --nav-l-h-b: @navLinkHoverBackground;
+    /* Header Megamenu */
+    --meg-b: @megamenuBackground;
+    --meg-t: @megamenuText;
+    --meg-l: @megamenuLink;
+    --meg-l-h: @megamenuLinkHover;
+    --meg-r: @megamenuBorder; 
+    /* Header Bredcrumb */
+    --brd-b: @breadcrumbBackground;
+    --brd-r: @breadcrumbBorder;
+    --brd-l: @breadcrumbLink;
+    --brd-l-h: @breadcrumbLinkHover;
+    /* Category Header */
+    --plh-b: @catHeaderBackground;
+    --plh-t: @catHeaderText;
+    --plh-h1: @catHeaderHeadline;
+    --plh-l: @catHeaderLink;
+    --plh-l-h: @catHeaderLinkHover;
+    /* Dropdowns */
+    --dro-b: @dropdownBackground;
+    --dro-r: @dropdownBorder;
+    --dro-t: @dropdownText;
+    --dro-l: @dropdownLink;
+    --dro-l-h: @dropdownLinkHover;
+    --drbtn-b: @dropdownButtonBackground;
+    --drbtn-b-h: @dropdownButtonBackgroundHover;
+    --drbtn-t: @dropdownButtonText;
+    --drbtn-t-h: @dropdownButtonTextHover;
+    --drbtn-r: @dropdownButtonBorder;
+    --drbtn-r-h: @dropdownButtonBorderHover;
+    /* Modals */
+    --mod-b: @modalBackground;
+    --mod-t: @modalText;
+    --mod-hd-b: @modalHeaderBackground;
+    /* Panels */
+    --pan-b: @panelBackground;
+    --pan-r: @panelBorder;
+    --pan-t: @panelText;
+    --pan-l: @panelLink; 
+    --pan-l-h: @panelLinkHover; 
+    /* Cards */
+    --crd-r: @cardBorder;
+    --crd-b: @cardHeaderBackground;
+    /* Forms */
+    --inp-b: @inputBackground;
+    --inp-b-h: @inputBackgroundHover;
+    --inp-r: @inputBorder;
+    --inp-r-h: @inputBorderHover;
+    --inp-t: @inputText;
+    --inp-t-h: @inputTextHover;
+    --lab-t: @labelText;
+    /* Buttons - Default */
+    --btn-df-b: @buttonDefaultBackground;
+    --btn-df-b-h: @buttonDefaultBackgroundHover;
+    --btn-df-r: @buttonDefaultBorder;
+    --btn-df-r-h: @buttonDefaultBorderHover;
+    --btn-df-t: @buttonDefaultText;
+    --btn-df-t-h: @buttonDefaultTextHover;
+    /* Buttons - Primary */
+    --btn-pr-b: @buttonPrimaryBackground;
+    --btn-pr-b-h: @buttonPrimaryBackgroundHover;
+    --btn-pr-r: @buttonPrimaryBorder;
+    --btn-pr-r-h: @buttonPrimaryBorderHover;
+    --btn-pr-t: @buttonPrimaryText;
+    --btn-pr-t-h: @buttonPrimaryTextHover;
+    /* Buttons - Warning */
+    --btn-wa-b: @buttonWarningBackground;
+    --btn-wa-b-h: @buttonWarningBackgroundHover;
+    --btn-wa-r: @buttonWarningBorder;
+    --btn-wa-r-h: @buttonWarningBorderHover;
+    --btn-wa-t: @buttonWarningText;
+    --btn-wa-t-h: @buttonWarningTextHover;
+    /* Buttons - Info */
+    --btn-in-b: @buttonInfoBackground;
+    --btn-in-b-h: @buttonInfoBackgroundHover;
+    --btn-in-r: @buttonInfoBorder;
+    --btn-in-r-h: @buttonInfoBorderHover;
+    --btn-in-t: @buttonInfoText;
+    --btn-in-t-h: @buttonInfoTextHover;
+    /* Buttons - Danger */
+    --btn-da-b: @buttonDangerBackground;
+    --btn-da-b-h: @buttonDangerBackgroundHover;
+    --btn-da-r: @buttonDangerBorder;
+    --btn-da-r-h: @buttonDangerBorderHover;
+    --btn-da-t: @buttonDangerText;
+    --btn-da-t-h: @buttonDangerTextHover;
+    /* Buttons - Success */
+    --btn-su-b: @buttonSuccessBackground;
+    --btn-su-b-h: @buttonSuccessBackgroundHover;
+    --btn-su-r: @buttonSuccessBorder;
+    --btn-su-r-h: @buttonSuccessBorderHover;
+    --btn-su-t: @buttonSuccessText;
+    --btn-su-t-h: @buttonSuccessTextHover;
+    /* Produktbox */
+    --pbx-tt: @pdboxTitle;
+    --pbx-tt-h: @pdboxTitleHover;
+    --pbx-pr: @pdboxPrice;
+    --pbx-im-b: @pdboxImageBackground;
+    --pbx-im-r: @pdboxImageBorder;
+    --pbx-im-r-h: @pdboxImageBorderHover;
+    --pbx-ct-b: @pdboxCountdownBackground;
+    --pbx-ct-t: @pdboxCountdownText;
+    --pbx-h-b: @pdboxVariationHoverBackground;
+    /* Details > Hot Stock */
+    --det-hot-b: @alertHotstockBg;
+    --det-hot-t: @alertHotstockTxt;
+    --det-pna-b: @pdNavBackground;
+    --det-pna-i: @pdNavText;
+    /* Variations */
+    --var-sw-b: @swatchesBackground;
+    --var-sw-b-h: @swatchesBackgroundHover;
+    --var-sw-r: @swatchesBorder;
+    --var-sw-r-h: @swatchesBorderHover;
+    --var-sw-t: @swatchesText;
+    --var-sw-t-h: @swatchesTextHover;
+    /* Scrollbars */
+    --scb-tr: @scrollbarBackground;
+    --scb-tb: @scrollbarTrack;
+    /* Tags */
+    --tag-df-b: @tagDefaultBackground;
+    --tag-df-t: @tagDefaultText;
+    --tag-pr-b: @tagPrimaryBackground;
+    --tag-pr-t: @tagPrimaryText;
+    /* Badges */
+    --bad-b: @badgeBackground;
+    --bad-t: @badgeText;
+    /* Controls */
+    --con-b: @controlBackground;
+    --con-b-h: @controlBackgroundHover;
+    --con-r: @controlBorder;
+    --con-i: @controlText;
+    /* Progressbar */
+    --prg-b: @progressBackground;
+    --prg-b-h: @progressBackgroundHover;
+    /* Boxed Layout */
+    --bxl-b: @bgBoxed;  
+    --bxl-r: @boxedBorder;
+    /* Manufacturers */
+    --man-b: @manuBackground;
+    --man-r: @manuBorder;
+    /* Sidebar */
+    --sdb-b: @sidebarBackground;
+    /* Sliders */
+    --sl-ar-b: @sliderArrowBackground;
+    --sl-ar-b-h: @sliderArrowBackgroundHover;
+    --sl-ar-i: @sliderArrowIcon;
+    /* Tabellen */
+    --tbl-b: @tableBackground;
+    --tbl-b-2: @tableBackgroundSecond;
+    --tbl-r: @tableBorder;
+    --tbl-s: @tableStrongText;
+    --tbl-t: @tableText;
+    /* Consent Manager */
+    --csm-b: @consentModalBackground;
+    --csm-b-l: @consentModalBackgroundAccent;
+    --csm-r: @consentModalBorder;
+    --csm-t: @consentModalText;
+    --csm-tt: @consentModalStrong;
+    --csm-l: @consentModalLink;
+    --csm-l-h: @consentModalLinkHover;
+    --csm-btn-a-b: @consentAcceptBackground;
+    --csm-btn-a-b-h: @consentAcceptBackgroundHover;
+    --csm-btn-a-l: @consentAcceptLink;
+    --csm-btn-a-l-h: @consentAcceptLinkHover;
+    --csm-btn-a-r: @consentAcceptBorder;
+    --csm-btn-a-r-h: @consentAcceptBorderHover;
+    --csm-btn-d-b: @consentDismissBackground;
+    --csm-btn-d-b-h: @consentDismissBackgroundHover;
+    --csm-btn-d-l: @consentDismissLink;
+    --csm-btn-d-l-h: @consentDismissLinkHover;
+    --csm-btn-d-r: @consentDismissBorder;
+    --csm-btn-d-r-h: @consentDismissBorderHover;
+    --csm-sw-b: @consentSwitchBackground;
+    --csm-sw-b-h: @consentSwitchBackgroundActive;
+    /* Footer */
+    --foo-b: @footerBackground;
+    --foo-hr: @footerHR;
+    --foo-t: @footerText;
+    --foo-s: @footerStrong;
+    --foo-l: @footerLink;
+    --foo-l-h: @footerLinkHover;
+    --arw: var(--icon);
+    --cls-b: @closeBackground;
+    --cls-b-h: @closeBackgroundHover;
+    --cls-i: @closeIcon;
+    /* Widths */
+    --wdt-nws: @maxNewsWidthpx;
+    --wdt-pag: @maxPageWidthpx;
+    --wdt-tab: @maxTabsWidthpx;
 }
 *{
     -webkit-overflow-scrolling: touch;
@@ -20,46 +277,60 @@ body{
 	-moz-osx-font-smoothing: grayscale;
     font-size: 16px;
     margin: 0;
-    background: white;
-    color: @defaulttext;
+    background: var(--bod-b);
+    color: var(--bod-t);
     text-size-adjust: none;
     -webkit-text-size-adjust: none;
 }
 /* Helper-Classes */
 [class*="dpflex"],
+[class*="flx"],
 .d-flex{
 	display: flex;
 }
+.df-a-c,
 .dpflex-a-c,
 .dpflex-a-center,
-ai-c{
+.flx-ac{
 	align-items: center;
 }
 .dpflex-a-e,
-.dpflex-a-end{
+.dpflex-a-end,
+.flx-ae{
 	align-items: flex-end;
 }
 .dpflex-a-s,
-.dpflex-a-start{
+.dpflex-a-start,
+.flx-as{
 	align-items: flex-start;
 }
 .dpflex-j-e,
-.dpflex-j-end{
+.dpflex-j-end,
+.flx-je{
 	justify-content: flex-end;
 }
+.df-j-b,
 .dpflex-j-b,
-.dpflex-j-between{
+.dpflex-j-between,
+.flx-jb{
 	justify-content: space-between;
 }
+.df-j-c,
 .dpflex-j-c,
-.dpflex-j-center{
+.dpflex-j-center,
+.flx-jc{
 	justify-content: center;
 }
-.dpflex-wrap{
+.dpflex-wrap,
+.flx-w{
 	flex-wrap: wrap;
 }
-.dpflex-nowrap{
+.dpflex-nowrap,
+.flx-nw{
 	flex-wrap: nowrap;
+}
+.df-inl{
+	display: inline-flex;
 }
 .as-fs{
     align-self: flex-start;
@@ -89,7 +360,7 @@ video{
 .mw-container{
     padding-left: 100px;
     padding-right: 100px;
-    max-width: calc(@maxPageWidthpx + 200px);
+    max-width: calc(var(--wdt-pag) + 200px);
     margin-left: auto;
     margin-right: auto;
 }
@@ -97,7 +368,7 @@ video{
 	content: '\2713';
 	display: inline-block;
 	margin-right: .15rem;
-	color: @brand;
+	color: var(--brand);
 }
 .notextov{
 	overflow: hidden;
@@ -105,12 +376,6 @@ video{
 }
 .noblockov{
 	overflow: hidden;
-}
-a.defaultlink:not(.btn){
-	color: @defaulttext;
-}
-a.defaultlink:not(.btn):hover{
-	color: @brand;
 }
 .row-multi{
 	margin-top: -15px;
@@ -124,7 +389,7 @@ a.defaultlink:not(.btn):hover{
     order: 1;
 }
 .text-brand{
-	color: @brand;
+	color: var(--brand);
 }
 .text-lg{
 	font-size: 1.1rem;
@@ -140,51 +405,64 @@ a.defaultlink:not(.btn):hover{
     order: 1;
     min-width: 0;
 }
+.price{
+    color: var(--price);
+}
 /* Überschriften */
 h1, .h1{
     font-size: 2.5rem;
+    color: var(--h1-t);
 }
 h2, .h2{
     font-size: 2.2rem;
+    color: var(--h2-t);
 }
-h3, .h3, .mgm .category-title{
+h3, .h3{
     font-size: 1.85rem;
+    color: var(--h3-t);
 }
 h4, .h4, .nav-tabs a, #checkout .panel-title, legend, #order-details h3{
     font-size: 1.25rem;
 }
+h4, .h4{
+    font-size: 1.25rem;
+    color: var(--h4-t);
+}
 h5, .h5{
     font-size: 1.125rem;
+    color: var(--h5-t);
 }
 h6, .h6{
     font-size: 1rem;
+    color: var(--h6-t);
 }
-h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, .mgm .category-title{
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6{
     margin-top: 0;
     margin-bottom: 1rem;
     line-height: 1.1;
-    color: @darktext;
 	font-weight: bold;
     letter-spacing: -.2px;
 }
 strong, b, label, legend{
     font-weight: 600;
-    color: @darktext;
+    color: var(--bod-s);
 }
 a,
+a.defaultlink:not(.btn),
 a:not(.btn):visited{
-    color: @defaulttext;
+    color: var(--bod-l);
 }
 a:not(.btn):hover,
 a:not(.btn):focus,
-a:not(.btn):active{
-    color: @brand;
+a:not(.btn):active,
+a.defaultlink:not(.btn):hover{
+    color: var(--bod-l-h);
 }
 input, button, select, textarea{
 	@fontfamily;
     font-size: 1rem;
     line-height: 1rem;
-	color: @defaulttext;
+	color: var(--bod-t);
 }
 textarea{
     line-height: 1.3;
@@ -240,9 +518,8 @@ ul.list-inline > li:last-child{
     text-align: center;
     display: inline-block;
     border-radius: 1rem;
-    background: @brand;
-    @gradientbrand;
-    color: @backgroundtext;
+    background: var(--bad-b);
+    color: var(--bad-t);
 }
 .badge em{
     font-style: normal;
@@ -271,7 +548,7 @@ dd{
 }
 /* CSS Arrows */
 .ar{
-    border: solid #333;
+    border: solid var(--arw);
     border-width: 0 2px 2px 0;
     display: inline-block;
     padding: 3px;
@@ -309,26 +586,23 @@ video{
 }
 .ma{
     margin: auto;
-    }
-.mb-spacer, .mb-lg{
+}
+.mb-spacer,
+.mb-lg{
 	margin-bottom: 5rem;
 }
 .mb-md{
     margin-bottom: 3.5rem
 }
-.mb-spacer.mb-small, .mb-sm{
+.mb-small,
+.mb-sm{
 	margin-bottom: 2rem;
 }
-.mb-xs,
-.mb-spacer.mb-xs{
+.mb-xs{
 	margin-bottom: 1rem;
 }
 .mb-xxs{
     margin-bottom: .5rem;
-}
-.mb-spacer:empty,
-.mb-spacer:blank{
-	display: none;
 }
 .mt-xxs{
     margin-top: .5rem;
@@ -381,7 +655,7 @@ small,
 }
 .text-muted,
 .label-not-available{
-    color: @lighttext;;
+    color: var(--bod-t-l);
 }
 .disabled,
 .not-available{
@@ -391,7 +665,6 @@ small,
 .disabled{
 	pointer-events: none;
 }
-select,
 .fa-caret-down,
 .bootstrap-select>.btn.dropdown-toggle{
     cursor: pointer;
@@ -399,9 +672,6 @@ select,
     white-space: nowrap;
     text-overflow: ellipsis;
     background: transparent url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4Ni42IDQ1LjMyIj48cGF0aCBmaWxsPSIjMDEwMjAyIiBkPSJNNDMuMyA0NS4zMkw4Ni42IDBIMHoiLz48L3N2Zz4=')no-repeat right .95rem center/.5rem auto;
-}
-select{
-    background-color: white;
 }
 .fa-caret-down{
     display: inline-block;
@@ -415,11 +685,13 @@ caption{
     text-align: left;
     font-weight: 600;
 }
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px white inset;
-}
 input[type="search"]::-webkit-search-cancel-button{
-  -webkit-appearance:none;
+	-webkit-appearance: none;
+	height: 1.4rem;
+	width: 1.4rem;
+	background: var(--cls-b) url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNjEuMiA1MC41bDMyLjEgMzIuMWMzIDMgMyA3LjcgMCAxMC43LTMgMy03LjcgMy0xMC43IDBMNTAuNSA2MS4yIDE4LjQgOTMuM2MtMyAzLTcuNyAzLTEwLjcgMC0zLTMtMy03LjcgMC0xMC43bDMyLjEtMzIuMUw3LjcgMTguNGMtMy0zLTMtNy43IDAtMTAuN3M3LjctMyAxMC43IDBsMzIuMSAzMi4xTDgyLjYgNy43YzMtMyA3LjctMyAxMC43IDAgMyAzIDMgNy43IDAgMTAuN0w2MS4yIDUwLjV6IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==')no-repeat center center/34%;
+	border-radius: 50%;
+	cursor: pointer;
 }
 .input-group,
 .form-inline{
@@ -449,20 +721,21 @@ table{
     width: 100%;
     margin: 1.5rem 0;
     border-collapse: collapse;
-    border-spacing: 0
+    border-spacing: 0;
+    background: var(--tbl-b);
 }
 table thead,
 table th{
     text-align: left;
-    color: @darktext;
+    color: var(--tbl-s);
 }
 table th,
 table td{
     padding: .5rem .8rem;
-    border: 1px solid @defaultborder;
+    border: 1px solid var(--tbl-r);
 }
 table tr:nth-child(odd) td{
-    background: #f6f6f6
+    background: var(--tbl-b-2);
 }
 .table-responsive{
     overflow: auto;
@@ -499,8 +772,8 @@ body.show-sidebar #sp-l .overlay-bg{
 .rating .icon:not(:last-child){
     margin-right: .05rem;
 }
-.rating  svg{
-    fill: @warning;
+.rating .icon svg{
+    fill: var(--txt-wa);
 }
 .rating > small{
     margin-left: .2rem;
@@ -523,14 +796,14 @@ body.show-sidebar #sp-l .overlay-bg{
 .custom-content a:not(.btn),
 body[data-page="20"] #content a:not(.btn),
 body[data-page="21"] #content a:not(.btn),
-body[data-page="27"] #content a:not(.btn),
-body[data-page="31"] #content a:not(.btn){
-    color: @brand;
+body[data-page="27"] #content a:not(.btn){
+    color: var(--brand);
 }
 
 body #bodyloader{
     line-height: 2.315rem;
-    background: @info;
+    background: var(--info-b);
+    color: var(--info-t);
     position: fixed;
     top: 0;
     left: 0;
@@ -547,7 +820,7 @@ body.loading #bodyloader{
 	transform: translateY(0);
 }
 body #bodyloader strong{
-	color: white;
+	color: var(--info-t);
 }
 
 /* Freez Body on Sidepanel open */
@@ -639,18 +912,22 @@ body.show-sidebar #evo-nav-wrapper{
 /* Labels */
 .tag{
     padding: .15rem .4rem;
-    background: @brand;
-    color: #fff;
+    background: var(--tag-df-b);
+    color: var(--tag-df-t);
     border-radius: .3rem;
     font-size: .8rem;
     display: inline-block;
     vertical-align: middle;
     transition: box-shadow .2s ease;
 }
+a.tag{
+    background: var(--tag-pr-b);
+    color: var(--tag-pr-t);
+}
 a.tag:hover,
 a.tag:visited{
-    box-shadow: 0 0 0 .125rem @brand;  
-    color: white;
+    box-shadow: 0 0 0 .125rem var(--tag-pr-b);  
+    color: var(--tag-pr-t);
 }
 .tag + .tag{
     margin-left: .2rem;
@@ -735,16 +1012,16 @@ a.tag:visited{
     #news-overview .hide-overflow > .panel-title{
         display: flex;
     }
-	.mb-spacer, .mb-lg{
+	.mb-lg{
 		margin-bottom: 4rem;
 	}
     .mb-md{
         margin-bottom: 2.5rem;
     }
-    .mb-spacer.mb-small, .mb-sm{
+    .mb-sm{
         margin-bottom: 1.5rem;
     }
-    .mb-spacer.mb-xs, .mb-xs{
+    .mb-xs{
         margin-bottom: .85rem
     }
 	.mt-lg{
@@ -836,16 +1113,16 @@ a.tag:visited{
     .exp .input-group-btn .sn-addBasket .img-ct{
         margin: auto;
     }
-	.mb-spacer, .mb-lg{
+	.mb-lg{
 		margin-bottom: 3rem;
 	}
     .mb-md{
         margin-bottom: 2rem;
     }
-    .mb-spacer.mb-small, .mb-sm{
+    .mb-sm{
         margin-bottom: 1.2rem;
     }
-    .mb-spacer.mb-xs, .mb-xs{
+    .mb-xs{
         margin-bottom: .7rem
     }
 	.mt-lg{
@@ -860,8 +1137,8 @@ a.tag:visited{
     .mt-xs{
         margin-top: .7rem
     }
-	.panel-slider .right .ar{
-		border-color: white;
+	.panel-slider .right .btn-primary .ar{
+		border-color: var(--sl-ar-i);
 		position: relative;
 		left: -2px;
 	}
@@ -926,13 +1203,11 @@ a.tag:visited{
     .hidden-xxs{
         display: none;
     }
-    .c-it > .row > div:not(.pr) > .row:first-child > div{
-    }
 	.exp.flo-bt .sn-addBasket{
 		right: .5rem;
 		bottom: .5rem;
 	}
-	.mb-spacer{
+	.mb-lg{
 		margin-bottom: 2rem;
 	}
 	.p-w:hover .p-c.hv-e:after{
@@ -957,7 +1232,6 @@ a.tag:visited{
 /* No Scrollbar */
 .no-scrollbar{
 	scrollbar-width: none;
-    scrollbar-height: none;
 	-ms-overflow-style: none;	
 }
 .no-scrollbar::-webkit-scrollbar { 
@@ -994,7 +1268,8 @@ body .jtl_search_results{
 /* info */
 i.info{
     font-style: normal;
-    background: @lightfocusbg;
+    background: var(--tag-df-b);
+    color: var(--tag-df-t);
     display: inline-block;
     width: 1.2rem;
     height: 1.2rem;

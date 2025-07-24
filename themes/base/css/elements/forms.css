@@ -1,4 +1,3 @@
-
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -11,7 +10,7 @@ input.quantity,
 select,
 textarea{
     width: 100%;
-    border: 1px solid @defaultborder;
+    border: 1px solid var(--inp-r);
     padding: .75rem 1rem;
     display: block;
     transition: .3s ease;   
@@ -22,6 +21,8 @@ textarea{
     -o-appearance: none;
     appearance: none;
 	margin: 0;
+    color: var(--inp-t);
+    background-color: var(--inp-b);
 }
 select:focus,
 select:hover,
@@ -30,11 +31,9 @@ input:hover
 textarea:focus,
 textarea:hover{
     outline: none;
-    border: 1px solid @strongborder;
-}
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px #F1F8FF inset;
-    background: #F1F8FF;
+    color: var(--inp-t-h);
+    border: 1px solid var(--inp-r-h);
+    background-color: var(--inp-b-h);
 }
 textarea{
 	max-width: 100%;
@@ -55,7 +54,7 @@ textarea{
 .form-group.has-error input,
 .form-group.has-error select,
 .form-group.has-error textarea{
-    border-color: @danger;
+    border-color: var(--txt-da);
 }
 .form-group .form-error-msg{
     position: absolute;
@@ -63,17 +62,17 @@ textarea{
     top: 100%;
     transform: translateY(-50%);
     padding: 0 .3rem;
-    background: white;
+    background: var(--inp-b);
     margin: 0;
     font-size: .75rem;
-	color: @danger;
+	color: var(--txt-da);
 }
 .form-group.required label:after,
 dt span.required:after{
     content: '*';
     font-weight: 400;
     margin-left: .1rem;
-    color: @danger;
+    color: var(--txt-da);
 }
 fieldset{
     margin: 0;

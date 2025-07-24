@@ -44,7 +44,7 @@ figure {
 hr {
     margin: 20px 0;
     border: 0;
-    border-top: 1px solid @lightborder;
+    border-top: 1px solid var(--hr-li);
 }
 [role="button"] {
     cursor: pointer
@@ -313,8 +313,9 @@ hr {
     display: none;
     padding: .5rem 0;
     list-style: none;
-    background-color: white;
-    border: 1px solid white;
+    background-color: var(--dro-b);
+    border: 1px solid var(--dro-r);
+    color: var(--dro-t);
     border-radius: .3rem;
     box-shadow: 0 0.25rem 0.5625rem -0.0625rem rgba(0,0,0,0.03), 0 0.275rem 1.25rem -0.0625rem rgba(0,0,0,0.05);
     z-index: 11;
@@ -331,12 +332,14 @@ hr {
 .dropdown-menu > li > a {
     display: block;
     padding: .4rem 1.3rem;
-    color: @defaulttext;
     white-space: nowrap;
 }
-.dropdown-menu > li > a:hover, 
-.dropdown-menu > li > a:focus {
-    color: @brand;
+#snackys-tpl .dropdown-menu > li > a {
+    color: var(--dro-l);
+}
+#snackys-tpl .dropdown-menu > li > a:hover, 
+#snackys-tpl .dropdown-menu > li > a:focus {
+    color: var(--dro-l-h)
 }
 .open>.dropdown-menu {
     display: block
@@ -353,7 +356,7 @@ hr {
     padding: 3px 20px;
     font-size: 12px;
     line-height: 1.42857143;
-    color: #777;
+    color: var(--dro-t);
     white-space: nowrap
 }
 .dropdown-backdrop {
@@ -610,8 +613,16 @@ th.visible-lg, td.visible-lg {
 .panel{
     padding: 1rem;
     border-radius: .5rem;
-    background: #f6f6f6;
-    box-shadow: 0 0 0 0.3rem #f6f6f6;
+    background: var(--pan-b);
+    box-shadow: 0 0 0 0.3rem var(--pan-b);
+    border: 1px solid var(--pan-r);
+    color: var(--pan-t);
+}
+.panel a{
+    color: var(--pan-l);
+}
+.panel a:hover{
+    color: var(--pan-l-h);
 }
 .panel-heading{
     margin-bottom: .7rem;
@@ -621,14 +632,14 @@ th.visible-lg, td.visible-lg {
 }
 @media screen and (max-width: 991px){
     .panel{
-        box-shadow: 0 0 0 0.25rem #f6f6f6;
+        box-shadow: 0 0 0 0.25rem var(--pan-b);
         padding: 1rem .7rem;
     }
 }
 
 /* Cards */
 .card{
-    border: 1px solid @lightborder;
+    border: 1px solid var(--crd-r);
     border-radius: .5rem;
 }
 .card-header,
@@ -636,14 +647,14 @@ th.visible-lg, td.visible-lg {
     padding: 1rem 1.2rem;
 }
 .card-header{
-    background: #f6f6f6;
+    background: var(--crd-b);
     border-radius: .5rem .5rem 0 0;
 }
 .panel .item:not(:last-child),
 .card .item:not(:last-child){
     padding-bottom: .8rem;
     margin-bottom: .8rem;
-    border-bottom: 1px solid @lightborder;
+    border-bottom: 1px solid var(--crd-r);
 }
 .fa-caret-down:before{
     display: none;
@@ -654,8 +665,8 @@ th.visible-lg, td.visible-lg {
     z-index: 1060;
     max-width: 20rem;
     font-size: .875rem;
-    background-color: #fff;
-    border: 1px solid @defaultborder;
+    background-color: var(--bod-b);
+    border: 1px solid var(--hr);
     border-radius: .3rem;
     padding: 1rem;
     white-space: normal;

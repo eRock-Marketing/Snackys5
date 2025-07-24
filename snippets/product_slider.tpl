@@ -1,13 +1,13 @@
 {block name='snippets-product-slider'}
 {strip}
-{if $productlist|@count > 0}
+{if $productlist|count > 0}
     {if !isset($tplscope)}
         {assign var='tplscope' value='slider'}
     {/if}
-    <section class="panel-slider{if $title|strlen > 0} panel-default{/if}{if $tplscope === 'box'} box b-sl panel{/if}{if isset($class) && $class|strlen > 0} {$class}{/if}{if $nSeitenTyp === 18} mb-spacer{/if}"{if isset($id) && $id|strlen > 0} id="{$id}"{/if}>
+    <section class="panel-slider{if isset($title) && $title|strlen > 0} panel-default{/if}{if $tplscope === 'box'} box b-sl panel{/if}{if isset($class) && $class|strlen > 0} {$class}{/if}{if $nSeitenTyp === 18} mb-lg{/if}"{if isset($id) && $id|strlen > 0} id="{$id}"{/if}>
         <div class="panel-heading">
-            <div class="panel-title{if !isset($isBox)} dpflex-a-center dpflex-j-between mb-spacer mb-xs{/if}{if $tplscope == 'box'} h5 m0 dpflex-a-center dpflex-j-between{/if}">
-                {if $title|strlen > 0}   
+            <div class="panel-title{if !isset($isBox)} flx-ac flx-jb mb-xs{/if}{if $tplscope == 'box'} h5 m0 flx-ac flx-jb{/if}">
+                {if isset($title) && $title|strlen > 0}   
                     {if $tplscope !== 'box'}
                         <span class="{if !isset($isBox)}h2 m0 block{else}h5 block{/if}">{$title}</span>
                     {else}
@@ -41,10 +41,10 @@
                     {/if}
                 </div>
                 {else}
-                {if ($snackyConfig.filterOpen == 1 && $oBox->getPosition() == 'left') || ($oBox->getPosition() == 'bottom' && $snackyConfig.footerBoxesOpen === '0')}<span class="caret"></span>{/if}
+	                {if isset($oBox) && (($snackyConfig.filterOpen == 1 && $oBox->getPosition() == 'left') || ($oBox->getPosition() == 'bottom' && $snackyConfig.footerBoxesOpen === '0'))}<span class="caret"></span>{/if}
                 {/if}
             </div>
-            {if !empty($desc)}<div class="desc mb-spacer mb-xs">{$desc}</div>{/if}
+            {if !empty($desc)}<div class="desc mb-xs">{$desc}</div>{/if}
         </div>
         <div class="panel-body">
 			{if $isMobile || $tplscope === 'box'}
@@ -59,7 +59,7 @@
 				</div>
 			</div>
 			{/if}
-            <div class="row p-sl no-scrollbar dpflex-nowrap{if isset($isBox)} sidebar{/if}">
+            <div class="row p-sl no-scrollbar flx-nw{if isset($isBox)} sidebar{/if}">
                 {foreach name="sliderproducts" from=$productlist item='product'}
                     <div class="col-lg-2 p-w">
                         {include file='productlist/item_slider.tpl' Artikel=$product tplscope=$tplscope class=''}

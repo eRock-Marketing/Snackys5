@@ -6,17 +6,16 @@
     padding: 2rem;
     max-height: 100%;
     overflow: auto;
-    background: #f6f6f6;
+    background: var(--bod-b-l);
     max-width: 28rem;
     width: 100%;
 }
 .sc-sum .panel{
-    background: white;
     width: 100%;
 }
 .sc-item .small strong{
     font-weight: 500;
-    color: @lighttext;
+    color: var(--bod-t-l);
     display: inline-block;
     width: 30%;
 }

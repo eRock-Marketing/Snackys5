@@ -20,7 +20,7 @@ body.show-sidebar #content-wrapper{
     top: 0;
     bottom: 0;
     right: 0;
-    background: white;
+    background: var(--sdb-b);
     padding: 1.8rem 1.2rem;
     font-size: .9rem;
     overflow: auto;
@@ -65,7 +65,7 @@ body.show-sidebar #content-wrapper{
     margin-bottom: 1rem;
 }
 #sp-l .panel{
-    box-shadow: 0 0 0 0.25rem #f6f6f6;
+    box-shadow: 0 0 0 0.25rem var(--pan-b);
     padding: 1rem .7rem;
 }
 #filter-collapsible{

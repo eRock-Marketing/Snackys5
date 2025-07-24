@@ -1,4 +1,4 @@
-{if $id}
+{if $id && $nSeitenTyp != 15}
 	{if !isset($title)}{assign var="title" value=$id}{/if}
 	{assign var="snackys_id" value=$id|replace:"opc_":""}
 	{snackys_content id=$snackys_id title=$title}

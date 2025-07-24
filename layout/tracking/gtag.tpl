@@ -1,24 +1,29 @@
 {block name='layout-gtag-tracking'}
     <script type="text/javascript">
-        window.gtagDataLayer = window.gtagDataLayer || [];
+        window.dataLayer = window.dataLayer || [];
         function gtag(){
-            gtagDataLayer.push(arguments);
+            dataLayer.push(arguments);
         }
+        gtag('js', new Date());
 
-        {if $snackyConfig.gads_analytics_consentmode == 'Y'}
+        {if $Einstellungen.consentmanager.consent_manager_active === 'Y'}
             gtag('consent', 'default', {
-                'ad_storage': 'denied',
-                'analytics_storage': 'denied',
-                'wait_for_update': 1500
+                {if !empty($snackyConfig.google_ads|trim)}'ad_storage': 'denied',{/if}
+                {if !empty($snackyConfig.google_analytics_four|trim)}'analytics_storage': 'denied',{/if}
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'wait_for_update': 1000
             });
         {/if}
+	</script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id={if !empty($snackyConfig.google_analytics_four|trim)}{$snackyConfig.google_analytics_four|trim}{else}{$snackyConfig.google_ads|trim}{/if}"></script>
+    <script type="text/javascript">
 
-        gtag('js', new Date());
         {if !empty($snackyConfig.google_analytics_four|trim)}
             gtag( 'config', '{$snackyConfig.google_analytics_four|trim}');
             {if $nSeitenTyp == 33 && $Bestellung->Positionen|count > 0}
                 gtag('set', 'user_data', {
-                    'email': '{$Bestellung->oKunde->cMail}',
+                    'email': '{$Bestellung->oKunde->cMail}'
                 });
             {/if}
         {/if}
@@ -156,7 +161,7 @@
                     {if !empty($prodid->Artikel->cHersteller)}
                     item_brand: "{$prodid->Artikel->cHersteller|escape}",
                     {/if}
-                    price: {$prodid->Artikel->Preise->fVKNetto|number_format:2:".":""},
+                    price: {$prodid->fPreis|number_format:2:".":""},
                     quantity: {$prodid->nAnzahl}
                 }
                 {/if}
@@ -183,7 +188,7 @@
                     {if !empty($prodid->Artikel->cHersteller)}
                     item_brand: "{$prodid->Artikel->cHersteller|escape}",
                     {/if}
-                    price: {$prodid->Artikel->Preise->fVKNetto|number_format:2:".":""},
+                    price: {$prodid->fPreis|number_format:2:".":""},
                     quantity: {$prodid->nAnzahl}
                 }
                 {elseif $prodid->nPosTyp==3}

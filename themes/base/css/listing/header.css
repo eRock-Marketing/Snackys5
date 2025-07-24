@@ -3,10 +3,23 @@
 }
 .pl-heading{
     padding: 2rem 0 1px 0;
-    background: #f6f6f6;
+    background: var(--plh-b);
+    color: var(--plh-t);
 }
-.pl-heading .desc .img-ct{
-    border: 1px solid @lightborder;
+#plh h1{
+    color: var(--plh-h1);
+}
+#plh .desc .img-ct{
+    border: 1px solid var(--pbx-im-r);
+}
+#plh a{
+    color: var(--plh-l);
+}
+#plh a:hover{
+    color: var(--plh-l-h);
+}
+#plh hr{
+    border-color: var(--plh-t);
 }
 @media screen and (max-width: 991px){
     .pl-heading{

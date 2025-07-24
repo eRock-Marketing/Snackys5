@@ -4,6 +4,3 @@
 .reCaptchaModal{
 	display:none;
 }
-.modal-header{
-    background: @lightbg;
-}

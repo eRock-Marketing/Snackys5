@@ -12,7 +12,7 @@
 }
 .tab-ct > .panel-heading{
     padding: 1.6rem 0;
-    border-bottom: 1px solid @lightborder;
+    border-bottom: 1px solid var(--hr-li);
     margin: 0;
     cursor: pointer;
 }

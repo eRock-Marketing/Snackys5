@@ -73,7 +73,8 @@
 	}
 }
 #man-sl .img-ct{
-	border: 1px solid @lightborder;
+	border: 1px solid var(--man-r);
+	background: var(--man-b);
 }
 #man-sl img{
 	object-fit: contain;

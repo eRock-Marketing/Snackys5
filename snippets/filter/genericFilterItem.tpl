@@ -5,8 +5,8 @@
             {assign var=filterIsActive value=$filterOption->isActive() || $NaviFilter->getFilterValue($filter->getClassName()) === $filterOption->getValue()}
             {block name='snippets-filter-genericFilterItem-nav-main'}
             <li class="nav-it">
-                <a class="filter-item dpflex-a-center{if $filterIsActive === true} active{/if}{if isset($itemClass)} {$itemClass}{/if}" href="{if $filterOption->isActive()}{$filter->getUnsetFilterURL($filterOption->getValue())}{else}{$filterOption->getURL()}{/if}" rel="nofollow">
-                    <span class="name{if $filter->getNiceName() === 'Rating'} dpflex-wrap{/if}">
+                <a class="filter-item flx-ac{if $filterIsActive === true} active{/if}{if isset($itemClass)} {$itemClass}{/if}" href="{if $filterOption->isActive()}{$filter->getUnsetFilterURL($filterOption->getValue())}{else}{$filterOption->getURL()}{/if}" rel="nofollow" title="{$filterOption->getName()}">
+                    <span class="name{if $filter->getNiceName() === 'Rating'} flx-w{/if}">
                     {if $filter->getNiceName() === 'Rating'}
                         {block name='snippets-filter-genericFilterItem-include-rating-nav'}
                             {include file='productdetails/rating.tpl' stars=$filterOption->getValue()}

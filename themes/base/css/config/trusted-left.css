@@ -1,10 +1,1 @@
-#snackys-tpl body > [id|="trustbadge"],
-#snackys-tpl [id|="minimized-trustbadge"],
-#snackys-tpl [id|="maximized-trustbadge"]{
-    left: 20px !important; /*  Fallback bis Variable gesetzt ist */
-    left: @ts_os_spx !important;
-    right: auto !important;    
-}
-#snackys-tpl [id|="minimized-trustbadge"] > div:last-child > div{
-    right: auto !important;    
-}
+/* Removed in 5.2.5 */

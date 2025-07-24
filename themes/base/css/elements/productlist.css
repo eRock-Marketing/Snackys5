@@ -18,7 +18,7 @@
     max-width: 20rem;
 }
 .list .right{
-    border-left: 1px solid @lightborder;
+    border-left: 1px solid var(--hr-li);
     padding-top: .5rem;
     padding-left: 2rem;
     margin-left: 2rem;

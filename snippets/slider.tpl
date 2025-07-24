@@ -1,13 +1,13 @@
 {block name='snippets-slider'}
 {if isset($oSlider) && count($oSlider->getSlides()) > 0}
 	{include file="snippets/zonen.tpl" id="opc_before_slider"}
-    <div class="sl-w panel-slider t-{$oSlider->theme}">
+    <div class="sl-w panel-slider t-{$oSlider->getTheme()}">
 		{if isset($oSlider) && count($oSlider->getSlides()) > 1 && !$isMobile && $oSlider->getPauseTime()<=300}
 			<span class="sl-ar sl-pr btn inactive">
 				<span class="ar ar-l"></span>
 			</span>
 		{/if}
-        <div id="slider-{$oSlider->kSlider}" class="fw-sl no-scrollbar"{if $oSlider->getPauseTime()>300} data-autoplay="{$oSlider->getPauseTime()}"{/if}>
+        <div id="slider-{$oSlider->getID()}" class="fw-sl no-scrollbar"{if $oSlider->getPauseTime()>300} data-autoplay="{$oSlider->getPauseTime()}"{/if}>
             {foreach from=$oSlider->getSlides() item=oSlide}
                 {assign var="slideTitle" value=$oSlide->getTitle()}
                 {if !empty($oSlide->getText())}

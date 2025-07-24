@@ -3,6 +3,11 @@
 	z-index: 2;
 	font-weight: 600;
 	height: 2.32rem;
+	background-color: var(--ben-b);
+	color: var(--ben-t);
+}
+#h-us .css-check::before{
+	color: var(--ben-i);
 }
 #h-us .row{
 	padding-top: 0.6rem;
@@ -13,17 +18,4 @@
 }
 #h-us span:last-child{
 	padding-right: 0;
-}
-/* Default */
-#h-us:not(.th-l){
-	background: @lightbg;
-}
-/* Light */
-#h-us.th-l{
-	border-bottom: 1px solid @lightborder;
-}
-/* Dark */
-#h-us.th-d{
-	background: @blackbg;
-	color: white;
 }

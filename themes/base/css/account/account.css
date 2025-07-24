@@ -3,10 +3,10 @@
     margin: auto;
 }
 .item .icon.active svg{
-    fill: @success;
+    fill: var(--btn-su-b);
 }
 .item .icon.inactive svg{
-    fill: @danger;
+    fill: var(--btn-da-b);
 }
 @media screen and (min-width: 992px){
     .al-wp > .panel{
@@ -31,4 +31,10 @@
         order: 1;
         margin-top: 2rem;
     }
+}
+@media screen and (max-width: 549px){
+	.sa-card .btn{
+		padding-left: .6rem;
+		padding-right: .6rem;
+	}
 }

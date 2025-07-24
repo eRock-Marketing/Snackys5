@@ -5,7 +5,7 @@
         <section class="box box-wishlist box-normal panel small" id="sidebox{$oBox->getID()}">
             {block name='boxes-box-wishlist-content'}
                 {block name='boxes-box-wishlist-title'}
-                    <div class="h5 panel-heading dpflex-a-center">
+                    <div class="h5 panel-heading flx-ac">
                         {lang key='wishlist'}
                         {if ($snackyConfig.filterOpen == 1 && $oBox->getPosition() == 'left') || ($oBox->getPosition() == 'bottom' && $snackyConfig.footerBoxesOpen === '0')}<span class="caret"></span>{/if}
                     </div>
@@ -17,13 +17,13 @@
                         <ul class="nav">
                             {foreach $oBox->getItems() as $wishlistItem}
                                 {if $wishlistItem@iteration > $maxItems}{break}{/if}
-                            <li class="dpflex-a-center nav-it" data-id={$wishlistItem->kArtikel}>
+                            <li class="flx-ac nav-it" data-id={$wishlistItem->getProductID()}>
                                 {block name='boxes-box-wishlist-dropdown-products-image-title'}
                                         {if $oBox->getShowImages()}
                                             {block name='boxes-box-wishlist-dropdown-products-image'}
-                                            <a href="{$wishlistItem->Artikel->cURLFull}" title="{$wishlistItem->cArtikelName|escape:'quotes'}" class="img-ct icon ic-lg icon-wt">
+                                            <a href="{$wishlistItem->Artikel->cURLFull}" title="{$wishlistItem->getProductName()|escape:'quotes'}" class="img-ct icon ic-lg icon-wt">
                                                     {include file='snippets/image.tpl'
-                                                        item=$wishlistItem->Artikel
+                                                        item=$wishlistItem->getProduct()
                                                         square=false
                                                         srcSize='xs'
                                                         sizes='24px'}
@@ -31,18 +31,19 @@
                                             {/block}
                                         {/if}
                                         {block name='boxes-box-wishlist-dropdown-products-title'}
-                                            {link href=$wishlistItem->Artikel->cURLFull title=$wishlistItem->cArtikelName|escape:'quotes' class=defaultlink}
-                                                {$wishlistItem->fAnzahl|replace_delim}&times; {$wishlistItem->cArtikelName|truncate:40:'...'}
+                                            {link href=$wishlistItem->getProduct()->cURLFull title=$wishlistItem->getProductName()|escape:'quotes' class=defaultlink}
+                                                {$wishlistItem->getQty()|replace_delim} &times; {$wishlistItem->getProductName()|truncate:40:'...'}
                                             {/link}
                                         {/block}
                                 {/block}
                                 {block name='snippets-wishlist-dropdown-products-remove'}
                                     {link class="remove"
-                                        href=$wishlistItem->cURL
+                                        href=$wishlistItem->getURL()
                                         data=["name"=>"Wunschliste.remove",
                                         "toggle"=>"product-actions",
-                                        "value"=>['a'=>$wishlistItem->kWunschlistePos]|json_encode|escape:'html'
+                                        "value"=>json_encode(['a'=>$wishlistItem->getID()])|escape:'html'
                                         ]
+                                        title="{lang section='login' key='wishlistremoveItem'}"
                                         aria=["label"=>"{lang section='login' key='wishlistremoveItem'}"]}
                                         <span class="img-ct icon">
                                             <svg class="{if $darkHead == 'true' || $darkMode == 'true'}icon-darkmode{/if}">

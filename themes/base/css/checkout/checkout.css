@@ -18,17 +18,17 @@ body:not(.no-pd){
 }
 /* Steps */
 .c-stp {
-    border-top: 1px solid @lightborder;
+    border-top: 1px solid var(--hr-li);
 }
 .c-stps.last .c-stp:last-child{
-    border-bottom: 1px solid @lightborder;
+    border-bottom: 1px solid var(--hr-li);
 }
-.c-stp > .dpflex-a-c{
+.c-stp > .flx-ac{
     transition: opacity .2s ease;
     opacity: .4;
     padding: 1.25rem 0;
 }
-.c-stp.active > .dpflex-a-c,
+.c-stp.active > .flx-ac,
 .c-stp a:hover{
     opacity: 1;
 }
@@ -38,16 +38,26 @@ body:not(.no-pd){
 /* Anmelden/gast/reg */
 #choose-way .step-box{
 	font-weight: 600; 
-	border: 1px solid @defaultborder;
+	border: 1px solid var(--inp-r);
+    color: var(--inp-t);
+    background: var(--inp-b);
 	padding: 1.3rem 1rem;
 	transition: .3s ease;
 	cursor: pointer;
 	flex-grow: 1;
 	order: 1;
 }
+#choose-way .step-box svg{
+    fill: var(--inp-t);
+}
 #choose-way .step-box:hover,
 #choose-way .step-box.active{
-    background: @defaultborder;
+    background: var(--inp-b-h);
+    color: var(--inp-t-h);
+}
+#choose-way .step-box:hover svg,
+#choose-way .step-box.active svg{
+    fill: var(--inp-t-h);
 }
 #choose-way .step-box.first{
 	right: -1px;
@@ -73,9 +83,10 @@ label[data-target="#create_account_data"]{
 .payship-option,
 .payship-option.col-12,
 #fieldset-payment #zahlung .list-group-item,
-.ppc-checkout-payment-method{
+.checkout-payment-method{
     padding: 1rem 0;
-    border-top: 1px solid @lightborder;
+    border-top: 1px solid var(--hr-li);
+	border-bottom: 0 !important;
 }
 #fieldset-payment #zahlung .list-group-item:first-child{
     border-top: 0;
@@ -86,7 +97,8 @@ label[data-target="#create_account_data"]{
     cursor: pointer;
 }
 .payship-option .stc-input,
-#fieldset-payment #zahlung .list-group-item input[type="radio"]{
+#fieldset-payment #zahlung .list-group-item input[type="radio"],
+.checkout-payment-method label:before{
 	min-width: 16px;
     height: 16px;
 	margin-right: 1rem;
@@ -100,21 +112,39 @@ label[data-target="#create_account_data"]{
 	min-width: 3rem;
 }
 .payship-option .badge,
-#fieldset-payment #zahlung .badge{
+#fieldset-payment #zahlung .badge,
+.checkout-payment-method-badge{
 	padding: .05rem .4rem;
-	background: #999;
+	background: var(--tag-df-b);
 	border-radius: .3rem;
-	color: white;
+	color: var(--tag-df-t);
 	margin-left: 0.2rem;
 	font-size: 80%;
 	position: relative;
 	top: -.1rem;
 }
+.checkout-payment-method-note{
+    display: block;
+    font-weight: 400;
+}
 .form-group > div:last-child > div{
-    border-bottom: 1px solid @lightborder;
+    border-bottom: 1px solid var(--hr-li);
 }
 #fieldset-payment .card{
     margin: 1rem 0;
+}
+.checkout-payment-method .custom-control-label{
+	margin: 0;
+	cursor: pointer;
+	position: relative;
+	padding-left: calc(1rem + 16px);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+.checkout-payment-method .custom-control-label img{
+	max-width: 6rem;
+	margin-right: .8rem;
 }
 /* Amazon Pay */
 #checkout .lpa-alternate-checkout-snippet{
@@ -123,7 +153,7 @@ label[data-target="#create_account_data"]{
 	margin-bottom: 1rem;
 }
 #checkout .lpa-alternate-checkout-snippet .panel-body{
-	border-top: 1px solid @lightborder;
+	border-top: 1px solid var(--hr-li);
 	padding: 1rem 0;
 	padding-left: calc(14px + 1rem);
 	position: relative;
@@ -168,7 +198,7 @@ label[data-target="#create_account_data"]{
 	width: 3rem;
 }
 #fieldset-payment #zahlung .text-muted{
-	color: @defaulttext; 
+	color: var(--bod-t); 
 }
 #fieldset-payment #zahlung .badge{
 	font-weight: 600;
@@ -185,9 +215,12 @@ label[data-target="#create_account_data"]{
 	margin: 0;
 }
 /* Styled Controls */
+label.stc-radio{
+    cursor: pointer;
+}
 .stc-radio input[type="radio"],
 .stc-checkbox input[type="checkbox"],
-.ppc-checkout-payment-method input[type="radio"]{
+.checkout-payment-method input[type="radio"]{
 	opacity: 0;
 	width: 0;
 	height: 0;
@@ -196,32 +229,41 @@ label[data-target="#create_account_data"]{
 .stc-radio .stc-radio-btn,
 .stc-checkbox .stc-checkbox-btn,
 #checkout .lpa-alternate-checkout-snippet .panel-body:before,
-.ppc-checkout-payment-method label.d-flex:before{
+.checkout-payment-method .custom-control > label:before{
+	content: '';
 	width: 16px;
 	height: 16px;
 	display: inline-block;
 	position: relative;
-	background: white;
-	border: 1px solid #ddd;
+	background: var(--con-b);
+	border: 1px solid var(--con-r);
 	border-radius: 50%;
+	box-sizing: border-box;
+}
+.checkout-payment-method .custom-control > label:before{
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
 }
 .stc-checkbox .stc-checkbox-btn{
 	border-radius: 3px;
 }
 .stc-radio input:checked + .stc-radio-btn,
 #checkout .lpa-alternate-checkout-snippet .panel-body:hover:before,
-.ppc-checkout-payment-method input:checked + label.d-flex:before{
-	border: 5px solid @brand;
+.checkout-payment-method input:checked + label:before{
+	border: 5px solid var(--con-b-h);
+    background: var(--con-i);
 }
 .stc-checkbox input:checked + .stc-checkbox-btn{
 	border-color: transparent;
-	background: @brand;
+	background: var(--con-b-h);
 }
 .stc-checkbox input:checked + .stc-checkbox-btn:before{
     content: '';
     width: 4px;
     height: 9px;
-    border: solid #f6f6f6;
+    border: solid var(--con-i);
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
     left: 4px;
@@ -248,7 +290,7 @@ label[data-target="#create_account_data"]{
     padding: 0;
 }
 .card-primary{
-    border: 2px solid @brand;
+    border: 2px solid var(--btn-pr-r);
 }
 /* Gutscheine im Checkout */
 #jtl_vouchers{
@@ -256,11 +298,11 @@ label[data-target="#create_account_data"]{
   padding: 0;
 }
 #jtl_vouchers .card-header{
-    background: white;
-    border-bottom: 1px solid @lightborder;
+    background: var(--bod-b);
+    border-bottom: 1px solid var(--hr-li);
 }
 #jtl_vouchers .card{
-  background: white;
+  background: var(--bod-b);
 }
 #jtl_vouchers .card-header .h3{
   font-size: 1rem; 
@@ -303,16 +345,7 @@ label[data-target="#create_account_data"]{
     margin: 1rem 0 0 0; 
 }
 /* PayPal Checkout */
-.ppc-checkout-payment-method label.d-flex{
-    display: flex;
-}
-.ppc-checkout-payment-method label.d-flex:before{
-    content: '';
-    box-sizing: border-box;
-    min-width: 16px;
-    margin-right: 1rem;
-}
-.ppc-option-img{
+.ppc-option-img .paypal-marks{
     width: auto !important;
 }
 .paypal-buttons-label-buynow{
@@ -326,7 +359,7 @@ label[data-target="#create_account_data"]{
     font-weight: 400;
 }
 #wunschpaket_options{
-    border-top: 1px solid @lightborder;
+    border-top: 1px solid var(--hr-li);
     margin: .5rem 0;
     padding: 1.2rem 0;
 }
@@ -365,7 +398,7 @@ label[data-target="#create_account_data"]{
 }
 #select_shipping_address ul label{
     padding: .8rem 0;
-    border-bottom: 1px solid @lightbg;
+    border-bottom: 1px solid var(--hr);
     cursor: pointer;
 }
 #select_shipping_address .storelocator{
@@ -373,6 +406,54 @@ label[data-target="#create_account_data"]{
 }
 #select_shipping_address[aria-expanded="true"]{
     display: block;
+}
+/* PayPal Credit Card */
+#acdc_card .card_field{
+	border: 1px solid var(--inp-r);
+	padding: .7em 1.2rem;
+	margin-bottom: .3rem;
+	border-radius: .3rem;
+}
+#acdc_card .card_field iframe{
+	height: 1.2rem !important;
+}
+#acdc_card .form-row{
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -15px;
+}
+#card-holder-name{
+	margin-bottom: .3rem;
+}
+/* Lieferadresse */
+.sa-card .stc-input{
+    margin-right: .75rem;
+}
+/* SEPA */
+#payment_debit .flex-column-reverse{
+	flex-direction: column-reverse;
+}
+#payment_debit .col-form-label{
+	padding: 0;
+}
+/* Mollie Creditcard */
+#mollie-components{
+	margin-bottom: 1.5rem;
+}
+#mollie-components .mollie-component{
+	border: 1px solid var(--inp-r);
+	padding: .6rem 1.2rem;
+}
+#mollie-components .form-group .col-sm-10{
+	width: 100%;
+	padding: 0;
+}
+#order-additional-payment .skip-mollie-components{
+	margin: 0 0 1.5rem 0 !important;
+	justify-content: space-between;
+}
+#order-additional-payment .skip-mollie-components > .col{
+	padding: 0;
 }
 @media screen and (max-width: 1600px){
     body:not(.no-pd){
@@ -493,4 +574,11 @@ label[data-target="#create_account_data"]{
     #shipping-address{
         width: 100%;
     }
+	.sa-card .btn{
+		padding-left: .6rem;
+		padding-right: .6rem;
+	}
+	#acdc_card .form-row{
+		margin: 0 -8px;
+	}
 }
