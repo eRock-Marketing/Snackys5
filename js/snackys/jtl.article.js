@@ -143,6 +143,8 @@
 						if(min && min > inputVal) inputVal = min;
 						$(quantity)[0].value =  inputVal;
 					}
+					// Trigger change event to update bulk prices
+					$(quantity).trigger('change');
 					e.preventDefault();
 				}
 			});
@@ -163,6 +165,8 @@
 						if(max && max < inputVal) inputVal = max;
 						$(quantity)[0].value =  inputVal;
 					}
+					// Trigger change event to update bulk prices
+					$(quantity).trigger('change');
 					e.preventDefault();
 				}
 			});

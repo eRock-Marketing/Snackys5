@@ -47,6 +47,7 @@
 										{assign var="imgBig" value=$image->cURLGross}
 									{/if}
                 					<a href="#" data-href="{$imgBig}"{if $smarty.foreach.gallery.first} class="active"{/if}{if !$isMobile} tabindex="-1"{/if}>
+										{include file="snippets/zonen.tpl" id="gallery_{$smarty.foreach.gallery.iteration}"}
                     					<div class="img-ct" data-src="{$imgBig}">
 											{assign var="isLazy" value=true}
 											{if $smarty.foreach.gallery.first && $snackyConfig.nolazyloadProductdetails == 'Y'}

@@ -90,21 +90,34 @@
 			var self = this,
 				container, image, i, item;
 				
-            this.ident = scope || this.ident;
+			// Preserve non-image children (e.g., videos/iframes from zone includes) before rebuild
+			var extras = [];
+			$(this.element).find('.inner>a').each(function (idx, a) {
+				var extraChildren = $(a).children(':not(.img-ct):not(.zoomImg)').clone(true, true);
+				extras[idx] = extraChildren;
+			});
+			
+			this.ident = scope || this.ident;
 			console.log(self.getStack());
 			
 			//Show different imagestack!			
-            $(this.element).empty();
+			$(this.element).empty();
 			container = $('<div />').addClass('inner');
-            for (i = 0; i < self.getStack().length; i++) {
-                item = self.getStack()[i];
+			for (i = 0; i < self.getStack().length; i++) {
+				item = self.getStack()[i];
 				image = $('<a />').attr('href',item.lg.src);
 				if(i==0) image.addClass('active');
 				image.append(
 					$('<div />').addClass("img-ct").append(
 						$('<img />').attr('src', (big) ? item.lg.src : item.md.src).attr('alt', item.md.alt).attr('data-big',item.lg.src)
 					)
-                );
+				);
+				// Re-attach preserved custom children for this slide
+				if (extras[i] && extras[i].length) {
+					extras[i].each(function () {
+						image.append($(this));
+					});
+				}
 				container.append(image)
 			}
 			
@@ -147,6 +160,16 @@
 				}
 				
 			}
+
+            var $gallery = $('#gallery');
+            var $videoAnchors = $gallery.find('a').filter(function () {
+                return $(this).find('.gal-video').length > 0;
+            });            
+            $videoAnchors.each(function () {
+                var $a = $(this);
+                $a.addClass('has-video');
+            }); 
+
 			 $(document).trigger('evo:galleryClass.render', this);
 			
 			self.adjust();
@@ -205,7 +228,7 @@
 							touch: false
 						});
 					});
-				$('#gallery a').on('click',function(e){e.preventDefault(); e.stopPropagation(); self.lightbox(self.index)});
+				$('#gallery a:not(.has-video)').on('click',function(e){e.preventDefault(); e.stopPropagation(); self.lightbox(self.index)});
 			}
 			else
 			{
@@ -223,6 +246,7 @@
 			
 			
 			$('#close-lightbox').on('click',function(){$('body').removeClass('lightbox-shown');});
+            $('#gallery a.has-video').on('click',function(e){e.preventDefault(); e.stopPropagation();});
 			
         },
         

@@ -28,6 +28,10 @@
     display: block; 
     cursor: zoom-in;
     border-radius: var(--img-rnd);
+    position: relative;
+}
+#gallery a.has-video{
+    cursor: auto;
 }
 #gallery a:not(.active){
     display: none;
@@ -61,6 +65,27 @@
 }
 #gallery.no-lb a{
     pointer-events: none;
+}
+.gal-video{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: black;
+}
+.has-video .img-ct{
+    opacity: 0;
+    pointer-events: none;
+}
+.has-video{
+    pointer-events: none;
+}
+.has-video button,
+.has-video video,
+.has-video iframe{
+    pointer-events: auto;
 }
 @media screen and (max-width: 991px){
     body:not(.lightbox-shown) #gallery-thumbs{
