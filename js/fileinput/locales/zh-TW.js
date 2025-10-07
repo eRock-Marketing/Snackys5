@@ -9,10 +9,21 @@
  *
  * NOTE: this file must be saved in UTF-8 encoding.
  */
-(function ($) {
+(function (factory) {
+    'use strict';
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && typeof module.exports === 'object') {
+        factory(require('jquery'));
+    } else {
+        factory(window.jQuery);
+    }
+}(function ($) {
     "use strict";
 
     $.fn.fileinputLocales['zh-TW'] = {
+        sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], 
+        bitRateUnits: ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
         fileSingle: '單一檔案',
         filePlural: '複選檔案',
         browseLabel: '瀏覽 &hellip;',
@@ -20,19 +31,24 @@
         removeTitle: '清除選取檔案',
         cancelLabel: '取消',
         cancelTitle: '取消上傳中檔案',
+        pauseLabel: 'Pause',
+        pauseTitle: 'Pause ongoing upload',
         uploadLabel: '上傳',
         uploadTitle: '上傳選取檔案',
         msgNo: '沒有',
         msgNoFilesSelected: '未選擇檔案',
+        msgPaused: 'Paused',
         msgCancelled: '取消',
         zoomTitle: '詳細資料',
-        msgPlaceholder: '選擇 {files}...',
+        msgPlaceholder: '選擇 {files} ...',
         msgZoomModalHeading: '內容預覽',
         msgFileRequired: '必須選擇壹個文件上傳.',
-        msgSizeTooSmall: '檔案 "{name}" (<b>{size} KB</b>) 必須大於限定大小 <b>{minSize} KB</b>.',
-        msgSizeTooLarge: '檔案 "{name}" (<b>{size} KB</b>) 大小超過上限 <b>{maxSize} KB</b>.',
+        msgSizeTooSmall: '檔案 "{name}" (<b>{size}</b>) 必須大於限定大小 <b>{minSize}</b>.',
+        msgSizeTooLarge: '檔案 "{name}" (<b>{size}</b>) 大小超過上限 <b>{maxSize}</b>.',
+        msgMultipleSizeTooLarge: '檔案 "{name}" (<b>{size}</b>) 大小超過上限 <b>{maxSize}</b>.',
         msgFilesTooLess: '最少必須選擇 <b>{n}</b> {files} 來上傳. ',
         msgFilesTooMany: '上傳的檔案數量 <b>({n})</b> 超過最大檔案上傳限制 <b>{m}</b>.',
+        msgTotalFilesTooMany: 'You can upload a maximum of <b>{m}</b> files (<b>{n}</b> files detected).',
         msgFileNotFound: '檔案 "{name}" 未發現!',
         msgFileSecured: '安全限制，禁止讀取檔案 "{name}".',
         msgFileNotReadable: '文件 "{name}" 不可讀取.',
@@ -52,15 +68,19 @@
             'object': 'object'
         },
         msgUploadAborted: '該文件上傳被中止',
-        msgUploadThreshold: '處理中...',
-        msgUploadBegin: '正在初始化...',
+        msgUploadThreshold: '處理中 &hellip;',
+        msgUploadBegin: '正在初始化 &hellip;',
         msgUploadEnd: '完成',
+        msgUploadResume: 'Resuming upload &hellip;',
         msgUploadEmpty: '無效的文件上傳.',
-        msgUploadError: '上傳錯誤',
+        msgUploadError: 'Upload Error',
+        msgDeleteError: 'Delete Error',
+        msgProgressError: '上傳錯誤',
         msgValidationError: '驗證錯誤',
         msgLoading: '載入第 {index} 個檔案，共 {files} &hellip;',
         msgProgress: '載入第 {index} 個檔案，共 {files} - {name} - {percent}% 成功.',
         msgSelected: '{n} {files} 選取',
+        msgProcessing: 'Processing ...',
         msgFoldersNotAllowed: '只支援單檔拖曳! 無法使用 {n} 拖拽的資料夹.',
         msgImageWidthSmall: '圖檔寬度"{name}"必須至少為{size}像素(px).',
         msgImageHeightSmall: '圖檔高度"{name}"必須至少為{size}像素(px).',
@@ -70,6 +90,10 @@
         msgImageResizeException: '錯誤而調整圖像大小。<pre>{errors}</pre>',
         msgAjaxError: '{operation} 發生錯誤. 請重試!',
         msgAjaxProgressError: '{operation} 失敗',
+        msgDuplicateFile: 'File "{name}" of same size "{size}" has already been selected earlier. Skipping duplicate selection.',
+        msgResumableUploadRetriesExceeded:  'Upload aborted beyond <b>{max}</b> retries for file <b>{file}</b>! Error Details: <pre>{error}</pre>',
+        msgPendingTime: '{time} remaining',
+        msgCalculatingTime: 'calculating time remaining',
         ajaxOperations: {
             deleteThumb: 'file delete',
             uploadThumb: 'file upload',
@@ -83,20 +107,23 @@
             uploadTitle: '上傳檔案',
             uploadRetryTitle: '重試',
             downloadTitle: '下載檔案',
+            rotateTitle: 'Rotate 90 deg. clockwise',
             zoomTitle: '詳細資料',
             dragTitle: '移動 / 重置',
             indicatorNewTitle: '尚未上傳',
             indicatorSuccessTitle: '上傳成功',
             indicatorErrorTitle: '上傳失敗',
-            indicatorLoadingTitle: '上傳中 ...'
+            indicatorPausedTitle: 'Upload Paused',
+            indicatorLoadingTitle:  '上傳中 &hellip;'
         },
         previewZoomButtonTitles: {
             prev: '預覽上壹個文件',
             next: '預覽下壹個文件',
+            rotate: 'Rotate 90 deg. clockwise',
             toggleheader: '縮放',
             fullscreen: '全屏',
             borderless: '無邊界模式',
             close: '關閉當前預覽'
         }
     };
-})(window.jQuery);
+}));

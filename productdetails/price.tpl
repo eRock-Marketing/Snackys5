@@ -120,7 +120,7 @@
 								{block name='price-listingpage-baseprice'}
 									{if !empty($Artikel->cLocalizedVPE)}
 										{block name='productdetails-price-list-base-price'}
-											<div class="base_price">
+											<div class="base-price">
 												<span class="value">{$Artikel->cLocalizedVPE[$NettoPreise]}</span>
 											</div>
 										{/block}

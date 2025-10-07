@@ -1,11 +1,14 @@
 <style>
     div.qrcode {
-        margin: 5px
+        margin: 5px;
+        display: inline-block;
+        border: 5px solid white;
     }
     div.qrcode > p {
         margin: 0;
         padding: 0;
         height: 5px;
+        display: flex;
     }
     div.qrcode > p > b,
     div.qrcode > p > i {

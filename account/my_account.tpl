@@ -92,7 +92,7 @@
 							{* Removed in 5.4.4 due to redundant link *}
 						{/block}
 						{block name="my-personal-data-shippingaddresses"}
-							<a href="{$cCanonicalURL}?editLieferadresse=1" class="flx-ac item">
+							<a href="{$cCanonicalURL}?editLieferadresse=1" class="flx-ac item" aria-label="{lang key='shippingAdress' section='account data'}">
 								<span class="w100">
 									<strong class="block">{lang key="myShippingAddresses"}</strong>
 								</span>

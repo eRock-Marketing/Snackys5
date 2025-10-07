@@ -63,7 +63,7 @@
 					{if !empty($oUploadSchema_arr)}
 						{getUploaderLang iso=$smarty.session.currentLanguage->cISO639|default:'' assign='uploaderLang'}
 						<script defer src="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}js/fileinput/fileinput.min.js"></script>
-						<script defer src="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}js/fileinput/themes/fas/theme.min.js"></script>
+						<script defer src="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}js/fileinput/themes/fa5/theme.min.js"></script>
 						<script defer src="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}js/fileinput/locales/{$uploaderLang}.js"></script>
 					{/if}
 					{foreach $opcPageService->getCurPage()->getJsList() as $jsFile => $jsTrue}

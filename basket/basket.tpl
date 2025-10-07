@@ -1,6 +1,6 @@
 {block name='snackys-basket'}
 	{block name='order-items-presets'}
-		<input type="submit" name="fake" class="hidden" aria-hidden="true" tabindex="-1">
+		<input type="submit" name="fake" class="hidden" aria-hidden="true" tabindex="-1" value="fake submit">
 		{if !isset($tplscope)}
 			{assign var=tplscope value=""}
 		{/if}

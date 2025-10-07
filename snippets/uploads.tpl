@@ -51,7 +51,13 @@
                                                 showPreview:           true,
                                                 showUpload:            false,
                                                 showRemove:            false,
+                                                tabIndexConfig: {
+                                                    browse: 0,
+                                                    remove: 0,
+                                                    upload: 0
+                                                },
                                                 browseClass:           'btn btn-light',
+                                                removeClass:           'btn',
                                                 fileActionSettings:    {
                                                     showZoom: false,
                                                     showRemove: false
@@ -62,10 +68,10 @@
                                                 browseOnZoneClick:     true,
                                                 uploadExtraData:       {
                                                     sid:        "{$cSessionID}",
+                                                    uploader:   "4.00",
                                                     kUploadSchema:"{$oUploadSchema->kUploadSchema}",
                                                     jtl_token:  "{$smarty.session.jtl_token}",
                                                     uniquename: "{$oUploadSchema->cUnique}",
-                                                    uploader:   "4.00",
                                                     prodID:     "{$oUploadSchema->prodID}",
                                                     cname:      "{$Artikel->cName|replace:" ":"_"}_{$oUploadSchema->cName|replace:" ":"_"}"
                                                     {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)},
@@ -220,6 +226,11 @@
                                                             showPreview:           false,
                                                             showUpload:            false,
                                                             showRemove:            false,
+                                                            tabIndexConfig: {
+                                                                browse: 0,
+                                                                remove: 0,
+                                                                upload: 0
+                                                            },
                                                             required:              true,
                                                             browseClass:           'btn btn-light',
                                                             fileActionSettings:    {

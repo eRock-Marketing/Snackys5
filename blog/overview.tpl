@@ -1,12 +1,20 @@
 {block name='blog-overview'}
 	{block name='blog-overview-headline'}
 		{include file="snippets/zonen.tpl" id="opc_before_heading"}
-		<h1>{lang key='news' section='news'}</h1>
+		<h1>{if !empty($Link->getTitle())}{$Link->getTitle()}{else}{lang key='news' section='news'}{/if}</h1>
 		{include file="snippets/zonen.tpl" id="opc_after_heading"}
 	{/block}
 	{block name='blog-overview-extension'}
 		{include file='snippets/extension.tpl'}
 	{/block}
+    {block name='blog-overview-link-content'}
+        {if !empty($Link->getContent())}
+			{include file="snippets/zonen.tpl" id="opc_before_content"}
+            {container fluid=$Link->getIsFluid() class="link-content"}
+                {$Link->getContent()}
+            {/container}
+        {/if}
+    {/block}
 	{block name='blog-overview-filter'}
 		{include file="snippets/zonen.tpl" id="opc_before_filter"}
 		{get_static_route id='news.php' assign=routeURL}

@@ -2,7 +2,7 @@
     {if isset($AWA)}
         {block name='selectionwizard-javascript'}
             <script>
-                var nSelection_arr = [{implode(',', $AWA->getSelections())}];
+                var nSelection_arr = [{$AWA->getSelections()|join:','}];
                 function setSelectionWizardAnswerJS(kMerkmalWert)
                 {
                     kMerkmalWert = parseInt(kMerkmalWert);

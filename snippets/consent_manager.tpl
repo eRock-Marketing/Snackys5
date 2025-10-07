@@ -46,7 +46,7 @@
 							{$items = []}
 							{foreach $consentItems as $item}{$items[] = $item->getName()}{/foreach}
 							{block name='snippets-consent-manager-banner-body-description-description'}
-								<p>{lang key='consentDescription' section='consent' printf=implode(', ', $items)|cat:':::'|cat:$privacyUrl}</p>
+								<p>{lang key='consentDescription' section='consent' printf=$items|join:', '|cat:':::'|cat:$privacyUrl}</p>
 								{if $imprintUrl !== '#'}
 									<a href="{$imprintUrl}">{$imprintName}</a>
 								{/if}

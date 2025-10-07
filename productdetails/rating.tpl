@@ -8,6 +8,9 @@
             {else}
                 {lang key='productRating' section='product rating' assign='ratingLabelText'}
             {/if}
+            {if !isset($tplscope)}
+                {assign var=tplscope value=''}
+            {/if}
         {/block}
         {block name="productdetails-rating-main"}
             <div class="rating flx-ac flx-nw" title="{$ratingLabelText}: {$stars}/5" aria-label="{lang key='Votes'}"{if $tplscope=='list'} tabindex="-1"{/if}>

@@ -76,10 +76,19 @@
         },
 
         getCurrent: function($item) {
-			var $current = $item.hasClass('variation') || ($item.length === 1 && $item[0].tagName === 'SELECT')
-                ? $item
-                : $item.closest('.variation');
-            if ($current.length === 1 && $current[0].tagName === 'SELECT') { 
+			if ($item.hasClass('variation')) {
+                return $item;
+            }
+            let $current = $item.closest('.variation');
+            let $checked = $item.find('input:checked');
+            if ($checked.parent().hasClass('variation')) {
+                //swatch and textbox
+                $current = $checked.parent();
+            } else if ($checked.next().hasClass('variation')) {
+                //radio
+                $current = $checked.next();
+            } else if ($item.find('option:selected').hasClass('variation')) {
+                //select
                 $current = $item.find('option:selected');
             } else if ($current.length === 0) {
                 $current = $item.next('.variation');
@@ -1064,12 +1073,14 @@
         },
 
         setVPEPrice: function(fmtVPEPrice, VPEPrices, fmtVPEPrices, wrapper) {
-            var $wrapper   = this.getWrapper(wrapper),
-                $container = $('#product-offer', $wrapper);
+            let $wrapper   = this.getWrapper(wrapper);
+            if ($('#product-offer').length > 0) {
+                $wrapper = $('#product-offer', $wrapper);
+            }
 
-            $('.base-price .value', $container).html(fmtVPEPrice);
+            $('.base-price .value', $wrapper).html(fmtVPEPrice);
             $.each(fmtVPEPrices, function(index, value){
-                $('.bulk-price-' + index + ' .bulk-base-price', $container).html(value);
+                $('.bulk-price-' + index + ' .bulk-base-price', $wrapper).html(value);
             });
         },
 

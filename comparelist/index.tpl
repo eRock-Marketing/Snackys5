@@ -19,7 +19,7 @@
 	{block name="content"}
 		{block name='comparelist-content-headline'}
 			{include file="snippets/zonen.tpl" id="opc_before_heading"}
-			<h1 class="text-center mb-sm">{lang key="compare" section="global"}</h1>
+			<h1 class="text-center mb-sm">{if !empty($Link->getTitle())}{$Link->getTitle()}{else}{lang key='compare' section='global'}{/if}</h1>
 			{include file="snippets/zonen.tpl" id="opc_after_heading"}
 		{/block}
 		{block name='comparelist-content-extension'}

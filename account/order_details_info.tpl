@@ -219,11 +219,16 @@
 				<div class="col-12 col-md-6">
 					<form method="post" id='request-plz' action="{get_static_route}" class="jtl-validate">
 						<input type="hidden" name="uid" value="{$uid}" />
-						<p>{lang key='enter_plz_for_details' section='account data'}</p>
+						<p>{lang key='enter_plz_and_mail_for_details' section='account data'}</p>
 						<div class="form-group">
+							<label for="postcode">{lang key='plz' section='account data'}</label>
 							<input type="text" name="plz" value="" id="postcode" class="form-control" placeholder="{lang key='plz' section='account data'}" required="required" autocomplete="billing postal-code" />
 						</div>
-						<button class="btn btn-primary">{lang key='view' section='global'}</button>
+						<div class="form-group">
+							<label for="mailaddress">{lang key='email' section='account data'}</label>
+							<input type="text" name="mail" value="" id="mailaddress" class="mailaddress_input" placeholder=" " required=true autocomplete="billing mail-address">
+						</div>
+						<button class="btn btn-primary">{lang key='view_order_details' section='global'}</button>
 					</form>
 				</div>
 			</div>
