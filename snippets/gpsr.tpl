@@ -45,7 +45,7 @@
         {/if}
         <div class="row">
             {if isset($hasGPSR) && $hasGPSR}
-                <div class="col-12 col-md-6">
+                <div class="col-12{if isset($isTabs) && $isTabs && $snackyConfig.positionArticleTabs != 1} col-lg-6{/if}">
                     <strong class="block mb-xxs">{lang key='gpsrManufacturer' section='custom'}</strong>
                     {if isset($Artikel->FunktionsAttribute.gpsr_manufacturer_name)}
                         {lang key='name'}: {$Artikel->FunktionsAttribute.gpsr_manufacturer_name}
@@ -87,7 +87,7 @@
                 </div>
             {/if}
             {if isset($hasResponsiblePerson) && $hasResponsiblePerson}
-                <div class="col-12 col-md-6">
+                <div class="col-12{if isset($isTabs) && $isTabs && $snackyConfig.positionArticleTabs != 1} col-lg-6{/if}">
                     <strong class="block mb-xxs">{lang key='gpsrResponsiblePerson' section='custom'}</strong>
                     {if isset($Artikel->FunktionsAttribute.gpsr_responsibleperson_name)}
                         {lang key='name'}: {$Artikel->FunktionsAttribute.gpsr_responsibleperson_name}

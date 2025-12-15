@@ -74,6 +74,9 @@
     margin-left: 0;
     text-align: center;
 }
+.var-it .swatches .btn-img{
+    border-radius: var(--img-rnd);
+}
 .var-it .swatches .btn-img .img-ct{
     box-shadow: 0 0 0 2px var(--var-sw-r);       
 }

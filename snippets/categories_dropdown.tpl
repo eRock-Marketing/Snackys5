@@ -87,38 +87,7 @@
 							{/if}
 							{foreach name='sub_categories' from=$sub_categories item='sub'}
                                 {assign var="catFunctions" value=$category->getFunctionalAttributes()}
-								<li class="title{if $show_subcategories && $sub->hasChildren()} mgm-fw keepopen{/if}{if $sub->getID() == $activeId || (isset($activeParents[1]) && $activeParents[1]->getID() == $sub->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}{if $snackyConfig.dropdown_plus == 1 && $show_subcategories && $sub->hasChildren()} dd-plus{/if}">
-									{if !empty($sub->getChildren())}
-										{assign var=subsub_categories value=$sub->getChildren()}
-									{else}
-										{get_category_array categoryId=$sub->getID() assign='subsub_categories'}
-									{/if}
-									<a href="{$sub->getURL()}" class="dropdown-link defaultlink">
-										<span class="notextov">
-											{$sub->getShortName()}
-										</span>
-										{if $show_subcategories && $sub->hasChildren()}
-										<span class="ar ar-r hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}
-										{/if}
-									</a>
-                                    {if $snackyConfig.dropdown_plus == 1 && $show_subcategories && $sub->hasChildren()}
-                                        <button class="hidden-xs dd-toggle" type="button" data-toggle="collapse" data-target="#mm-{$sub->getID()}" aria-expanded="false" aria-controls="mm-{$sub->getID()}">
-                                            <span class="ar ar-d"></span>
-                                        </button>
-                                    {/if}
-									{if $show_subcategories && $sub->hasChildren()}
-										<ul class="dropdown-menu keepopen"{if $snackyConfig.dropdown_plus == 1} id="mm-{$sub->getID()}"{/if}>
-											{foreach name='subsub_categories' from=$subsub_categories item='subsub'}
-                                                    {assign var="catFunctions" value=$category->getFunctionalAttributes()}
-													<li class="{if $subsub->getID() == $activeId || (isset($activeParents[2]) && $activeParents[2]->getID() == $subsub->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}">
-														<a href="{$subsub->getURL()}" class="dropdown-link defaultlink notextov">
-															{$subsub->getShortName()}
-														</a>
-													</li>
-											{/foreach}
-										</ul>
-									{/if}
-								</li>
+                                {include file='snippets/categories_dropdown_recursive.tpl' mainCategory=$sub show_subcategories=$show_subcategories catFunctions=$catFunctions i=0 limit={$snackyConfig.megamenu_subcats_recursive}}
 							{/foreach}
 						{/if}
                     </ul>

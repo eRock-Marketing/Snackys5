@@ -45,6 +45,11 @@
 		background: var(--nav-l-h-b);
 		color: var(--nav-l-h);
 	}
+	#cat-w .dropdown-menu li.active > .mm-mainlink,
+	#cat-w .dropdown-menu li:hover > .mm-mainlink,
+	#cat-w .active .dropdown-menu li > .mm-mainlink{
+		color: var(--dro-l);
+	}
 	#cat-w li.active .mm-mainlink svg,
 	#cat-w li:hover > .mm-mainlink svg{
 		fill: var(--nav-l-h);

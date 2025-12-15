@@ -87,6 +87,11 @@
 .has-video iframe{
     pointer-events: auto;
 }
+@media screen and (min-width: 768px){
+    body:not(.lightbox-shown) #product-offer > .product-gallery{
+        max-width: @maxGalleryWidthpx;
+    }
+}
 @media screen and (max-width: 991px){
     body:not(.lightbox-shown) #gallery-thumbs{
         display: flex;

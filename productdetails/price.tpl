@@ -40,7 +40,13 @@
 									{/block}
 									{block name='price-range'}
 										<span{if $tplscope === 'matrix'} class="no-wrap"{/if}>
-											{if $tplscope !== 'detail' && $Artikel->Preise->oPriceRange->isRange()}
+											{if $tplscope !== 'detail' && $snackyConfig.bulkPriceBoxes == 'Y' && !empty($Artikel->staffelPreis_arr)}
+												{foreach $Artikel->staffelPreis_arr as $bulkPrice}
+													{if $bulkPrice@last}
+														<span class="price_label pricestarting">{lang key='priceStarting'} </span> <span class="bulk-price">{$bulkPrice.cPreisLocalized[$NettoPreise]}</span>
+													{/if}
+												{/foreach}
+											{elseif $tplscope !== 'detail' && $Artikel->Preise->oPriceRange->isRange()}
 												{if $Artikel->Preise->oPriceRange->rangeWidth() <= $Einstellungen.artikeluebersicht.articleoverview_pricerange_width}
 													{assign var=rangePrices value=$Artikel->Preise->oPriceRange->getLocalizedArray($NettoPreise)}
 													<span class="first-range-price">{$rangePrices[0]} - </span><span class="second-range-price">{$rangePrices[1]} {if $tplscope !== 'detail'} <span class="footnote-reference">*</span>{/if}</span>

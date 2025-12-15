@@ -1,6 +1,6 @@
 {block name='productdetails-actions'}
 	{if !isset($smarty.get.quickView) || $smarty.get.quickView != 1}
-		<div id="product-actions" class="product-actions hidden-print flx-je" role="group">
+		<div id="product-actions" class="product-actions hidden-print{if $snackyConfig.positionArticleInfos == 0} flx-je{/if}" role="group">
 			{block name='productdetails-actions-assigns'}
 				{assign var=kArtikel value=$Artikel->kArtikel}
 				{if $Artikel->kArtikelVariKombi > 0}
@@ -32,7 +32,7 @@
 				{/block}
 			{/if}
 			{block name='productdetails-actions-productquestion'}
-				{if $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'P'}
+				{if $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'P' || $snackyConfig.positionArticleTabs == 1}
 					<button type="button" id="z{$kArtikel}" class="btn popup-dep question flx-ac flx-jc" title="{lang key='productQuestion' section='productDetails'}" aria-label="{lang key='productQuestion' section='productDetails'}" data-toggle="modal" data-target="#pp-question_on_item">
 						<span class="img-ct icon ic-md">
 							<svg>

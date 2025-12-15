@@ -2,7 +2,7 @@
 	<div class="row">
 		{foreach $Artikel->oDownload_arr as $oDownload}
 			{if isset($oDownload->oDownloadSprache)}
-				<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="col-12 col-sm-6{if $snackyConfig.positionArticleTabs != 1} col-md-4 col-lg-3{/if}">
 					<div class="card">
 						<div class="card-body">
 							{block name='download-title'}

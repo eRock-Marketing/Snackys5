@@ -52,7 +52,7 @@
                                             {/block}
                                         {else}
                                             {block name='filter-top-item-options'}
-                                                {if $filter->getOptions()|@count > 0}
+                                                {if $filter->getOptions()|@count > 0 && $filter->getVisibility() != \JTL\Filter\Visibility::SHOW_NEVER && $filter->getVisibility() != \JTL\Filter\Visibility::SHOW_BOX}
                                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-3{/if}">
                                                         {if $filter->getInputType() === \JTL\Filter\InputType::SELECT}
                                                             {assign var=outerClass value='form-group dropdown filter-type-'|cat:$filter->getNiceName()}

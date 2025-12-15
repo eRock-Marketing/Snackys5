@@ -1,0 +1,16 @@
+#quantity-grp{
+    display: none;
+}
+#product-configuration-sidebar #quantity-grp{
+    display: block;
+}
+#product-configuration-sidebar #quantity,
+#product-configuration-sidebar .sr-only{
+    display: none;
+}
+#snackys-tpl .buy-col{
+    margin-top: 0;
+}
+.buy-col:not(.col-xl-6) .alert-hotstock{
+    margin-top: 1.5rem;
+}

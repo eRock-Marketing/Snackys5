@@ -63,7 +63,7 @@
                     });
                 </script>{/inline_script}
             {elseif $snackyConfig.specialpriceDate == "D"}
-                <div class="ov-t ov-t-sp">{lang key="sonderpreisBis" section="custom"} {$Artikel->dSonderpreisEnde_de|date_format:"{$snackyConfig.deliveryDateFormat}"}</div>
+                {*<div class="ov-t ov-t-2{if $snackyConfig.position_badges == '2'} br{elseif $snackyConfig.position_badges == '3'} tl{elseif $snackyConfig.position_badges == '4'} tr{/if}{if $snackyConfig.style_badges == '2' || $snackyConfig.style_badges == '4'} rnd{/if}{if $snackyConfig.style_badges == '3' || $snackyConfig.style_badges == '4'} flt{/if}">{lang key="sonderpreisBis" section="custom"} {$Artikel->dSonderpreisEnde_de|date_format:"{$snackyConfig.deliveryDateFormat}"}</div>*}
             {/if}
         {/if}
     {/block}
@@ -71,12 +71,12 @@
     {block name='snippets-ribbon-main'}
         {if $Artikel->oSuchspecialBild->getType() == 2 && $snackyConfig.saleprozent == 'Y' && $Artikel->Preise->alterVKNetto-$Artikel->Preise->fVKNetto > 0}
             {assign var="rabatt" value=($Artikel->Preise->alterVKNetto-$Artikel->Preise->fVKNetto)/$Artikel->Preise->alterVKNetto*100}
-            <span class="ov-t ov-t-2">- {$rabatt|round:0}%</span>
+            <span class="ov-t ov-t-2{if $snackyConfig.position_badges == '1'} bl{elseif $snackyConfig.position_badges == '2'} br{elseif $snackyConfig.position_badges == '3'} tl{elseif $snackyConfig.position_badges == '4'} tr{/if}{if $snackyConfig.style_badges == '2' || $snackyConfig.style_badges == '4'} rnd{/if}{if $snackyConfig.style_badges == '3' || $snackyConfig.style_badges == '4'} flt{/if}">- {$rabatt|round:0}%</span>
         {else}
             {if $Artikel->oSuchspecialBild->getType() === $smarty.const.SEARCHSPECIALS_CUSTOMBADGE}
                 {block name='snippets-ribbon-custom-outer'}
                     {assign var=customBadge value=$Artikel->oSuchspecialBild->getCssAndText()}
-                    <span class="ov-t"{if $customBadge->style !== ''} style="{$customBadge->style}"{/if}>
+                    <span class="ov-t{if $snackyConfig.position_badges == '1'} bl{elseif $snackyConfig.position_badges == '2'} br{elseif $snackyConfig.position_badges == '3'} tl{elseif $snackyConfig.position_badges == '4'} tr{/if}{if $snackyConfig.style_badges == '2' || $snackyConfig.style_badges == '4'} rnd{/if}{if $snackyConfig.style_badges == '3' || $snackyConfig.style_badges == '4'} flt{/if}"{if $customBadge->style !== ''} style="{$customBadge->style}"{/if}>
                         {block name='snippets-ribbon-custom'}
                             {$customBadge->text}
                         {/block}
@@ -84,7 +84,7 @@
                 {/block}
             {else}
                 {block name='snippets-ribbon-content-outer'}
-                    <span class="ov-t ov-t-{$Artikel->oSuchspecialBild->getType()}">
+                    <span class="ov-t ov-t-{$Artikel->oSuchspecialBild->getType()}{if $snackyConfig.position_badges == '1'} bl{elseif $snackyConfig.position_badges == '2'} br{elseif $snackyConfig.position_badges == '3'} tl{elseif $snackyConfig.position_badges == '4'} tr{/if}{if $snackyConfig.style_badges == '2' || $snackyConfig.style_badges == '4'} rnd{/if}{if $snackyConfig.style_badges == '3' || $snackyConfig.style_badges == '4'} flt{/if}">
                         {block name='snippets-ribbon-content'}
                             {lang key='ribbon-'|cat:$Artikel->oSuchspecialBild->getType() section='productOverview' printf=$sale|default:''|cat:'%'}
                         {/block}

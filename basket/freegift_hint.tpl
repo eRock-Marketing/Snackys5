@@ -22,12 +22,14 @@
                                 </svg>
                             </div>
                             <div class="right w100"> 
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar"
-                                        aria-valuenow="{$progressPercent|round}" aria-valuemin="0"
-                                        aria-valuemax="100" style="--progress-width: {$progressPercent|round}%;">
+                                {if $snackyConfig.freeGiftProgress == 'Y'}
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar"
+                                            aria-valuenow="{$progressPercent|round}" aria-valuemin="0"
+                                            aria-valuemax="100" style="--progress-width: {$progressPercent|round}%;">
+                                        </div>
                                     </div>
-                                </div>
+                                {/if}
                                 <div class="small"> 
                                     {lang section='basket' key='freeGiftsStillMissingAmountForNextFreeGift'
                                     printf=JTL\Catalog\Product\Preise::getLocalizedPriceString($nextFreeGiftMissingAmount)}

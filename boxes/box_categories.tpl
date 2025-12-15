@@ -15,7 +15,7 @@
 								i=0
 								categoryId=0
 								categoryBoxNumber=$oBox->getCustomID()
-								limit=3
+								limit={$snackyConfig.megamenu_subcats_recursive}
 								categories=$oBox->getItems()
 								id=$oBox->getID()}
 						{/block}

@@ -1,0 +1,22 @@
+@media screen and (min-width: 768px){
+    body:not(.lightbox-shown) #gallery-thumbs{
+        display: none !important;
+    }
+    body:not(.lightbox-shown) #gallery{
+        width: 100%;
+    }
+    body:not(.lightbox-shown) #gallery a:not(.active){
+        display: block;
+    }
+    body:not(.lightbox-shown) #gallery a:not(:last-child){
+        margin-bottom: 2rem;
+    }
+    #product-offer{
+        align-items: flex-start;
+    }
+    #product-offer > .product-info{
+        position: -webkit-sticky;
+        position: sticky;
+        top: 6rem;
+    }
+}

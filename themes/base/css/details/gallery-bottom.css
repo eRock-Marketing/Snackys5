@@ -1,0 +1,16 @@
+@media screen and (min-width: 992px){
+    body:not(.lightbox-shown) #gallery{
+        width: 100%;
+    }
+    body:not(.lightbox-shown) #gallery-thumbs{
+        width: 100%;
+        order: 1;
+        display: flex;
+        margin: .3rem -.3rem 0 -.3rem;
+        flex-wrap: wrap;
+    }
+    body:not(.lightbox-shown) #gallery-thumbs .img-w{
+        width: calc(100% / 6 - .6rem);
+        margin: .3rem;
+    }
+}

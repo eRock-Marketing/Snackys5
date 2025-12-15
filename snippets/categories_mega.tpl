@@ -15,7 +15,6 @@
             {$activeId = 0}
         {/if}
     {/if}
-    {assign var=max_subsub_items value=$snackyConfig.megamenu_subcats}
 {/block}
 {block name='snippets-categories-mega-linkhome'}
 {if $snackyConfig.megaHome == 0}
@@ -68,6 +67,7 @@
                     {$category->getShortName()}
                     {if $isDropdown}<span class="caret hidden-xs"></span>{include file='snippets/mobile-menu-arrow.tpl'}{/if}
                 </a>
+                {if $category->isOrphaned() === false}
                 {if $isDropdown}
                     <ul class="dropdown-menu keepopen">
                         <li class="mgm-c mw-container">
@@ -102,44 +102,7 @@
                                                     {assign var="subImgAlt" value=""}
                                                     {assign var="catFunctions" value=$sub->getFunctionalAttributes()}
                                                     <div class="col-12 col-sm-3 col-lg-3{if $sub->getID() == $activeId || (isset($activeParents[1]) && $activeParents[1]->getID() == $sub->getID())} active{/if}{if !empty($catFunctions["css_klasse"])} {$catFunctions["css_klasse"]}{/if}">
-															{if !empty($sub->getChildren())}
-                                                                {assign var=subsub_categories value=$sub->getChildren()}
-                                                            {else}
-                                                                {get_category_array categoryId=$sub->getID() assign='subsub_categories'}
-                                                            {/if}
-                                                            <a href="{$sub->getURL()}" class="hidden-xs block">   
-                                                                {if isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N'}                                                                
-                                                                    <span class="img-ct{if $snackyConfig.imageratioCategory == '43'}  rt4x3{/if}">
-                                                                        {assign var='subImgAlt' value="{lang key="categoryImage" section="custom"} {$sub->getShortName()}"}
-                                                                        {include file='snippets/image.tpl' class='image' item=$sub srcSize='sm' alt=$subImgAlt}
-                                                                    </span>
-                                                                {/if}
-                                                                <span class="defaultlink h6 title block">
-                                                                    {$sub->getShortName()}
-                                                                    {if $show_subcategories && $sub->hasChildren() && count($subsub_categories)  > 0}
-                                                                    {include file='snippets/mobile-menu-arrow.tpl'}
-                                                                    {/if}
-                                                                </span>
-                                                            </a>
-                                                            {if $show_subcategories && $sub->hasChildren()}
-																{if count($subsub_categories)  > 0} 
-                                                                <ul class="blanklist small subsub">
-                                                                    {foreach name='subsub_categories' from=$subsub_categories item='subsub'}
-                                                                        {if $smarty.foreach.subsub_categories.iteration <= $max_subsub_items}
-																			{assign var="subCatFunctions" value=$sub->getFunctionalAttributes()}
-                                                                            <li class="{if $subsub->getID() == $activeId || (isset($activeParents[2]) && $activeParents[2]->getID() == $subsub->getID())} active{/if}{if !empty($subCatFunctions["css_klasse"])} {$subCatFunctions["css_klasse"]}{/if}">
-                                                                                <a href="{$subsub->getURL()}" class="defaultlink">
-                                                                                    {$subsub->getShortName()}
-                                                                                </a>
-                                                                            </li>
-                                                                        {else}
-                                                                            <li class="more"><a href="{$sub->getURL()}">{lang key="more" section="global"} <span class="remaining">({math equation='total - max' total=$subsub_categories|count max=$max_subsub_items})</span></a></li>
-                                                                            {break}
-                                                                        {/if}
-                                                                    {/foreach}
-                                                                </ul>
-																{/if}
-                                                            {/if}
+														{include file='snippets/categories_mega_recursive.tpl' mainCategory=$sub show_subcategories=$show_subcategories catFunctions=$catFunctions subImgAlt=$subImgAlt}	
                                                     </div>
                                                 {/foreach}
                                             {/if}
@@ -150,6 +113,7 @@
 						    {include file="snippets/zonen.tpl" id="after_megamenu_content_{$category->getID()}" title="after_megamenu_content_{$category->getID()}"}
                         </li>
                     </ul>
+                {/if}
                 {/if}
             </li>
         {/foreach}

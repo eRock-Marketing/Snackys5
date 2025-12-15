@@ -1,0 +1,9 @@
+.p-c{
+    text-align: center;
+}
+.p-c .rating{
+    justify-content: center;
+}
+.p-c.hv-e .exp{
+    text-align: left;
+}

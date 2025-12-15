@@ -51,39 +51,6 @@
 	border: 1px solid var(--pbx-im-r);
 	overflow: hidden;
 }
-.ov-t{
-    position: absolute;
-    left: 0;
-    bottom: 2rem;
-    padding: .4rem .6rem;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: .5px;
-    color: var(--alrt-t);
-    background: var(--alrt-b);
-}
-.ov-t.ov-t-7,
-.ov-t.ov-t-2,
-.ov-t.ov-t-sp{
-    background: var(--dang-b);
-    color: var(--dang-t);
-}
-.ov-t.ov-t-4,
-.ov-t.ov-t-6{
-    background: var(--succ-b);
-    color: var(--succ-t);
-}
-.ov-t.ov-t-1,
-.ov-t.ov-t-5,
-.ov-t.ov-t-8,
-.ov-t.ov-t-9{
-	background: var(--info-b);
-    color: var(--info-t);
-}
-.ov-t.ov-t-3{
-	background: var(--warn-b);
-    color: var(--warn-t);
-}
 #product-offer .price_label,
 .p-c .price_label{
     display: inline-flex;
@@ -142,22 +109,4 @@ body.edge a:hover .second-img{
 }
 .sale-ct .ct-wp{
     padding: 0 .2rem;
-}
-.sale-ct ~ .ov-t{
-    bottom: 4rem;
-}
-.ov-t ~ .ov-t{
-    bottom: 4.2rem;
-}
-.ov-t.ov-t-sp{
-    text-transform: none;
-    letter-spacing: 0;
-}
-@media screen and (max-width: 450px){
-    .ov-t{
-        bottom: 1.5rem;
-    }
-    .ov-t~.ov-t {
-        bottom: 3.5rem;
-    }
 }

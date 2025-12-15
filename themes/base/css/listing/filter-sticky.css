@@ -1,0 +1,26 @@
+#ftr-tg{
+    position: sticky;
+    top: calc(100% - 1rem);
+    transform: translateY(-100%);
+    z-index: 6;
+    margin-bottom: 0;    
+    display: flex;
+    justify-content: center;
+}
+#ftr-tg > .btn{
+    border-radius: 10rem;
+    background: rgba(255, 255, 255, .75);
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, .2);
+    border: 0;
+    width: auto;
+}
+#result-wrapper{
+    padding-bottom: 4rem;
+}
+#nfity-scroll{
+    display: none;
+}
+#plh{
+    margin-bottom: 0;
+}

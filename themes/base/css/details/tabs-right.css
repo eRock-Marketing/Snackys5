@@ -1,0 +1,19 @@
+@media screen and (min-width: 768px){
+    #article-tabs > .tab-pane {
+        border-bottom: 1px solid var(--hr-li);
+    }
+    .tab-ct.show>.panel-body{
+        margin-top: .5rem;
+    }
+    .tab-ct>.panel-body{
+        margin-bottom: 1.5rem;
+    }
+    #tab-votes{
+        max-width: var(--wdt-tab);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #tab-wp{
+        margin-bottom: 0;
+    }
+}

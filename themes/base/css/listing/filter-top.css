@@ -74,6 +74,9 @@
 #nav-ft .dropdown-item{
     padding: 0;
 }
+.filter-type-Availability a.filter-item:before{
+    display: none;
+}
 @media screen and (min-width: 992px){
     #ftr-tp{
         background: var(--pan-b);

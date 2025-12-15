@@ -11,7 +11,7 @@
                         </div>
                         {lang key='filterAndSort'}
                     </div>
-                    {if $Suchergebnisse->getProductCount() >= 1}{$Suchergebnisse->getProductCount()} {lang key='products'}{/if}
+                    {if $Suchergebnisse->getProductCount() >= 1 && $snackyConfig.mobileStickyFilter == 'N'}{$Suchergebnisse->getProductCount()} {lang key='products'}{/if}
                 </div>
             </button>
         {/if}

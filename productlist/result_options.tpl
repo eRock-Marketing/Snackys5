@@ -14,7 +14,7 @@
             <a href="#" class="btn btn-default dropdown-toggle form-control{if $ismobile} btn-block{/if}" data-toggle="dropdown" role="button" aria-expanded="true">
                 {lang key='sorting' section='productOverview'} <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-right">
+            <ul class="dropdown-menu">
                 {foreach $Suchergebnisse->getSortingOptions() as $option}
                 <li class="filter-item{if $option->isActive()} active{/if}">
                     <a rel="nofollow" href="{$option->getURL()}">{$option->getName()}</a>

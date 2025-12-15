@@ -119,10 +119,10 @@
 													</ul>
 													{if $hasmore == 1}
 														<a class="defaultlink small" data-toggle="collapse" href="#moreinfo{$smarty.foreach.positionen.index}" role="button" aria-expanded="false" aria-controls="#moreinfo{$smarty.foreach.positionen.index}">
-															{lang key='showMore'} 
+															{lang key='showMore'}
 														</a>
 													{/if}
-													{if $oPosition->istKonfigVater()}
+													{if $oPosition->istKonfigVater() && !empty(JTL\Session\Frontend::getCart()->PositionenArr)}
 														<a href="#" class="defaultlink small" data-toggle="modal" data-target="#konfi{$smarty.foreach.positionen.index}">
 															{lang key='listOfItems'} 
 														</a>

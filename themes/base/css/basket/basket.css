@@ -298,6 +298,7 @@
     text-decoration: underline;
     position: relative;
     z-index: 2;
+    display: inline-block;
 }
 .col-qnt .choose_quantity{
     max-width: 8rem;

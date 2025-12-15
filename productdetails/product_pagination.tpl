@@ -1,7 +1,8 @@
 {block name="product-pagination"}
-	{if !$isMobile}
+{if $Einstellungen.artikeldetails.artikeldetails_navi_blaettern == 'Y' && isset($NavigationBlaettern)}
+	{if !$isMobile && $snackyConfig.positionHeadline != 1}
 		{block name="product-pagination-desktop"}
-			<div id="prevNextRow" class="flx-ac flx-jb flx-w mb-sm hidden-xs">
+			<div id="prevNextRow" class="flx-ac flx-jb flx-w mb-sm hidden-xs big">
 				{block name="product-pagination-desktop-prev"}
 					<div class="visible-lg visible-md product-pagination previous">
 						{if isset($NavigationBlaettern->vorherigerArtikel) && $NavigationBlaettern->vorherigerArtikel->kArtikel}
@@ -17,7 +18,21 @@
 					</div>
 				{/block}
 				{block name="product-pagination-desktop-headline"}
-					<h1 class="fn product-title text-center">{$Artikel->cName}</h1>
+					<div class="center">
+						{if $snackyConfig.positionManufacturer == 0}
+							{include file="productdetails/manufacturer.tpl"}
+						{/if}
+						<h1 class="fn product-title text-center">{$Artikel->cName}</h1>
+						{if ($Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0)}
+							{block name="productdetails-info-rating-wrapper-top"}
+								<div class="rating-wrapper mt-xxs">
+									<a id="jump-to-votes-tab" class="hidden-print"{if $Einstellungen.artikeldetails.artikeldetails_tabs_nutzen == 'N' || $isMobile} data-toggle="collapse" href="#tab-votes" role="button"{else} href="{$Artikel->cURLFull}#tab-votes" {/if}>
+										{include file='productdetails/rating.tpl' stars=$Artikel->Bewertungen->oBewertungGesamt->fDurchschnitt total=$Artikel->Bewertungen->oBewertungGesamt->nAnzahl}
+									</a>
+								</div>
+							{/block}
+						{/if}
+					</div>
 				{/block}
 				{block name="product-pagination-desktop-next"}
 					<div class="visible-lg visible-md product-pagination next">
@@ -62,4 +77,23 @@
 			{/block}
 		{/block}
 	{/if}
+{elseif !$isMobile}
+	{block name="product-headline-center"}
+		<div class="hidden-xs">
+			{if $snackyConfig.positionManufacturer == 0}
+				{include file="productdetails/manufacturer.tpl"}
+			{/if}
+			<h1 class="fn product-title text-center {if ($Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0)}mb-xxs{else}mb-sm{/if}">{$Artikel->cName}</h1>
+			{if ($Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0)}
+				{block name="productdetails-info-rating-wrapper-top-single"}
+					<div class="rating-wrapper mt-xxs flx-jc mb-sm">
+						<a id="jump-to-votes-tab" class="hidden-print"{if $Einstellungen.artikeldetails.artikeldetails_tabs_nutzen == 'N' || $isMobile} data-toggle="collapse" href="#tab-votes" role="button"{else} href="{$Artikel->cURLFull}#tab-votes" {/if}>
+							{include file='productdetails/rating.tpl' stars=$Artikel->Bewertungen->oBewertungGesamt->fDurchschnitt total=$Artikel->Bewertungen->oBewertungGesamt->nAnzahl}
+						</a>
+					</div>
+				{/block}
+			{/if}
+		</div>
+	{/block}
+{/if}
 {/block}

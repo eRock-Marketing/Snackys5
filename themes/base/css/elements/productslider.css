@@ -66,10 +66,13 @@
     #p-l .p-w,
 	#sp-l.show-above > .inside > section,
 	.p-sl .p-w,
-	.ar-ct-m .ar-ct,
-    .sc-w .col-6{
+	.ar-ct-m .ar-ct{
         width: calc(100% / @listElmXl);
         min-width: calc(100% / @listElmXl);
+    }
+    .sc-w .col-6{
+        width: calc(100% / @catElmXl);
+        min-width: calc(100% / @catElmXl);
     }
 	.p-sl .p-w:nth-child(@listElmXln + 1){
 		scroll-snap-align: start;
@@ -83,10 +86,13 @@
     #p-l .p-w,
 	#sp-l.show-above > .inside > section,
 	.p-sl .p-w,
-	.ar-ct-m .ar-ct,
-    .sc-w .col-6{
+	.ar-ct-m .ar-ct{
         width: calc(100% / @listElmLg);
         min-width: calc(100% / @listElmLg);
+    }
+    .sc-w .col-6{
+        width: calc(100% / @catElmLg);
+        min-width: calc(100% / @catElmLg);
     }
 	.p-sl .p-w:nth-child(@listElmLgn + 1){
 		scroll-snap-align: start;
@@ -100,10 +106,13 @@
     #p-l .p-w,
 	#sp-l.show-above > .inside > section,
 	.p-sl .p-w,
-	.ar-ct-m .ar-ct,
-    .sc-w .col-6{
+	.ar-ct-m .ar-ct{
         width: calc(100% / @listElmMd);
         min-width: calc(100% / @listElmMd);
+    }
+    .sc-w .col-6{
+        width: calc(100% / @catElmMd);
+        min-width: calc(100% / @catElmMd);
     }
 	.p-sl .p-w:nth-child(@listElmMdn + 1){
 		scroll-snap-align: start;
@@ -116,10 +125,13 @@
     #freegift .col-6,
     #p-l .p-w,
 	.p-sl .p-w,
-	.ar-ct-m .ar-ct,
-    .sc-w .col-6{
+	.ar-ct-m .ar-ct{
         width: calc(100% / @listElmSm);
         min-width: calc(100% / @listElmSm);
+    }
+    .sc-w .col-6{
+        width: calc(100% / @catElmSm);
+        min-width: calc(100% / @catElmSm);
     }
 	.p-sl .p-w:nth-child(@listElmSmn + 1){
 		scroll-snap-align: start;
@@ -132,10 +144,13 @@
     #freegift .col-6,
     #p-l .p-w,
 	.p-sl .p-w,
-	.ar-ct-m .ar-ct,
-    .sc-w .col-6{
+	.ar-ct-m .ar-ct{
         width: calc(100% / @listElmXs);
         min-width: calc(100% / @listElmXs);
+    }
+    .sc-w .col-6{
+        width: calc(100% / @catElmXs);
+        min-width: calc(100% / @catElmXs);
     }
 	.p-sl .p-w:nth-child(@listElmXsn + 1){
 		scroll-snap-align: start;
@@ -151,10 +166,13 @@
     #freegift .col-6,
     #p-l .p-w,
 	.p-sl .p-w,
-	.ar-ct-m .ar-ct,
-    .sc-w .col-6{
+	.ar-ct-m .ar-ct{
         width: calc(100% / @listElmXxs);
         min-width: calc(100% / @listElmXxs);
+    }
+    .sc-w .col-6{
+        width: calc(100% / @catElmXxs);
+        min-width: calc(100% / @catElmXxs);
     }
 	.p-sl .p-w:nth-child(@listElmXxsn + 1){
 		scroll-snap-align: start;

@@ -4,7 +4,7 @@
     <Author>eRock Creations</Author>
     <URL>https://www.erock-creations.de</URL>
     <MinShopVersion>5.6.0</MinShopVersion>
-    <Version>5.5.7</Version>
+    <Version>5.6.0</Version>
     <Preview>preview-snackys.png</Preview>
     <Description>Ultraschnelles responsive JTL Template von eRock Creations</Description>
     <Framework>Bootstrap4</Framework>
@@ -154,6 +154,7 @@
 			<File Path="/templates/Snackys/themes/base/css/elements/forms.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/modals_critical.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/productbox.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/ribbons.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/productslider.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/accordeon.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/pagination_critical.css"/>

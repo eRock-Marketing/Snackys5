@@ -153,7 +153,7 @@
 								{block name='basket-purchase-infos-maximum'}
 									{if !empty($Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_MAXBESTELLMENGE]) && $Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_MAXBESTELLMENGE] > 0}
 										{lang key="maximalPurchase" section="productDetails" assign="maximalPurchase"}
-										<span class="block">{$maximalPurchase|replace:"%d":$Artikel->FunktionsAttribute[$FKT_ATTRIBUT_MAXBESTELLMENGE]|replace:"%s":$units}</span>
+										<span class="block">{$maximalPurchase|replace:"%d":$Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_MAXBESTELLMENGE]|replace:"%s":$units}</span>
 									{/if}
 								{/block}
 							</div>

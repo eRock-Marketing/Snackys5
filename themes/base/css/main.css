@@ -20,7 +20,7 @@
 .bc-item.first a:focus{
     outline: none;
 }
-a:not(.btn):not(header a):not(.dropdown a):not(#cat-w a):not(.p-w a):not(.nav-it a):not(.pn-news a):not(.nav-item a):not(.prd a):not(.c-stp a):not(.answer a):not(.card-body a.item):not(#bc-w a):not(.tag):not(.sc-w a),
+a:not(.btn):not(header a):not(.dropdown a):not(#cat-w a):not(.p-w a):not(.nav-it a):not(.pn-news a):not(.nav-item a):not(.prd a):not(.c-stp a):not(.answer a):not(.card-body a.item):not(#bc-w a):not(.tag):not(.sc-w a):not(.card-header),
 .info-essential a{
     text-decoration: underline;
 }
@@ -37,6 +37,7 @@ a.btn-skip-to:focus {
 /* Freegift Progress */
 .gifthint .icon{
     width: 2.5rem;
+    min-width: 2.5rem;
     margin-right: .75rem;
     background: var(--bod-b-l);
     border-radius: 50%;
@@ -112,7 +113,7 @@ a.btn-skip-to:focus {
 	}
 }
 /* PayPal Express */
-.add-pays .paypal{
+.add-pays .paypal:not(:empty){
     margin-top: .5rem;
 }
 @media screen and (max-width: 767px){

@@ -1,0 +1,11 @@
+:root{
+    --btn-rnd: 4rem
+}
+.btn-group .btn:first-child, .modal-dialog .answer>a:first-child, .btn-group>.form-control:first-child{
+    border-top-left-radius: var(--btn-rnd);
+    border-bottom-left-radius: var(--btn-rnd);
+}
+.btn-group .btn:last-child, .modal-dialog .answer>a:last-child, .btn-group>.form-control:last-child{
+    border-top-right-radius: var(--btn-rnd);
+    border-bottom-right-radius: var(--btn-rnd);
+}

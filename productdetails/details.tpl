@@ -12,7 +12,7 @@
 		{/block}
     {/if}
     {block name="product-pagination"}
-		{if $Einstellungen.artikeldetails.artikeldetails_navi_blaettern == 'Y' && isset($NavigationBlaettern)}
+		{if ($Einstellungen.artikeldetails.artikeldetails_navi_blaettern == 'Y' && isset($NavigationBlaettern)) || $snackyConfig.positionHeadline == 0}
 			{block name="product-pagination-active"}
 				{include file='productdetails/product_pagination.tpl'}
 			{/block}
@@ -47,123 +47,44 @@
             			{block name="productdetails-info"}
             				{block name="productdetails-details-info"}                
 								{block name="product-headline-block"}
-                					{if ($Einstellungen.artikeldetails.artikeldetails_navi_blaettern !== 'Y' && !isset($NavigationBlaettern)) || $isMobile}
-										<div class="product-headline">
+                					{if $snackyConfig.positionHeadline == 1 || $isMobile}
+										<div class="product-headline{if ($Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0)}{else} mb-sm{/if}">
+											{if $snackyConfig.positionManufacturer == 0 && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== 'N' && isset($Artikel->cHersteller)}
+												{include file="productdetails/manufacturer.tpl"}
+											{/if}
 											{include file="snippets/zonen.tpl" id="opc_before_headline"}
-											<h1 class="product-title">{$Artikel->cName}</h1>
+											<h1 class="product-title{if ($Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0) || (!($Artikel->Preise->fVKNetto == 0 && isset($Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_VOUCHER_FLEX])) && $snackyConfig.pricePosition == 1)} mb-xxs{/if}">{$Artikel->cName}</h1>
 										</div>
-                					{else}
+										{if ($Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0)}
+										{block name="productdetails-info-rating-wrapper"}
+											<div class="rating-wrapper mb-xs">
+												<a id="jump-to-votes-tab" class="hidden-print"{if $Einstellungen.artikeldetails.artikeldetails_tabs_nutzen == 'N' || $isMobile} data-toggle="collapse" href="#tab-votes" role="button"{else} href="{$Artikel->cURLFull}#tab-votes" {/if}>
+													{include file='productdetails/rating.tpl' stars=$Artikel->Bewertungen->oBewertungGesamt->fDurchschnitt total=$Artikel->Bewertungen->oBewertungGesamt->nAnzahl}
+												</a>
+											</div>
+										{/block}
+										{/if}
+                					{elseif ($Einstellungen.artikeldetails.artikeldetails_navi_blaettern == 'Y' && isset($NavigationBlaettern)) || $snackyConfig.positionHeadline == 0}
 										<div class="product-headline visible-xs">
 											{include file="snippets/zonen.tpl" id="opc_before_headline"}
 											<span class="product-title h1 block">{$Artikel->cName}</span>
 										</div>
                 					{/if}
                 				{/block}
+								{if !($Artikel->Preise->fVKNetto == 0 && isset($Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_VOUCHER_FLEX])) && $snackyConfig.pricePosition == 1}
+									<div class="buy-wrapper mb-xs">
+										{include file="productdetails/price.tpl" Artikel=$Artikel tplscope="detail"}
+									</div>
+								{/if}	
 								{include file="snippets/zonen.tpl" id="before_product_info" title="before_product_info"}
                 				{block name="productdetails-info-essential-wrapper"}
                 					{if ($Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0) || isset($Artikel->cArtNr) || ($Einstellungen.artikeldetails.artikeldetails_kategorie_anzeigen === 'Y')}
                     					<div class="info-essential row mb-xs">
-											{block name="productdetails-info-essential-left"}
-												<div class="col-12 col-sm-12 col-md-8 col-lg-6">
-													{block name="productdetails-info-essential"}
-														<ul class="blanklist nav nav-sm">
-															{block name="productdetails-info-artnr-wrapper"}
-																{if isset($Artikel->cArtNr)}
-																	<li class="product-sku nav-it">
-																		<strong>{lang key="sortProductno"}:</strong> <span>{$Artikel->cArtNr}</span>
-																	</li>
-																{/if}
-															{/block}                                
-															{block name="productdetails-info-mhd-wrapper"}
-																{if $Einstellungen.artikeldetails.show_shelf_life_expiration_date === 'Y' && isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
-																	<li title="{lang key='productMHDTool'}" class="best-before nav-it">
-																		<strong>{lang key="productMHD"}:</strong> <span>{$Artikel->dMHD_de}</span>                                        
-																	</li>
-																{/if}
-															{/block}                                
-															{block name="productdetails-info-barcode-wrapper"}
-																{if !empty($Artikel->cBarcode) && ($Einstellungen.artikeldetails.gtin_display === 'details' || $Einstellungen.artikeldetails.gtin_display === 'always')}
-																	<li class="nav-it">
-																		<strong>{lang key='ean'}: </strong><span>{$Artikel->cBarcode}</span>
-																	</li>
-																{/if}
-															{/block}                                
-															{block name="productdetails-info-han"}
-																{if !empty($Artikel->cHAN) && ($Einstellungen.artikeldetails.han_display === 'details' || $Einstellungen.artikeldetails.han_display === 'always')}
-																	<li class="nav-it">
-																		<strong>{lang key='han'}: </strong><span>{$Artikel->cHAN}</span>
-																	</li>
-																{/if}
-															{/block}                                
-															{block name="productdetails-info-isbn-wrapper"}
-																{if !empty($Artikel->cISBN) && ($Einstellungen.artikeldetails.isbn_display === 'D' || $Einstellungen.artikeldetails.isbn_display === 'DL')}
-																	<li class="nav-it">
-																		<strong>{lang key='isbn'}: </strong><span>{$Artikel->cISBN}</span>
-																	</li>
-																{/if}
-															{/block}
-															{block name="productdetails-info-category-wrapper"}
-																{assign var=i_kat value=($Brotnavi|count)-2}
-																{if $Einstellungen.artikeldetails.artikeldetails_kategorie_anzeigen === 'Y' && isset($Brotnavi[$i_kat])}
-																	<li class="product-category word-break nav-it">
-																		<strong>{lang key="category" section="global"}: </strong><a href="{$Brotnavi[$i_kat]->getURLFull()}" {if !empty($smarty.get.quickView)}target="_blank"{/if}>{$Brotnavi[$i_kat]->getName()}</a>
-																	</li>
-																{/if}
-															{/block}                                
-															{block name="productdetails-info-gefahrgut-wrapper"}
-																{if !empty($Artikel->cUNNummer) && !empty($Artikel->cGefahrnr) && ($Einstellungen.artikeldetails.adr_hazard_display === 'D' || $Einstellungen.artikeldetails.adr_hazard_display === 'DL')}
-																	<li class="nav-it">
-																		<strong>{lang key='adrHazardSign'}: </strong>
-																		<div class="adr-table text-center">
-																			<strong class="block first">{$Artikel->cGefahrnr}</strong>
-																			<strong class="block">{$Artikel->cUNNummer}</strong>
-																		</div>
-																	</li>
-																{/if}
-															{/block} 
-															{if ($Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0)}
-																{block name="productdetails-info-rating-wrapper"}
-																	<li class="rating-wrapper nav-it flx-ac">
-																		<strong class="icon-wt">{lang key="rating" section="global"}:</strong>
-																		<a id="jump-to-votes-tab" class="hidden-print"{if $Einstellungen.artikeldetails.artikeldetails_tabs_nutzen == 'N' || $isMobile} data-toggle="collapse" href="#tab-votes" role="button"{else} href="{$Artikel->cURLFull}#tab-votes" {/if}>
-																			{include file='productdetails/rating.tpl' stars=$Artikel->Bewertungen->oBewertungGesamt->fDurchschnitt total=$Artikel->Bewertungen->oBewertungGesamt->nAnzahl}
-																		</a>
-																	</li>
-																{/block}
-															{/if}
-															{block name="productdetails-info-manufacturer-wrapper"}
-																{if $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== 'N' && isset($Artikel->cHersteller)}
-																	<li class="nav-it flx-ac">
-																		{block name="product-info-manufacturer"}
-																			<strong class="block first icon-wt">{lang key='manufacturer' section='productDetails'}: </strong>
-																			{if $Einstellungen.artikeldetails.artikel_weitere_artikel_hersteller_anzeigen === 'Y'}
-																				<a href="{if !empty($Artikel->cHerstellerHomepage)}{$Artikel->cHerstellerHomepage}{else}{$Artikel->cHerstellerURL}{/if}" title="{$Artikel->cHersteller|escape:'html'}" class="flx-ac"{if !empty($Artikel->cHerstellerHomepage)} target="_blank"{/if}>
-																			{else}
-																				<span class="flx-ac">
-																			{/if}
-																				{if ($Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen === 'B' || $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen === 'BT') && !empty($Artikel->cHerstellerBildURLKlein)}	
-																					<span class="img-ct icon icon-wt icon-xl contain img-manu">
-																						{image lazy=true webp=true src=$Artikel->cHerstellerBildURLKlein alt=$Artikel->cHersteller|escape:'html'}
-																					</span>
-																				{/if}
-																				{if $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== 'B'}
-																					<span>{$Artikel->cHersteller}</span>
-																				{/if}
-																			{if $Einstellungen.artikeldetails.artikel_weitere_artikel_hersteller_anzeigen === 'Y'}
-																				</a>
-																			{else}
-																				</span>
-																			{/if}
-																		{/block}
-																	</li>
-																{/if}
-															{/block}
-														</ul>
-													{/block}
-												</div>
-											{/block}
+											{if $snackyConfig.positionArticleInfos == 0}
+												{include file="productdetails/info_essential.tpl"}
+											{/if}
 											{block name="productdetails-info-essential-right"}
-												<div class="col-md-4 col-lg-6">  
+												<div class="{if $snackyConfig.positionArticleInfos == 1}col-12{else}col-md-4 col-lg-6{/if}">  
 													{block name="details-buy-actions-label-wrapper"}                                
 														{include file="productdetails/actions-labels.tpl"}
 													{/block}
@@ -262,9 +183,9 @@
 										{/block}
                     					{block name="details-buy-wrapper"}
                     						<div class="buy-wrapper row flx-ae">
-												<div class="col-12{if $Artikel->bHasKonfig} no-pop-tg{elseif $snackyConfig.css_maxPageWidth >= 1600} col-xl-6{/if} as-fs">
+												<div class="col-12{if $Artikel->bHasKonfig} no-pop-tg{if $snackyConfig.pricePosition == 1} mt-xxs{/if}{elseif $snackyConfig.css_maxPageWidth >= 1600 && $snackyConfig.css_maxProductWidth >= 900} col-xl-6{/if} as-fs">
 													{block name="productdetails-info-price"}
-														{if !($Artikel->Preise->fVKNetto == 0 && isset($Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_VOUCHER_FLEX]))}
+														{if !($Artikel->Preise->fVKNetto == 0 && isset($Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_VOUCHER_FLEX])) && $snackyConfig.pricePosition == 0}
 															{include file="productdetails/price.tpl" Artikel=$Artikel tplscope="detail"}
 														{/if}
 														{block name="productdetails-info-stock"}
@@ -272,7 +193,7 @@
 														{/block}
 													{/block}
 												</div>
-												<div class="col-12{if $Artikel->bHasKonfig}{elseif $snackyConfig.css_maxPageWidth >= 1600} col-xl-6{/if} buy-col">
+												<div class="col-12{if $Artikel->bHasKonfig}{elseif $snackyConfig.css_maxPageWidth >= 1600 && $snackyConfig.css_maxProductWidth >= 900} col-xl-6{/if} buy-col">
 													{block name="details-wenig-bestand-wrapper"}
 														{if $snackyConfig.hotStock > 0 && $Artikel->cLagerBeachten === 'Y' && $Artikel->cLagerKleinerNull === 'N' && $Artikel->fLagerbestand <= $snackyConfig.hotStock && $Artikel->fLagerbestand > 0}
 															<div class="alert-hotstock text-center mb-xs">
@@ -308,7 +229,7 @@
 													{/block}
 													{block name="detail-notification-wrapper"}
 														{if ($verfuegbarkeitsBenachrichtigung == 1 || $verfuegbarkeitsBenachrichtigung == 2 || $verfuegbarkeitsBenachrichtigung == 3)}
-															{if $verfuegbarkeitsBenachrichtigung == 1}
+															{if $verfuegbarkeitsBenachrichtigung == 1 && $snackyConfig.positionArticleTabs != 1}
 																<a id="goToNotification" href="#tab-availabilityNotification" class="btn btn btn-primary btn-block btn-lg" title="{lang key='requestNotification'}">
 																	{lang key='requestNotification'}
 																</a>
@@ -330,6 +251,14 @@
 													{/block}
 												</div>
 											</div>
+											{block name="detail-article-tabs-wrapper-top"}
+												{if $snackyConfig.positionArticleTabs == 1 && !$isMobile}
+													{include file="productdetails/tabs.tpl"}
+												{/if}
+											{/block}
+											{if $snackyConfig.positionArticleInfos == 1}
+												{include file="productdetails/info_essential.tpl"}
+											{/if}
                     					{/block}
 										{if isset($varKombiJSON) && $varKombiJSON!= ''}
 											<script id="varKombiArr" type="application/json">{$varKombiJSON}</script>
@@ -358,7 +287,7 @@
 	{/block}
 	{block name="details-question-availability-modals"}
 		{block name="details-question-modal"}
-			{if $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'P' && empty($smarty.get.quickView)}
+			{if ($Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'P' && empty($smarty.get.quickView)) || $snackyConfig.positionArticleTabs == 1}
 				<div class="modal fade mod-frm" id="pp-question_on_item" tabindex="-1" role="dialog" aria-labelledby="pp-question_on_item-label" aria-hidden="true">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
@@ -376,7 +305,7 @@
 			{/if}
 		{/block}
 		{block name="details-availability-modal"}
-			{if ($verfuegbarkeitsBenachrichtigung == 2 || $verfuegbarkeitsBenachrichtigung == 3) && $Artikel->cLagerBeachten === 'Y' && $Artikel->cLagerKleinerNull !== 'Y'}
+			{if ($verfuegbarkeitsBenachrichtigung == 2 || $verfuegbarkeitsBenachrichtigung == 3) || ($verfuegbarkeitsBenachrichtigung == 1 && $snackyConfig.positionArticleTabs == 1) && $Artikel->cLagerBeachten === 'Y' && $Artikel->cLagerKleinerNull !== 'Y'}
 				<div class="modal fade" id="pp-availability_notification" tabindex="-1" role="dialog" aria-labelledby="pp-availability_notification-label" aria-hidden="true">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
@@ -396,7 +325,16 @@
 	{/block}
 	{if empty($smarty.get.quickView)}
 		{block name="details-tabs"}
-			{include file="productdetails/tabs.tpl"}
+			{if $snackyConfig.positionArticleTabs == 0 || $isMobile}
+				{include file="productdetails/tabs.tpl"}
+			{/if}
+			{if $snackyConfig.positionArticleTabs == 1 && $Einstellungen.bewertung.bewertung_anzeigen === 'Y' && !$isMobile}
+				{assign var="ratingCount" value=$Artikel->Bewertungen->oBewertung_arr|count}
+				<div id="tab-votes" class="mb-lg{if $ratingCount == 0} text-center{/if}">
+					<h2 class="h3">{lang key="Votes" section="global"} {if $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0}({$Artikel->Bewertungen->oBewertungGesamt->nAnzahl}){/if}</h2>
+					{include file="productdetails/reviews.tpl" stars=$Artikel->Bewertungen->oBewertungGesamt->fDurchschnitt}
+				</div>
+			{/if}
 		{/block}
 		{block name="details-productsliders"}
 			{if isset($Einstellungen.artikeldetails.artikeldetails_stueckliste_anzeigen) && $Einstellungen.artikeldetails.artikeldetails_stueckliste_anzeigen === 'Y' && isset($Artikel->oStueckliste_arr) && $Artikel->oStueckliste_arr|count > 0 || isset($Einstellungen.artikeldetails.artikeldetails_produktbundle_nutzen) && $Einstellungen.artikeldetails.artikeldetails_produktbundle_nutzen === 'Y' && isset($Artikel->oProduktBundle_arr) && $Artikel->oProduktBundle_arr|count > 0 || isset($Xselling->Standard->XSellGruppen) && count($Xselling->Standard->XSellGruppen) > 0 || isset($Xselling->Kauf->Artikel) && count($Xselling->Kauf->Artikel) > 0 || isset($oAehnlicheArtikel_arr) && count($oAehnlicheArtikel_arr) > 0}

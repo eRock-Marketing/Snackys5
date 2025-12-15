@@ -7,7 +7,8 @@
     display: block;
     width: 100%;
     text-align: left;
-    padding-left: 1.4rem;
+    border: 0;
+    border-radius: 0;
 }
 .accordion .card-header strong:hover,
 .accordion .card-header .btn:hover,
@@ -26,7 +27,8 @@
     border-radius: 0 0 var(--box-rnd) var(--box-rnd);
     border-bottom-width: 1px;
 }
-.accordion .card-link{
+.accordion .card-link,
+.accordion .card-header .btn{
     position: relative;
     padding-right: 2.6rem;
 }
@@ -43,7 +45,7 @@
 }
 .accordion .card-header .btn:before{
     content: '';
-    left: 0;
+    right: 0;
 }
 .accordion .card .card-link[aria-expanded="false"] .toggle,
 .accordion .card:not(:first-child) .card-link:not([aria-expanded="true"]) .toggle,

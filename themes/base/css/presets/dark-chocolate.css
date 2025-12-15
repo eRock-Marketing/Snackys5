@@ -28,6 +28,7 @@
 #fieldset-payment .paypal-mark{
     background: var(--bod-b);
 }
-#stck-bskt{
+#stck-bskt,
+#ftr-tg>.btn{
     background: rgba(0,0,0,.75) !important;
 }

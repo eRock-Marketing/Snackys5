@@ -8,35 +8,38 @@
 	transition: .3s ease;
 }
 #prevNextRow .next .button,
-#prevNextRow .previous .img-ct,
+#prevNextRow .previous .img-ct:not(.icon),
 #prevNextRow .previous img{
 	border-radius: 0 var(--img-rnd-md) var(--img-rnd-md) 0;
 }
 #prevNextRow .previous .button,
-#prevNextRow .next .img-ct,
+#prevNextRow .next .img-ct:not(.icon),
 #prevNextRow .next img{
 	border-radius: var(--img-rnd-md) 0 0 var(--img-rnd-md);
 }
-#prevNextRow .previous a:not(:hover) .img-ct{
+#prevNextRow .previous a:not(:hover) .img-ct:not(.icon){
 	transform: translateX(-1rem);
 	opacity: .5;
 }
-#prevNextRow .next a:not(:hover) .img-ct{
+#prevNextRow .next a:not(:hover) .img-ct:not(.icon){
 	transform: translateX(1rem);
 	opacity: .5;
 }
-#prevNextRow .img-ct{
+#prevNextRow .img-ct:not(.icon){
 	width: 5rem;
 	transition: transform .2s ease, opacity .2s ease;
 }
-#prevNextRow .ar{
+#prevNextRow.big .ar{
 	border-color: var(--det-pna-i);
 }
 #prevNextRow .product-pagination{
     width: 7.5rem;
 }
-#prevNextRow h1{
+#prevNextRow .center{
 	max-width: calc(100% - 15rem);
+}
+#prevNextRow .rating{
+	justify-content: center;
 }
 @media screen and (min-width: 992px){
     #prevNextRow h1{
@@ -47,7 +50,7 @@
 	#prevNextRow{
 		display: block;
 	}
-	#prevNextRow h1{
+	#prevNextRow .center{
 		max-width: none;
 	}	
 }

@@ -6,6 +6,9 @@
 			{assign var="fehlendeAngabenShipping" value=null}
 		{/if}
 		{assign var="showShippingAddress" value=(isset($Lieferadresse) || !empty($kLieferadresse) || isset($forceDeliveryAddress))}
+		{if $snackyConfig.hideShippingaddress == '1'}
+			{assign var="showShippingAddress" value=false}
+		{/if}
 	{/block}
 	{block name='ship-address-toggle-adress'}
 		<div class="form-group checkbox control-toggle{if isset($forceDeliveryAddress)} hidden{/if}" id="checkout_register_shipping_address_div">

@@ -27,7 +27,7 @@
 							{/block}
                 			{if $oMedienDatei->nMedienTyp == 1}
 								{block name='mediafile-content-images'}
-									<div class="col-xxs-12 col-6 col-lg-4{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-3{/if}">
+									<div class="col-xxs-12 col-6{if $snackyConfig.positionArticleTabs != 1} col-lg-4{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-3{/if}{/if}">
 										<div class="card">
 											{block name='mediafile-content-images-header'}
 												<div class="card-header">
@@ -53,7 +53,7 @@
 							{elseif $oMedienDatei->nMedienTyp == 2}
 								{block name='mediafile-content-audio'}
                     				{if $oMedienDatei->cName|strlen > 1}
-										<div class="col-xxs-12 col-6 col-lg-4{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-3{/if}">
+										<div class="col-xxs-12 col-6{if $snackyConfig.positionArticleTabs != 1} col-lg-4{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-3{/if}{/if}">
 											<div class="card">
 												{block name='mediafile-content-audio-header'}
 													<div class="card-header">
@@ -83,7 +83,7 @@
 								{/block}
 							{elseif $oMedienDatei->nMedienTyp === 3}
 								{block name='productdetails-mediafile-video'}
-									<div class="col-xxs-12 col-6 col-lg-4{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-3{/if}">
+									<div class="col-xxs-12 col-6{if $snackyConfig.positionArticleTabs != 1} col-lg-4{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-3{/if}{/if}">
 										<div class="card">
 											{block name='productdetails-mediafile-video-header'}
 												<div class="card-header">
@@ -109,7 +109,7 @@
 								{/block}
 							{elseif $oMedienDatei->nMedienTyp == 4}
 								{block name='mediafile-content-sonstiges'}
-									<div class="col-xxs-12 col-6 col-lg-4{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-3{/if}">
+									<div class="col-xxs-12 col-6{if $snackyConfig.positionArticleTabs != 1} col-lg-4{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-3{/if}{/if}">
 										<div class="card">
 											{block name='mediafile-content-sonstiges-header'}
 												<div class="card-header">
@@ -138,7 +138,7 @@
 								{/block}
 							{elseif $oMedienDatei->nMedienTyp == 5}
 								{block name='mediafile-content-pdf'}
-									<div class="col-xxs-12 col-6 col-lg-4{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-3{/if}">
+									<div class="col-xxs-12 col-6{if $snackyConfig.positionArticleTabs != 1} col-lg-4{if $snackyConfig.css_maxTabsWidth >= 1600} col-xl-3{/if}{/if}">
 										<div class="card">
 											{block name='mediafile-content-pdf-header'}
 												<div class="card-header">

@@ -294,15 +294,15 @@
 						{if !empty($oAuswahlAssistent->kAuswahlAssistentGruppe) || isset($AWA)}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/selectionwizard.css'}
 						{/if}
-						{if $Einstellungen.artikeldetails.artikeldetails_navi_blaettern === 'Y' && isset($NavigationBlaettern) && $nSeitenTyp == 1 && !$isMobile}
+						{if $Einstellungen.artikeldetails.artikeldetails_navi_blaettern === 'Y' && isset($NavigationBlaettern) && $nSeitenTyp == 1 && !$isMobile && $snackyConfig.positionHeadline != 1}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/prevnext.css'}
-						{elseif $Einstellungen.artikeldetails.artikeldetails_navi_blaettern === 'Y' && isset($NavigationBlaettern) && $nSeitenTyp == 1 && $isMobile}
+						{elseif $Einstellungen.artikeldetails.artikeldetails_navi_blaettern === 'Y' && isset($NavigationBlaettern) && $nSeitenTyp == 1 && ($isMobile || $snackyConfig.positionHeadline == 1)}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/prevnext_m.css'}
 						{/if}
 						{if $nSeitenTyp == 1}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/configurator.css'}
 						{/if}
-						{if $Einstellungen.artikeldetails.artikeldetails_tabs_nutzen == 'N' || $isMobile}
+						{if $Einstellungen.artikeldetails.artikeldetails_tabs_nutzen == 'N' || $isMobile || $snackyConfig.positionArticleTabs == 1}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/tabs-blank.css'}
 						{else}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/tabs-nav.css'}
@@ -321,6 +321,9 @@
 						{/if}
 						{if $snackyConfig.roundButtons == 0}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/buttons-not-round.css'}
+						{/if}
+						{if $snackyConfig.roundButtons == 2}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/buttons-round.css'}
 						{/if}
 						{if $snackyConfig.quantityButtons == '1'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/styled-quantity.css'}
@@ -354,9 +357,11 @@
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productlist.css'}
 						{/if}
 						{if $snackyConfig.designpreset == '1'}
-							{append var='cssArray' value='/templates/Snackys/themes/base/css/presets/toasty.css'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/presets/toasty-old.css'}
 						{elseif $snackyConfig.designpreset == '2'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/presets/dark-chocolate.css'}
+						{elseif $snackyConfig.designpreset == '3'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/presets/toasty.css'}
 						{/if}
 						{if $snackyConfig.css_titleLines != '0' && !empty($snackyConfig.css_titleLines)}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productbox_special.css'}
@@ -369,6 +374,33 @@
 						{/if}
 						{if $snackyConfig.stickyBasket == 'Y'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/sticky-basket.css'}
+						{/if}
+						{if $snackyConfig.mobileStickyFilter == 'Y' && $isMobile}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/listing/filter-sticky.css'}
+						{/if}
+						{if $snackyConfig.pbTextAlign == '2'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productbox-center.css'}
+						{/if}
+						{if $snackyConfig.hideQuantityButtons == 'Y'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/hide-quantity.css'}
+						{/if}
+						{if $snackyConfig.widthTopFilters == '2'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/listing/filter-width-dynamic.css'}
+						{/if}
+						{if $snackyConfig.positionArticleTabs == 1}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/tabs-right.css'}
+						{/if}
+						{if $snackyConfig.mobileShowSearch == 'Y'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/header/mobile-search-opened.css'}
+						{/if}
+						{if $snackyConfig.galleryStyling == 1}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/gallery-bottom.css'}
+						{/if}
+						{if $snackyConfig.galleryStyling == 2}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/gallery-scroll.css'}
+						{/if}
+						{if $snackyConfig.positionManufacturer == 0 && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== 'N' && isset($Artikel->cHersteller)}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/manufacturer-top.css'}
 						{/if}
 					{/block}
 					{if $opc->isEditMode() === false && $opc->isPreviewMode() === false && \JTL\Shop::isAdmin(true)}

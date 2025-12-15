@@ -40,7 +40,7 @@
                         {if $Artikel->cEstimatedDelivery}
                             {getCountry iso=$shippingCountry assign='selectedCountry'}
                             <div class="{if $Artikel->bHasKonfig} mt-xs{else} mt-xxs{/if} small">
-                                <div class="estimated-delivery alert alert-info m0"
+                                <div class="estimated-delivery card card-body m0"
                                     {if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND])}
                                     data-toggle="popover"
                                     data-placement="top"
@@ -78,8 +78,8 @@
                                     {/if}
                                     {block name="productdetails-shipfree-info"}
                                         {if !empty($WarenkorbVersandkostenfreiHinweis) && $tplscope == 'detail'}
-                                            <div class="mt-xxs">
-                                                {$WarenkorbVersandkostenfreiHinweis|truncate:120:"..."}
+                                            <div class="{if $snackyConfig.shippingProgress != 'Y' || empty(JTL\Session\Frontend::getCart()->PositionenArr)}mt-xxs{/if}">
+                                                {include file='basket/shipping_hint.tpl' tplscope='detail'}
                                             </div>
                                         {/if}
                                     {/block}

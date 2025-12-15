@@ -120,6 +120,7 @@
     width: 33.33%;
     margin: 0;
     box-shadow: none;
+    border-radius: var(--img-rnd);
 }
 .var-it .btn-img .tag{
     margin-top: .3rem;

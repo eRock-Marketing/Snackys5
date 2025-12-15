@@ -41,9 +41,9 @@
                     </div>
                 {/block}
                 {/strip}
-                {block name='productdetails-rating-total'}
+                {* block name='productdetails-rating-total'}
                     {if $nSeitenTyp === $smarty.const.PAGE_ARTIKEL && !empty($total)}<small>({$total})</small>{/if}
-                {/block}
+                {/block *}
             </div>
         {/block}
     {/if}

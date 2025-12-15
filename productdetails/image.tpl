@@ -5,7 +5,7 @@
 		{/block}
 		{block name="product-image-thumbs-wrapper"}
 			{if $Artikel->Bilder|count > 1 && !$isMobile}
-				<div id="gallery-thumbs" class="col-12 col-md-2 col-lg-2{if $Artikel->Bilder|count > 5} two-cols flx-jb flx-w{/if}"> 
+				<div id="gallery-thumbs" class="col-12 col-md-2 col-lg-2{if $Artikel->Bilder|count > 5 && $snackyConfig.galleryStyling == 0} two-cols flx-jb flx-w{/if}"> 
 					{block name="product-image-thumbs"}
 						{foreach $Artikel->Bilder as $image name="thumbnails"}
 							{strip}

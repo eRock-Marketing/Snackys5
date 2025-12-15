@@ -1,7 +1,11 @@
+:root{
+    --btn-rnd: 4rem
+}
 .p-c{
     background: var(--bod-b-l);
     padding: 1.25rem;
     border-radius: .8rem;
+    text-align: center;
 }
 .p-c .title{
     font-size: 1.1rem;
@@ -10,6 +14,9 @@
 .p-c .price{
     font-size: 1.1rem;
     font-weight: 400;
+}
+.p-c .rating{
+    justify-content: center;
 }
 .p-c .price_wrapper{
     margin-top: .5rem;
@@ -23,6 +30,12 @@
 .p-w:hover .hv-e{
     padding: 0;
     background: none;
+}
+.ov-t{
+    bottom: auto;
+    top: 2rem;
+    border-radius: 0 2rem 2rem 0;
+    padding-right: .8rem;
 }
 #snackys-tpl .qty-btns .qty-sub{
     border-radius: 2rem 0 0 2rem;
@@ -42,7 +55,24 @@
 #product-offer{
     align-items: flex-start;
 }
+#product-offer > .product-info{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 5rem;
+}
 @media screen and (min-width: 768px){
+    body:not(.lightbox-shown) #gallery-thumbs{
+        display: none !important;
+    }
+    body:not(.lightbox-shown) #gallery{
+        width: 100%;
+    }
+    body:not(.lightbox-shown) #gallery a:not(.active){
+        display: block;
+    }
+    body:not(.lightbox-shown) #gallery a:not(:last-child){
+        margin-bottom: 2rem;
+    }
     .product-info-inner{
         background: var(--bod-b-l);
         border-radius: .8rem;
@@ -89,4 +119,34 @@ body[data-page="11"] #checkout-cart{
 }
 .sc-w ul{
     font-size: .8rem;
+}
+@media screen and (max-width: 1599px){
+    .sc-w .col-6{
+        width: calc(100% / 6);
+        min-width: calc(100% / 6);
+    }
+}
+@media screen and (max-width: 1199px){
+    .sc-w .col-6{
+        width: calc(100% / 5);
+        min-width: calc(100% / 5);
+    }
+}
+@media screen and (max-width: 899px){
+    .sc-w .col-6{
+        width: calc(100% / 4);
+        min-width: calc(100% / 4);
+    }
+}
+@media screen and (max-width: 599px){
+    .sc-w .col-6{
+        width: calc(100% / 3);
+        min-width: calc(100% / 3);
+    }
+}
+@media screen and (max-width: 399px){
+    .sc-w .col-6{
+        width: calc(100% / 2);
+        min-width: calc(100% / 2);
+    }
 }

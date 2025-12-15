@@ -457,6 +457,12 @@ label.stc-radio{
 #complete_order hr + hr{
     display: none;
 }
+#ppc-orderProcess-horizontal-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
 @media screen and (min-width: 1200px){
     #shop-nav .show-sm{
         display: none;
@@ -585,4 +591,8 @@ label.stc-radio{
 	#acdc_card .form-row{
 		margin: 0 -8px;
 	}
+    #ppc-orderProcess-horizontal-container{
+        margin-left: -8px;
+        margin-right: -8px;
+    }
 }

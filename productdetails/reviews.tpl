@@ -1,6 +1,6 @@
 {block name='productdetails-reviews'}
 {assign var="ratingCount" value=$Artikel->Bewertungen->oBewertung_arr|count}
-    <div class="flx">
+    <div class="flx{if $ratingCount == 0} flx-jc{/if}">
         {block name="productdetails-review-overview"}
             <div id="reviews-overview" class="mb-sm">
                 <div class="{if $ratingCount != 0}panel {/if}panel-default">

@@ -311,6 +311,25 @@
     --tl-lg: @large_lg;
     --tl-md: @large_md;
     --tl-sm: @large_sm;
+    /* Productstickers */
+    --stk-1-b: @stickerBestsellerBackground;
+    --stk-1-t: @stickerBestsellerColor;
+    --stk-2-b: @stickerSonderangeboteBackground;
+    --stk-2-t: @stickerSonderangeboteColor;
+    --stk-3-b: @stickerNeuBackground;
+    --stk-3-t: @stickerNeuColor;
+    --stk-4-b: @stickerTopBackground;
+    --stk-4-t: @stickerTopColor;
+    --stk-5-b: @stickerBaldBackground;
+    --stk-5-t: @stickerBaldColor;
+    --stk-6-b: @stickerRatingBackground;
+    --stk-6-t: @stickerRatingColor;
+    --stk-7-b: @stickerAusverkauftBackground;
+    --stk-7-t: @stickerAusverkauftColor;
+    --stk-8-b: @stickerLagerBackground;
+    --stk-8-t: @stickerLagerColor;
+    --stk-9-b: @stickerVorbestellbarBackground;
+    --stk-9-t: @stickerVorbestellbarColor;
 }
 *{
     -webkit-overflow-scrolling: touch;

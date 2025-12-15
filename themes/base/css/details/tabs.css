@@ -73,6 +73,9 @@
 .give-consent.hidden{
     display: none;
 }
+#tab-gpsr .panel-heading{
+    text-align: left;
+}
 @media screen and (max-width: 1600px){
     #rv-wp{
         margin-right: 2.5rem;
