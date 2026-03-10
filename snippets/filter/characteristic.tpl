@@ -22,7 +22,7 @@
             <li class="nav-it">
                 {dropdownitem
                     class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac"
-                    href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}{else}#{/if}"
+                    href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}"
                     title="{if $Merkmal->getData('cTyp') === 'BILD'}{$attributeValue->getValue()|escape:'html'}{/if}"
                 }
                         {if !empty($attributeImageURL)}
@@ -45,7 +45,7 @@
                     {block name='snippets-filter-characteristics-nav-text'}
                         {if $attributeValue->getCount() > 0}
                         <li class="nav-it">
-                            <a class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac" href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}{else}#{/if}" title="{$attributeValue->getValue()|escape:'html'}" rel="nofollow" aria-label="{lang key='filterBy'}: {$attributeValue->getValue()|escape:'html'}">
+                            <a class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac" href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}" title="{$attributeValue->getValue()|escape:'html'}" rel="nofollow" aria-label="{lang key='filterBy'}: {$attributeValue->getValue()|escape:'html'}">
                                 {if !empty($attributeImageURL)}
                                     {image lazy=true webp=true
                                         src=$attributeImageURL
@@ -64,7 +64,7 @@
                 {elseif $Merkmal->getData('cTyp') === 'BILD' && $attributeImageURL !== null}
                     {block name='snippets-filter-characteristics-nav-image'}                        
                         <li class="nav-it">
-                        {link href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}{else}#{/if}"
+                        {link href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}"
                             title="{$attributeValue->getValue()|escape:'html'}" 
                             class="{if $attributeValue->isActive()}active{/if} filter-item" 
                             rel="nofollow"
@@ -83,7 +83,7 @@
                     {block name='snippets-filter-characteristics-nav-else'}
                         {if $attributeValue->getCount() > 0}
                         <li class="nav-it">
-                            {link href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}{else}#{/if}"
+                            {link href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}"
                                 class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac" 
                                 title="{$attributeValue->getValue()|escape:'html'}" 
                                 rel="nofollow"

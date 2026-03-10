@@ -4,7 +4,12 @@
 			{block name='address-form-adress-info-title'}
 				<legend class="h4 block">
 					{if isset($checkout)}
-						{lang key="proceedNewCustomer" section="checkout"}
+						<span id="newco-label">
+							{lang key="proceedNewCustomer" section="checkout"}
+						</span>
+						<span class="hidden" id="gstco-label">
+							{lang key="COguest" section="custom"}
+						</span>
 					{else}
 						{lang key="address" section="account data"}
 					{/if}

@@ -1,0 +1,54 @@
+.accordion .card+.card .card-header,
+.accordion .card-header{
+    border-radius: 20rem;
+}
+.accordion .card{
+    margin-bottom: .5rem;
+    border: 0;
+}
+.tab-ct>.panel-heading{
+    background: var(--crd-b);
+    border: 0;
+    border-radius: 20rem;
+    padding: 1.5rem 2rem;
+}
+#article-tabs .tab-ct:not(:last-child){
+    margin-bottom: 1rem;
+}
+#tab-wp:not(:has(> #article-tab-nav)) .tab-ct.show>.panel-body {
+    border: 1px solid var(--hr-li);
+    padding: 2rem;
+    margin-top: 1rem;
+    border-radius: 1rem;
+}
+.accordion .card-header{
+    padding: 1.5rem 2rem;
+    padding-right: 4rem;
+}
+.accordion .card-header:has(>h2) .btn{
+    padding: 1.5rem 2rem;
+    padding-right: 4rem;
+}
+.accordion .toggle, 
+.accordion .card-header .btn:before{
+    right: 2rem;
+}
+#article-tabs>.tab-pane{
+    border: 0;
+}
+@media screen and (max-width: 767px){
+    .accordion .card-header:has(>h2) .btn,
+    .tab-ct>.panel-heading,
+    .accordion .card-header,
+    #tab-wp:not(:has(> #article-tab-nav)) .tab-ct.show>.panel-body{
+        padding: 1.5rem;
+    }
+    .accordion .toggle, 
+    .accordion .card-header .btn:before{
+        right: 1.5rem;
+    }
+    .accordion .card-header,
+    .accordion .card-header:has(>h2) .btn{
+        padding-right: 3rem;
+    }
+}

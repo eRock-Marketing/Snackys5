@@ -1,6 +1,10 @@
 {block name='snippets-banner'}
 {if isset($oImageMap)}
-	{include file="snippets/zonen.tpl" id="opc_before_banner"}
+	{if $snackyConfig.old_content_ids === 'Y'}
+		{include file="snippets/zonen.tpl" id="opc_before_banner"}
+	{else}
+		{include file="snippets/zonen.tpl" id="before_banner"}
+	{/if}
     <div class="banner">
         {block name="banner-map"}
             {if ($snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 5 || $snackyConfig.headerType == 5.5) && $nSeitenTyp === 18 && $snackyConfig.fullscreenElement == 2}

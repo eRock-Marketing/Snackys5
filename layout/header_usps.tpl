@@ -11,8 +11,8 @@
 		{/if}
 	{/block}
 	{block name='usps-bar'}
-		<div id="h-us" class="hidden-xs small nowrap{if $snackyConfig.uspsStyle == 1} th-l{elseif $snackyConfig.uspsStyle == 2} th-d{/if}">
-			<div class="mw-container text-center row">
+		<div id="h-us" class="small nowrap">
+			<div class="mw-container text-center row flx-nw">
 				{block name='usps-benefit1'}
 					<span class="col-{$uspsCol} css-check notextov">
 						{lang key="headerBenefit1" section="custom"}
@@ -41,5 +41,33 @@
 				{/if}
 			</div>
 		</div>
+		{if $snackyConfig.headerUsps >= 2}
+		{inline_script}
+		(function(){
+			var mql = window.matchMedia('(max-width: 767px)');
+			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+			var row = document.querySelector('#h-us .row');
+			var items = row && row.querySelectorAll('.css-check');
+			if (!items || items.length < 2) return;
+			var i = 0, len = items.length, tid;
+			function slide(){
+				if (!mql.matches) return;
+				items.forEach(function(el, idx){
+					el.style.width = idx === i ? '100%' : '0';
+					el.style.minWidth = idx === i ? '100%' : '0';
+					el.style.overflow = 'hidden';
+				});
+				i = (i + 1) % len;
+			}
+			function clear(){ items.forEach(function(el){ el.style.cssText = ''; }); }
+			function run(){
+				if (mql.matches) { slide(); tid = setInterval(slide, 4000); }
+				else { clearInterval(tid); clear(); }
+			}
+			run();
+			mql.addEventListener('change', run);
+		})();
+		{/inline_script}
+		{/if}
 	{/block}
 {/block}

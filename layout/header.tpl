@@ -159,12 +159,16 @@
 								<link rel="stylesheet" href="{$ShopURL}/templates/Snackys/themes/base/slick.css?v={$nTemplateVersion}" type="text/css">
 								<script src="{$ShopURL}/templates/Snackys/js/slick.min.js?v={$nTemplateVersion}" type="text/javascript" defer></script>
 							{/if}
+							{if "ManufacturerSlider\ManufacturerSlider"|in_array:$opcItems}
+								<script src="{$ShopURL}/templates/Snackys/js/manufacturer-slider.js?v={$nTemplateVersion}" type="text/javascript" defer></script>
+							{/if}
 							{if "Gallery\Gallery"|in_array:$opcItems}
 								<link rel="stylesheet" href="{$ShopURL}/templates/Snackys/themes/base/slick-lightbox.css?v={$nTemplateVersion}" type="text/css">
 								<script src="{$ShopURL}/templates/Snackys/js/slick-lightbox.min.js?v={$nTemplateVersion}" type="text/javascript" defer></script>
+								<script src="{$ShopURL}/templates/Snackys/js/colcade.js?v={$nTemplateVersion}" type="text/javascript" defer></script>
 							{/if}
 							{if "ImageSlider\ImageSlider"|in_array:$opcItems}
-								<link rel="stylesheet" href="{$ShopURL}/templates/Snackys/themes/base/jquery-slider.css?v={$nTemplateVersion}" type="text/css">
+								<link rel="stylesheet" href="{$ShopURL}/templates/Snackys/themes/base/css/elements/slider-opc.css?v={$nTemplateVersion}" type="text/css">
 								<script src="{$ShopURL}/templates/Snackys/js/jquery.nivo.slider.pack.js?v={$nTemplateVersion}" type="text/javascript" defer></script>
 							{/if}
 						{/if}
@@ -276,7 +280,7 @@
 						{if $nSeitenTyp === 25}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/page/404.css'}
 						{/if}
-						{if isset($oSlider) && count($oSlider->getSlides()) > 0}
+						{if (isset($oSlider) && count($oSlider->getSlides()) > 0)}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/slider.css'}
 						{/if}
 						{if $snackyConfig.headerTopbar == 0 && !$isMobile}
@@ -355,6 +359,8 @@
 						&& $Einstellungen.artikeluebersicht.artikeluebersicht_erw_darstellung_stdansicht == 1))
 						)) && !$isMobile && $nSeitenTyp == '2'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productlist.css'}
+						{elseif "ProductStream\ProductStream"|in_array:$opcItems}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productlist.css'}
 						{/if}
 						{if $snackyConfig.designpreset == '1'}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/presets/toasty-old.css'}
@@ -399,8 +405,39 @@
 						{if $snackyConfig.galleryStyling == 2}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/gallery-scroll.css'}
 						{/if}
+						{if $snackyConfig.accordionDesign == 1}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/accordeon-pill.css'}
+						{/if}
+						{if $snackyConfig.tabsDesign == 1}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/tabs-pill.css'}
+						{/if}
 						{if $snackyConfig.positionManufacturer == 0 && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== 'N' && isset($Artikel->cHersteller)}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/details/manufacturer-top.css'}
+						{/if}
+						{if $nSeitenTyp == 1 && $showMatrix}
+							{if ($Einstellungen.artikeldetails.artikeldetails_warenkorbmatrix_anzeigeformat === 'L' || $Einstellungen.artikeldetails.artikeldetails_warenkorbmatrix_anzeigeformat === 'H') && $Artikel->nIstVater == 1 && $Artikel->oVariationKombiKinderAssoc_arr|count > 0}
+								{append var='cssArray' value='/templates/Snackys/themes/base/css/details/matrix.css'}
+								{if $Einstellungen.artikeldetails.artikeldetails_warenkorbmatrix_anzeigeformat === 'H'}
+									{append var='cssArray' value='/templates/Snackys/themes/base/css/details/matrix-classic.css'}
+								{/if}
+							{else}
+								{append var='cssArray' value='/templates/Snackys/themes/base/css/details/matrix-classic.css'}
+							{/if}
+						{/if}
+						{if "Divider\Divider"|in_array:$opcItems}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/divider.css'}
+						{/if}
+						{if "Container\Container"|in_array:$opcItems}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/opc-container.css'}
+						{/if}
+						{if "Panel\Panel"|in_array:$opcItems}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/opc-panel.css'}
+						{/if}
+						{if $snackyConfig.news_slider == 1}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/news-slider.css'}
+						{/if}
+						{if "ManufacturerSlider\ManufacturerSlider"|in_array:$opcItems}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/opc-manufacturer.css'}
 						{/if}
 					{/block}
 					{if $opc->isEditMode() === false && $opc->isPreviewMode() === false && \JTL\Shop::isAdmin(true)}
@@ -439,7 +476,7 @@
 					{/block}
 				{/block}
 				{block name="layout-header-theme-color"}
-					<meta name="theme-color" content="{if !empty($snackyConfig.themecolor)}{$snackyConfig.themecolor}{else}{$snackyConfig.css_brand}{/if}">
+					<meta name="theme-color" content="{if !empty($snackyConfig.css_themecolor)}{$snackyConfig.css_themecolor}{else}{$snackyConfig.css_brand}{/if}">
 				{/block}
 				{block name="snackys-head-icons"}
 					{if !empty($snackyConfig.appleTouchIcon)}<link rel="apple-touch-icon" href="{$snackyConfig.appleTouchIcon}"/>{/if}
@@ -544,7 +581,7 @@
 			{/if}
 		{/block}
 		{block name="header-usps"}
-			{if $snackyConfig.headerUsps != 0 && $nSeitenTyp !== 11 && !$isMobile}
+			{if $snackyConfig.headerUsps != 0 && $nSeitenTyp !== 11}
 				{include file="layout/header_usps.tpl"}
 			{/if}
 		{/block}
@@ -694,8 +731,9 @@
 			<div class="row row-ct{if $nSeitenTyp === 2 && $hasFilters} flx-jb ct-mw flx-as{/if}">
 		{/block}
 		{block name="content-starttag"}
-			<div id="content" class="col-12">
+			<div id="content" class="col-12" role="main">
 			{include file='snippets/alert_list.tpl'}
+			{include file="snippets/zonen.tpl" id="before_main"}
 			{include file="snippets/zonen.tpl" id="before_content" title="before_content"}
 		{/block}
 		{block name="header-bc"}

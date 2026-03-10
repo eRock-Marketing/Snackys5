@@ -1,0 +1,24 @@
+.opc-Container.parallax-window{
+    z-index: 1;
+}
+.opc-Container:has(>video),
+.opc-Container[style*="background-image:"],
+.parallax-mirror{
+    border-radius: var(--img-rnd);
+}
+.opc-Container .opc-container-pause.btn-pause{
+	padding: 0;
+	width: 2rem;
+	height: 2rem;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	background: var(--btn-df-b);
+	color: var(--btn-df-t);
+	border: 0;
+	line-height: 1;
+    margin: 0;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}

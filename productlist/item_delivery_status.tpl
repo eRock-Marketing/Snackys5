@@ -36,7 +36,7 @@
         {if $Artikel->cEstimatedDelivery && $showEstimated}
             {getCountry iso=$shippingCountry assign='selectedCountry'}
             <div class="{if $Artikel->bHasKonfig} mt-xs{else} mt-xxs{/if} small">
-                <div class="estimated-delivery alert alert-info m0"
+                <div class="estimated-delivery m0"
                     {if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND])}
                     data-toggle="popover"
                     data-placement="top"

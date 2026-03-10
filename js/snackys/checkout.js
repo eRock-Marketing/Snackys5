@@ -33,8 +33,18 @@
 			});
 		},
 		
+		toggleGuestLabels: function()
+		{
+			var $btn = $('#checkout-guest-btn');
+			if (!$btn.length) return;
+			var isActive = $btn.hasClass('active');
+			$('#gstco-label').toggleClass('hidden', !isActive);
+			$('#newco-label').toggleClass('hidden', isActive);
+		},
+
 		adressForm: function()
 		{
+			this.toggleGuestLabels();
 			this.observePLZ('#postcode','#city','#country');
 			this.observePLZ('#register-shipping_address-postcode','#register-shipping_address-city','#register-shipping_address-country');
 			$('#checkout_register_shipping_address').on('change',function(){
@@ -61,6 +71,7 @@
 			$( "#choose-way .step-box" ).click(function() {
 			  $('#choose-way .step-box').removeClass( "active" );
 			  $(this).addClass( "active" );
+			  $.snackyCheckout.toggleGuestLabels();
 			  if($(this).hasClass('login'))
 			  {
 				  $('#existing-customer').removeClass( "hidden" );

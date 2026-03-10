@@ -1,0 +1,29 @@
+.opc-Divider a:not(:hover){
+    text-decoration: none !important;
+}
+#snackys-tpl .opc-Divider a{
+    border-bottom: none;
+    font-size: var(--h3-lg);
+    font-weight: var(--h3-w);
+    color: var(--h3-t);
+}
+#snackys-tpl body:not(.is-nova) .opc-Divider:before, 
+#snackys-tpl body:not(.is-nova) .opc-Divider:after{
+    background-color: var(--hr-li);
+}
+#snackys-tpl .opc-Divider:before{
+    margin-left: 0;
+}
+#snackys-tpl .opc-Divider:after{
+    margin-right: 0;
+}
+@media screen and (max-width: 991px){
+    #snackys-tpl .opc-Divider a{
+        font-size: var(--h3-md);
+    }
+}
+@media screen and (max-width: 575px){
+    #snackys-tpl .opc-Divider a{
+        font-size: var(--h3-sm);
+    }
+}

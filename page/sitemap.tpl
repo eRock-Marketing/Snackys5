@@ -3,7 +3,7 @@
     <hr class="invisible">
     {if $Einstellungen.sitemap.sitemap_seiten_anzeigen === 'Y'}
         {block name='page-sitemap-pages'}
-            {opcMountPoint id='opc_before_pages' inContainer=false}
+            {include file="snippets/zonen.tpl" id="before_pages"}
             {card header={lang key='sitemapSites'} class="mb-md"}
                 {block name='page-sitemap-pages-content'}
                     {row class="row-multi"}
@@ -32,7 +32,7 @@
     {/if}
     {if $Einstellungen.sitemap.sitemap_kategorien_anzeigen === 'Y' && isset($oKategorieliste->elemente) && $oKategorieliste->elemente|count > 0}
         {block name='page-sitemap-categories'}
-            {opcMountPoint id='opc_before_categories' inContainer=false}
+            {include file="snippets/zonen.tpl" id="before_categories"}
             {card header={lang key='sitemapKats'} class="mb-md"}
                 {block name='page-sitemap-categories-content'}
                     {row class="row-multi"}
@@ -91,7 +91,7 @@
     {/if}
     {if $Einstellungen.sitemap.sitemap_hersteller_anzeigen === 'Y' && $oHersteller_arr|count > 0}
         {block name='page-sitemap-manufacturer'}
-            {opcMountPoint id='opc_before_manufacturers' inContainer=false}
+            {include file="snippets/zonen.tpl" id="before_manufacturers"}
             {card header={lang key='sitemapNanufacturer'} class="mb-md"}
                 {block name='page-sitemap-manufacturer-content'}
                     {row class="row-multi"}
@@ -107,7 +107,7 @@
     {/if}
     {if $Einstellungen.news.news_benutzen === 'Y' && $Einstellungen.sitemap.sitemap_news_anzeigen === 'Y' && !empty($oNewsMonatsUebersicht_arr) && $oNewsMonatsUebersicht_arr|count > 0}
         {block name='page-sitemap-news'}
-            {opcMountPoint id='opc_before_news' inContainer=false}
+            {include file="snippets/zonen.tpl" id="before_news"}
             {card header={lang key='sitemapNews'} class="mb-md"}
                 {block name='page-sitemap-news-content'}
                     {row class="row-multi"}
@@ -135,7 +135,7 @@
         && $oNewsKategorie_arr|count > 0
     }
         {block name='page-sitemap-news-categories'}
-            {opcMountPoint id='opc_before_news_categories' inContainer=false}
+            {include file="snippets/zonen.tpl" id="before_news_categories"}
             {card header={lang key='sitemapNewsCats'} class="mb-md"}
                 {block name='page-sitemap-news-categories-content'}
                     {row class="row-multi"}

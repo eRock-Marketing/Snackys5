@@ -20,15 +20,19 @@ if($('#km_snackys_search').length > 0)
 		searchOpen = true;
 		clearTimeout(activeSearch);
 		activeSearch = setTimeout(() => {
-			if (search && !(search.startsWith('0') && search.length < 2)) {
+			if (search && search !== '0') {
 				$.evo.loadContent($('#km_snackys_search').data('url') + '/?livesearch&suchausdruck=' + search, function() {
 					if ($('#km_snackys_search').text() == '')
 						closeKMLivesearch();
 				}, function() {
 					closeKMLivesearch();
 				}, false, '#km_snackys_search');
-			} else {
+			} else if (!search) {
 				closeKMLivesearch();
+			} else {
+				// Nur "0" eingegeben: abwarten, Eingabe bleibt erhalten, keine Suche auslösen
+				$('#km_snackys_search').empty();
+				$('#km_snackys_search').addClass('hidden');
 			}
 		}, 350);
 	});

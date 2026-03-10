@@ -5,6 +5,7 @@
 	height: 2.32rem;
 	background-color: var(--ben-b);
 	color: var(--ben-t);
+	overflow: hidden;
 }
 #h-us .css-check::before{
 	color: var(--ben-i);
@@ -12,10 +13,23 @@
 #h-us .row{
 	padding-top: 0.6rem;
 	padding-bottom: .6rem;	
+	overflow: hidden;
 }
 #h-us span:first-child{
 	padding-left: 0;
 }
 #h-us span:last-child{
 	padding-right: 0;
+}
+@media screen and (max-width: 767px) {
+	#h-us .css-check{
+		width: 100%;
+		min-width: 100%;
+		padding: 0;
+		transition: all .3s ease;
+	}
+	#h-us .css-check:not(:first-child){
+		width: 0;
+		min-width: 0;
+	}
 }

@@ -1,7 +1,11 @@
 {block name='layout-footer'}
 	{block name="content-all-closingtags"}
     	{block name="content-closingtag"}
-			{include file="snippets/zonen.tpl" id="opc_content"}
+			{if $snackyConfig.old_content_ids === 'Y'}
+				{include file="snippets/zonen.tpl" id="opc_content"}
+			{else}
+				{include file="snippets/zonen.tpl" id="content"}
+			{/if}
 			{include file="snippets/zonen.tpl" id="after_content"} {* Compability to Snackys Shop 4 *}
     		</div>
 			{block name='footer-checkout-assign'}
@@ -454,6 +458,23 @@
 	{block name="rich-snippets"}
 		{include file='snippets/rich-snippets.tpl'}
 	{/block}	
+	{block name="browser-tab-alert"}
+		{if $snackyConfig.tabReminder == 'Y'}
+			{inline_script} 
+				<script>
+					const originalTitle = document.title;
+					const awayTitle = "{lang key='weMissYou' section='custom'}";			  
+					document.addEventListener("visibilitychange", () => {
+					if (document.hidden) {
+						document.title = awayTitle;
+					} else {
+						document.title = originalTitle;
+					}
+					});
+				</script>
+			{/inline_script}
+		{/if}
+	{/block}
 	{snackys_content id="html_body_end" title="html_body_end"}
 	</body>
 	</html>

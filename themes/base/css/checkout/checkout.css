@@ -595,4 +595,9 @@ label.stc-radio{
         margin-left: -8px;
         margin-right: -8px;
     }
+    #choose-way .step-box{
+        padding-left: .2rem;
+        padding-right: .2rem;
+        font-size: var(--ts-sm);
+    }
 }

@@ -16,13 +16,29 @@
 			{block name="content"}
 				{block name="content-headline"}
 					{if !empty($Link->getTitle()) && $Link->getLinkType() != $smarty.const.LINKTYP_404}
-						{include file="snippets/zonen.tpl" id="opc_before_heading"}
+						{if $snackyConfig.old_content_ids === 'Y'}
+							{include file="snippets/zonen.tpl" id="opc_before_heading"}
+						{else}
+							{include file="snippets/zonen.tpl" id="before_heading"}
+						{/if}
 						<h1>{$Link->getTitle()}</h1>
-						{include file="snippets/zonen.tpl" id="opc_after_heading"}
+						{if $snackyConfig.old_content_ids === 'Y'}
+							{include file="snippets/zonen.tpl" id="opc_after_heading"}
+						{else}
+							{include file="snippets/zonen.tpl" id="after_heading"}
+						{/if}
 					{elseif isset($bAjaxRequest) && $bAjaxRequest}
-						{include file="snippets/zonen.tpl" id="opc_before_heading"}
+						{if $snackyConfig.old_content_ids === 'Y'}
+							{include file="snippets/zonen.tpl" id="opc_before_heading"}
+						{else}
+							{include file="snippets/zonen.tpl" id="before_heading"}
+						{/if}
 						<h1>{if !empty($Link->getMetaTitle())}{$Link->getMetaTitle()}{else}{$Link->getName()}{/if}</h1>
-						{include file="snippets/zonen.tpl" id="opc_after_heading"}
+						{if $snackyConfig.old_content_ids === 'Y'}
+							{include file="snippets/zonen.tpl" id="opc_after_heading"}
+						{else}
+							{include file="snippets/zonen.tpl" id="after_heading"}
+						{/if}
 					{/if}
 				{/block}
 				{block name="content-extension"}
@@ -38,7 +54,11 @@
 				{if $Link->getLinkType() == $smarty.const.LINKTYP_AGB}
 					{block name="content-agb"}
 						<div id="tos" class="well well-sm">
-							{include file="snippets/zonen.tpl" id="opc_before_tos"}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_before_tos"}
+							{else}
+								{include file="snippets/zonen.tpl" id="before_tos"}
+							{/if}
 							{if $AGB !== false}
 								{if $AGB->cAGBContentHtml}
 									{$AGB->cAGBContentHtml}
@@ -46,13 +66,21 @@
 									{$AGB->cAGBContentText|nl2br}
 								{/if}	
 							{/if}
-							{include file="snippets/zonen.tpl" id="opc_after_tos"}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_after_tos"}
+							{else}
+								{include file="snippets/zonen.tpl" id="after_tos"}
+							{/if}
 						</div>
 					{/block}
 				{elseif $Link->getLinkType() == $smarty.const.LINKTYP_WRB}
 					{block name="content-wrb"}
 						<div id="revocation-instruction" class="well well-sm">
-							{include file="snippets/zonen.tpl" id="opc_before_revocation"}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_before_revocation"}
+							{else}
+								{include file="snippets/zonen.tpl" id="before_revocation"}
+							{/if}
 							{if $WRB !== false}
 								{if $WRB->cWRBContentHtml}
 									{$WRB->cWRBContentHtml}
@@ -60,13 +88,21 @@
 									{$WRB->cWRBContentText|nl2br}
 								{/if}
 							{/if}
-							{include file="snippets/zonen.tpl" id="opc_after_revocation"}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_after_revocation"}
+							{else}
+								{include file="snippets/zonen.tpl" id="after_revocation"}
+							{/if}
 						</div>
 					{/block}
 				{elseif $Link->getLinkType() === $smarty.const.LINKTYP_WRB_FORMULAR}
 					{block name="content-wrb-form"}
 						<div id="revocation-form" class="well well-sm">
-							{opcMountPoint id='opc_before_revocation_form'}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_before_revocation_form"}
+							{else}
+								{include file="snippets/zonen.tpl" id="before_revocation_form"}
+							{/if}
 							{if $WRB !== false}
 								{if $WRB->cWRBFormContentHtml}
 									{$WRB->cWRBFormContentHtml}
@@ -74,13 +110,21 @@
 									{$WRB->cWRBFormContentText|nl2br}
 								{/if}
 							{/if}
-							{opcMountPoint id='opc_after_revocation_form'}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_after_revocation_form"}
+							{else}
+								{include file="snippets/zonen.tpl" id="after_revocation_form"}
+							{/if}
 						</div>
 					{/block}
 				{elseif $Link->getLinkType() === $smarty.const.LINKTYP_DATENSCHUTZ}
 					{block name="content-privacy"}
 						<div id="data-privacy" class="well well-sm">
-							{opcMountPoint id='opc_before_data_privacy'}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_before_data_privacy"}
+							{else}
+								{include file="snippets/zonen.tpl" id="before_data_privacy"}
+							{/if}
 							{if $WRB !== false}
 								{if $WRB->cDSEContentHtml}
 									{$WRB->cDSEContentHtml}
@@ -88,7 +132,11 @@
 									{$WRB->cDSEContentText|nl2br}
 								{/if}
 							{/if}
-							{opcMountPoint id='opc_after_data_privacy'}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_after_data_privacy"}
+							{else}
+								{include file="snippets/zonen.tpl" id="after_data_privacy"}
+							{/if}
 						</div>
 					{/block}
 				{elseif $Link->getLinkType() == $smarty.const.LINKTYP_STARTSEITE}

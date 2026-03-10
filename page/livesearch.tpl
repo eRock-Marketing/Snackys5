@@ -1,6 +1,6 @@
 {block name='page-livesearch'}
 	{if count($LivesucheTop) > 0 || count($LivesucheLast) > 0}
-		{opcMountPoint id='opc_before_livesearch'}
+		{include file="snippets/zonen.tpl" id="before_livesearch"}
 		<div class="row" id="livesearch">
 			<div class="col-6">
 				<div class="panel panel-default">

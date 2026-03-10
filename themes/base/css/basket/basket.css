@@ -119,7 +119,7 @@
     margin-bottom: 0;
 }
 /* Basket Quantity Hover */
-.choose_quantity button:hover .img-ct{
+.choose_quantity button:not(.qty-sub):not(.qty-add):hover .img-ct{
     transform: rotate(360deg);
     transition: 1s ease;
 }
@@ -266,6 +266,10 @@
     text-align: right;
     white-space: nowrap;
 }
+.bskt .col-nbr.sty-qty{
+    width: 12rem;
+    min-width: 12rem;
+}
 .bskt .col-del{
     width: 3rem;
     min-width: 3rem;
@@ -300,7 +304,7 @@
     z-index: 2;
     display: inline-block;
 }
-.col-qnt .choose_quantity{
+.col-qnt:not(.sty-qty) .choose_quantity{
     max-width: 8rem;
 }
 .bskt-is .row{
@@ -353,7 +357,22 @@
 .prcv small{
     display: block;
 }
-
+.col-qnt.sty-qty .qty-btns{
+    border: 1px solid var(--inp-r);
+    border-radius: var(--btn-rnd);
+}
+.col-qnt.sty-qty .qty-btns input,
+.col-qnt.sty-qty .qty-btns .btn{
+    border: 0;
+    box-shadow: none;
+}
+.col-qnt.sty-qty .qty-btns input{
+    padding-left: 0;
+    padding-right: 0;
+}
+.col-qnt.sty-qty .qty-btns .btn:not(:hover){
+    background: none;
+}
 @media screen and (max-width: 1599px){
     .bskt .col-nbr{
         width: 7rem;
@@ -393,6 +412,13 @@
         width: 60%;
         padding-right: 0;
         order: 3;
+    }
+    .bskt .col-nbr.sty-qty{
+        width: 60%;
+        min-width: 0;
+    }
+    .bskt .col-nbr.sty-qty ~ .col-nbr{
+        width: 40%;
     }
     .bskt .col-nbr{
         min-width: 0;

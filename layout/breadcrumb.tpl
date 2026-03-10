@@ -2,8 +2,8 @@
 	{strip}
 		{has_boxes position='left' assign='hasLeftBox'}
 		{if !empty($Brotnavi) && !$bExclusive && !$bAjaxRequest && $nSeitenTyp !== $smarty.const.PAGE_STARTSEITE && $nSeitenTyp !== $smarty.const.PAGE_BESTELLVORGANG && $nSeitenTyp !== $smarty.const.PAGE_BESTELLSTATUS}
-			<div id="bc-w" class="hidden-xs small">
-				<ol id="bc" class="bc mw-container flx-ac">
+			<div id="bc-w" class="{if $snackyConfig.mobile_breadcrumb == 'N'}hidden-xs {/if}small">
+				<ol id="bc" class="bc mw-container flx-ac no-scrollbar">
 					{foreach name=navi from=$Brotnavi item=oItem}
 						{if $smarty.foreach.navi.first}
 							{block name="bc-first-item"}

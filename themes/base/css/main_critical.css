@@ -330,6 +330,13 @@
     --stk-8-t: @stickerLagerColor;
     --stk-9-b: @stickerVorbestellbarBackground;
     --stk-9-t: @stickerVorbestellbarColor;
+    /* Slides */
+    --prd-sld-xl: @listElmXl;
+    --prd-sld-lg: @listElmLg;
+    --prd-sld-md: @listElmMd;
+    --prd-sld-sm: @listElmSm;
+    --prd-sld-xs: @listElmXs;
+    --prd-sld-xxs: @listElmXxs;
 }
 *{
     -webkit-overflow-scrolling: touch;
@@ -502,6 +509,7 @@ h1, .h1,
     font-size: var(--h1-lg);
     font-weight: var(--h1-w);
     color: var(--h1-t);
+	@fontfamily_h1;
 }
 h2, .h2,
 .buy-wrapper .price{
@@ -509,28 +517,36 @@ h2, .h2,
     font-weight: var(--h2-w);
     color: var(--h2-t);
 }
+h2, .h2{
+	@fontfamily_h2;
+}
 h3, .h3{
     font-size: var(--h3-lg);
     font-weight: var(--h3-w);
     color: var(--h3-t);
+	@fontfamily_h3;
 }
 h4, .h4, #checkout .panel-title, legend, #order-details h3, .consent-display-1, .lpa-checkout-wrapper h3, #fieldset-payment div.h3, .cpr-f .price-row .price, .p-c .price{
     font-size: var(--h4-lg);
+	@fontfamily_h4;
 }
 h4, .h4,
 .consent-display-1{
     font-weight: var(--h4-w);
     color: var(--h4-t);
+	@fontfamily_h4;
 }
 h5, .h5{
     font-size: var(--h5-lg);
     font-weight: var(--h5-w);
     color: var(--h5-t);
+	@fontfamily_h5;
 }
 h6, .h6{
     font-size: var(--h6-lg);
     font-weight: var(--h6-w);
     color: var(--h6-t);
+	@fontfamily_h6;
 }
 .nav .nav,
 .badge,
@@ -1079,12 +1095,15 @@ body.show-sidebar #evo-nav-wrapper{
     vertical-align: middle;
     transition: box-shadow .2s ease;
 }
+a>.tag,
 a.tag{
     background: var(--tag-pr-b);
     color: var(--tag-pr-t);
 }
+a>.tag:hover,
 a.tag:hover,
-a.tag:visited{
+a.tag:visited,
+a>.tag:visited{
     box-shadow: 0 0 0 .125rem var(--tag-pr-b);  
     color: var(--tag-pr-t);
 }
@@ -1580,4 +1599,8 @@ i.info{
 }
 i.info:before{
     content: 'i';
+}
+/* OPC img clickable */
+a:has(> img.img-aspect-ratio){
+    display: inline-block;
 }

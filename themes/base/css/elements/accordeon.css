@@ -1,6 +1,9 @@
 .accordion{
     margin: 1rem 0
 }
+.accordion .card-header:has(>h2){
+    padding: 0;
+}
 .accordion .card-header .btn{
     background: none;
     padding: 0;
@@ -9,6 +12,9 @@
     text-align: left;
     border: 0;
     border-radius: 0;
+}
+.accordion .card-header:has(>h2) .btn{
+    padding: 1rem 1.2rem;
 }
 .accordion .card-header strong:hover,
 .accordion .card-header .btn:hover,
@@ -45,7 +51,6 @@
 }
 .accordion .card-header .btn:before{
     content: '';
-    right: 0;
 }
 .accordion .card .card-link[aria-expanded="false"] .toggle,
 .accordion .card:not(:first-child) .card-link:not([aria-expanded="true"]) .toggle,

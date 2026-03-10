@@ -1,5 +1,5 @@
 {block name='page-newsletter-archive'}
-    {opcMountPoint id='opc_before_newsletter' inContainer=false}
+    {include file="snippets/zonen.tpl" id="before_newsletter"}
     {container fluid=$Link->getIsFluid() class="page-newsletter-archive {if $Einstellungen.template.theme.left_sidebar === 'Y' && $boxesLeftActive}container-plus-sidebar{/if}"}
         {block name='page-newsletter-archive-toptags'}
             <div id="toptags" class="h2">{lang key='newsletterhistory'}</div>

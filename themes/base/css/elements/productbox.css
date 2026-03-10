@@ -16,10 +16,10 @@
     height: 100%;
     width: 100%;
 }
-#content .p-c .title{
+#snackys-tpl .p-c .title{
     color: var(--pbx-tt);
 }
-#content .p-c .title:hover{
+#snackys-tpl .p-c .title:hover{
     color: var(--pbx-tt-h);
 }
 .p-c .form-basket{

@@ -41,13 +41,21 @@
 				{$showLoginPanel = false}
 			{/if}
 		{/block}
-		{include file="snippets/zonen.tpl" id="opc_before_account"}
+		{if $snackyConfig.old_content_ids === 'Y'}
+			{include file="snippets/zonen.tpl" id="opc_before_account"}
+		{else}
+			{include file="snippets/zonen.tpl" id="before_account"}
+		{/if}
 		{block name='account-index-account'}
     		<div id="account" class="row">
         		{block name="my-account-menu-outer"}
 					{if $showLoginPanel}
 						<div class="col-12 col-md-4 col-lg-3 al-wp">
-							{include file="snippets/zonen.tpl" id="opc_before_menu"}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_before_menu"}
+							{else}
+								{include file="snippets/zonen.tpl" id="before_menu"}
+							{/if}
 							{block name="my-account-menu-wrapper"}
                 				<div class="panel{if $step === 'bestellung'} mb-sm{/if}" id="account-list">
                     				<div class="panel-heading">
@@ -167,7 +175,11 @@
 										</div>
 									{/block}
                 				</div>
-								{include file="snippets/zonen.tpl" id="opc_after_menu"}
+								{if $snackyConfig.old_content_ids === 'Y'}
+									{include file="snippets/zonen.tpl" id="opc_after_menu"}
+								{else}
+									{include file="snippets/zonen.tpl" id="after_menu"}
+								{/if}
                 			{/block}
 							{if $step === 'bestellung'}
 								{block name="order-details-infos"}
@@ -183,7 +195,11 @@
 				{block name="my-account-content-wrapper"}
         			<div class="col-12{if $showLoginPanel} col-md-8 col-lg-9{/if}">
 						{if $showLoginPanel}
-							{include file="snippets/zonen.tpl" id="opc_before_account_page"}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_before_account_page"}
+							{else}
+								{include file="snippets/zonen.tpl" id="before_account_page"}
+							{/if}
 						{/if}
 						{if $step === 'login'}
 							{block name='account-index-include-login'}
@@ -255,7 +271,11 @@
 							{/block}
 						{/if}
 						{if $showLoginPanel}
-							{include file="snippets/zonen.tpl" id="opc_after_account_page"}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_after_account_page"}
+							{else}
+								{include file="snippets/zonen.tpl" id="after_account_page"}
+							{/if}
 						{/if}
 					</div>
 				{/block}

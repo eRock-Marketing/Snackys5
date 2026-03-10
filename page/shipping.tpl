@@ -1,6 +1,10 @@
 {block name='page-shipping'}
 	{if isset($Einstellungen.global.global_versandermittlung_anzeigen) && $Einstellungen.global.global_versandermittlung_anzeigen === 'Y'}
-		{include file="snippets/zonen.tpl" id="opc_before_shipping"}
+		{if $snackyConfig.old_content_ids === 'Y'}
+			{include file="snippets/zonen.tpl" id="opc_before_shipping"}
+		{else}
+			{include file="snippets/zonen.tpl" id="before_shipping"}
+		{/if}
 		{if !isset($smarty.get.shipping_calculator) || (isset($smarty.get.shipping_calculator) && $smarty.get.shipping_calculator !== "0")}
 			{if JTL\Session\Frontend::getCart()->PositionenArr|count > 0}	
 				<form method="post" action="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL()}{else}{$ShopURL}/{/if}{if $bExclusive}?exclusive_content=1{/if}" 
@@ -13,6 +17,10 @@
 				<div class="alert alert-info">{lang key="estimateShippingCostsNote" section="global"}</div>
 			{/if}
 		{/if}
-		{include file="snippets/zonen.tpl" id="opc_after_shipping"}
+		{if $snackyConfig.old_content_ids === 'Y'}
+			{include file="snippets/zonen.tpl" id="opc_after_shipping"}
+		{else}
+			{include file="snippets/zonen.tpl" id="after_shipping"}
+		{/if}
 	{/if}
 {/block}

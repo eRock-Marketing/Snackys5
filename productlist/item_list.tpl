@@ -7,7 +7,7 @@
         {/if}
     {/block}
     {block name='item-list-wrapper'}
-        <div id="{$idPrefix|default:''}result-wrapper_buy_form_{$Artikel->kArtikel}" data-wrapper="true" class="p-c{if isset($listStyle) && $listStyle === 'gallery'} active{/if}{if isset($class)} {$class}{/if}">
+        <div id="{$idPrefix|default:''}result-wrapper_buy_form_{$Artikel->kArtikel}" data-wrapper="true" class="p-c{if isset($listStyle) && $listStyle === 'gallery'} active{/if}{if isset($class)} {$class}{/if}{if $Einstellungen.artikeluebersicht.artikeluebersicht_kurzbeschreibung_anzeigen === 'Y'} fl-as{/if}">
             {block name="productlist-image"}
                 <a class="img-w block" href="{$Artikel->cURLFull}" aria-hidden="true" tabindex="-1">
                     {block name="productlist-image-assigns"}
@@ -66,160 +66,158 @@
                 </a>
             {/block}
             {block name="list-info-wrapper"}
-                <div class="row w100">
-                    {block name="list-left-wrapper"}
-                        <div class="col-12 col-sm-8 col-md-7 col-lg-7{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-8{/if} col-left">
-                            {block name='product-title'}
-                                <div class="title h4">
-                                    {block name='product-title-name'}
-                                        <a href="{$Artikel->cURLFull}" class="block">{$Artikel->cName}</a>
-                                    {/block}
-                                    {block name='product-title-rating'}
-                                        {if $Einstellungen.bewertung.bewertung_anzeigen === 'Y'}
-                                            <a href="{$Artikel->cURLFull}#tab-votes" class="hidden-print block" aria-hidden="true" tabindex="-1">
-                                                {include file='productdetails/rating.tpl' stars=$Artikel->fDurchschnittsBewertung}
-                                            </a>
+                <div class="w100">
+                    {block name="list-left-wrapper"}                                       
+                        {block name='product-manufacturer'}
+                            {if $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen !== 'N' && !empty($Artikel->cHersteller)}
+                                <a href="{if !empty($Artikel->cHerstellerHomepage)}{$Artikel->cHerstellerHomepage}{else}{$Artikel->cHerstellerSeo}{/if}" class="flx-w flx-ac manu">
+                                {if ($Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'BT'
+                                    || $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'B')
+                                    && !empty($Artikel->cHerstellerBildKlein)}
+                                        <span class="img-ct img-manu">
+                                            {image webp=true lazy=true fluid=true
+                                                src=$Artikel->cHerstellerBildURLKlein
+                                                srcset="{$Artikel->cHerstellerBildURLKlein} {$Einstellungen.bilder.bilder_hersteller_mini_breite}w,
+                                                        {$Artikel->cHerstellerBildURLNormal} {$Einstellungen.bilder.bilder_hersteller_normal_breite}w"
+                                                alt=$Artikel->cHersteller
+                                                sizes="25px"
+                                                class="img-xs"}
+                                        </span>
+                                {/if}
+                                {if ($Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'BT'
+                                    || $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'Y')
+                                    && !empty($Artikel->cHersteller)}
+                                    <strong>{$Artikel->cHersteller}</strong>
+                                {/if}
+                                </a>
+                            {/if}
+                        {/block}
+                        {block name='product-title'}
+                            <div class="title h4">
+                                {block name='product-title-name'}
+                                    <a href="{$Artikel->cURLFull}" class="block">{$Artikel->cName}</a>
+                                {/block}
+                                {block name='product-title-rating'}
+                                    {if $Einstellungen.bewertung.bewertung_anzeigen === 'Y'}
+                                        <a href="{$Artikel->cURLFull}#tab-votes" class="hidden-print block" aria-hidden="true" tabindex="-1">
+                                            {include file='productdetails/rating.tpl' stars=$Artikel->fDurchschnittsBewertung}
+                                        </a>
+                                    {/if}
+                                {/block}
+                            </div>
+                        {/block}
+                        {block name='product-info-wrapper'}
+                            <div class="product-info hidden-xs">
+                                {block name='product-info'}
+                                    {block name='product-info-shortdesc'}
+                                        {if $Einstellungen.artikeluebersicht.artikeluebersicht_kurzbeschreibung_anzeigen === 'Y' && $Artikel->cKurzBeschreibung}
+                                            <div class="shortdesc mb-xxs">
+                                                {$Artikel->cKurzBeschreibung|strip_tags|truncate:500:"...":true}
+                                            </div>
                                         {/if}
                                     {/block}
-                                </div>
-                            {/block}
-                            {block name='product-info-wrapper'}
-                                <div class="product-info hidden-xs">
-                                    {block name='product-info'}
-                                        {block name='product-info-shortdesc'}
-                                            {if $Einstellungen.artikeluebersicht.artikeluebersicht_kurzbeschreibung_anzeigen === 'Y' && $Artikel->cKurzBeschreibung}
-                                                <div class="shortdesc mb-xxs">
-                                                    {$Artikel->cKurzBeschreibung|strip_tags|truncate:500:"...":true}
-                                                </div>
-                                            {/if}
-                                        {/block}
-                                        {block name='product-info-infos'}
-                                            <ul class="blanklist info hidden-xs">
-                                                {block name='product-info-infos-sku'}
-                                                    <li class="attr-sku">
-                                                        <strong>{lang key='productNo'}: </strong> <span>{$Artikel->cArtNr}</span>
+                                    {block name='product-info-infos'}
+                                        <ul class="blanklist info hidden-xs">
+                                            {block name='product-info-infos-sku'}
+                                                <li class="attr-sku">
+                                                    <strong>{lang key='productNo'}: </strong> <span>{$Artikel->cArtNr}</span>
+                                                </li>
+                                            {/block}
+                                            {block name='product-info-infos-barcode'}
+                                                {if !empty($Artikel->cBarcode)
+                                                    && ($Einstellungen.artikeldetails.gtin_display === 'lists'
+                                                        || $Einstellungen.artikeldetails.gtin_display === 'always')}
+                                                    <li>
+                                                        <strong>{lang key='ean'}: </strong> <span>{$Artikel->cBarcode}</span>
                                                     </li>
-                                                {/block}
-                                                {block name='product-info-infos-barcode'}
-                                                    {if !empty($Artikel->cBarcode)
-                                                        && ($Einstellungen.artikeldetails.gtin_display === 'lists'
-                                                            || $Einstellungen.artikeldetails.gtin_display === 'always')}
-                                                        <li>
-                                                            <strong>{lang key='ean'}: </strong> <span>{$Artikel->cBarcode}</span>
-                                                        </li>
-                                                    {/if}
-                                                {/block}
-                                                {block name='product-info-infos-han'}
-                                                    {if !empty($Artikel->cHAN) && ($Einstellungen.artikeldetails.han_display === 'lists' || $Einstellungen.artikeldetails.han_display === 'always')}
-                                                        <li>
-                                                            <strong>{lang key='han'}: </strong> <span>{$Artikel->cHAN}</span>
-                                                        </li>
-                                                    {/if}
-                                                {/block}
-                                                {block name='product-info-infos-isbn'}
-                                                    {if !empty($Artikel->cISBN) && ($Einstellungen.artikeldetails.isbn_display === 'L' || $Einstellungen.artikeldetails.isbn_display === 'DL')}
-                                                        <li>
-                                                            <strong>{lang key='isbn'}: </strong> <span>{$Artikel->cISBN}</span>
-                                                        </li>
-                                                    {/if}
-                                                {/block}
-                                                {block name='product-info-infos-unnumber'}
-                                                    {if !empty($Artikel->cUNNummer) && !empty($Artikel->cGefahrnr) && ($Einstellungen.artikeldetails.adr_hazard_display === 'L' || $Einstellungen.artikeldetails.adr_hazard_display === 'DL')}
-                                                        <li>
-                                                            <strong>{lang key='adrHazardSign'}: </strong>
-                                                            <ul class="value blanklist">
-                                                                <li>{$Artikel->cGefahrnr}</li>
-                                                                <li>{$Artikel->cUNNummer}</li>
-                                                            </ul>
-                                                        </li>
-                                                    {/if}
-                                                {/block}
-                                                {block name='product-info-infos-mhd'}
-                                                    {if isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
-                                                        <li class="attr-best-before" title="{lang key='productMHDTool'}">
-                                                            <strong>{lang key='productMHD'}: </strong> <span>{$Artikel->dMHD_de}</span>
-                                                        </li>
-                                                    {/if}
-                                                {/block}
-                                                {block name='product-info-infos-weight'}
-                                                    {if $Einstellungen.artikeluebersicht.artikeluebersicht_gewicht_anzeigen === 'Y' && isset($Artikel->cGewicht) && $Artikel->fGewicht > 0}
-                                                        <li class="attr-weight">
-                                                            <strong>{lang key='shippingWeight'}: </strong> <span>{$Artikel->cGewicht} {lang key='weightUnit'}</span>
-                                                        </li>
-                                                    {/if}
-                                                {/block}
-                                                {block name='product-info-infos-weight-unit'}
-                                                    {if $Einstellungen.artikeluebersicht.artikeluebersicht_artikelgewicht_anzeigen === 'Y' && isset($Artikel->cArtikelgewicht) && $Artikel->fArtikelgewicht > 0}
-                                                        <li class="attr-weight weight-unit-article hidden-sm">
-                                                            <strong>{lang key='productWeight'}: </strong> <span>{$Artikel->cArtikelgewicht} {lang key='weightUnit'}</span>
-                                                        </li>
-                                                    {/if}
-                                                {/block}
-                                                {block name='product-info-infos-quantity-scale'}
-                                                    {if $Einstellungen.artikeluebersicht.artikeluebersicht_artikelintervall_anzeigen === 'Y' && $Artikel->fAbnahmeintervall > 0}
-                                                        <li class="attr-quantity-scale">
-                                                            <strong>{lang key='purchaseIntervall' section='productOverview'}: </strong> <span class="value">{$Artikel->fAbnahmeintervall} {$Artikel->cEinheit}</span>
-                                                        </li>
-                                                    {/if}
-                                                {/block}
-                                                {block name='product-info-infos-variations'}
-                                                    {if count($Artikel->Variationen) > 0}
-                                                        <li class="attr-variations">
-                                                            <strong>{lang key='variationsIn' section='productOverview'}: </strong>
-                                                            <span class="value-group">{foreach $Artikel->Variationen as $variation}{if !$variation@first}, {/if}
-                                                            <span class="value">{$variation->cName}</span>{/foreach}</span>
-                                                        </li>
-                                                    {/if}
-                                                {/block}                        
-                                                {block name='product-manufacturer'}
-                                                    {if $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen !== 'N' && !empty($Artikel->cHersteller)}
-                                                        <li class="hidden-xs flx-ac">
-                                                            <strong class="mr-xxs">{lang key='manufacturerSingle' section='productOverview'}: </strong>
-                                                            <a href="{if !empty($Artikel->cHerstellerHomepage)}{$Artikel->cHerstellerHomepage}{else}{$Artikel->cHerstellerSeo}{/if}" class="flx-w flx-ac">
-                                                            {if ($Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'BT'
-                                                                || $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'B')
-                                                                && !empty($Artikel->cHerstellerBildKlein)}
-                                                                    <span class="img-ct icon icon-xl icon-wt contain">
-                                                                        {image webp=true lazy=true fluid=true
-                                                                            src=$Artikel->cHerstellerBildURLKlein
-                                                                            srcset="{$Artikel->cHerstellerBildURLKlein} {$Einstellungen.bilder.bilder_hersteller_mini_breite}w,
-                                                                                    {$Artikel->cHerstellerBildURLNormal} {$Einstellungen.bilder.bilder_hersteller_normal_breite}w"
-                                                                            alt=$Artikel->cHersteller
-                                                                            sizes="25px"
-                                                                            class="img-xs"}
-                                                                    </span>
-                                                            {/if}
-                                                            {if ($Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'BT'
-                                                                || $Einstellungen.artikeluebersicht.artikeluebersicht_hersteller_anzeigen === 'Y')
-                                                                && !empty($Artikel->cHersteller)}
-                                                                <span>{$Artikel->cHersteller}</span>
-                                                            {/if}
-                                                            </a>
-                                                        </li>
-                                                    {/if}
-                                                {/block}
-                                            </ul>
-                                        {/block}
+                                                {/if}
+                                            {/block}
+                                            {block name='product-info-infos-han'}
+                                                {if !empty($Artikel->cHAN) && ($Einstellungen.artikeldetails.han_display === 'lists' || $Einstellungen.artikeldetails.han_display === 'always')}
+                                                    <li>
+                                                        <strong>{lang key='han'}: </strong> <span>{$Artikel->cHAN}</span>
+                                                    </li>
+                                                {/if}
+                                            {/block}
+                                            {block name='product-info-infos-isbn'}
+                                                {if !empty($Artikel->cISBN) && ($Einstellungen.artikeldetails.isbn_display === 'L' || $Einstellungen.artikeldetails.isbn_display === 'DL')}
+                                                    <li>
+                                                        <strong>{lang key='isbn'}: </strong> <span>{$Artikel->cISBN}</span>
+                                                    </li>
+                                                {/if}
+                                            {/block}
+                                            {block name='product-info-infos-unnumber'}
+                                                {if !empty($Artikel->cUNNummer) && !empty($Artikel->cGefahrnr) && ($Einstellungen.artikeldetails.adr_hazard_display === 'L' || $Einstellungen.artikeldetails.adr_hazard_display === 'DL')}
+                                                    <li>
+                                                        <strong>{lang key='adrHazardSign'}: </strong>
+                                                        <ul class="value blanklist">
+                                                            <li>{$Artikel->cGefahrnr}</li>
+                                                            <li>{$Artikel->cUNNummer}</li>
+                                                        </ul>
+                                                    </li>
+                                                {/if}
+                                            {/block}
+                                            {block name='product-info-infos-mhd'}
+                                                {if isset($Artikel->dMHD) && isset($Artikel->dMHD_de)}
+                                                    <li class="attr-best-before" title="{lang key='productMHDTool'}">
+                                                        <strong>{lang key='productMHD'}: </strong> <span>{$Artikel->dMHD_de}</span>
+                                                    </li>
+                                                {/if}
+                                            {/block}
+                                            {block name='product-info-infos-weight'}
+                                                {if $Einstellungen.artikeluebersicht.artikeluebersicht_gewicht_anzeigen === 'Y' && isset($Artikel->cGewicht) && $Artikel->fGewicht > 0}
+                                                    <li class="attr-weight">
+                                                        <strong>{lang key='shippingWeight'}: </strong> <span>{$Artikel->cGewicht} {lang key='weightUnit'}</span>
+                                                    </li>
+                                                {/if}
+                                            {/block}
+                                            {block name='product-info-infos-weight-unit'}
+                                                {if $Einstellungen.artikeluebersicht.artikeluebersicht_artikelgewicht_anzeigen === 'Y' && isset($Artikel->cArtikelgewicht) && $Artikel->fArtikelgewicht > 0}
+                                                    <li class="attr-weight weight-unit-article hidden-sm">
+                                                        <strong>{lang key='productWeight'}: </strong> <span>{$Artikel->cArtikelgewicht} {lang key='weightUnit'}</span>
+                                                    </li>
+                                                {/if}
+                                            {/block}
+                                            {block name='product-info-infos-quantity-scale'}
+                                                {if $Einstellungen.artikeluebersicht.artikeluebersicht_artikelintervall_anzeigen === 'Y' && $Artikel->fAbnahmeintervall > 0}
+                                                    <li class="attr-quantity-scale">
+                                                        <strong>{lang key='purchaseIntervall' section='productOverview'}: </strong> <span class="value">{$Artikel->fAbnahmeintervall} {$Artikel->cEinheit}</span>
+                                                    </li>
+                                                {/if}
+                                            {/block}
+                                            {block name='product-info-infos-variations'}
+                                                {if count($Artikel->Variationen) > 0}
+                                                    <li class="attr-variations">
+                                                        <strong>{lang key='variationsIn' section='productOverview'}: </strong>
+                                                        <span class="value-group">{foreach $Artikel->Variationen as $variation}{if !$variation@first}, {/if}
+                                                        <span class="value">{$variation->cName}</span>{/foreach}</span>
+                                                    </li>
+                                                {/if}
+                                            {/block}     
+                                        </ul>
                                     {/block}
-                                </div>
-                            {/block}
-                        </div>
+                                {/block}
+                            </div>
+                        {/block}
                     {/block}
                     {block name="list-right-wrapper"}
-                        <div class="col-12 col-sm-4 col-md-5 col-lg-5{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-4{/if} text-right col-right">
-                            <form id="{$idPrefix|default:''}buy_form_{$Artikel->kArtikel}" action="{$ShopURL}/" method="post" class="form form-basket jtl-validate right" data-toggle="basket-add">
-                                {block name='product-price'}
-                                    {include file="productdetails/price.tpl" Artikel=$Artikel tplscope=$tplscope}
-                                {/block}
-                                {$jtl_token}
-                                {block name="productlist-delivery-status"}
-                                    {include file="productlist/item_delivery_status.tpl" showEstimated=true} 
-                                {/block}
-                                {block name="item-box-buyoptions"}
-                                    {include file="productlist/item_buyoptions.tpl" listStyle=true}
-                                {/block}
-                            </form>
-                        </div>
+                        <form id="{$idPrefix|default:''}buy_form_{$Artikel->kArtikel}" action="{$ShopURL}/" method="post" class="form form-basket jtl-validate right" data-toggle="basket-add">
+                            {block name='product-price'}
+                                {include file="productdetails/price.tpl" Artikel=$Artikel tplscope=$tplscope}
+                            {/block}
+                            {$jtl_token}
+                            {block name="productlist-delivery-status"}
+                                {include file="productlist/item_delivery_status.tpl" showEstimated=true} 
+                            {/block}
+                            {block name="item-box-buyoptions"}
+                                {if $snackyConfig.listShowCart != 1}
+                                    {block name="item-box-buyoptions"}
+                                        {include file="productlist/item_buyoptions.tpl"}
+                                    {/block}
+                                {/if}
+                                {* include file="productlist/item_buyoptions.tpl" listStyle=true *}
+                            {/block}
+                        </form>
                     {/block}
                 </div>
             {/block}

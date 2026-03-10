@@ -26,7 +26,11 @@
                     {$showTitle = in_array($Einstellungen['navigationsfilter']['merkmalwert_bild_anzeigen'], ['Y', 'BT'])}
                     {$navData = $oNavigationsinfo->getCharacteristicValue()}
                 {/if}
-                {include file="snippets/zonen.tpl" id="opc_before_heading"}
+                {if $snackyConfig.old_content_ids === 'Y'}
+                    {include file="snippets/zonen.tpl" id="opc_before_heading"}
+                {else}
+                    {include file="snippets/zonen.tpl" id="before_heading"}
+                {/if}
                 {if isset($AktuelleKategorie) && isset($AktuelleKategorie->getCategoryAttributes())}
                     {assign var="catAttributes" value=$AktuelleKategorie->getCategoryAttributes()}
                     {if isset($catAttributes.seo_name->cWert)}
@@ -43,7 +47,11 @@
                 {elseif $oNavigationsinfo->getName() && $showTitle}
                     <h1 class="title mb-sm">{$oNavigationsinfo->getName()}</h1>
                 {/if}
-                {include file="snippets/zonen.tpl" id="opc_after_heading"}
+                {if $snackyConfig.old_content_ids === 'Y'}
+                    {include file="snippets/zonen.tpl" id="opc_after_heading"}
+                {else}
+                    {include file="snippets/zonen.tpl" id="after_heading"}
+                {/if}
             {/block}
             {block name='productlist-header-navinfo-description'}
 	            {if $oNavigationsinfo->getName()}
@@ -55,7 +63,7 @@
                             {if $oNavigationsinfo->getImageURL() && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild.gif' === false && $oNavigationsinfo->getImageURL()|strpos:'gfx/keinBild_kl.gif' === false && $showImage}
                                 <div class="col-6 col-sm-3 col-md-4 col-lg-2 product-border">
                                     {block name='productlist-header-navinfo-description-image'}
-                                        <div class="img-ct{if $snackyConfig.imageratioCategory == '43'} rt4x3{/if}">
+                                        <div class="img-ct">
                                             {image src=$oNavigationsinfo->getImageURL()
                                                 webp=true
                                                 lazy=true
@@ -104,7 +112,11 @@
     {/block}
     {block name="productlist-subcategories"}
         {if $Einstellungen.navigationsfilter.artikeluebersicht_bild_anzeigen !== 'N' && $oUnterKategorien_arr|count > 0}
-	        {include file="snippets/zonen.tpl" id="opc_before_subcategories"}
+	        {if $snackyConfig.old_content_ids === 'Y'}
+                {include file="snippets/zonen.tpl" id="opc_before_subcategories"}
+            {else}
+                {include file="snippets/zonen.tpl" id="before_subcategories"}
+            {/if}
             <div class="row row-multi sc-w">
                 {foreach $oUnterKategorien_arr as $Unterkat}
                     <div class="col-6 col-sm-4 col-md-4 col-lg-3{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-2{/if}">
@@ -112,7 +124,7 @@
                             {block name="productlist-subcategories-image"}
                                 {if $Einstellungen.navigationsfilter.artikeluebersicht_bild_anzeigen !== 'Y'}
                                     <a href="{$Unterkat->getURL()}" class="block img-w">
-                                        <div class="img-ct{if $snackyConfig.imageratioCategory == '43'}  rt4x3{/if}">
+                                        <div class="img-ct">
                                             {if $viewportImages < 4}
                                                 {image fluid=true lazy=false webp=true
                                                     src=$Unterkat->getImage(\JTL\Media\Image::SIZE_MD)
@@ -181,7 +193,11 @@
     {/block}
     {block name="productlist-search-noresults"}
         {if $Suchergebnisse->getSearchUnsuccessful() == true}
-            {include file="snippets/zonen.tpl" id="opc_before_no_results"}
+            {if $snackyConfig.old_content_ids === 'Y'}
+                {include file="snippets/zonen.tpl" id="opc_before_no_results"}
+            {else}
+                {include file="snippets/zonen.tpl" id="before_no_results"}
+            {/if}
             <div class="alert alert-info">{lang key="noResults" section="productOverview"}</div>
             <form id="suche2" action="{$ShopURL}" method="get" class="form mb-sm">
                 <fieldset>

@@ -78,9 +78,9 @@
                                         {assign var=hasInfoColumn value=true}
                                         <div class="col-md-4 col-lg-3 hidden-xs hidden-sm info-col">
                                             {if $category->getImageUrl() !== $noImgUrl && isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N'}
-                                                <span class="img-ct{if $snackyConfig.imageratioCategory == '43'} rt4x3{/if}">
+                                                <span class="img-ct">
                                                     {assign var="mainImgAlt" value="{lang key="categoryImage" section="custom"} {$category->getShortName()}"}
-                                                    {include file='snippets/image.tpl' class='img-responsive' item=$category srcSize='sm' alt=$mainImgAlt}
+                                                    {include file='snippets/image.tpl' item=$category srcSize='sm' alt=$mainImgAlt}
                                                 </span>
                                             {/if}
                                             <div class="h4 m0">

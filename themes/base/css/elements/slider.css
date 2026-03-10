@@ -1,11 +1,30 @@
+:root{
+	--slide-bg: var(--sl-ar-b);
+	--slide-bg-h: var(--sl-ar-b-h);
+	--slide-icon: var(--sl-ar-i);
+	--slide-text: #fff;
+	--slide-text-shadow: rgba(0,0,0,.65);
+}
+:root .sl-w.t-dark{
+	--slide-bg: #333;
+	--slide-bg-h: #000;
+	--slide-icon: #fff;
+	--slide-text: #000;
+	--slide-text-shadow: rgba(255,255,255,.65);
+}
+:root .sl-w.t-light{
+	--slide-bg: #fff;
+	--slide-bg-h: #ddd;
+	--slide-icon: #000;
+}
 .sl-w{
 	position: relative;
 }
 .fw-sl{
 	display: flex;
 	overflow: auto;
-	position: relative;
 	pointer-events: none;
+	scroll-snap-type: x mandatory;
 }
 .fw-sl .slide{
 	width: 100%;
@@ -16,28 +35,15 @@
 }
 .fw-sl .htmlcaption{
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #eee;
-    padding: .8rem 1rem;
+    left: 2rem;
+    right: 2rem;
+    bottom: 3rem;
+	text-shadow: 0px 0px 6px var(--slide-text-shadow);
+	font-size: 1.2rem;
+	color: var(--slide-text);
 }
-.sl-w.t-light .htmlcaption{
-    background: rgba(255,255,255,.8);    
-}
-.sl-w.t-dark .htmlcaption{
-    background: rgba(0,0,0,.7);
-    color: white;
-}
-.sl-w.t-dark strong{
-    color: white;
-}
-.fw-sl .desc:not(:empty){
-    margin: .15rem 0 0 0;
-}
-.fw-sl .img-ct,
-.fw-sl .img-ct img{
-	border-radius: 0;
+.fw-sl .htmlcaption strong{
+	color: var(--slide-text);
 }
 .sl-w .sl-ar{
 	position: absolute;
@@ -45,49 +51,135 @@
 	transform: translateY(-50%);
 	z-index: 1;
 	cursor: pointer;
-	background: rgba(255,255,255,.7);
-	border: 0;
-	padding: 1.5rem .8rem;
-	border-radius: var(--btn-rnd-sm);
-	opacity: 1;
+	padding: 1.3rem .9rem;
+	background: var(--slide-bg);
+}
+.sl-w.panel-slider .sl-ar:hover{
+	background: var(--slide-bg-h);
+}
+.sl-w .sl-ar .ar{
+	border-color: var(--slide-icon);
 }
 .sl-w .sl-nx{
 	right: 0;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
+	border-radius: var(--btn-rnd) 0 0 var(--btn-rnd);
 }
 .sl-w .sl-pr{
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
+	border-radius: 0 var(--btn-rnd) var(--btn-rnd) 0;
 }
 .sl-w .ar{
 	padding: 6px;
-	position: relative;
-	top: 2px;
-	left: 2px;
 }
-.sl-w .sl-nx .ar{
-	left: -2px;
+.sl-w:not(:hover) > div:not(.fw-sl){
+	opacity: .3;
 }
-.sl-w:not(:hover) .sl-ar{
-	opacity: .5;
+.sl-dots{
+	gap: .5rem;
+	position: absolute;
+	left:0;
+	right: 0;
+	bottom: 1rem;
 }
-@media screen and (max-width: 991px){
-    .fw-sl .sl-ar{
-        height: 4rem;
-        width: 2.25rem;
-    }
-    .fw-sl .ar {
-        padding: 5px;
-        border-width: 0 2px 2px 0;
-	}
+.sl-dots button{
+	background: var(--slide-bg);
+	border: 0;
+	padding: 0;
+	width: .75rem;
+	height: .75rem;
+	border-radius: 5rem;
+	transition: width 0.3s ease;
+	font-size: 0;
+	color: var(--slide-icon);
+	opacity: .6;
 }
-@media screen and (max-width: 767px){
+.sl-dots button.active,
+.sl-dots button:hover{
+	background: var(--slide-bg-h);
+	opacity: 1;
+}
+.sl-stp{
+	position: absolute;
+	right: .8rem;
+	bottom: .8rem;
+	z-index: 9;
+}
+.sl-stp:not(.stop) .btn.play{
+	display: none;
+}
+.sl-stp.stop .btn.pause{
+	display: none;
+}
+.sl-stp .btn{
+	padding: 0;
+	width: 2rem;
+	height: 2rem;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	background: var(--slide-bg);
+	color: var(--slide-icon);
+	border: 0;
+	line-height: 1;
+}
+.sl-stp .btn:hover{
+	background: var(--slide-bg-h);
+}
+body[data-page="18"] #extension-container > .mb-lg:not(.mw-container) .sl-w .img-ct,
+body[data-page="18"] #extension-container > .mb-lg:not(.mw-container) .sl-w img{
+	border-radius: 0;
+}
+.sl-w.t-bar .htmlcaption{
+	left:0;
+	right:auto;
+	background: rgba(0,0,0,.5);
+	backdrop-filter: blur(10px);
+	padding: 1rem 2rem;
+}
+@media screen and (max-width: 1400px){
 	.fw-sl .htmlcaption{
-		display: none;
+		font-size: 1rem;
 	}
-    .fw-sl .sl-ar{
-        width: 1.8rem;
-        height: 3.5rem;
-    }
+	.sl-w .sl-ar{
+		padding: 1.1rem 0.7rem;
+	}
+}
+@media screen and (max-width: 1199px){
+	.sl-w.t-bar .htmlcaption{
+		padding: 0.7rem 1.2rem;
+	}
+	.fw-sl .htmlcaption{
+		bottom: 2.5rem;
+		left: 1.5rem;
+		right: 1.5rem;
+	}
+}
+@media screen and (max-width: 999px){
+	.fw-sl .htmlcaption{
+		font-size: .9rem;
+	}
+}
+@media screen and (max-width: 899px){
+	.sl-w .sl-ar{
+		padding: .9rem 0.7rem;
+	}
+	.sl-w .ar {
+		padding: 4px;
+	}
+	.sl-stp .btn{
+		width: 1.6rem;
+		height: 1.6rem;
+	}
+	.sl-dots{
+		bottom: .75rem;
+		gap: .4rem;
+	}
+	.sl-dots button{
+		width: .6rem;
+		height: .6rem;
+	}
+	.fw-sl .htmlcaption{
+		bottom: 2rem;
+		left: 1.2rem;
+		right: 1.2rem;
+	}
 }

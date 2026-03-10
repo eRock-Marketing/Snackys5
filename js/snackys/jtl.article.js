@@ -138,7 +138,7 @@
 			
 			$('.qty-sub').off();
 			$('.qty-sub').click(function(e){
-				var quantity = $(this).closest('.btn-group').find('input[name=anzahl]');
+				var quantity = $(this).closest('.btn-group').find('input[name=anzahl], input.qty-inp');
 				if(quantity)
 				{
 					try {
@@ -160,7 +160,7 @@
 			
 			$('.qty-add').off();
 			$('.qty-add').click(function(e){
-				var quantity = $(this).closest('.btn-group').find('input[name=anzahl]');
+				var quantity = $(this).closest('.btn-group').find('input[name=anzahl], input.qty-inp');
 				if(quantity)
 				{
 					try {

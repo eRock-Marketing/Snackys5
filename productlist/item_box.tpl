@@ -98,6 +98,7 @@
                     {if $snackyConfig.hover_productlist === 'Y' && !$isMobile}
                         {block name="item-box-hoverinfos"}
                             {include file="productlist/item_hoverinfos.tpl"}
+                            {* include file="productlist/item_hoverinfos_new.tpl" *}
                         {/block}                        
                     {elseif $snackyConfig.listShowCart != 1}
                         {block name="item-box-buyoptions"}

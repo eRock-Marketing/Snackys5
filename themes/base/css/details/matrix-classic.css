@@ -1,0 +1,54 @@
+.mtrx-clsc .qty-btns{
+    border: 1px solid var(--inp-r);
+    border-radius: var(--frm-rnd);
+}
+.mtrx-clsc .qty-btns:has(+ .input-group-append ){
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 0%;
+}
+.mtrx-clsc .qty-btns .btn{
+    padding: 0 .8rem;
+    box-shadow: none;
+    border:0;
+    border-radius: 0;
+}
+.mtrx-clsc .qty-btns input{
+    padding: .7rem .4rem;
+    box-shadow: none;
+    border:0;
+}
+.mtrx-clsc .qty-btns .btn:not(:hover),
+.mtrx-clsc .qty-btns input:not(:hover){
+    background: none;
+}
+.mtrx-clsc .input-group-append{
+    white-space: nowrap;
+    border: 1px solid var(--inp-r);
+    border-left: 0;
+    border-radius: 0 var(--frm-rnd) var(--frm-rnd) 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 .8rem;
+}
+.mtrx-clsc table{
+    margin: 0
+}
+.mtrx-clsc .delivery-status{
+    margin-top: .25rem;
+}
+.mtrx-clsc .form-inline .delivery-status{
+    margin-top: 0;
+    align-self: center;
+    margin-left: 1rem;
+}
+.mtrx-clsc .mtrx-img{
+    max-width: 5rem
+}
+.mtrx-clsc .text-center .mtrx-img{
+    margin: 0 auto;
+}
+.mtrx-clsc .mtrx-img + strong{
+    margin-top: .25rem;
+    display: inline-block;
+}

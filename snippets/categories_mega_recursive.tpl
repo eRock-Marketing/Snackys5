@@ -4,7 +4,7 @@
     {/block}
     <a href="{$mainCategory->getURL()}" class="block">   
         {if isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N'}                                                                
-            <span class="hidden-xs img-ct{if $snackyConfig.imageratioCategory == '43'}  rt4x3{/if}">
+            <span class="hidden-xs img-ct">
                 {assign var='subImgAlt' value="{lang key="categoryImage" section="custom"} {$mainCategory->getShortName()}"}
                 {include file='snippets/image.tpl' class='image' item=$mainCategory srcSize='sm' alt=$subImgAlt}
             </span>

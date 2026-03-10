@@ -89,20 +89,23 @@
                     {/if}
                     {block name="shipping-info-modal"}
                         {if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND])}
-                            <div class="modal modal-dialog blanklist" tabindex="-1" id="shipinfo-popup">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <span class="modal-title block h5">
-                                            {lang key='information'}
-                                        </span>
-                                        <button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        {if $selectedCountry !== null}{lang key='shippingInformation' section='productDetails' assign=silv}{sprintf($silv, $selectedCountry->getName(), $oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL(), $oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL())}{/if}
+                            {if isset($modal) && $modal == 'none'} 
+                            {else}
+                                <div class="modal modal-dialog blanklist" tabindex="-1" id="shipinfo-popup">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span class="modal-title block h5">
+                                                {lang key='information'}
+                                            </span>
+                                            <button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {if $selectedCountry !== null}{lang key='shippingInformation' section='productDetails' assign=silv}{sprintf($silv, $selectedCountry->getName(), $oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL(), $oSpezialseiten_arr[$smarty.const.LINKTYP_VERSAND]->getURL())}{/if}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            {/if}
                         {/if}
                     {/block}
                 {/block}

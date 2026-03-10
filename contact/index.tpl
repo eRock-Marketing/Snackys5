@@ -10,13 +10,21 @@
 	{block name="content"}
     	<div id="ct-fr" class="ma">
 			{block name='contact-headline'}
-				{include file="snippets/zonen.tpl" id="opc_before_heading"}
+				{if $snackyConfig.old_content_ids === 'Y'}
+					{include file="snippets/zonen.tpl" id="opc_before_heading"}
+				{else}
+					{include file="snippets/zonen.tpl" id="before_heading"}
+				{/if}
 				{if !empty($Spezialcontent->titel)}
 					<h1>{$Spezialcontent->titel}</h1>
 				{else}
 					<h1>{lang key="contact" section="breadcrumb"}</h1>
 				{/if}
-				{include file="snippets/zonen.tpl" id="opc_after_heading"}
+				{if $snackyConfig.old_content_ids === 'Y'}
+					{include file="snippets/zonen.tpl" id="opc_after_heading"}
+				{else}
+					{include file="snippets/zonen.tpl" id="after_heading"}
+				{/if}
 			{/block}
 			{block name='contact-extension'}
     			<hr class="invisible">
@@ -24,7 +32,11 @@
 			{/block}
 			{block name='contact-content'}
     			{if isset($step)}
-					{include file="snippets/zonen.tpl" id="opc_before_form"}
+					{if $snackyConfig.old_content_ids === 'Y'}
+						{include file="snippets/zonen.tpl" id="opc_before_form"}
+					{else}
+						{include file="snippets/zonen.tpl" id="before_form"}
+					{/if}
 					{block name='contact-content-custom-top'}
 						{if !empty($Spezialcontent->oben)}
 							<div class="custom_content">
@@ -222,7 +234,11 @@
 										{/if}
 									{/block}
 									<input type="hidden" name="kontakt" value="1" />
-                					{include file="snippets/zonen.tpl" id="opc_before_submit"}
+                					{if $snackyConfig.old_content_ids === 'Y'}
+										{include file="snippets/zonen.tpl" id="opc_before_submit"}
+									{else}
+										{include file="snippets/zonen.tpl" id="before_submit"}
+									{/if}
 									{block name='contact-content-form-privany-note'}
 										<p class="privacy text-muted">
 											<a href="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}{/if}" class="popup small tdu">

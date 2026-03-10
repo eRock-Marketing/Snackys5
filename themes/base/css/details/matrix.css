@@ -1,27 +1,163 @@
-.mtrx td{
-    width: 1%;
-    display: table-cell;
+.mtrx-l .card{
+    padding: 0;
+    border:0;
+    border-radius: 0;
 }
-.mtrx .form-control{
-	min-width: 3rem;
+.mtrx-l .form-control{
+    text-align: center
 }
-.mtrx .add{
-    background: var(--inp-b);
+.mtrx-l .unit{
+    text-align: center;
+    border-radius: 0 0 var(--frm-rnd) var(--frm-rnd);  
     border: 1px solid var(--inp-r);
-    color: var(--inp-t);
-    padding: 0 .7rem;
-    border-radius: 0 var(--frm-rnd) var(--frm-rnd) 0;
+    border-top:0;  
+    padding: .2rem;
 }
-.mtrx .input-group input:only-child{
+.mtrx-l .col-img{
+    width: 4rem;
+    min-width: 4rem;
+    padding: 0;
+}
+.mtrx-l .col-qty{
+    padding: 0;
+    width: 8rem;
+}
+.mtrx-l .col-prd{
+    width: calc(100% - 12rem);
+}
+.product-matrix hr{
+    margin: 0;
+}
+.mtrx-l .delivery-status .mt-xxs{
+    margin-top: 0
+}
+.mtrx-l .delivery-status strong{
+    font-weight: normal;
+}
+.mtrx-l .choose_quantity{
+    max-width: 12rem;
+    display: block;
+}
+.mtrx-l .col-qty .btn-group{
+    border: 1px solid var(--inp-r);
     border-radius: var(--frm-rnd);
 }
-.mtrx .img-ct{
-    width: 4rem;
+.mtrx-l .col-qty .has-unit .btn-group{
+    border-radius: var(--frm-rnd) var(--frm-rnd) 0 0;
 }
-.mtrx .status{
-    display: block;
-    line-height: normal;
+.mtrx-l .col-qty .btn-group .btn:not(:hover),
+.mtrx-l .col-qty .btn-group input:not(:hover){
+    background: none;
 }
-.mtrx-l .status{
-    width: 100%;
+.mtrx-l .col-qty .btn-group .btn{
+    padding: 0 .8rem;
+    box-shadow: none;
+    border:0;
+    border-radius: 0;
+}
+.mtrx-l .col-qty .btn-group input{
+    padding: .7rem .4rem;
+    box-shadow: none;
+    border:0;
+}
+.mtrx-l .col-qty .no-qty input{
+    border-radius: var(--frm-rnd);
+}
+.mtrx-l .col-qty .no-qty.has-unit input{
+    border-radius: var(--frm-rnd) var(--frm-rnd) 0 0;
+}
+.mtrx-l a[data-target="#shipinfo-popup"]{
+    display:block;
+}
+.mtrx-l .estimated-delivery,
+.mtrx-l .estimated-delivery strong,
+.mtrx-l .estimated-delivery a:not(:hover){
+    color: var(--bod-t-l);
+}
+@media screen and (max-width: 1149px) and (min-width: 768px) {
+    .mtrx-l .col-qty{
+        width: 100%;
+        max-width: 12rem;
+        margin-top:1rem;
+    }
+    .mtrx-l .col-prd{
+        width: calc(100% - 4rem);
+        padding-right: 0;
+    }
+    .mtrx-l .choose_quantity{
+        display: flex;
+    }
+    .mtrx-l .col-qty .no-qty.has-unit input{
+        border-radius: var(--frm-rnd) 0 0 var(--frm-rnd);
+        border-right:0;
+    }
+    .mtrx-l .col-qty .has-unit .btn-group{
+        border-radius: var(--frm-rnd) 0 0 var(--frm-rnd);
+        border-right:0;
+    }
+    .mtrx-l .unit{
+        border-radius: 0 var(--frm-rnd) var(--frm-rnd) 0;
+        border:1px solid var(--inp-r);
+        display: flex;
+        align-items: center;
+        padding: 0 .5rem;
+    }
+}
+@media screen and (min-width: 500px){
+    .mtrx-xs .col-qty{
+        width: 100%;
+        max-width: 12rem;
+        margin-top:1rem;
+    }
+    .mtrx-xs .col-prd{
+        width: calc(100% - 4rem);
+        padding-right: 0;
+    }
+    .mtrx-xs .choose_quantity{
+        display: flex;
+    }
+    .mtrx-xs .col-qty .no-qty.has-unit input{
+        border-radius: var(--frm-rnd) 0 0 var(--frm-rnd);
+        border-right:0;
+    }
+    .mtrx-xs .col-qty .has-unit .btn-group{
+        border-radius: var(--frm-rnd) 0 0 var(--frm-rnd);
+        border-right:0;
+    }
+    .mtrx-xs .unit{
+        border-radius: 0 var(--frm-rnd) var(--frm-rnd) 0;
+        border:1px solid var(--inp-r);
+        display: flex;
+        align-items: center;
+        padding: 0 .5rem;
+    }
+}
+@media screen and (max-width: 499px) {
+    .mtrx-l .col-qty{
+        width: 100%;
+        max-width: 12rem;
+        margin-top:1rem;
+    }
+    .mtrx-l .col-prd{
+        width: calc(100% - 4rem);
+        padding-right: 0;
+    }
+    .mtrx-l .choose_quantity{
+        display: flex;
+    }
+    .mtrx-l .col-qty .no-qty.has-unit input{
+        border-radius: var(--frm-rnd) 0 0 var(--frm-rnd);
+        border-right:0;
+    }
+    .mtrx-l .col-qty .has-unit .btn-group{
+        border-radius: var(--frm-rnd) 0 0 var(--frm-rnd);
+        border-right:0;
+    }
+    .mtrx-l .unit{
+        border-radius: 0 var(--frm-rnd) var(--frm-rnd) 0;
+        border:1px solid var(--inp-r);
+        display: flex;
+        align-items: center;
+        padding: 0 .5rem;
+    }
 }

@@ -7,6 +7,9 @@
 #man-sl .p-sl .p-w:last-child{
 	scroll-snap-align: end;
 }
+#man-sl a:not(:hover){
+	text-decoration: none !important;
+}
 @media screen and (min-width: 1600px){
 	#man-sl .p-sl .p-w,
 	#man-sl .ar-ct-m .ar-ct{

@@ -1,0 +1,34 @@
+.nav-tabs a{
+    border-radius: 20rem;
+    margin-right: .5rem
+}
+.nav-tabs,
+#article-tab-nav{
+    border-bottom: 0;
+    white-space: nowrap;
+}
+body:not(.mobile) .nav-tabs,
+body:not(.mobile) #article-tab-nav{
+    flex-wrap: wrap
+}
+.nav-tabs .nav-item:first-child,
+.nav-tabs .nav-item:last-child{
+    overflow: visible;
+}
+body.mobile .nav-tabs{
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+body.mobile .nav-tabs::-webkit-scrollbar { 
+    display: none; 
+}
+body:not(.mobile) .nav-tabs .nav-item {
+    margin-top: .2rem;
+    margin-bottom: .2rem;
+}
+@media screen and (max-width: 767px) {
+    body.mobile .nav-tabs,
+    body.mobile #article-tab-nav{
+        flex-wrap: nowrap;
+    }
+}

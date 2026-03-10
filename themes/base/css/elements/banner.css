@@ -1,7 +1,7 @@
 .banner{
 	position: relative;
 }
-.banner > img{
+.banner img{
 	border-radius: var(--img-rnd);
 	width: 100%;
 }

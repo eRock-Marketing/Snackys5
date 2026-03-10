@@ -44,6 +44,19 @@
 #stck-bskt .right{
     white-space: nowrap;
 }
+#stck-bskt .price-note{
+    white-space: nowrap;
+}
+#stck-bskt .vat_info,
+#stck-bskt .suggested-price,
+#stck-bskt .yousave{
+    display: none;
+}
+#stck-bskt .price:after{
+    content: ' *';
+    font-weight: 400;
+    position: relative;
+}
 @media screen and (max-width: 899px){
     #stck-bskt{
         max-width: none;

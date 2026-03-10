@@ -8,7 +8,7 @@ img.rounded-circle{
     border-radius: var(--rnd-fll);
 }
 img.rounded{
-    border-radius: var(--img-rnd-md);
+    border-radius: var(--img-rnd);
 }
 .product-list .col{
     padding: 15px;

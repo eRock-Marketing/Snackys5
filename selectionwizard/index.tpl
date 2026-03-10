@@ -1,5 +1,6 @@
 {block name='selectionwizard-index'}
     {if isset($AWA)}
+        {include file="snippets/zonen.tpl" id="before_selection_wizard"}
         {block name='selectionwizard-javascript'}
             <script>
                 var nSelection_arr = [{$AWA->getSelections()|join:','}];

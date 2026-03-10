@@ -13,7 +13,11 @@
         <input type="hidden" name="checkout" value="{if isset($checkout)}{$checkout}{/if}">
         <input type="hidden" name="form" value="1">
         <input type="hidden" name="editRechnungsadresse" value="{$editRechnungsadresse}">
-        {include file="snippets/zonen.tpl" id="opc_before_submit"}
+        {if $snackyConfig.old_content_ids === 'Y'}
+            {include file="snippets/zonen.tpl" id="opc_before_submit"}
+        {else}
+            {include file="snippets/zonen.tpl" id="before_submit"}
+        {/if}
         {block name='register-form-privacy-notice'}
             <p class="privacy text-muted">
                 <a href="{if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ])}{$oSpezialseiten_arr[$smarty.const.LINKTYP_DATENSCHUTZ]->getURL()}{/if}" class="popup small tdu">

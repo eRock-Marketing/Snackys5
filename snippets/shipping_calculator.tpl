@@ -10,7 +10,7 @@
             <div class="panel-body">
                 {block name="shipping-estimate-form-body"}
                     <div class="form-inline">
-                        <label for="country">{lang key="country" section="account data"}</label>
+                        <label for="country" class="sr-only">{lang key="country" section="account data"}</label>
                         <select name="land" id="country" class="form-control mb-xs">
                             {foreach $deliverableCountries as $country}
                                 {if $country->isShippingAvailable()}

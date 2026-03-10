@@ -30,15 +30,27 @@
 		{/foreach}
 	{/block}
     {block name="buyform-block"}
-    	{include file="snippets/zonen.tpl" id="opc_before_buy_form"}
+		{if $snackyConfig.old_content_ids === 'Y'}
+			{include file="snippets/zonen.tpl" id="opc_before_buy_form"}
+		{else}
+			{include file="snippets/zonen.tpl" id="before_buy_form"}
+		{/if}
 		<form id="buy_form{if !empty($smarty.get.quickView)}-quickview{/if}" method="post" action="{$Artikel->cURLFull}" class="jtl-validate mb-lg">
         	{$jtl_token}
         	<div class="row product-primary" id="product-offer">
 				{block name='details-gallery'}
             		<div class="product-gallery col-12 col-sm-6">
-						{include file="snippets/zonen.tpl" id="opc_before_gallery"}
+						{if $snackyConfig.old_content_ids === 'Y'}
+							{include file="snippets/zonen.tpl" id="opc_before_gallery"}
+						{else}
+							{include file="snippets/zonen.tpl" id="before_gallery"}
+						{/if}
 						{include file="productdetails/image.tpl"}
-						{include file="snippets/zonen.tpl" id="after_gallery"}
+						{if $snackyConfig.old_content_ids === 'Y'}
+							{include file="snippets/zonen.tpl" id="opc_after_gallery"}
+						{else}
+							{include file="snippets/zonen.tpl" id="after_gallery"}
+						{/if}
 					</div>
 				{/block}
 				{block name='details-productinfos'}
@@ -52,7 +64,11 @@
 											{if $snackyConfig.positionManufacturer == 0 && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen !== 'N' && isset($Artikel->cHersteller)}
 												{include file="productdetails/manufacturer.tpl"}
 											{/if}
-											{include file="snippets/zonen.tpl" id="opc_before_headline"}
+											{if $snackyConfig.old_content_ids === 'Y'}
+												{include file="snippets/zonen.tpl" id="opc_before_headline"}
+											{else}
+												{include file="snippets/zonen.tpl" id="before_headline"}
+											{/if}
 											<h1 class="product-title{if ($Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0) || (!($Artikel->Preise->fVKNetto == 0 && isset($Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_VOUCHER_FLEX])) && $snackyConfig.pricePosition == 1)} mb-xxs{/if}">{$Artikel->cName}</h1>
 										</div>
 										{if ($Einstellungen.bewertung.bewertung_anzeigen === 'Y' && $Artikel->Bewertungen->oBewertungGesamt->nAnzahl > 0)}
@@ -66,7 +82,11 @@
 										{/if}
                 					{elseif ($Einstellungen.artikeldetails.artikeldetails_navi_blaettern == 'Y' && isset($NavigationBlaettern)) || $snackyConfig.positionHeadline == 0}
 										<div class="product-headline visible-xs">
-											{include file="snippets/zonen.tpl" id="opc_before_headline"}
+											{if $snackyConfig.old_content_ids === 'Y'}
+												{include file="snippets/zonen.tpl" id="opc_before_headline"}
+											{else}
+												{include file="snippets/zonen.tpl" id="before_headline"}
+											{/if}
 											<span class="product-title h1 block">{$Artikel->cName}</span>
 										</div>
                 					{/if}
@@ -96,11 +116,19 @@
 								{block name="productdetails-info-description-wrapper"}
 									{if $Einstellungen.artikeldetails.artikeldetails_kurzbeschreibung_anzeigen === 'Y' && $Artikel->cKurzBeschreibung}
 										{block name="productdetails-info-description"}
-											{include file="snippets/zonen.tpl" id="opc_before_short_desc"}
+											{if $snackyConfig.old_content_ids === 'Y'}
+												{include file="snippets/zonen.tpl" id="opc_before_short_desc"}
+											{else}
+												{include file="snippets/zonen.tpl" id="before_short_desc"}
+											{/if}
 											<div class="shortdesc mb-xs">
 												{if $snackyConfig.optimize_artikel == "Y"}{$Artikel->cKurzBeschreibung|optimize}{else}{$Artikel->cKurzBeschreibung}{/if}
 											</div>
-									   		{include file="snippets/zonen.tpl" id="opc_after_short_desc"}
+											{if $snackyConfig.old_content_ids === 'Y'}
+												{include file="snippets/zonen.tpl" id="opc_after_short_desc"}
+											{else}
+												{include file="snippets/zonen.tpl" id="after_short_desc"}
+											{/if}
 										{/block}
 									{/if}
 								{/block}
@@ -199,7 +227,7 @@
 															<div class="alert-hotstock text-center mb-xs">
 																<strong class="block mb-xxs">{lang key="hotStock" section="custom" printf=$Artikel->fLagerbestand}</strong>
 																<div class="progress">
-																	{assign var="stock_percent" value=$Artikel->fLagerbestand / $snackyConfig.hotStock * 100}
+																	{assign var="stock_percent" value=100 - ($Artikel->fLagerbestand / $snackyConfig.hotStock * 100)}
 																	<div class="progress-bar" style="width: {$stock_percent|round}%;">
 																		{$Artikel->fLagerbestand}
 																	</div>
@@ -267,14 +295,26 @@
 								{/block}
 							{/block}
 						{/block}
-						{include file="snippets/zonen.tpl" id="after_product_info" title="after_product_info"}
+						{include file="snippets/zonen.tpl" id="after_product_info"}
 						{block name="details-matrix"}
-							{include file="productdetails/matrix.tpl"}
+							{if $showMatrix}
+								{if $Einstellungen.artikeldetails.artikeldetails_warenkorbmatrix_anzeigeformat === 'L' && $Artikel->nIstVater == 1 && $Artikel->oVariationKombiKinderAssoc_arr|count > 0}
+									{include file="productdetails/matrix.tpl" matrixType="list"}
+								{/if}
+							{/if}
 						{/block}
 					{/block}
                 </div>
 				</div>
 			</div>
+			{block name="details-matrix-classic"}
+				{if $showMatrix}
+					{if $Einstellungen.artikeldetails.artikeldetails_warenkorbmatrix_anzeigeformat === 'L' && $Artikel->nIstVater == 1 && $Artikel->oVariationKombiKinderAssoc_arr|count > 0}
+					{else}
+						{include file="productdetails/matrix.tpl" matrixType="classic"}
+					{/if}
+				{/if}
+			{/block}
 			{if $snackyConfig.stickyBasket == 'Y'}
 				{block name="sticky-basket-bar"}
 					{if $Artikel->nIstVater && $Artikel->kVaterArtikel == 0 && !$showMatrix}

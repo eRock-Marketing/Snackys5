@@ -21,10 +21,18 @@
     {/block}
     {block name='footer-pagination'}
         {if $Suchergebnisse->getPages()->getMaxPage() > 1}
-	        {include file="snippets/zonen.tpl" id="opc_before_listing_footer"}
+	        {if $snackyConfig.old_content_ids === 'Y'}
+                {include file="snippets/zonen.tpl" id="opc_before_listing_footer"}
+            {else}
+                {include file="snippets/zonen.tpl" id="before_listing_footer"}
+            {/if}
 	        <div class="row">
 		        <div class="col-12">
-	                {include file="snippets/zonen.tpl" id="opc_before_footer_pagination"}
+	                {if $snackyConfig.old_content_ids === 'Y'}
+                        {include file="snippets/zonen.tpl" id="opc_before_footer_pagination"}
+                    {else}
+                        {include file="snippets/zonen.tpl" id="before_footer_pagination"}
+                    {/if}
                     {block name='footer-pagination-list'}
                         <ul class="pagination pagination-ajax flx-jc blanklist">
                             {block name='footer-pagination-prev'}

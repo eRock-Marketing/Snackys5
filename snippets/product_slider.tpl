@@ -4,7 +4,7 @@
     {if !isset($tplscope)}
         {assign var='tplscope' value='slider'}
     {/if}
-    <section class="panel-slider{if isset($title) && $title|strlen > 0} panel-default{/if}{if $tplscope === 'box'} box b-sl panel{/if}{if isset($class) && $class|strlen > 0} {$class}{/if}{if $nSeitenTyp === 18} mb-lg{/if}"{if isset($id) && $id|strlen > 0} id="{$id}"{/if}>
+    <section class="panel-slider{if isset($title) && $title|strlen > 0} panel-default{/if}{if $tplscope === 'box'} box b-sl panel-default{/if}{if isset($class) && $class|strlen > 0} {$class}{/if}{if $nSeitenTyp === 18} mb-lg{/if}"{if isset($id) && $id|strlen > 0} id="{$id}"{/if}>
         <div class="panel-heading">
             <div class="panel-title{if !isset($isBox)} flx-ac flx-jb mb-xs{/if}{if $tplscope == 'box'} h5 m0 flx-ac flx-jb{/if}">
                 {if isset($title) && $title|strlen > 0}   
@@ -25,7 +25,7 @@
                 <div class="right">
                     {if !$isMobile}
                         <div class="ar-ct btn-group{if $productlist|@count > $snackyConfig.css_listElmXl} show-xl{/if}{if $productlist|@count > $snackyConfig.css_listElmLg} show-lg{/if}{if $productlist|@count > $snackyConfig.css_listElmMd} show-md{/if}{if $productlist|@count > $snackyConfig.css_listElmSm} show-sm{/if}{if $productlist|@count > $snackyConfig.css_listElmXs} show-xs{/if}">
-                            <button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}" tabindex="-1">
+                            <button class="sl-ar sl-pr btn" aria-label="{lang key='sliderPrev' section='media'}" tabindex="-1">
                                 <span class="ar ar-l"></span>
                             </button>
                             <button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}" tabindex="-1">
@@ -54,7 +54,7 @@
 			{if $isMobile || $tplscope === 'box'}
 			<div class="row ar-ct-m">
 				<div class="col-12 ar-ct{if $productlist|@count > $snackyConfig.css_listElmXl} show-xl{/if}{if $productlist|@count > $snackyConfig.css_listElmLg} show-lg{/if}{if $productlist|@count > $snackyConfig.css_listElmMd} show-md{/if}{if $productlist|@count > $snackyConfig.css_listElmSm} show-sm{/if}{if $productlist|@count > $snackyConfig.css_listElmXs} show-xs{/if}">
-					<button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}" tabindex="-1">
+					<button class="sl-ar sl-pr btn" aria-label="{lang key='sliderPrev' section='media'}" tabindex="-1">
 						<span class="ar ar-l"></span>
 					</button>
 					<button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}" tabindex="-1">
@@ -65,7 +65,11 @@
 			{/if}
             <div class="row p-sl no-scrollbar flx-nw{if isset($isBox)} sidebar{/if}">
                 {foreach name="sliderproducts" from=$productlist item='product'}
-                    <div class="col-lg-2 p-w">
+                    <div class="col-lg-2 p-w"                    
+                        {if !empty($displayCounts)}
+                        style="--prd-sld-sm: {$displayCounts[0]}; --prd-sld-md: {$displayCounts[1]}; --prd-sld-lg: {$displayCounts[2]}; --prd-sld-xl: {$displayCounts[3]}; scroll-snap-align: start;"
+                        {/if}
+                        >
                         {include file='productlist/item_slider.tpl' Artikel=$product tplscope=$tplscope class=''}
                     </div>
                 {/foreach}

@@ -32,7 +32,11 @@
             {if !isset($smarty.get.sidebar)}
                 {block name='index-wizard'}
                     {include file="productwizard/index.tpl"}
-                    {include file="snippets/zonen.tpl" id="opc_before_result_options"}
+                    {if $snackyConfig.old_content_ids === 'Y'}
+                        {include file="snippets/zonen.tpl" id="opc_before_result_options"}
+                    {else}
+                        {include file="snippets/zonen.tpl" id="before_result_options"}
+                    {/if}
                 {/block}
             {/if}
             {if !$isMobile && !isset($smarty.get.sidebar)}
@@ -45,7 +49,11 @@
                 {/block}
             {/if}
             {if !isset($smarty.get.sidebar)}
-                {include file="snippets/zonen.tpl" id="opc_after_result_options"}
+                {if $snackyConfig.old_content_ids === 'Y'}
+                    {include file="snippets/zonen.tpl" id="opc_after_result_options"}
+                {else}
+                    {include file="snippets/zonen.tpl" id="after_result_options"}
+                {/if}
             {/if}
         {/if}
         {if isset($smarty.get.livesearch)}
@@ -68,7 +76,11 @@
                     {if $Suchergebnisse->getProducts()|count < 1 && isset($KategorieInhalt)}
                         {block name="content-sliders-top-articles"}
                             {if isset($KategorieInhalt->TopArtikel->elemente) && $KategorieInhalt->TopArtikel->elemente|count > 0}
-                                {include file="snippets/zonen.tpl" id="opc_before_category_top"}
+                                {if $snackyConfig.old_content_ids === 'Y'}
+                                    {include file="snippets/zonen.tpl" id="opc_before_category_top"}
+                                {else}
+                                    {include file="snippets/zonen.tpl" id="before_category_top"}
+                                {/if}
                                 {lang key="topOffer" section="global" assign='slidertitle'}
                                 {include file='snippets/product_slider.tpl' id='slider-top-products' productlist=$KategorieInhalt->TopArtikel->elemente title=$slidertitle}
                                 {assign var=viewportImages value=5}
@@ -77,7 +89,11 @@
                         {/block}
                         {block name="content-sliders-bestsellers"}
                             {if isset($KategorieInhalt->BestsellerArtikel->elemente) && $KategorieInhalt->BestsellerArtikel->elemente|count > 0}
-                                {include file="snippets/zonen.tpl" id="opc_before_category_bestseller"}
+                                {if $snackyConfig.old_content_ids === 'Y'}
+                                    {include file="snippets/zonen.tpl" id="opc_before_category_bestseller"}
+                                {else}
+                                    {include file="snippets/zonen.tpl" id="before_category_bestseller"}
+                                {/if}
                                 {lang key="bestsellers" section="global" assign='slidertitle'}
                                 {include file='snippets/product_slider.tpl' id='slider-bestseller-products' productlist=$KategorieInhalt->BestsellerArtikel->elemente title=$slidertitle}
                                 {assign var=viewportImages value=5}
@@ -124,7 +140,11 @@
                         {block name="content-bestsellers"}
                             {if isset($oBestseller_arr) && $oBestseller_arr|count > 0}
                                 {block name="productlist-bestseller"}
-                                    {include file="snippets/zonen.tpl" id="opc_before_bestseller"}
+                                    {if $snackyConfig.old_content_ids === 'Y'}
+                                        {include file="snippets/zonen.tpl" id="opc_before_bestseller"}
+                                    {else}
+                                        {include file="snippets/zonen.tpl" id="before_bestseller"}
+                                    {/if}
                                     {lang key='bestseller' section='global' assign='slidertitle'}
                                     {include file='snippets/product_slider.tpl' id='slider-top-products' productlist=$oBestseller_arr title=$slidertitle}
                                     <div class="mb-md"><hr></div>
@@ -140,7 +160,11 @@
                         {/block}
                         {block name="productlist-results"}
                             {if $Suchergebnisse->getProducts()|count > 0}
-                                {include file="snippets/zonen.tpl" id="opc_before_products"}
+                                {if $snackyConfig.old_content_ids === 'Y'}
+                                    {include file="snippets/zonen.tpl" id="opc_before_products"}
+                                {else}
+                                    {include file="snippets/zonen.tpl" id="before_products"}
+                                {/if}
                                 <div class="row row-multi mb-lg {if $style === 'list' && (!$isMobile || $isTablet)}list{else}{$style}{/if}" id="p-l">
                                     {block name="productlist-results-load-prev"}
                                         {if $Suchergebnisse->getPages()->getCurrentPage() > 1 && !isset($smarty.post.isAjax) && ($snackyConfig.useEndlessScrolling == 'Y' || $snackyConfig.useEndlessScrolling == 'B')}

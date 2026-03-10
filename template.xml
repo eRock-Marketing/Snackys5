@@ -4,7 +4,7 @@
     <Author>eRock Creations</Author>
     <URL>https://www.erock-creations.de</URL>
     <MinShopVersion>5.6.0</MinShopVersion>
-    <Version>5.6.0</Version>
+    <Version>5.6.1</Version>
     <Preview>preview-snackys.png</Preview>
     <Description>Ultraschnelles responsive JTL Template von eRock Creations</Description>
     <Framework>Bootstrap4</Framework>
@@ -156,7 +156,7 @@
 			<File Path="/templates/Snackys/themes/base/css/elements/productbox.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/ribbons.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/productslider.css"/>
-			<File Path="/templates/Snackys/themes/base/css/elements/accordeon.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/accordeon.css"/> 
 			<File Path="/templates/Snackys/themes/base/css/elements/pagination_critical.css"/>
 			<File Path="/templates/Snackys/themes/base/consent.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/opc.css"/>
@@ -165,7 +165,6 @@
 			<File Path="/templates/Snackys/themes/base/css/details/details.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/details/actions.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/details/attributes.css" PageType="1"/>
-			<File Path="/templates/Snackys/themes/base/css/details/matrix.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/details/gallery.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/details/tabs.css" PageType="1"/>
 			<File Path="/templates/Snackys/themes/base/css/details/variations.css" PageType="1"/>

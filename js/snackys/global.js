@@ -810,12 +810,6 @@ document.querySelectorAll('#footer-boxes .panel-heading').forEach(el => {
     el.setAttribute('tabindex', '0');
 });
 
-// Sticky Basket
-document.getElementById('stck-bskt-add')?.addEventListener('click', function () {
-    const targetButton = document.querySelector('button.sn-addBasket');
-    targetButton?.click();
-});
-
 // Set Focus on basket
 $(document).ready(function () {
     if ($('.cart-menu').hasClass('open')) {
@@ -898,6 +892,73 @@ $(document).ready(function () {
     
     // Initialer Check
     checkVisibilityAndScrollPosition();
+
+    // Sticky Basket: Klick auf #stck-bskt-add → sn-addBasket auslösen (Event-Delegation für dynamisch eingefügte Elemente bei Variationen)
+    $(document).on('click', '#stck-bskt-add', function () {
+        const targetButton = document.querySelector('button.sn-addBasket');
+        targetButton?.click();
+    });
+
+    // Sticky Basket: Preis von #buy_form in #stck-bskt synchronisieren (bei Variationen)
+    let stickyPriceObserver = null;
+
+    function initStickyBasketPriceSync() {
+        const $sourceWrapper = $('#buy_form .price_wrapper').first();
+        const $targetWrapper = $('#stck-bskt .price_wrapper');
+
+        if ($sourceWrapper.length === 0 || $targetWrapper.length === 0) {
+            if (stickyPriceObserver) {
+                stickyPriceObserver.disconnect();
+                stickyPriceObserver = null;
+            }
+            return;
+        }
+
+        function syncPriceToSticky() {
+            const $src = $('#buy_form .price_wrapper').first();
+            const $tgt = $('#stck-bskt .price_wrapper');
+            if ($src.length && $tgt.length) {
+                const html = $src.html();
+                if (html) $tgt.html(html);
+            }
+        }
+
+        if (stickyPriceObserver) {
+            stickyPriceObserver.disconnect();
+            stickyPriceObserver = null;
+        }
+
+        syncPriceToSticky();
+
+        stickyPriceObserver = new MutationObserver(function () {
+            syncPriceToSticky();
+        });
+
+        stickyPriceObserver.observe($sourceWrapper[0], {
+            childList: true,
+            subtree: true,
+            characterData: true,
+            attributes: true,
+            attributeFilter: ['content']
+        });
+    }
+
+    initStickyBasketPriceSync();
+
+    $(document).on('evo:changed.article.price evo:contentLoaded', function () {
+        initStickyBasketPriceSync();
+    });
+    
+    $(window).on("load", function () {
+        if ($("body").hasClass("mobile")) {
+          $(".parallax-window").each(function () {
+            var img = $(this).attr("data-image-src");
+            if (img) {
+              this.style.setProperty("background-image", 'url("' + img + '")', "important");
+            }
+          });
+        }
+    });
 
 });
 

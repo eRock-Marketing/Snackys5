@@ -10,7 +10,11 @@
 			</h1>
 		{/block}
 		{block name="login-form"}
-			{include file="snippets/zonen.tpl" id="opc_before_login"}
+			{if $snackyConfig.old_content_ids === 'Y'}
+				{include file="snippets/zonen.tpl" id="opc_before_login"}
+			{else}
+				{include file="snippets/zonen.tpl" id="before_login"}
+			{/if}
 			<form id="login_form" action="{get_static_route id='jtl.php'}" method="post" role="form" class="panel jtl-validate">
 				{$jtl_token}
 				{if $showTwoFAForm|default:false}

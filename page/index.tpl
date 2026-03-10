@@ -14,7 +14,11 @@
         {include file="productwizard/index.tpl"}
     {/block}
     {block name="index-article-sliders"}
-        {include file="snippets/zonen.tpl" id="opc_before_boxes"}
+        {if $snackyConfig.old_content_ids === 'Y'}
+            {include file="snippets/zonen.tpl" id="opc_before_boxes"}
+        {else}
+            {include file="snippets/zonen.tpl" id="before_boxes"}
+        {/if}
         {if isset($StartseiteBoxen) && $StartseiteBoxen|count > 0}
             {assign var='moreLink' value=null}
             {assign var='moreTitle' value=null}
@@ -34,9 +38,17 @@
                         {lang key='showAllBestsellers' section='global' assign='moreTitle'}
                     {/if}
                     {assign var='moreLink' value=$Box->cURL}
-					{include file="snippets/zonen.tpl" id="opc_before_box_{$Box->name|lower}"}
+					{if $snackyConfig.old_content_ids === 'Y'}
+						{include file="snippets/zonen.tpl" id="opc_before_box_{$Box->name|lower}"}
+					{else}
+						{include file="snippets/zonen.tpl" id="before_box_{$Box->name|lower}"}
+					{/if}
                     {include file='snippets/product_slider.tpl' productlist=$Box->Artikel->elemente title=$title hideOverlays=true moreLink=$moreLink moreTitle=$moreTitle}
-					{include file="snippets/zonen.tpl" id="opc_after_box_{$Box->name|lower}"}
+					{if $snackyConfig.old_content_ids === 'Y'}
+						{include file="snippets/zonen.tpl" id="opc_after_box_{$Box->name|lower}"}
+					{else}
+						{include file="snippets/zonen.tpl" id="after_box_{$Box->name|lower}"}
+					{/if}
                 {/if}
             {/foreach}
         {/if}
@@ -55,7 +67,7 @@
 									{block name="index-manuslider-heading-desktop-arrows"}
 										{if !$isMobile}
 											<div class="ar-ct btn-group{if $manufacturers|@count > 8} show-xl{/if}{if $manufacturers|@count > 6} show-lg{/if}{if $manufacturers|@count > 4} show-md{/if}{if $manufacturers|@count > 4} show-sm{/if}{if $manufacturers|@count > 3} show-xs{/if}{if $manufacturers|@count > 2} show-xxs{/if}">
-												<button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}">
+												<button class="sl-ar sl-pr btn" aria-label="{lang key='sliderPrev' section='media'}">
 													<span class="ar ar-l"></span>
 												</button>
 												<button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}">
@@ -89,7 +101,7 @@
 							{if $isMobile || (isset($tplscope) && $tplscope === 'box')}
 								<div class="row ar-ct-m">
 									<div class="col-12 ar-ct{if $manufacturers|@count > 8} show-xl{/if}{if $manufacturers|@count > 6} show-lg{/if}{if $manufacturers|@count > 4} show-md{/if}{if $manufacturers|@count > 4} show-sm{/if}{if $manufacturers|@count > 3} show-xs{/if}{if $manufacturers|@count > 2} show-xxs{/if}">
-										<button class="sl-ar sl-pr btn inactive" aria-label="{lang key='sliderPrev' section='media'}">
+										<button class="sl-ar sl-pr btn" aria-label="{lang key='sliderPrev' section='media'}">
 											<span class="ar ar-l"></span>
 										</button>
 										<button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}">
@@ -137,19 +149,60 @@
     {/block}
     {block name="index-additional"}
         {if isset($oNews_arr) && $oNews_arr|count > 0}
-        {include file="snippets/zonen.tpl" id="opc_before_news"}
+        	{if $snackyConfig.old_content_ids === 'Y'}
+				{include file="snippets/zonen.tpl" id="opc_before_news"}
+			{else}
+				{include file="snippets/zonen.tpl" id="before_news"}
+			{/if}
 			{block name="index-blog"}
-				<section class="mb-lg" id="news-overview">
+				<section class="mb-lg{if $snackyConfig.news_slider == 1} panel-slider{/if}" id="news-overview">
 					{block name="index-blog-heading"}
-						<div class="flx-ac flx-jb mb-sm">
+						{if $snackyConfig.news_slider == 1}
+							<div class="panel-heading">
+						{/if}
+						<div class="{if $snackyConfig.news_slider == 1}panel-title {/if}flx-ac flx-jb{if $snackyConfig.news_slider == 0} mb-sm{/if}">
 							<h2 class="block m0">{lang key="news" section="news"}</h2>
+							{if $snackyConfig.news_slider == 1}
+								<div class="right">
+								{if !$isMobile}
+									<div class="ar-ct btn-group{if $oNews_arr|@count > 4} show-xl{/if}{if $oNews_arr|@count > 3} show-lg{/if}{if $oNews_arr|@count > 3} show-md{/if}{if $oNews_arr|@count > 6} show-sm{/if}{if $oNews_arr|@count > 1} show-xs{/if}">
+										<button class="sl-ar sl-pr btn" aria-label="{lang key='sliderPrev' section='media'}" tabindex="-1">
+											<span class="ar ar-l"></span>
+										</button>
+										<button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}" tabindex="-1">
+											<span class="ar ar-r"></span>
+										</button>
+									</div>
+								{/if}
+							{/if}
 							<a href="{get_static_route id='news.php'}" title="{lang key="news" section="news"}" class="btn btn-primary">
 								{lang key="showAll" section="global"}
 							</a>
-						 </div>
+							{if $snackyConfig.news_slider == 1}
+								</div>
+							{/if}
+						</div>
+						{if $snackyConfig.news_slider == 1}
+							</div>
+						{/if}
 					{/block}
 					{block name="index-blog-posts"}
-						<div class="row row-multi" id="newslist">
+						{if $snackyConfig.news_slider == 1}
+							<div class="panel-body">
+								{if $isMobile}
+									<div class="row ar-ct-m">
+										<div class="col-12 ar-ct{if $oNews_arr|@count > 4} show-xl{/if}{if $oNews_arr|@count > 3} show-lg{/if}{if $oNews_arr|@count > 3} show-md{/if}{if $oNews_arr|@count > 2} show-sm{/if}{if $oNews_arr|@count > 1} show-xs{/if}">
+											<button class="sl-ar sl-pr btn" aria-label="{lang key='sliderPrev' section='media'}" tabindex="-1">
+												<span class="ar ar-l"></span>
+											</button>
+											<button class="sl-ar sl-nx btn" aria-label="{lang key='sliderNext' section='media'}" tabindex="-1">
+												<span class="ar ar-r"></span>
+											</button>
+										</div>
+									</div>
+								{/if}
+						{/if}
+						<div class="row {if $snackyConfig.news_slider == 1}p-sl no-scrollbar flx-nw{else}row-multi{/if}" id="newslist">
 							{foreach $oNews_arr as $newsItem}
 								<div class="col-6 col-sm-6 col-md-4 col-lg-4{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-3{/if}">
 									{block name="index-blog-posts-item"}
@@ -158,6 +211,9 @@
 								</div>
 							{/foreach}
 						</div>
+						{if $snackyConfig.news_slider == 1}
+							</div>
+						{/if}
 					{/block}
 				</section>
 			{/block}

@@ -11,7 +11,11 @@
 		{/block}	
 		{block name='newsletter-index-heading'}
 			{if !empty($Link->getTitle())}
-				{include file="snippets/zonen.tpl" id="opc_before_newsletter_heading"}
+				{if $snackyConfig.old_content_ids === 'Y'}
+					{include file="snippets/zonen.tpl" id="opc_before_newsletter_heading"}
+				{else}
+					{include file="snippets/zonen.tpl" id="before_newsletter_heading"}
+				{/if}
 				<h1>{$Link->getTitle()}</h1>
 			{/if}
 		{/block}
@@ -20,7 +24,11 @@
 		{/block}
 		{block name='newsletter-index-link-content'}
 			{if !empty($Link->getContent())}
-				{include file="snippets/zonen.tpl" id="opc_before_newsletter_content"}
+				{if $snackyConfig.old_content_ids === 'Y'}
+					{include file="snippets/zonen.tpl" id="opc_before_newsletter_content"}
+				{else}
+					{include file="snippets/zonen.tpl" id="before_newsletter_content"}
+				{/if}
 				<div class="mb-sm">
 					{$Link->getContent()}
 				</div>
@@ -29,7 +37,7 @@
     	{if $cOption === 'eintragen'}
         	{if empty($bBereitsAbonnent)}
             	{block name="newsletter-subscribe"}
-					{include file="snippets/zonen.tpl" id="before_newsletter_subscribe" title="before_newsletter_subscribe"}
+					{include file="snippets/zonen.tpl" id="before_newsletter_subscribe"}
             		<div id="newsletter-subscribe" class="mb-md">
                 		<div class="panel panel-default">
 							{block name="newsletter-subscribe-heading"}
@@ -122,7 +130,11 @@
 				{/block}
 			{/if}        
         	{block name="newsletter-unsubscribe"}
-				{include file="snippets/zonen.tpl" id="opc_before_newsletter_unsubscribe"}
+				{if $snackyConfig.old_content_ids === 'Y'}
+					{include file="snippets/zonen.tpl" id="opc_before_newsletter_unsubscribe"}
+				{else}
+					{include file="snippets/zonen.tpl" id="before_newsletter_unsubscribe"}
+				{/if}
 				<div id="newsletter-unsubscribe" class="panel-wrap top15">
             		<div class="panel panel-default">
 						{block name="newsletter-unsubscribe-headline"}

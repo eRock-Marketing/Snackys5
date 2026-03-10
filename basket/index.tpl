@@ -9,7 +9,11 @@
 	{/block}
 	{block name="content"}
 		{get_static_route id='warenkorb.php' assign='cartURL'}
-		{include file="snippets/zonen.tpl" id="opc_before_heading"}
+		{if $snackyConfig.old_content_ids === 'Y'}
+			{include file="snippets/zonen.tpl" id="opc_before_heading"}
+		{else}
+			{include file="snippets/zonen.tpl" id="before_heading"}
+		{/if}
 		{block name='basket-extension'}
 			{include file="snippets/extension.tpl"}
 		{/block}
@@ -21,7 +25,11 @@
     						<h1 class="mb-sm{if ($WarenkorbArtikelAnzahl == 0)} text-center{/if}">
 								{lang key="basket" section="global"} {if $WarenkorbArtikelAnzahl > 0}<span class="text-muted">({$WarenkorbArtikelAnzahl} {lang key='products'})</span>{/if}
 							</h1>
-    						{include file="snippets/zonen.tpl" id="opc_after_heading"}
+    						{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_after_heading"}
+							{else}
+								{include file="snippets/zonen.tpl" id="after_heading"}
+							{/if}
 						{/block}
 						{block name="basket-content-basket"}
     						{if $WarenkorbArtikelAnzahl > 0}
@@ -37,7 +45,7 @@
 										{block name="basket-content-items-wrapper"}
                 							<div class="basket-well mb-sm">
                     							{block name="basket-items"}
-													{include file="snippets/zonen.tpl" id="before_basket" title="opc_before_basket"}
+													{include file="snippets/zonen.tpl" id="before_basket"}
                         							<form id="cart-form" method="post" action="{$cartURL}">
                             							{$jtl_token}
                             							<input type="hidden" name="wka" value="1" />
@@ -328,7 +336,11 @@
         						{if $Einstellungen.kaufabwicklung.warenkorb_versandermittlung_anzeigen === 'Y'}
             						{block name="basket-shipping-estimate-form"}
                 						<div class="basket-shipping-estimate-form">
-                    						{include file="snippets/zonen.tpl" id="opc_before_shipping_calculator"}
+											{if $snackyConfig.old_content_ids === 'Y'}
+												{include file="snippets/zonen.tpl" id="opc_before_shipping_calculator"}
+											{else}
+												{include file="snippets/zonen.tpl" id="before_shipping_calculator"}
+											{/if}
                     						<form id="basket-shipping-estimate-form" method="post" action="{$cartURL}#basket-shipping-estimate-form">
                         						{$jtl_token}
                         						{include file='snippets/shipping_calculator.tpl' checkout=true tplscope="cart"}
@@ -342,7 +354,8 @@
 				{/block}
 			</div>
 		{/block}
-		{block name="basket-xsell-outer"}        
+		{block name="basket-xsell-outer"}
+			{include file="snippets/zonen.tpl" id="before_xselling"}        
     		{if !empty($xselling->Kauf) && count($xselling->Kauf->Artikel) > 0 && $isMobile}
         		{block name="basket-xsell"}
           			<div class="basket-xsell-xs">
@@ -352,6 +365,7 @@
           			</div>
         		{/block}
 			{/if}
+			{include file="snippets/zonen.tpl" id="after_xselling"} 
 		{/block}
 	{/block}
 	{block name="footer"}

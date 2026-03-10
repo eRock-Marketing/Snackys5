@@ -7,7 +7,11 @@
 			<h1>{lang key="manufacturers"}</h1>
 		{/if}
 	{/block}
-	{include file="snippets/zonen.tpl" id="opc_before_manufacturers"}
+	{if $snackyConfig.old_content_ids === 'Y'}
+		{include file="snippets/zonen.tpl" id="opc_before_manufacturers"}
+	{else}
+		{include file="snippets/zonen.tpl" id="before_manufacturers"}
+	{/if}
 	<div class="row row-multi" id="manu-row">
 		{foreach $oHersteller_arr as $Hersteller}
 			{block name='manufacturers-item'}

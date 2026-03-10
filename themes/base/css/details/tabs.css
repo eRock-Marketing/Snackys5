@@ -76,6 +76,9 @@
 #tab-gpsr .panel-heading{
     text-align: left;
 }
+.tab-ct .panel-heading .img-ct.icon{
+    min-width: 1rem;
+}
 @media screen and (max-width: 1600px){
     #rv-wp{
         margin-right: 2.5rem;

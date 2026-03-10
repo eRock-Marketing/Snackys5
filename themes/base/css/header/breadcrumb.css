@@ -22,8 +22,9 @@
 #bc{
 	margin-top: 0;
 	margin-bottom: 0;
-	list-style: none;
-    overflow: hidden;
+	list-style: none;    
+    white-space: nowrap;
+    overflow: auto;
 }
 #bc .separator{
     margin: 0 .5rem;

@@ -3,7 +3,7 @@
         {foreach $Suchergebnisse->Bewertung as $oBewertung}
             {if $NaviFilter->hasRatingFilter() && $NaviFilter->getRatingFilter()->getValue() == $oBewertung->nStern}
                 <li>
-                    <a rel="nofollow" href="{$NaviFilter->URL->getRatings()}" class="active">
+                    <a rel="nofollow" href="{$NaviFilter->URL->getRatings()}#content" class="active">
                         <span class="badge pull-right">{$oBewertung->nAnzahl}</span>
                         <span class="value">
                             {include file='productdetails/rating.tpl' stars=$oBewertung->nStern}
@@ -21,7 +21,7 @@
                 </li>
             {elseif $oBewertung->nAnzahl >= 1 && $oBewertung->nStern > 0}
                 <li>
-                    <a rel="nofollow" href="{$oBewertung->cURL}">
+                    <a rel="nofollow" href="{$oBewertung->cURL}#content">
                         <span class="badge pull-right">{$oBewertung->nAnzahl}</span>
                         <span class="value">
                             {include file='productdetails/rating.tpl' stars=$oBewertung->nStern}
@@ -40,7 +40,7 @@
                 </li>
             {elseif $oBewertung->nAnzahl >= 1 && $oBewertung->nStern > 0}
                 <li>
-                    <a rel="nofollow" href="{$oBewertung->cURL}">
+                    <a rel="nofollow" href="{$oBewertung->cURL}#content">
                         <span class="badge pull-right">{$oBewertung->nAnzahl}</span>
                         <span class="value">
                             {include file='productdetails/rating.tpl' stars=$oBewertung->nStern}

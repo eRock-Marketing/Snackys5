@@ -6,9 +6,6 @@
 .panel-slider .sl-ar{
 	opacity: .65;
 }
-.panel-slider .sl-ar.inactive{
-    opacity: .3;
-}
 /* Mobile-Link nicht Klickbar */
 @media screen and (max-width: 767px){
 	.mmlca-n #cat-w li:not(.open) > .mm-mainlink .fa-caret-down.visible-xs{

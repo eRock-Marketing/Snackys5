@@ -18,17 +18,37 @@
 	{/block}
 	{block name="content"}
 		{block name='comparelist-content-headline'}
-			{include file="snippets/zonen.tpl" id="opc_before_heading"}
+			{if $snackyConfig.old_content_ids === 'Y'}
+				{include file="snippets/zonen.tpl" id="opc_before_heading"}
+			{else}
+				{include file="snippets/zonen.tpl" id="before_heading"}
+			{/if}
 			<h1 class="text-center mb-sm">{if !empty($Link->getTitle())}{$Link->getTitle()}{else}{lang key='compare' section='global'}{/if}</h1>
-			{include file="snippets/zonen.tpl" id="opc_after_heading"}
+			{if $snackyConfig.old_content_ids === 'Y'}
+				{include file="snippets/zonen.tpl" id="opc_after_heading"}
+			{else}
+				{include file="snippets/zonen.tpl" id="after_heading"}
+			{/if}
 		{/block}
 		{block name='comparelist-content-extension'}
     		{include file="snippets/extension.tpl"}
 		{/block}
+		{block name='comparelist-index-link-content'}
+            {if !empty($Link->getContent()) && !$isAjax}
+                {container fluid=$Link->getIsFluid() class="link-content {if $Einstellungen.template.theme.left_sidebar === 'Y' && $boxesLeftActive}container-plus-sidebar{/if}"}
+                    {$Link->getContent()}
+                {/container}
+            {/if}
+        {/block}
+		{include file="snippets/zonen.tpl" id="before_filter"}
 		{block name='comparelist-content-list'}
     		{if $oVergleichsliste->oArtikel_arr|count > 0}
 				{block name='comparelist-content-list-articles'}
-					{include file="snippets/zonen.tpl" id="opc_before_compare_list"}
+					{if $snackyConfig.old_content_ids === 'Y'}
+						{include file="snippets/zonen.tpl" id="opc_before_compare_list"}
+					{else}
+						{include file="snippets/zonen.tpl" id="before_compare_list"}
+					{/if}
 					{block name='comparelist-content-list-image-name'}
 						<div class="row cpr-f flx-jc first">
 							{foreach $oVergleichsliste->oArtikel_arr as $oArtikel}

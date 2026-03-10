@@ -123,6 +123,19 @@
 														</a>
 													{/if}
 													{if $oPosition->istKonfigVater() && !empty(JTL\Session\Frontend::getCart()->PositionenArr)}
+														{assign var="hasKonfItems" value=false}
+														{foreach JTL\Session\Frontend::getCart()->PositionenArr as $KonfigPos}
+															{if $oPosition->cUnique == $KonfigPos->cUnique && $KonfigPos->kKonfigitem > 0
+															&& !$KonfigPos->isIgnoreMultiplier()}
+																{assign var="hasKonfItems" value=true}
+																{break}
+															{elseif $oPosition->cUnique == $KonfigPos->cUnique && $KonfigPos->kKonfigitem > 0
+																&& $KonfigPos->isIgnoreMultiplier()}
+																{assign var="hasKonfItems" value=true}
+																{break}
+															{/if}
+														{/foreach}
+														{if $hasKonfItems}
 														<a href="#" class="defaultlink small" data-toggle="modal" data-target="#konfi{$smarty.foreach.positionen.index}">
 															{lang key='listOfItems'} 
 														</a>
@@ -209,6 +222,7 @@
 																</div>
 															</div>
 														</div>
+														{/if}
 													{/if}
 													{block name='order-items-item-partlist'}
 														{if $Einstellungen.kaufabwicklung.bestellvorgang_partlist === 'Y' && !empty($oPosition->Artikel->kStueckliste) && !empty($oPosition->Artikel->oStueckliste_arr)}
@@ -283,7 +297,7 @@
 								</div>
 							{/block}
 							{block name='oder-items-quantity'}
-								<div class="col-qnt col-nbr">
+								<div class="col-qnt col-nbr{if $snackyConfig.quantityButtons == '1'} sty-qty{/if}">
 									{block name='order-items-item-quantity'}
 										{if $tplscope === 'cart'}
 											{block name='order-items-item-quantity-changeable'}
@@ -318,9 +332,21 @@
 																	<div class="panel-body text-center">
 																		<div class="form-inline flx-je">
 																			<div id="quantity-grp{$smarty.foreach.positionen.index}" class="choose_quantity input-group w100">
+																				{block name='basket-quantity-minus'}
+																					{if $snackyConfig.quantityButtons == '1'}
+																						<div class="btn-group qty-btns w100 m0">
+																							<button class="btn btn-blank qty-sub btn-xs" aria-label="{lang key='quantity' section='global'}: {lang key='less'}" type="button">
+																								<span class="img-ct icon">
+																									<svg>
+																									<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-minus"></use>
+																									</svg>
+																								</span>
+																							</button>
+																					{/if}
+																				{/block}
 																				<label for="quantity{$smarty.foreach.positionen.index}" class="sr-only">{lang key='quantity' section='checkout'}:</label>
 																				<input name="anzahl[{$smarty.foreach.positionen.index}]" id="quantity{$smarty.foreach.positionen.index}" 
-																				class="form-control quantity small form-control text-right" 
+																				class="form-control quantity small form-control text-right{if $snackyConfig.quantityButtons == '1'} qty-inp{/if}" 
 																				size="3"
 																				min="{if $oPosition->Artikel->fMindestbestellmenge}{$oPosition->Artikel->fMindestbestellmenge}{else}0{/if}"
 																				max="{$oPosition->Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_MAXBESTELLMENGE]|default:''}"
@@ -328,8 +354,23 @@
 																					step="{$oPosition->Artikel->fAbnahmeintervall}"
 																				{/if}
 																				value="{$oPosition->nAnzahl}"
+																				{if $snackyConfig.quantityButtons == '1'}
+																					type="number"
+																				{/if}
 																				/>
-																				<span class="input-group-btn">
+																				{block name='basket-quantity-plus'}
+																					{if $snackyConfig.quantityButtons == '1'}
+																							<button class="btn btn-blank qty-add btn-xs" aria-label="{lang key='quantity' section='global'}: {lang key='more'}" type="button">
+																								<span class="img-ct icon">
+																									<svg>
+																									<use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-plus"></use>
+																									</svg>
+																								</span>
+																							</button>
+																						</div>
+																					{/if}
+																				{/block}
+																				<span class="input-group-btn{if $snackyConfig.quantityButtons == '1'} sr-only{/if}">
 																					<button type="submit" class="btn btn-default btn-sm pr" title="{lang key='refresh' section='checkout'}">
 																						<span class="img-ct icon">
 																							<svg>
@@ -492,6 +533,40 @@
 					{/block}
 				{/if}
 			{/foreach}
+		{/block}
+		{block name="basket-inline-script"}
+			{if $snackyConfig.quantityButtons == '1'}
+				{inline_script}
+					<script>
+					(function() {
+						var debounce = {};
+						document.querySelectorAll('.qty-sub, .qty-add').forEach(function(btn) {
+							btn.addEventListener('click', function() {
+								var container = this.closest('.choose_quantity');
+								var input = container ? container.querySelector('input.qty-inp, input[name^="anzahl"]') : null;
+								if (!input) return;
+								var key = input.id || input.name;
+								if (debounce[key]) clearTimeout(debounce[key]);
+								debounce[key] = setTimeout(function() {
+									var sb = container.querySelector('.input-group-btn button[type="submit"]');
+									if (sb) sb.click();
+									delete debounce[key];
+								}, 1500);
+							});
+						});
+						document.querySelectorAll('.qty-inp, .choose_quantity input[type="number"]').forEach(function(input) {
+							input.addEventListener('blur', function() {
+								var container = this.closest('.choose_quantity');
+								var key = this.id || this.name;
+								if (debounce[key]) { clearTimeout(debounce[key]); delete debounce[key]; }
+								var sb = container ? container.querySelector('.input-group-btn button[type="submit"]') : null;
+								if (sb) sb.click();
+							});
+						});
+					})();
+					</script>
+				{/inline_script}
+			{/if}
 		{/block}
 	{/block}
 {/block}

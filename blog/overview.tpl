@@ -1,22 +1,38 @@
 {block name='blog-overview'}
 	{block name='blog-overview-headline'}
-		{include file="snippets/zonen.tpl" id="opc_before_heading"}
+		{if $snackyConfig.old_content_ids === 'Y'}
+			{include file="snippets/zonen.tpl" id="opc_before_heading"}
+		{else}
+			{include file="snippets/zonen.tpl" id="before_heading"}
+		{/if}
 		<h1>{if !empty($Link->getTitle())}{$Link->getTitle()}{else}{lang key='news' section='news'}{/if}</h1>
-		{include file="snippets/zonen.tpl" id="opc_after_heading"}
+		{if $snackyConfig.old_content_ids === 'Y'}
+			{include file="snippets/zonen.tpl" id="opc_after_heading"}
+		{else}
+			{include file="snippets/zonen.tpl" id="after_heading"}
+		{/if}
 	{/block}
 	{block name='blog-overview-extension'}
 		{include file='snippets/extension.tpl'}
 	{/block}
     {block name='blog-overview-link-content'}
         {if !empty($Link->getContent())}
-			{include file="snippets/zonen.tpl" id="opc_before_content"}
+			{if $snackyConfig.old_content_ids === 'Y'}
+				{include file="snippets/zonen.tpl" id="opc_before_content"}
+			{else}
+				{include file="snippets/zonen.tpl" id="before_content"}
+			{/if}
             {container fluid=$Link->getIsFluid() class="link-content"}
                 {$Link->getContent()}
             {/container}
         {/if}
     {/block}
 	{block name='blog-overview-filter'}
-		{include file="snippets/zonen.tpl" id="opc_before_filter"}
+		{if $snackyConfig.old_content_ids === 'Y'}
+			{include file="snippets/zonen.tpl" id="opc_before_filter"}
+		{else}
+			{include file="snippets/zonen.tpl" id="before_filter"}
+		{/if}
 		{get_static_route id='news.php' assign=routeURL}
 		<form id="frm_filter" name="frm_filter" action="{$routeURL}" method="post" class="flx-w mb-md">
     		{$jtl_token}
@@ -83,7 +99,11 @@
     			<div id="news-c">
         			{if $oNewsCat->getID() > 0}
 						{block name='blog-overview-category-headline'}
-							{include file="snippets/zonen.tpl" id="opc_before_news_category_heading"}
+							{if $snackyConfig.old_content_ids === 'Y'}
+								{include file="snippets/zonen.tpl" id="opc_before_news_category_heading"}
+							{else}
+								{include file="snippets/zonen.tpl" id="before_news_category_heading"}
+							{/if}
 							{if !empty($oNewsCat->getName())}
 								<h2>{$oNewsCat->getName()}</h2>
 							{/if}
@@ -129,7 +149,11 @@
 						{/block}
         			{/if}
 					{block name='blog-overview-content-list'}
-						{include file="snippets/zonen.tpl" id="opc_before_news_list"}
+						{if $snackyConfig.old_content_ids === 'Y'}
+							{include file="snippets/zonen.tpl" id="opc_before_news_list"}
+						{else}
+							{include file="snippets/zonen.tpl" id="before_news_list"}
+						{/if}
         				<div class="row row-multi">
         					{foreach $newsItems as $newsItem}
 								{block name='blog-overview-content-list-item'}
@@ -139,7 +163,11 @@
 								{/block}
         					{/foreach}
 						</div>
-						{include file="snippets/zonen.tpl" id="opc_after_news_list"}
+						{if $snackyConfig.old_content_ids === 'Y'}
+							{include file="snippets/zonen.tpl" id="opc_after_news_list"}
+						{else}
+							{include file="snippets/zonen.tpl" id="after_news_list"}
+						{/if}
 					{/block}
     			</div>
 			{/block}

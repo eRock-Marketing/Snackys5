@@ -38,14 +38,24 @@
                     <div class="col-12">
                         {block name='register-new-customer-headline'}
                             {if !isset($checkout) && JTL\Session\Frontend::getCustomer()->getID() === 0}
-                                {include file="snippets/zonen.tpl" id="opc_before_heading"}
+                                {if $snackyConfig.old_content_ids === 'Y'}
+                                    {include file="snippets/zonen.tpl" id="opc_before_heading"}
+                                {else}
+                                    {include file="snippets/zonen.tpl" id="before_heading"}
+                                {/if}
                                 <h1 class="mb-sm">{lang key="createNewAccount" section="account data"}</h1>
                             {/if}
                         {/block}
                         {block name='register-form'}
+                            {include file="snippets/zonen.tpl" id="before_form_card"}
                             <div class="panel-wrap" id="panel-register-form">
-                                {include file="snippets/zonen.tpl" id="opc_before_form"}
+                                {if $snackyConfig.old_content_ids === 'Y'}
+                                    {include file="snippets/zonen.tpl" id="opc_before_form"}
+                                {else}
+                                    {include file="snippets/zonen.tpl" id="before_form"}
+                                {/if}
                                 {include file='register/form.tpl'}
+                                {include file="snippets/zonen.tpl" id="after_form"}
                             </div>
                         {/block}
                     </div>
@@ -53,9 +63,17 @@
             {/block}     
         {elseif $step === 'formular eingegangen'}
             {block name='register-successfull'}
-                {include file="snippets/zonen.tpl" id="opc_before_heading"}
+                {if $snackyConfig.old_content_ids === 'Y'}
+                    {include file="snippets/zonen.tpl" id="opc_before_heading"}
+                {else}
+                    {include file="snippets/zonen.tpl" id="before_heading"}
+                {/if}
                 <h1>{lang key="accountCreated" section="global"}</h1>
+                {if $snackyConfig.old_content_ids === 'Y'}
                     {include file="snippets/zonen.tpl" id="opc_after_heading"}
+                {else}
+                    {include file="snippets/zonen.tpl" id="after_heading"}
+                {/if}
                 <p>{lang key="activateAccountDesc" section="global"}</p>
             {/block}
         {/if}

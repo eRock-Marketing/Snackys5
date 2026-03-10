@@ -1,0 +1,10 @@
+.card-body > div:first-child p,
+.card-footer > div:first-child p,
+.card-header > div:first-child p{
+    margin-top: 0;
+}
+.card-body > div:last-child p,
+.card-footer > div:last-child p,
+.card-header > div:last-child p{
+    margin-bottom: 0;
+}

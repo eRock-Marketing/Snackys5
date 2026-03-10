@@ -17,3 +17,7 @@
 .pn-news .more{
     margin-top: auto;
 }
+#newslist.p-sl > .col-6{
+    scroll-snap-align: start;
+    pointer-events: auto;
+}

@@ -6,7 +6,11 @@
     {block name="content"}
         <div id="account" class="row">
             <div class="col-12 col-md-4 col-lg-3 al-wp">
-                {include file="snippets/zonen.tpl" id="opc_before_menu"}
+                {if $snackyConfig.old_content_ids === 'Y'}
+                    {include file="snippets/zonen.tpl" id="opc_before_menu"}
+                {else}
+                    {include file="snippets/zonen.tpl" id="before_menu"}
+                {/if}
                 <div class="panel mb-sm" id="account-list">
                     <div class="panel-heading">
                         <span class="panel-title h4 block">{lang key="myAccount"}</span>
@@ -113,7 +117,11 @@
                          <a href="{get_static_route id='jtl.php' secure=true}?logout=1" title="{lang key='logOut'}" class="btn btn-block">{lang key='logOut'}</a>
                     </div>
                 </div>
-                {include file="snippets/zonen.tpl" id="opc_after_menu"}
+                {if $snackyConfig.old_content_ids === 'Y'}
+                    {include file="snippets/zonen.tpl" id="opc_after_menu"}
+                {else}
+                    {include file="snippets/zonen.tpl" id="after_menu"}
+                {/if}
                 {block name="account-wishlist"}
                     <div class="panel wishlists">
                         <div class="h4 panel-title">

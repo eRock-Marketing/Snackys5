@@ -13,15 +13,28 @@
 					{block name='blog-details-article-content'}
         				<div id="nw-ct">
 							{block name='blog-details-article-headline'}
-								{include file="snippets/zonen.tpl" id="opc_before_news_headline"}
+								{if $snackyConfig.old_content_ids === 'Y'}
+									{include file="snippets/zonen.tpl" id="opc_before_news_headline"}
+								{else}
+									{include file="snippets/zonen.tpl" id="before_news_headline"}
+								{/if}
+								{include file="snippets/zonen.tpl" id="before_heading"}
             					<h1 class="text-center">
                 					{$newsItem->getTitle()}
             					</h1>
-								{include file="snippets/zonen.tpl" id="opc_after_news_headline"}
+								{if $snackyConfig.old_content_ids === 'Y'}
+									{include file="snippets/zonen.tpl" id="opc_after_news_headline"}
+								{else}
+									{include file="snippets/zonen.tpl" id="after_news_headline"}
+								{/if}
 							{/block}
             				{block name='blog-details-author'}
 								<div class="author-meta text-center">
-									{include file="snippets/zonen.tpl" id="opc_before_news_meta"}
+									{if $snackyConfig.old_content_ids === 'Y'}
+										{include file="snippets/zonen.tpl" id="opc_before_news_meta"}
+									{else}
+										{include file="snippets/zonen.tpl" id="before_news_meta"}
+									{/if}
 									{block name='blog-details-author-date'}
 										{if empty($newsItem->getDateValidFrom())}
 											{assign var=dDate value=$newsItem->getDateCreated()->format('d.m.Y')}
@@ -66,13 +79,21 @@
 											</a>
 										{/if}
 									{/block}
-									{include file="snippets/zonen.tpl" id="opc_after_news_meta"}
+									{if $snackyConfig.old_content_ids === 'Y'}
+										{include file="snippets/zonen.tpl" id="opc_after_news_meta"}
+									{else}
+										{include file="snippets/zonen.tpl" id="after_news_meta"}
+									{/if}
 								</div>
 							{/block}
 							{block name='blog-details-image-outer'}
             					{if $newsItem->getPreviewImage() !== ''}
                 					{block name='blog-details-image'}
-										{include file="snippets/zonen.tpl" id="opc_before_news_image"}
+										{if $snackyConfig.old_content_ids === 'Y'}
+											{include file="snippets/zonen.tpl" id="opc_before_news_image"}
+										{else}
+											{include file="snippets/zonen.tpl" id="before_news_image"}
+										{/if}
 										<div class="img-ct rt4x3 mt-sm mb-sm">
 											{include file='snippets/image.tpl'
 												item=$newsItem
@@ -81,30 +102,52 @@
 												class="blog-details-image"
 												alt="{$newsItem->getTitle()|escape:'quotes'} - {$newsItem->getMetaTitle()|escape:'quotes'}"}
 										</div>
-										{include file="snippets/zonen.tpl" id="opc_after_news_image"}
+										{if $snackyConfig.old_content_ids === 'Y'}
+											{include file="snippets/zonen.tpl" id="opc_after_news_image"}
+										{else}
+											{include file="snippets/zonen.tpl" id="after_news_image"}
+										{/if}
 									{/block}
             					{/if}
 							{/block}
 							{block name='blog-details-text'}
 								<div class="mb-sm">
-									{include file="snippets/zonen.tpl" id="opc_before_news_text"}
+									{if $snackyConfig.old_content_ids === 'Y'}
+										{include file="snippets/zonen.tpl" id="opc_before_news_text"}
+									{else}
+										{include file="snippets/zonen.tpl" id="before_news_text"}
+									{/if}
+									{include file="snippets/zonen.tpl" id="before_content"}
 									{if $snackyConfig.optimize_news == "Y"}
 										{$newsItem->getContent()|optimize}
 									{else}
 										{$newsItem->getContent()}
 									{/if}
-									{include file="snippets/zonen.tpl" id="opc_after_news_text"}
+									{if $snackyConfig.old_content_ids === 'Y'}
+										{include file="snippets/zonen.tpl" id="opc_after_news_text"}
+									{else}
+										{include file="snippets/zonen.tpl" id="after_news_text"}
+									{/if}
+									{include file="snippets/zonen.tpl" id="after_content"}
 								</div>
 							{/block}
 							{block name='blog-details-subcats'}
 								{if isset($Einstellungen.news.news_kategorie_unternewsanzeigen) && $Einstellungen.news.news_kategorie_unternewsanzeigen === 'Y' && !empty($oNewsKategorie_arr)}
-									{include file="snippets/zonen.tpl" id="opc_before_news_categories"}
+									{if $snackyConfig.old_content_ids === 'Y'}
+										{include file="snippets/zonen.tpl" id="opc_before_news_categories"}
+									{else}
+										{include file="snippets/zonen.tpl" id="before_news_categories"}
+									{/if}
 									<div class="newscats mb-sm">
 										{foreach $oNewsKategorie_arr as $newsCategory}
 											<a href="{$newsCategory->getURL()}" title="{$newsCategory->getDescription()|strip_tags|escape:'html'|truncate:60}" class="btn btn-xs">{$newsCategory->getName()}</a>
 										{/foreach}
 									</div>
-									{include file="snippets/zonen.tpl" id="opc_after_news_categories"}
+									{if $snackyConfig.old_content_ids === 'Y'}
+										{include file="snippets/zonen.tpl" id="opc_after_news_categories"}
+									{else}
+										{include file="snippets/zonen.tpl" id="after_news_categories"}
+									{/if}
 								{/if}
 							{/block}
         				</div>
@@ -112,7 +155,11 @@
 					{block name='blog-details-article-comments'}
         				{if isset($Einstellungen.news.news_kommentare_nutzen) && $Einstellungen.news.news_kommentare_nutzen === 'Y'}
         					<div id="nw-cmt">
-								{include file="snippets/zonen.tpl" id="opc_before_news_comments"}
+								{if $snackyConfig.old_content_ids === 'Y'}
+									{include file="snippets/zonen.tpl" id="opc_before_news_comments"}
+								{else}
+									{include file="snippets/zonen.tpl" id="before_news_comments"}
+								{/if}
 								{block name='blog-details-article-comments-list'}
             						{if $comments|count > 0}
                 						{if !empty($newsItem->getSeo())}
@@ -176,7 +223,11 @@
 										{/block}
 									{/if}
 								{/block}
-								{include file="snippets/zonen.tpl" id="opc_after_news_comments"}
+								{if $snackyConfig.old_content_ids === 'Y'}
+									{include file="snippets/zonen.tpl" id="opc_after_news_comments"}
+								{else}
+									{include file="snippets/zonen.tpl" id="after_news_comments"}
+								{/if}
 							</div>
         				{/if}
 					{/block}

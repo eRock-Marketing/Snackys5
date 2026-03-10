@@ -34,3 +34,62 @@
 	pointer-events: all;
     border-radius: var(--rnd-fll);
 }
+.list .p-c .exp.flo-bt .input-group-btn {
+    padding-top: 0;
+    width: 13rem;
+	top: 50%;
+    transform: translateY(-50%);
+}
+.list .p-c .exp.flo-bt .input-group-btn:before{
+	content: '';
+	display: block;
+	padding-top: 100%;
+}
+@media screen and (min-width: 1200px){
+	.list .p-c .exp:not(.flo-bt){
+		position: absolute;
+		right: 0;
+		width: 100%;
+		max-width: 11rem;
+		top: 50%;
+		transform: translateY(-50%);
+		padding-top: 0;
+	}
+	.list .p-c .w100:has(>.form-basket > .exp:not(.flo-bt)){
+		padding-right: 13rem;
+	}
+}
+@media screen and (max-width: 1600px){
+    .list .p-c .exp.flo-bt .input-group-btn{
+        min-width: 10rem;
+        width: 10rem;
+    }
+}
+@media screen and (max-width: 1199px){
+	.list .p-c .exp:not(.flo-bt){
+		display: flex;
+	}
+	.list .p-c .exp:not(.flo-bt) .btn-block,
+	.list .p-c .exp:not(.flo-bt) .input-group-btn{
+		max-width: 20rem;
+	}
+	.list .p-c .exp:not(.flo-bt) .qty-btns{
+		max-width: 12rem;
+		margin-right: .5rem !important;
+	}
+}
+@media screen and (max-width: 549px){
+    .list .p-c .exp.flo-bt .input-group-btn{
+        min-width: 7rem;
+        width: 7rem;
+    }
+	.list .p-c .exp.flo-bt button[type=submit]{
+		width: 2.2rem;
+		height: 2.2rem;
+		right: .4rem;
+		bottom: .4rem;
+	}
+	.list .p-c .exp.flo-bt .img-ct {
+		width: 1.1rem;
+	}
+}	

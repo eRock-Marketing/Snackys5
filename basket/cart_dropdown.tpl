@@ -65,7 +65,7 @@
 												{/block}
 												{block name='sidebasket-items-warenkorbartikel-name'}
 													<div class="cols-name">
-														{$oPosition->nAnzahl|replace_delim}{if $oPosition->Artikel->cEinheit} {$oPosition->Artikel->cEinheit}{else}&times;{/if}
+														{$oPosition->nAnzahl|replace_delim}{if $oPosition->Artikel->cEinheit}{$oPosition->Artikel->cEinheit}{else}&times;{/if}
 														<a href="{$oPosition->Artikel->cURLFull}">
 															{$oPosition->cName|transByISO}
 														</a>

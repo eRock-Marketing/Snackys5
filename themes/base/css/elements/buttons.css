@@ -26,6 +26,11 @@
     cursor: pointer;
     margin: 0;
 }
+.btn.btn-outline{
+    background: none;
+    border: 1px solid var(--btn-df-t);
+    color: var(--btn-df-t);
+}
 .btn svg{
     fill: var(--btn-df-t);
 }
@@ -63,6 +68,12 @@ label.btn-block,
 .btn-social svg{
     fill: var(--btn-pr-t);
 }
+.btn.btn-outline-primary{
+    background: none;
+    border: 1px solid var(--btn-pr-r);
+    color: var(--btn-pr-r);
+}
+.btn.btn-outline-primary:hover,
 .btn.btn-primary:hover,
 .btn.active:hover,
 .btn-social:hover{
@@ -89,6 +100,12 @@ label.btn-block,
 .btn.btn-info svg{
     fill: var(--btn-in-t);
 }
+.btn.btn-outline-info{
+    background: none;
+    border: 1px solid var(--btn-in-r);
+    color: var(--btn-in-r);
+}
+.btn.btn-outline-info:hover,
 .btn.btn-info:hover{
     background: var(--btn-in-b-h);
     border: 1px solid var(--btn-in-r-h);
@@ -105,6 +122,12 @@ label.btn-block,
 .btn.btn-warning svg{
     fill: var(--btn-wa-t);
 }
+.btn.btn-outline-warning{
+    background: none;
+    border: 1px solid var(--btn-wa-r);
+    color: var(--btn-wa-r);
+}
+.btn.btn-outline-warning:hover,
 .btn.btn-warning:hover{
     background: var(--btn-wa-b-h);
     border: 1px solid var(--btn-wa-r-h);
@@ -121,6 +144,12 @@ label.btn-block,
 .btn.btn-danger svg{
     fill: var(--btn-da-t);
 }
+.btn.btn-outline-danger{
+    background: none;
+    border: 1px solid var(--btn-da-r);
+    color: var(--btn-da-r);
+}
+.btn.btn-outline-danger:hover,
 .btn.btn-danger:hover{
     background: var(--btn-da-b-h);
     border: 1px solid var(--btn-da-r-h);
@@ -141,6 +170,12 @@ label.btn-block,
 .consent-btn-primary svg{
     fill: var(--btn-su-t);
 }
+.btn.btn-outline-success{
+    background: none;
+    border: 1px solid var(--btn-su-r);
+    color: var(--btn-su-r);
+}
+.btn.btn-outline-success:hover,
 .btn.btn-success:hover,
 .consent-btn-tertiary:hover,
 .consent-btn-primary:hover{
@@ -256,5 +291,15 @@ button[data-dismiss="modal"]:hover,
     color: var(--bod-l);
 }
 .btn-blank:hover{
+    color: var(--bod-l-h);
+}
+.btn-link,
+.btn-link:hover{
+    background: none;
+    border:0;
+    box-shadow: none !important;
+    color: var(--bod-l);
+}
+.btn-link:hover{
     color: var(--bod-l-h);
 }

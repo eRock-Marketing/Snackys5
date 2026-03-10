@@ -541,7 +541,7 @@
             });
         },
 
-        checkout: function() {
+        checkout: function(skipCartSync) {
             // show only the first submit button (i.g. the button from payment plugin)
             var $submits = $('#checkout-shipping-payment')
                 .closest('form')
@@ -549,7 +549,7 @@
             $submits.addClass('hidden');
             $submits.first().removeClass('hidden');
 
-            $('input[name="Versandart"]', '#checkout-shipping-payment').on('change',function() {
+            $('input[name="Versandart"]', '#checkout-shipping-payment').off('change.checkoutCart').on('change.checkoutCart', function() {
                 var shipmentid = parseInt($(this).val());
                 var paymentid  = $("input[id^='payment']:checked ").val();
                 var $form = $(this).closest('form');
@@ -569,10 +569,13 @@
                     ? $('#jtl-io-path').data('path') + '/bestellvorgang.php?kVersandart=' + shipmentid
                     : urlInstance.href
                 $.evo.loadContent(url, function() {
-                    $.evo.checkout();
+                    $.evo.checkout(true);
                 }, null, true);
             });
 
+            if (!skipCartSync && $('#checkout-cart').length && $('input[name="Versandart"]:checked', '#checkout-shipping-payment').length) {
+                $('input[name="Versandart"]:checked', '#checkout-shipping-payment').trigger('change.checkoutCart');
+            }
 
             regionsToState();
             /*
@@ -692,38 +695,64 @@
 			$('.sl-ar').unbind();
 			$('.sl-nx').on('click',function(){$.evo.slideNext(this);});
 			$('.sl-pr').on('click',function(){$.evo.slidePrev(this);});
+			$('.panel-slider').off('click.evodots').on('click.evodots','.sl-dots button',function(e){
+				e.preventDefault();
+				var dot=this,$p=$(dot).closest('.panel-slider'),$c=$p.find('.no-scrollbar'),idx=$(dot).data('slide')-1;
+				if($c[0]&&idx>=0)$c[0].scrollTo({left:idx*$c.width(),behavior:'smooth'});
+				setTimeout(function(){$.evo.sliderButtonsAdjust(dot);},350);
+			});
 			$('.no-scrollbar[data-autoplay]').each(function(){
-				var that = this;
-				setInterval(function(){$.evo.autoSlide(that);},$(this).attr('data-autoplay'));
+				var that=this,d=$(this).attr('data-autoplay');
+				clearInterval($(this).data('autoplayInterval'));
+				$(this).data('autoplayInterval',setInterval(function(){$.evo.autoSlide(that);},d));
+			});
+			$('.panel-slider').off('click.evoplay').on('click.evoplay','.sl-stp button',function(){
+				var $btn=$(this),$stp=$btn.closest('.sl-stp'),$p=$btn.closest('.panel-slider'),$c=$p.find('.no-scrollbar[data-autoplay]');
+				if(!$c.length) return;
+				if($btn.hasClass('play')){
+					$stp.removeClass('stop');
+					var that=$c[0],d=$c.attr('data-autoplay');
+					$c.data('autoplayInterval',setInterval(function(){$.evo.autoSlide(that);},d));
+				}else{
+					$stp.addClass('stop');
+					clearInterval($c.data('autoplayInterval'));
+					$c.data('autoplayInterval',null);
+				}
+			});
+			$('.panel-slider .no-scrollbar').each(function(){
+				var el=this,t;
+				$(el).off('scroll.evodots').on('scroll.evodots',function(){
+					clearTimeout(t);
+					t=setTimeout(function(){$.evo.sliderButtonsAdjust(el);},100);
+				});
+				$.evo.sliderButtonsAdjust(el);
 			});
 		},
 		slideNext: function(btn) {
-			$(btn).closest('.panel-slider').find('.no-scrollbar').animate({
-				scrollLeft: ($(btn).closest('.panel-slider').find('.no-scrollbar').scrollLeft()+$(btn).closest('.panel-slider').find('.no-scrollbar').width())
-			},300,'swing',function(){$.evo.sliderButtonsAdjust(btn)});
+			var $c = $(btn).closest('.panel-slider').find('.no-scrollbar'), s = $c[0], w = $c.width();
+			var t = s.scrollLeft >= s.scrollWidth - w - 1 ? 0 : s.scrollLeft + w;
+			$c[0].scrollTo({left: t, behavior: 'smooth'});
+			setTimeout(function(){$.evo.sliderButtonsAdjust(btn);}, 350);
 		},
 		slidePrev: function(btn) {
-			$(btn).closest('.panel-slider').find('.no-scrollbar').animate({
-				scrollLeft: ($(btn).closest('.panel-slider').find('.no-scrollbar').scrollLeft()-$(btn).closest('.panel-slider').find('.no-scrollbar').width())
-			},300,'swing',function(){$.evo.sliderButtonsAdjust(btn)});
+			var $c = $(btn).closest('.panel-slider').find('.no-scrollbar'), s = $c[0], w = $c.width();
+			var t = s.scrollLeft <= 1 ? s.scrollWidth - w : s.scrollLeft - w;
+			$c[0].scrollTo({left: t, behavior: 'smooth'});
+			setTimeout(function(){$.evo.sliderButtonsAdjust(btn);}, 350);
 		},
 		sliderButtonsAdjust: function(btn){
-			$(btn).closest('.panel-slider').find('.sl-ar').removeClass('inactive');
-			if($(btn).closest('.panel-slider').find('.no-scrollbar').scrollLeft() <= 1)
-				$(btn).closest('.panel-slider').find('.sl-pr').addClass('inactive');
-			if($(btn).closest('.panel-slider').find('.no-scrollbar').scrollLeft() >= $(btn).closest('.panel-slider').find('.no-scrollbar')[0].scrollWidth-$(btn).closest('.panel-slider').find('.no-scrollbar').width())
-				$(btn).closest('.panel-slider').find('.sl-nx').addClass('inactive');
-			
+			var $p = $(btn).closest('.panel-slider'), $c = $p.find('.no-scrollbar'), s = $c[0];
+			if(!s) return;
+			var $d = $p.find('.sl-dots button');
+			if($d.length) $d.removeClass('active').eq(Math.min(Math.floor(s.scrollLeft/$c.width()),$d.length-1)).addClass('active');
 		},
-		autoSlide: function(elem)
-		{
-			if($(elem).is(':hover')) return ;
-			if($(elem).closest('.panel-slider').find('.no-scrollbar').scrollLeft() >= $(elem).closest('.panel-slider').find('.no-scrollbar')[0].scrollWidth-$(elem).closest('.panel-slider').find('.no-scrollbar').width())
-				$(elem).closest('.panel-slider').find('.no-scrollbar').animate({
-					scrollLeft: 0
-				},300,'swing',function(){$.evo.sliderButtonsAdjust(elem)});
-			else
-				$.evo.slideNext(elem);
+		autoSlide: function(elem) {
+			if($(elem).closest('.panel-slider').is(':hover')) return;
+			var $c = $(elem).closest('.panel-slider').find('.no-scrollbar'), s = $c[0];
+			if(s.scrollLeft >= s.scrollWidth - $c.width()) {
+				$c[0].scrollTo({left: 0, behavior: 'smooth'});
+				setTimeout(function(){$.evo.sliderButtonsAdjust(elem);}, 350);
+			} else $.evo.slideNext(elem);
 		},
 		
 		mobileMenu: function()

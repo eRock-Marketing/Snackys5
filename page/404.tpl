@@ -3,13 +3,21 @@
 		 style="background: url('{if !empty($snackyConfig.error404BG)}{$snackyConfig.error404BG}{else}/templates/Snackys/img/background/bg-404.jpg{/if}')no-repeat center center/cover">
 		<div class="content">
 			{block name='page-404-headline'}
-				{include file="snippets/zonen.tpl" id="opc_before_heading"}
+				{if $snackyConfig.old_content_ids === 'Y'}
+					{include file="snippets/zonen.tpl" id="opc_before_heading"}
+				{else}
+					{include file="snippets/zonen.tpl" id="before_heading"}
+				{/if}
 				{if !empty($Link->getTitle())}
 					<h1 class="lg">{$Link->getTitle()}</h1>
 				{else}
 					<h1 class="xl m0">404</h1>
 				{/if}
-				{include file="snippets/zonen.tpl" id="opc_after_heading"}
+				{if $snackyConfig.old_content_ids === 'Y'}
+					{include file="snippets/zonen.tpl" id="opc_after_heading"}
+				{else}
+					{include file="snippets/zonen.tpl" id="after_heading"}
+				{/if}
 			{/block}
 			{block name='page-404-conent'}
 				{if !empty($Link->getContent()) && $Link->getLinkType() != $smarty.const.LINKTYP_STARTSEITE}

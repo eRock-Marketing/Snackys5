@@ -633,12 +633,22 @@ th.visible-lg, td.visible-lg {
     border-radius: var(--box-rnd);
 }
 .card-header,
-.card-body{
+.card-body,
+.card-footer{
     padding: 1rem 1.2rem;
+}
+.card-body > p:first-child{
+    margin-top: 0;
+}
+.card-body > p:last-child{
+    margin-bottom: 0;
 }
 .card-header{
     background: var(--crd-b);
     border-radius: var(--box-rnd) var(--box-rnd) 0 0;
+}
+.card-footer{
+    border-top: 1px solid var(--crd-r);
 }
 .panel .item:not(:last-child),
 .card .item:not(:last-child){
