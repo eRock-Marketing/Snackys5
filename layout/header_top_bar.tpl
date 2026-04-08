@@ -1,8 +1,15 @@
 {block name='layout-header-top-bar'}
 {strip}
-    {if isset($smarty.session.Waehrungen) && $smarty.session.Waehrungen|@count > 1 || isset($smarty.session.Sprachen) && $smarty.session.Sprachen|@count > 1 || $snackyConfig.headerSocial == 0}
+    {if isset($smarty.session.Waehrungen) && $smarty.session.Waehrungen|@count > 1 || isset($smarty.session.Sprachen) && $smarty.session.Sprachen|@count > 1 || $snackyConfig.headerSocial == 0 || $snackyConfig.show_topbar_b2b == 1}
         {block name="top-bar-user-settings"}
             <ul class="list-inline">
+                {block name="top-bar-brutto-netto"}
+					{if $snackyConfig.show_topbar_b2b == 1 && $nSeitenTyp != 4}
+						<li>
+							{include file="snippets/brutto-netto-switcher.tpl"}
+						</li>
+					{/if}
+                {/block}
                 {block name="top-bar-user-settings-currency"}
 					{if JTL\Session\Frontend::getCurrencies()|count > 1}
 						<li class="dropdown">

@@ -66,7 +66,7 @@
 												{block name='sidebasket-items-warenkorbartikel-name'}
 													<div class="cols-name">
 														{$oPosition->nAnzahl|replace_delim}{if $oPosition->Artikel->cEinheit}{$oPosition->Artikel->cEinheit}{else}&times;{/if}
-														<a href="{$oPosition->Artikel->cURLFull}">
+														<a href="{$oPosition->Artikel->cURLFull|transByISO}">
 															{$oPosition->cName|transByISO}
 														</a>
 													</div>
@@ -161,7 +161,7 @@
 											{/block}
 											{block name='sidebasket-items-nichtwarenkorbartikel-name'}
 												<div class="cols-name" colspan="2">
-													{$oPosition->nAnzahl|replace_delim}&times;&nbsp;{$oPosition->cName|transByISO|escape:"htmlall"}
+													{$oPosition->nAnzahl|replace_delim}&times;&nbsp;{$oPosition->cName|transByISO}
 												</div>
 											{/block}
 											{block name='sidebasket-items-nichtwarenkorbartikel-price'}
@@ -213,9 +213,17 @@
 							{/foreach}
 						{/if}
 					{/block}
+					{block name='basket-cart-dropdown-cart-item-customer-credit'}
+						{if isset($smarty.session.Bestellung->GuthabenNutzen) && $smarty.session.Bestellung->GuthabenNutzen == 1}
+							<div class="text-muted customer-credit flx-jb cols-sums">
+								{lang key='useCredit' section='account data'}
+								<span class="text-nowrap text-right">{$smarty.session.Bestellung->GutscheinLocalized}</span>
+							</div>
+						{/if}
+					{/block}
 					{block name='sidebaket-price-sum'}
 						<div class="total flx-jb sum-tt cols-sums">
-							<div colspan="3">
+							<div>
 								{if empty($smarty.session.Versandart)}
 									{lang key='subtotal' section='account data'}
 								{else}

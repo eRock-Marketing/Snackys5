@@ -219,6 +219,37 @@
                             {/block}
                         </form>
                     {/block}
+                    {block name="productlist-caption-gpsr-link"}
+                        {if isset($Artikel->FunktionsAttribute.gpsr_manufacturer_homepage) 
+                            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_email)
+                            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_country)
+                            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_state)
+                            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_city)
+                            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_postalcode)
+                            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_housenumber)
+                            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_street)
+                            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_name)
+                        }
+                            {assign var="hasGPSR" value=true}
+                        {/if}
+                        {if $snackyConfig.show_gpsr_link == 'Y' && isset($hasGPSR) && $hasGPSR}
+                            <a href="#" data-toggle="modal" data-target="#gpsr-popup_{$Artikel->kArtikel}" title="{lang key='gpsrHeadline' section='custom'}" class="small block mb-xxs mt-xxs"><i class="info"></i>{lang key='gpsrLink' section='custom'}</a>
+                            <div class="modal modal-dialog blanklist" tabindex="-1" id="gpsr-popup_{$Artikel->kArtikel}">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <span class="modal-title block h5">
+                                            {lang key='gpsrHeadline' section='custom'}
+                                        </span>
+                                        <button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {include file="snippets/gpsr.tpl" hideTitle=true Artikel=$Artikel}
+                                    </div>
+                                </div>
+                            </div>
+                        {/if}
+                    {/block}
                 </div>
             {/block}
         </div>

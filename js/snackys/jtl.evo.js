@@ -801,6 +801,26 @@
 			this.mobileMenu();
 			this.panelOpener();
 			this.initFilterEvents();
+            this.wireUpPRGLinks();
+        },
+
+        wireUpPRGLinks()
+        {
+            for (const prgLink of document.querySelectorAll('[data-prg-href]')) {
+                prgLink.addEventListener('click', e => {
+                    e.preventDefault();
+                    let targetUrl = atob(prgLink.dataset.prgHref);
+                    let urlInput = document.createElement('input');
+                    let virtualForm = document.createElement('form');
+                    document.body.append(virtualForm);
+                    urlInput.name = 'prgTargetUrl';
+                    urlInput.value = targetUrl;
+                    virtualForm.action = window.jtlShopBaseUrl + '/prg';
+                    virtualForm.method = 'post';
+                    virtualForm.append(urlInput);
+                    virtualForm.submit();
+                });
+            }
         }
     };
 

@@ -65,6 +65,10 @@
 .p-c .caption{
     position: relative;
 }
+.p-c .caption .info{
+    transform: scale(0.75);
+    transform-origin: left center;
+}
 .p-c .updatingStockInfo{
     display: none;
 }

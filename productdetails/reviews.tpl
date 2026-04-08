@@ -1,18 +1,18 @@
 {block name='productdetails-reviews'}
 {assign var="ratingCount" value=$Artikel->Bewertungen->oBewertung_arr|count}
-    <div class="flx{if $ratingCount == 0} flx-jc{/if}">
+    <div class="flx{if $ratingCount == 0} flx-jc card text-center{/if}">
         {block name="productdetails-review-overview"}
-            <div id="reviews-overview" class="mb-sm">
+            <div id="reviews-overview" class="{if $ratingCount != 0}mb-sm{/if}">
                 <div class="{if $ratingCount != 0}panel {/if}panel-default">
                     {block name="productdetails-review-overview-header"}
-                        <div class="panel-heading">
-                            {if $ratingCount > 0}
-                                <h4 class="panel-title">
-                                    <span class="h1 m0">{$Artikel->Bewertungen->oBewertungGesamt->fDurchschnitt}</span><span class="h2 m0">/5</span>
-                                    {include file='productdetails/rating.tpl' total=$ratingCount}
-                                </h4>
-                            {/if}
+                        {if $ratingCount > 0}
+                        <div class="panel-heading">                            
+                            <div class="panel-title">
+                                <span class="h1 m0">{$Artikel->Bewertungen->oBewertungGesamt->fDurchschnitt}</span><span class="h2 m0">/5</span>
+                                {include file='productdetails/rating.tpl' total=$ratingCount}
+                            </div>
                         </div>
+                        {/if}
                     {/block}
                     {block name="productdetails-review-overview-body"}
                         <div class="panel-body hidden-print">
@@ -70,8 +70,12 @@
                                     {/if}
                                 {/block}
                                 {block name="productdetails-review-overview-add-review"}
+                                    {if $ratingCount == 0}
+                                        <hr class="invisible">
+                                    {/if}
                                     <div class="add-review{if $ratingCount == 0} m0{/if}">
                                         {if $ratingCount == 0}
+                                            <h2 class="h4">{lang key="emptyRatingHeading" section="custom" printf=$Artikel->cName|truncate:90:'...'}</h2>
                                             <p>{lang key="firstReview" section="global"}: </p>
                                         {else}
                                             <p>{lang key="shareYourExperience" section="product rating"}</p>
@@ -82,6 +86,9 @@
                                             value="{if $bereitsBewertet === false}{lang key='productAssess' section='product rating'}{else}{lang key='edit' section='product rating'}{/if}" 
                                             class="submit btn btn-primary btn-block" />
                                     </div>
+                                    {if $ratingCount == 0}
+                                        <hr class="invisible">
+                                    {/if}
                                 {/block}
                             </form>
                         </div>

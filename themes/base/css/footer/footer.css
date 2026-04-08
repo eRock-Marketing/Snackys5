@@ -48,6 +48,9 @@
 #footer-boxes .col-6:empty{
     display: none;
 }
+#footer-boxes .col-6 > section.mb-lg{
+    margin-bottom: 0;
+}
 @media screen and (max-width: 1199px){
     #copyright{
         padding-top: 2rem;

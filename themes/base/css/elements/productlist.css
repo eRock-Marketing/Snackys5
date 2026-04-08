@@ -49,6 +49,10 @@
     margin-left: 0;
     margin-right: 0;
 }
+.list .p-c i.info{
+    transform: scale(0.75);
+    transform-origin: left center;
+}
 @media screen and (max-width: 1600px){
     .list .p-c .img-w{
         min-width: 10rem;

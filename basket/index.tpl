@@ -112,14 +112,17 @@
 										{/block}
 										{block name="basket-coupon-content"}
 											<div class="apply-coupon panel-body">
-												<form class="form-inline jtl-validate" id="basket-coupon-form" method="post" action="{$cartURL}#basket-coupon-form">
+												<form class="form-inline jtl-validate" id="basket-coupon-form" method="post" action="{$cartURL}">
 													{$jtl_token}
 													{block name="basket-coupon"}
 														<div class="form-group m0 w100{if !empty($invalidCouponCode)} has-error{/if}">
 															<div class="input-group">
 																<input aria-label="{lang key='couponCode' section='account data'}" class="form-control" type="text" name="Kuponcode" id="couponCode" maxlength="32" placeholder="{lang key='couponCode' section='account data'}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
 																<span class="input-group-btn">
-																	<input class="btn btn-default" type="submit" value="&rsaquo;" />
+																	<button class="btn btn-default" type="submit">
+																		<span class="hidden-xs">{lang key='activate'}</span>
+																		<span class="visible-xs">›</span>
+																	</button>
 																</span>
 															</div>
 														</div>

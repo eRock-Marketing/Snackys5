@@ -3,8 +3,8 @@
     <Name>Snackys</Name>
     <Author>eRock Creations</Author>
     <URL>https://www.erock-creations.de</URL>
-    <MinShopVersion>5.6.0</MinShopVersion>
-    <Version>5.6.1</Version>
+    <MinShopVersion>5.7.0</MinShopVersion>
+    <Version>5.7.0</Version>
     <Preview>preview-snackys.png</Preview>
     <Description>Ultraschnelles responsive JTL Template von eRock Creations</Description>
     <Framework>Bootstrap4</Framework>
@@ -201,6 +201,8 @@
 			<File Path="/templates/Snackys/themes/base/css/blog/overview.css" PageType="40"/>
 			<File Path="/templates/Snackys/themes/base/css/blog/article.css" PageType="41"/>
 			<File Path="/templates/Snackys/themes/base/css/blog/overview.css" PageType="42"/>
+			<File Path="/templates/Snackys/themes/base/css/page/accessibility.css" PageType="43"/>
+			<File Path="/templates/Snackys/themes/base/css/page/widerrufsformular.css" PageType="27"/>
             <File Path="themes/##theme##/css/custom.css" PageType="all"/>
 	</CSSPageTypes>
 </Template>

@@ -102,8 +102,11 @@
 									<span class="">{lang key='addToCart'}</span>
 								</button>
 							{/block}
+							{if $Artikel->hasUploads && isset($pdp_unique)}
+								<input type="hidden" name="pdp_unique" value="{$pdp_unique}">
+							{/if}
 							{if isset($kEditKonfig)}
-								<input type="hidden" name="kEditKonfig" value="{$kEditKonfig}"/>
+								<input type="hidden" name="kEditKonfig" value="{$kEditKonfig}">
 							{/if}
 							{if $snackyConfig.quantityButtons != '1'}
 								</div>

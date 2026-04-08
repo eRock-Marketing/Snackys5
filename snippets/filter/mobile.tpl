@@ -210,7 +210,10 @@
             {literal}
                 $('.js-collapse-filter .filter-item, .js-collapse-filter .js-filter-item').on('click', function(e) {
                     e.preventDefault();
-                    $.evo.initFilters($(this).attr('href'));
+                    let prgHref = $(this).data('prg-href');
+                    prgHref = prgHref ? atob(prgHref) : null;
+                    let href = $(this).attr('href');
+                    $.evo.initFilters(prgHref ?? href);
                 });
             {/literal}
         </script>{/inline_script}

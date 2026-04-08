@@ -78,7 +78,20 @@
                             {if $Einstellungen.navigationsfilter.kategorie_beschreibung_anzeigen === 'Y'
                             && $oNavigationsinfo->getCategory() !== null
                             && $oNavigationsinfo->getCategory()->getDescription()|strlen > 0}
-                                <div class="item_desc custom_content">{if $snackyConfig.optimize_kategorie == "Y"}{$oNavigationsinfo->getCategory()->getDescription()|optimize}{else}{$oNavigationsinfo->getCategory()->getDescription()}{/if}</div>
+                                <div class="item_desc custom_content">
+                                    {if $snackyConfig.splitDescription == 'Y' && !empty($snackyConfig.splitDescriptionChar)}
+                                        {assign var="catDesc" value=$oNavigationsinfo->getCategory()->getDescription()}
+                                        {assign var="splitCatDesc" value=$snackyConfig.splitDescriptionChar|explode:$catDesc}
+                                        {assign var="catDesc" value=$splitCatDesc[0]}
+                                        {if $snackyConfig.optimize_kategorie == "Y"}
+                                            {$catDesc|optimize}
+                                        {else}
+                                            {$catDesc}
+                                        {/if}
+                                    {else}
+                                        {if $snackyConfig.optimize_kategorie == "Y"}{$oNavigationsinfo->getCategory()->getDescription()|optimize}{else}{$oNavigationsinfo->getCategory()->getDescription()}{/if}
+                                    {/if}
+                                </div>
                             {/if}
                             {if $Einstellungen.navigationsfilter.hersteller_beschreibung_anzeigen === 'Y'
                             && $oNavigationsinfo->getManufacturer() !== null

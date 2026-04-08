@@ -132,6 +132,22 @@
             <div class="item_desc custom_content">
                 {if $snackyConfig.optimize_kategorie == "Y"}{$catSeoLongtext|optimize}{else}{$catSeoLongtext}{/if}
             </div>
+        {/if}        
+        {if $Einstellungen.navigationsfilter.kategorie_beschreibung_anzeigen === 'Y' && $oNavigationsinfo->getCategory() !== null && $oNavigationsinfo->getCategory()->getDescription()|strlen > 0}
+            {if $snackyConfig.splitDescription == 'Y' && !empty($snackyConfig.splitDescriptionChar)}
+                {assign var="catDesc" value=$oNavigationsinfo->getCategory()->getDescription()}
+                {assign var="splitCatDesc" value=$snackyConfig.splitDescriptionChar|explode:$catDesc}
+                {if $splitCatDesc|count > 1}
+                    <div class="item_desc custom_content">
+                        {assign var="catDesc" value=$splitCatDesc[1]}
+                        {if $snackyConfig.optimize_kategorie == "Y" && !empty($catDesc)}
+                            {$catDesc|optimize}
+                        {else}
+                            {$catDesc}
+                        {/if}
+                    </div>
+                {/if}
+            {/if}
         {/if}
     {/block}
 {/block}

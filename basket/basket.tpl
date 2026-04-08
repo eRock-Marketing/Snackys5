@@ -40,6 +40,7 @@
 				{/if}
             </div>
         {/block}
+		{$uploadSchemaIndex = 0}
 		{block name='oder-items-foreach'}
 			{foreach JTL\Session\Frontend::getCart()->PositionenArr as $oPosition name=positionen}
 				{if ($oPosition->nPosTyp == '3' || $oPosition->nPosTyp == '2') && $tplscope == 'cart'}
@@ -53,7 +54,7 @@
 									{block name='oder-items-product-image'}
 										{if $Einstellungen.kaufabwicklung.warenkorb_produktbilder_anzeigen === 'Y'}
 											{if !empty($oPosition->Artikel->cVorschaubildURL)}
-												<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}" aria-hidden="true" tabindex="-1">
+												<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO}" aria-hidden="true" tabindex="-1">
 													<span class="img-ct">
 														{if isset($nSeitenTyp) && $nSeitenTyp == 37}
 															{include file='snippets/image.tpl'
@@ -302,7 +303,7 @@
 										{if $tplscope === 'cart'}
 											{block name='order-items-item-quantity-changeable'}
 												{if $oPosition->nPosTyp == 1}
-													{if $oPosition->istKonfigVater()}
+													{if $oPosition->istKonfigVater() && empty($oPosition->Artikel->hasUploads)}
 														{block name='order-items-item-quantity-confi'}
 															<div class="qty-wrapper modify">
 																<input name="anzahl[{$smarty.foreach.positionen.index}]" type="hidden" class="form-control" value="{$oPosition->nAnzahl}" />

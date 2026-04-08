@@ -95,6 +95,29 @@
 							{/if}
 						</div>
 					{/block}
+				{elseif $Link->getLinkType() === $smarty.const.LINKTYP_ONLINE_WRB_FORMULAR}
+                    {block name='layout-index-link-type-online-revocation-form'}
+                        <div id="online-revocation-form" class="well well-sm">
+							{include file="snippets/zonen.tpl" id="before_revocation_form"}
+                            {container fluid=$Link->getIsFluid() class="{if $Einstellungen.template.theme.left_sidebar === 'Y' && $boxesLeftActive}container-plus-sidebar{/if}"}
+                            {include file='snippets/withdrawal_form.tpl'}
+                                {if isset($WRB) && $WRB !== false}
+                                    <hr class="my-4">
+                                    {if $AGB->cAGBContentHtml}
+                                        {$AGB->cAGBContentHtml}
+                                    {elseif $AGB->cAGBContentText}
+                                        {$AGB->cAGBContentText|nl2br}
+                                    {/if}
+                                    {if $WRB->cWRBContentHtml}
+                                        {$WRB->cWRBContentHtml}
+                                    {elseif $WRB->cWRBContentText}
+                                        {$WRB->cWRBContentText|nl2br}
+                                    {/if}
+                                {/if}
+                            {/container}
+							{include file="snippets/zonen.tpl" id="after_revocation_form"}
+                        </div>
+                    {/block}
 				{elseif $Link->getLinkType() === $smarty.const.LINKTYP_WRB_FORMULAR}
 					{block name="content-wrb-form"}
 						<div id="revocation-form" class="well well-sm">

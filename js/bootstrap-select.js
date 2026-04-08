@@ -1908,19 +1908,10 @@
 
       text.appendChild(document.createTextNode('\u200b'));
 
-      if (this.selectpicker.current.data.length) {
-        for (var i = 0; i < this.selectpicker.current.data.length; i++) {
-          var data = this.selectpicker.current.data[i];
-          if (data.type === 'option') {
-            li = data.element;
-            break;
-          }
-        }
-      } else {
-        li = elementTemplates.li.cloneNode(false);
-        a.appendChild(text);
-        li.appendChild(a);
-      }
+
+      li = elementTemplates.li.cloneNode(false);
+      a.appendChild(text);
+      li.appendChild(a);
 
       dropdownHeader.appendChild(text.cloneNode(true));
 

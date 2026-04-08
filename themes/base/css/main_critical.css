@@ -171,6 +171,8 @@
     --pbx-ct-b: @pdboxCountdownBackground;
     --pbx-ct-t: @pdboxCountdownText;
     --pbx-h-b: @pdboxVariationHoverBackground;
+    --pbx-b: @pdboxBackground;
+    --pbx-r: @pdboxBorder;
     /* Details > Hot Stock */
     --det-hot-b: @alertHotstockBg;
     --det-hot-t: @alertHotstockTxt;
@@ -774,6 +776,9 @@ video{
 .mb-xxs{
     margin-bottom: .5rem;
 }
+.mb-xxxs{
+    margin-bottom: .25rem;
+}
 .mt-xxs{
     margin-top: .5rem;
 }
@@ -1273,6 +1278,9 @@ a.btn-skip-to {
     }
     h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, .mgm .category-title{
         margin-bottom: .85rem;
+    }
+    .mb-xxxs{
+        margin-bottom: .25rem;
     }
     #news-overview .hide-overflow > .panel-title{
         display: flex;

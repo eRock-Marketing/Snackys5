@@ -22,6 +22,7 @@
             <li class="nav-it">
                 {dropdownitem
                     class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac"
+					usePRG=($Einstellungen.prgpattern.prg_pattern_enabled !== 'N')
                     href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}"
                     title="{if $Merkmal->getData('cTyp') === 'BILD'}{$attributeValue->getValue()|escape:'html'}{/if}"
                 }
@@ -45,7 +46,14 @@
                     {block name='snippets-filter-characteristics-nav-text'}
                         {if $attributeValue->getCount() > 0}
                         <li class="nav-it">
-                            <a class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac" href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}" title="{$attributeValue->getValue()|escape:'html'}" rel="nofollow" aria-label="{lang key='filterBy'}: {$attributeValue->getValue()|escape:'html'}">
+                            {link
+								class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac" 
+								usePRG=($Einstellungen.prgpattern.prg_pattern_enabled !== 'N')
+								href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}" 
+								title="{$attributeValue->getValue()|escape:'html'}" 
+								rel="nofollow" 
+								aria-label="{lang key='filterBy'}: {$attributeValue->getValue()|escape:'html'}"
+							}
                                 {if !empty($attributeImageURL)}
                                     {image lazy=true webp=true
                                         src=$attributeImageURL
@@ -57,14 +65,16 @@
                                 {if $showFilterCount}
                                     <span class="ctr">{$attributeValue->getCount()} <span class="sr-only">{lang key='products'} {lang key='found'}</span></span>
                                 {/if}
-                            </a>
+                            {/link}
                         </li>
                         {/if}
                     {/block}
                 {elseif $Merkmal->getData('cTyp') === 'BILD' && $attributeImageURL !== null}
                     {block name='snippets-filter-characteristics-nav-image'}                        
                         <li class="nav-it">
-                        {link href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}"
+                        {link 
+							usePRG=($Einstellungen.prgpattern.prg_pattern_enabled !== 'N')
+							href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}"
                             title="{$attributeValue->getValue()|escape:'html'}" 
                             class="{if $attributeValue->isActive()}active{/if} filter-item" 
                             rel="nofollow"
@@ -83,7 +93,9 @@
                     {block name='snippets-filter-characteristics-nav-else'}
                         {if $attributeValue->getCount() > 0}
                         <li class="nav-it">
-                            {link href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}"
+                            {link 
+								usePRG=($Einstellungen.prgpattern.prg_pattern_enabled !== 'N')
+								href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}"
                                 class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac" 
                                 title="{$attributeValue->getValue()|escape:'html'}" 
                                 rel="nofollow"

@@ -36,7 +36,6 @@
 											{/block}
 											{block name='mediafile-content-images-body'}
 												<div class="card-body">
-													{if $oMedienDatei->cBeschreibung}<span class="block mb-xxs">{$oMedienDatei->cBeschreibung}</span>{/if}
 													{if isset($oMedienDatei->oMedienDateiAttribut_arr) && $oMedienDatei->oMedienDateiAttribut_arr|count > 0}
 														{foreach $oMedienDatei->oMedienDateiAttribut_arr as $oAttribut}
 															{if $oAttribut->cName === 'img_alt'}
@@ -45,6 +44,7 @@
 														{/foreach}
 													{/if}
 													{image src="{if !empty($oMedienDatei->cPfad)}{$ShopURL}/{$smarty.const.PFAD_MEDIAFILES}{$oMedienDatei->cPfad}{elseif !empty($oMedienDatei->cURL)}{$oMedienDatei->cURL}{/if}" alt="{$cMediaAltAttr}" lazy=true}
+													{if !empty($oMedienDatei->cBeschreibung)}<span class="block mt-xxs">{$oMedienDatei->cBeschreibung}</span>{/if}
 												</div>
 											{/block}
 										</div>
@@ -62,7 +62,6 @@
 												{/block}
 												{block name='mediafile-content-audio-body'}
 													<div class="card-body">
-														{if $oMedienDatei->cBeschreibung}<span class="block mb-xxs">{$oMedienDatei->cBeschreibung}</span>{/if}
 														{if $oMedienDatei->cPfad|strlen > 1 || $oMedienDatei->cURL|strlen > 1}
 															{assign var=audiosrc value=$oMedienDatei->cURL}
 															{if $oMedienDatei->cPfad|strlen > 1}
@@ -75,6 +74,7 @@
 																</audio>
 															{/if}
 														{/if}
+														{if !empty($oMedienDatei->cBeschreibung)}<span class="block mt-xxs">{$oMedienDatei->cBeschreibung}</span>{/if}
 													</div>
 												{/block}
 											</div>
@@ -118,7 +118,6 @@
 											{/block}
 											{block name='mediafile-content-sonstiges-body'}
 												<div class="card-body">
-													{if $oMedienDatei->cBeschreibung}<span class="block mb-xxs">{$oMedienDatei->cBeschreibung}</span>{/if}
 													{if strpos($oMedienDatei->cURL, 'youtube') !== false || strpos($oMedienDatei->cURL, 'youtu.be') !== false}
 														{include file='productdetails/mediafile_youtube_embed.tpl'}
 													{else}
@@ -131,6 +130,7 @@
 															<a href="{$oMedienDatei->cURL}" target="_blank" class="td-u"><i class="fa fa-external-link"></i> {$oMedienDatei->cName}</a>
 														{/if}
 													{/if}
+													{if !empty($oMedienDatei->cBeschreibung)}<span class="block mt-xxs">{$oMedienDatei->cBeschreibung}</span>{/if}
 												</div>
 											{/block}
 										</div>
@@ -147,7 +147,6 @@
 											{/block}
 											{block name='mediafile-content-pdf-body'}
 												<div class="card-body">
-													{if $oMedienDatei->cBeschreibung}<span class="block mb-xxs">{$oMedienDatei->cBeschreibung}</span>{/if}
 													{if !empty($oMedienDatei->cPfad)}
 														<a href="{$ShopURL}/{$smarty.const.PFAD_MEDIAFILES}{$oMedienDatei->cPfad}" target="_blank" class="flx-ac">
 															<span class="img-ct icon icon-xl icon-wt">
@@ -163,6 +162,7 @@
 															{$oMedienDatei->cName}
 														</a>
 													{/if}
+													{if !empty($oMedienDatei->cBeschreibung)}<span class="block mt-xxs">{$oMedienDatei->cBeschreibung}</span>{/if}
 												</div>
 											{/block}
 										</div>

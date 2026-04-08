@@ -26,6 +26,12 @@
 #cat-w .ar{
 	border-color: var(--meg-l);
 }
+.more-manu .btn{
+	width: 3rem;
+	height: 3rem;
+	padding: 0;
+	border-radius: 50%;
+}
 @media screen and (min-width: 768px){
     #cat-w li li .mm-mainlink{
         display: flex;
