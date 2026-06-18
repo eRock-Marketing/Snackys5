@@ -7,7 +7,7 @@
             <li class="nav-it">
                 <a class="filter-item flx-ac{if $filterIsActive === true} active{/if}{if isset($itemClass)} {$itemClass}{/if}" 
 					usePRG=($Einstellungen.prgpattern.prg_pattern_enabled !== 'N')
-					href="{if $filterOption->isActive()}{$filter->getUnsetFilterURL($filterOption->getValue())}{else}{$filterOption->getURL()}{/if}#content" rel="nofollow" title="{$filterOption->getName()}" aria-label="{lang key='filterBy'}: {$filterOption->getName()}">
+					href="{if $filterOption->isActive()}{$filter->getUnsetFilterURL($filterOption->getValue())}{else}{$filterOption->getURL()}{/if}" rel="nofollow" title="{$filterOption->getName()}" aria-label="{lang key='filterBy'}: {$filterOption->getName()}">
                     <span class="name{if $filter->getNiceName() === 'Rating'} flx-w{/if}">
                     {if $filter->getNiceName() === 'Rating'}
                         {block name='snippets-filter-genericFilterItem-include-rating-nav'}

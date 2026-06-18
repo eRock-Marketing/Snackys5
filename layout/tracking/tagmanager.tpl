@@ -58,7 +58,7 @@
 					{if !$smarty.foreach.prodid.first},{/if}
 					{
 						sku: '{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}',
-						name: '{$prodid->Artikel->cName|escape}',
+						name: '{getTrackingName article=$prodid->Artikel }',
 						price: {$prodid->fPreis|number_format:2:".":""},
 						quantity: {$prodid->nAnzahl}
 					}
@@ -111,19 +111,65 @@
 							{foreach from=$Suchergebnisse->getProducts() item="prodid" name="prodid"}
 							{if !$smarty.foreach.prodid.first},{/if}
 							{
-								'item_name': '{$prodid->cName|escape}',       // Name or ID is required.
+								'item_name': '{getTrackingName article=$prodid }',
 								'item_id': '{if $snackyConfig.artnr == "id"}{$prodid->kArtikel}{else}{$prodid->cArtNr|escape}{/if}',
 								'price': {$prodid->Preise->fVKNetto|number_format:2:".":""},
 								{if !empty($prodid->cHersteller)}
 								'brand': '{$prodid->cHersteller|escape}',
 								'item_brand': '{$prodid->cHersteller|escape}',
 								{/if}
-								'category': '{$listName|escape}',
+								{getTrackingCategory article=$prodid}
 								'quantity': 1
 							}
 							{/foreach}
 						]
 					}
+				});
+				
+				//select_item
+				document.addEventListener('click', function (event) {
+					const link = event.target.closest('.p-w a');
+					if (!link) {
+						return;
+					}
+					const href = link.getAttribute('href');
+					if (!href || href === '#') {
+						return;
+					}
+					const productBox = link.closest('.p-w');
+					if (!productBox) {
+						return;
+					}
+					const jsonElement = productBox.querySelector('.json-article-data');
+					if (!jsonElement) {
+						return;
+					}
+					const jsonText = jsonElement.textContent;
+					if (!jsonText) {
+						return;
+					}
+					let item;
+					try {
+						item = JSON.parse(jsonText.replace(/'/g, '"'));
+					} catch (error) {
+						console.error('Ungültiges Produkt-JSON', error);
+						return;
+					}
+
+					window.dataLayer = window.dataLayer || [];
+					window.dataLayer.push({ ecommerce: null });
+					window.dataLayer.push({
+						event: 'select_item',
+						item_list_name: '{$listName|escape}',
+						{if $oNavigationsinfo->getCategory()}
+						item_list_id: '{$oNavigationsinfo->getCategory()->getID()}',
+						{/if}
+						ecommerce: {
+							currency: '{$smarty.session.Waehrung->getCode()}',
+							value: item.price || 0,
+							items: [item]
+						}
+					});
 				});
 			{/if}
 			
@@ -136,21 +182,58 @@
 					'event': 'view_item',
 					'ecommerce': {
 						'items': [{
-							'item_name': '{$Artikel->cName|escape}', // Name or ID is required.
+							'item_name': '{getTrackingName article=$Artikel }', 
 							'item_id': '{if $snackyConfig.artnr == "id"}{$Artikel->kArtikel}{else}{$Artikel->cArtNr|escape}{/if}',
 							'price': {$Artikel->Preise->fVKNetto|number_format:2:".":""},
 							{if !empty($Artikel->cHersteller)}
 							'brand': '{$Artikel->cHersteller|escape}',
 							'item_brand': '{$Artikel->cHersteller|escape}',
 							{/if}
-							{if isset($Brotnavi[$i_kat])}
-							'category': '{$Brotnavi[$i_kat]->getName()|escape}',
-							{/if}
+							{getTrackingCategory article=$Artikel}
 							'quantity': 1
 						}]
 					}
 				});
+				
+				//Wishlist
+				document.addEventListener('click', function (event) {
+					const link = event.target.closest('#wl-action');
+					if (!link) {
+						return;
+					}
+					const productBox = link.closest('#buy_form');
+					if (!productBox) {
+						return;
+					}
+					const jsonElement = productBox.querySelector('.json-article-data');
+					if (!jsonElement) {
+						return;
+					}
+					const jsonText = jsonElement.textContent;
+					if (!jsonText) {
+						return;
+					}
+					let item;
+					try {
+						item = JSON.parse(jsonText.replace(/'/g, '"'));
+					} catch (error) {
+						console.error('Ungültiges Produkt-JSON', error);
+						return;
+					}
+
+					window.dataLayer = window.dataLayer || [];
+					window.dataLayer.push({ ecommerce: null });
+					window.dataLayer.push({
+						event: 'add_to_wishlist',
+						ecommerce: {
+							currency: '{$smarty.session.Waehrung->getCode()}',
+							value: item.price || 0,
+							items: [item]
+						}
+					});
+				});
 			{/if}
+			
 			
 			{* Add To cart *}
 			{if isset($bWarenkorbHinzugefuegt) && $bWarenkorbHinzugefuegt}
@@ -167,16 +250,14 @@
 					'ecommerce': {
 						'currency': '{$smarty.session.Waehrung->getCode()}',
 						'items': [{
-							'item_name': '{$pushedArtikel->cName|escape}', // Name or ID is required.
+							'item_name': '{getTrackingName article=$pushedArtikel }', // Name or ID is required.
 							'item_id': '{if $snackyConfig.artnr == "id"}{$pushedArtikel->kArtikel}{else}{$pushedArtikel->cArtNr|escape}{/if}',
 							'price': {$pushedArtikel->Preise->fVKNetto|number_format:2:".":""},
 							{if !empty($pushedArtikel->cHersteller)}
 							'brand': '{$pushedArtikel->cHersteller|escape}',
 							'item_brand': '{$pushedArtikel->cHersteller|escape}',
 							{/if}
-							{if isset($Brotnavi[$i_kat])}
-							'category': '{$Brotnavi[$i_kat]->getName()|escape}',
-							{/if}
+							{getTrackingCategory article=$pushedArtikel}
 							'quantity': {if $smarty.request.anzahl>0}{$smarty.request.anzahl}{else}1{/if}
 						}]
 					}
@@ -184,36 +265,67 @@
 			{/if}
 			
 			{* Begin Checkout *}
-			{if $nSeitenTyp == 11}
+			{if $nSeitenTyp == 11 || $nSeitenTyp == 3}
 				{assign var="activeStep" value=1}	{*Schritt 1 = Warenkorb, Checkout dann weiterführend: 2=Adresse,3=Zahlung,4=Übersicht *}
 				{if $nSeitenTyp == 11}
-				{if $bestellschritt[1] == 1 || $bestellschritt[2] == 1}
-				{assign var="activeStep" value=2}
-				{else if $bestellschritt[3] == 1 || $bestellschritt[4] == 1}
-				{assign var="activeStep" value=3}
-				{else if $bestellschritt[5] == 1}
-				{assign var="activeStep" value=4}
-				{/if}
+					{if $bestellschritt[1] == 1 || $bestellschritt[2] == 1}
+					{assign var="activeStep" value=2}
+					{else if $bestellschritt[3] == 1 || $bestellschritt[4] == 1}
+					{assign var="activeStep" value=3}
+					{else if $bestellschritt[5] == 1}
+					{assign var="activeStep" value=4}
+					{/if}
 				{/if}
 
 				dataLayer.push({ ecommerce: null });
 				dataLayer.push({
-					'event': '{if $activeStep == 1 || $activeStep == 2}begin_checkout{elseif $activeStep==3}add_shipping_info{elseif $activeStep==4}add_payment_info{else}checkout_step_{$activeStep}{/if}',
+					'event': '{if $nSeitenTyp == 3}view_cart{else}{if $activeStep == 1 || $activeStep == 2}begin_checkout{elseif $activeStep==3}add_shipping_info{elseif $activeStep==4}add_payment_info{else}checkout_step_{$activeStep}{/if}{/if}',
 					'ecommerce': {
-						currency: "{$smarty.session.Waehrung->getCode()}",
-						value: {$Warensumme|number_format:2:".":""},
+						'currency': '{$smarty.session.Waehrung->getCode()}',
+						'value': {$smarty.session.Warenkorb->gibGesamtsummeWaren()|number_format:2:".":""},
 						'items': [
 							{foreach from=$smarty.session.Warenkorb->PositionenArr item="prodid" name="prodid"}
 							{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
 							{if !$smarty.foreach.prodid.first},{/if}
 							{
-								'item_name': '{$prodid->Artikel->cName|escape}',       // Name or ID is required.
+								'item_name': '{getTrackingName article=$prodid->Artikel }',       // Name or ID is required.
 								'item_id': '{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}',
 								'price': {$prodid->fPreis|number_format:2:".":""},
 								{if !empty($prodid->Artikel->cHersteller)}
 								'brand': '{$prodid->Artikel->cHersteller|escape}',
 								'item_brand': '{$prodid->Artikel->cHersteller|escape}',
 								{/if}
+								{getTrackingCategory article=$prodid->Artikel}
+								'quantity': {$prodid->nAnzahl}
+							}
+							{/if}
+							{/foreach}
+						]
+					}
+				});
+			{/if}
+			
+			{* View Cart *}
+			{if $nSeitenTyp == 3}
+				dataLayer.push({ ecommerce: null });
+				dataLayer.push({
+					'event': 'view_cart',
+					'ecommerce': {
+						'currency': '{$smarty.session.Waehrung->getCode()}',
+						'value': {$smarty.session.Warenkorb->gibGesamtsummeWaren()|number_format:2:".":""},
+						'items': [
+							{foreach from=$smarty.session.Warenkorb->PositionenArr item="prodid" name="prodid"}
+							{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
+							{if !$smarty.foreach.prodid.first},{/if}
+							{
+								'item_name': '{getTrackingName article=$prodid->Artikel }',       // Name or ID is required.
+								'item_id': '{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}',
+								'price': {$prodid->fPreis|number_format:2:".":""},
+								{if !empty($prodid->Artikel->cHersteller)}
+								'brand': '{$prodid->Artikel->cHersteller|escape}',
+								'item_brand': '{$prodid->Artikel->cHersteller|escape}',
+								{/if}
+								{getTrackingCategory article=$prodid->Artikel}
 								'quantity': {$prodid->nAnzahl}
 							}
 							{/if}
@@ -230,24 +342,25 @@
 				dataLayer.push({
 					'event': 'purchase',
 					'ecommerce': {
-						transaction_id: "{$Bestellung->cBestellNr}",
-						value: {$Bestellung->fWarensummeNetto|number_format:2:".":""},
-						tax: {$Bestellung->fSteuern|number_format:2:".":""},
-						shipping: {$Bestellung->fVersandNetto|number_format:2:".":""},
-						currency: "{$smarty.session.Waehrung->getCode()}",
-						items: [
+						'transaction_id': '{$Bestellung->cBestellNr}',
+						'value': {$Bestellung->fWarensummeNetto|number_format:2:".":""},
+						'tax': {$Bestellung->fSteuern|number_format:2:".":""},
+						'shipping': {$Bestellung->fVersandNetto|number_format:2:".":""},
+						'currency': '{$smarty.session.Waehrung->getCode()}',
+						'items': [
 							{foreach from=$Bestellung->Positionen item="prodid" name="prodid"}
 							{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
 							{if !$smarty.foreach.prodid.first},{/if}
 							{
-								item_id: "{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}",
-								item_name: "{$prodid->Artikel->cName|escape}",
+								'item_id': '{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}',
+								'item_name': '{getTrackingName article=$prodid->Artikel }',
 								{if !empty($prodid->Artikel->cHersteller)}
-								brand: "{$prodid->Artikel->cHersteller|escape}",
-								item_brand: "{$prodid->Artikel->cHersteller|escape}",
+								'brand': '{$prodid->Artikel->cHersteller|escape}',
+								'item_brand': '{$prodid->Artikel->cHersteller|escape}',
 								{/if}
-								price: {$prodid->fPreis|number_format:2:".":""},
-								quantity: {$prodid->nAnzahl}
+								'price': {$prodid->fPreis|number_format:2:".":""},
+								{getTrackingCategory article=$prodid->Artikel}
+								'quantity': {$prodid->nAnzahl}
 							}
 							{elseif $prodid->nPosTyp==3}
 							{assign var="coupon" value=$prodid->cName|escape}
@@ -255,19 +368,155 @@
 							{/foreach}
 						]
 						{if $coupon!=""}
-						,coupon: "{$coupon}"
+						,'coupon': '{$coupon}'
 						{/if}
 					}
 				});
 			{/if}
 			
+			//Wishlist remove
+			document.addEventListener('click', function (event) {
+				const link = event.target.closest('.wl-remove');
+				if (!link) {
+					return;
+				}
+				const productBox = link.closest('.p-c');
+				if (!productBox) {
+					return;
+				}
+				const jsonElement = productBox.querySelector('.json-article-data');
+				if (!jsonElement) {
+					return;
+				}
+				const jsonText = jsonElement.textContent;
+				if (!jsonText) {
+					return;
+				}
+				let item;
+				try {
+					item = JSON.parse(jsonText.replace(/'/g, '"'));
+				} catch (error) {
+					console.error('Ungültiges Produkt-JSON', error);
+					return;
+				}
+
+				window.dataLayer = window.dataLayer || [];
+				window.dataLayer.push({ ecommerce: null });
+				window.dataLayer.push({
+					event: 'remove_from_wishlist',
+					ecommerce: {
+						currency: '{$smarty.session.Waehrung->getCode()}',
+						value: item.price || 0,
+						items: [item]
+					}
+				});
+			});
+			
+			//Mengenänderung Warenkorb (sidebar & standard)
+			document.addEventListener('click', function (event) {
+				const link = event.target.closest('button[type=submit]');
+				if (!link) {
+					return;
+				}
+				let productBox = link.closest('.choose_quantity');
+				if (!productBox) {
+					productBox = link.closest('.edit-item');
+					if (!productBox) {
+						return;
+					}
+				}
+				
+				const quantityInput = productBox.querySelector('.quantity');
+				const oldQuantity = parseFloat(quantityInput.defaultValue || 0);
+				const newQuantity = parseFloat(quantityInput.value || 0);
+				const difference = newQuantity - oldQuantity;
+				const jsonElement = productBox.querySelector('.json-article-data');
+				if (!jsonElement) {
+					return;
+				}
+				
+				const jsonText = jsonElement.textContent;
+				if (!jsonText) {
+					return;
+				}
+				let item;
+				try {
+					item = JSON.parse(jsonText.replace(/'/g, '"'));
+				} catch (error) {
+					console.error('Ungültiges Produkt-JSON', error);
+					return;
+				}
+			
+				item.quantity = Math.abs(difference);
+				tag_event = 'add_to_cart';
+				if (difference < 0) {
+					tag_event = 'remove_from_cart';
+				}
+				window.dataLayer = window.dataLayer || [];
+				window.dataLayer.push({ ecommerce: null });
+				window.dataLayer.push({
+					event: tag_event,
+					ecommerce: {
+						currency: '{$smarty.session.Waehrung->getCode()}',
+						value: item.price || 0,
+						items: [item]
+					}
+				});
+			});
+			
+			//Position aus warenkorb entfernen (komplett)
+			document.addEventListener('click', function (event) {
+				const link = event.target.closest('button[name=dropPos]');
+				if (!link) {
+					return;
+				}
+				let productBox = link.closest('.row.bskt');
+				if (!productBox) {
+					productBox = link.closest('.edit-item');
+					if (!productBox) {
+						return;
+					}
+				}
+				
+				const quantityInput = productBox.querySelector('.quantity');
+				const quantity = parseFloat(quantityInput.defaultValue || 0);
+				const jsonElement = productBox.querySelector('.json-article-data');
+				if (!jsonElement) {
+					return;
+				}
+				
+				const jsonText = jsonElement.textContent;
+				if (!jsonText) {
+					return;
+				}
+				let item;
+				try {
+					item = JSON.parse(jsonText.replace(/'/g, '"'));
+				} catch (error) {
+					console.error('Ungültiges Produkt-JSON', error);
+					return;
+				}
+			
+				item.quantity = quantity;
+				window.dataLayer = window.dataLayer || [];
+				window.dataLayer.push({ ecommerce: null });
+				window.dataLayer.push({
+					event: 'remove_from_cart',
+					ecommerce: {
+						currency: '{$smarty.session.Waehrung->getCode()}',
+						value: item.price || 0,
+						items: [item]
+					}
+				});
+			});
+			
 			{* Customer Registered *}
 			{if !empty($smarty.session.tracking_customer_registered)}
 				dataLayer.push({
-					event: "sign_up",
-					sha256_email_address: '{hashEmail}',
-					user_id: {if JTL\Session\Frontend::getCustomer()->getID() === 0}{JTL\Session\Frontend::getCustomer()->getID()}{else}undefined{/if},
-					logged_in: true
+					'event': 'sign_up',
+					'sha256_email_address': '{hashEmail}',
+					'user_id': {if JTL\Session\Frontend::getCustomer()->getID() === 0}{JTL\Session\Frontend::getCustomer()->getID()}{else}undefined{/if},
+					'logged_in': true
 				});
 				{unsetRegisterTracking}
 			{/if}
@@ -275,10 +524,10 @@
 			{* Customer LoggedIn *}
 			{if JTL\Session\Frontend::getCustomer()->getID() !== 0 && !empty($smarty.post.login)}
 				dataLayer.push({
-					event: "login",
-					sha256_email_address: '{hashEmail}',
-					user_id: {JTL\Session\Frontend::getCustomer()->getID()},
-					logged_in: true
+					'event': 'login',
+					'sha256_email_address': '{hashEmail}',
+					'user_id': {JTL\Session\Frontend::getCustomer()->getID()},
+					'logged_in': true
 				});
 			{/if}
 		{/block}

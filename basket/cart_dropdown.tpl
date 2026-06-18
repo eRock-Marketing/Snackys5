@@ -96,6 +96,7 @@
 												{if $snackyConfig.editSidebasket == 2}
 													<div class="collapse" id="edit_{$oPosition@iteration}_wrap">
 														<div class="edit-item show" id="edit_{$oPosition@iteration}">
+															{include file='layout/tracking/tagmanager_article.tpl' Artikel=$oPosition->Artikel}
 															{block name='sidebasket-items-warenkorbartikel-edit-quantity'}
 																{if $oPosition->istKonfigVater()}
 																	{block name='sidebasket-items-warenkorbartikel-edit-quantity-confi'}

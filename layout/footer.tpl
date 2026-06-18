@@ -232,6 +232,11 @@
 													</a>
 												{/if}
 											</div>
+											<div class="mw-container text-center small{if $linkimpressum && $linkdatenschutz} mt-xs{/if}">
+												{if $snackyConfig.widerrufPosition == 0}
+													{include file='snippets/withdrawal_link.tpl'}
+												{/if}
+											</div>
 										</div>
 									{/if}
 								{/block}
@@ -295,6 +300,11 @@
 									{include file='snippets/socialprofiles.tpl' tplscope="footer"}
 								</div>
 							{/if}
+							<div class="text-center">
+								{if $snackyConfig.widerrufPosition == 1}
+									{include file='snippets/withdrawal_link.tpl'}
+								{/if}
+							</div>
 						{/if}
 					{/block}
 					{block name="footer-copyright-wrapper"}			

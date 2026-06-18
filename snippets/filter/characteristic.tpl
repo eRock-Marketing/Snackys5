@@ -23,7 +23,7 @@
                 {dropdownitem
                     class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac"
 					usePRG=($Einstellungen.prgpattern.prg_pattern_enabled !== 'N')
-                    href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}"
+                    href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}{else}#{/if}"
                     title="{if $Merkmal->getData('cTyp') === 'BILD'}{$attributeValue->getValue()|escape:'html'}{/if}"
                 }
                         {if !empty($attributeImageURL)}
@@ -49,7 +49,7 @@
                             {link
 								class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac" 
 								usePRG=($Einstellungen.prgpattern.prg_pattern_enabled !== 'N')
-								href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}" 
+								href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}{else}#{/if}" 
 								title="{$attributeValue->getValue()|escape:'html'}" 
 								rel="nofollow" 
 								aria-label="{lang key='filterBy'}: {$attributeValue->getValue()|escape:'html'}"
@@ -74,7 +74,7 @@
                         <li class="nav-it">
                         {link 
 							usePRG=($Einstellungen.prgpattern.prg_pattern_enabled !== 'N')
-							href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}"
+							href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}{else}#{/if}"
                             title="{$attributeValue->getValue()|escape:'html'}" 
                             class="{if $attributeValue->isActive()}active{/if} filter-item" 
                             rel="nofollow"
@@ -95,7 +95,7 @@
                         <li class="nav-it">
                             {link 
 								usePRG=($Einstellungen.prgpattern.prg_pattern_enabled !== 'N')
-								href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}#content{else}#{/if}"
+								href="{if !empty($attributeValue->getURL())}{$attributeValue->getURL()}{else}#{/if}"
                                 class="{if $attributeValue->isActive()}active{/if} filter-item flx-ac" 
                                 title="{$attributeValue->getValue()|escape:'html'}" 
                                 rel="nofollow"

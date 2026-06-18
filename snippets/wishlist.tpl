@@ -264,7 +264,7 @@
                                                 <textarea{if $isCurrenctCustomer !== true} readonly="readonly"{/if} class="form-control mb-xxs small" rows="4" name="Kommentar_{$CWunschlistePos->getID()}" id="Kommentar_{$CWunschlistePos->getID()}" placeholder="{lang key="yourNote"}">{$CWunschlistePos->cKommentar}</textarea>
                                                 {if $CWunschlistePos->getProduct()->Preise->fVKNetto == 0 && $Einstellungen.global.global_preis0 === "N"}
                                                     <button name="remove" value="{$CWunschlistePos->getID()}"
-                                                       class="close-btn"
+                                                       class="close-btn wl-remove"
                                                        title="{lang key="wishlistremoveItem" section="login"}">
                                                     </button>
                                                 {else}
@@ -308,11 +308,13 @@
                                                     </div>
                                                     {if $isCurrenctCustomer === true}
                                                         <button name="remove" value="{$CWunschlistePos->getID()}"
-                                                           class="close-btn"
+                                                           class="close-btn wl-remove"
                                                            title="{lang key="wishlistremoveItem" section="login"}">
                                                         </button>
                                                     {/if}
                                                 {/if}
+												
+												{include file='layout/tracking/tagmanager_article.tpl' Artikel=$CWunschlistePos->getProduct()}
                                             </div>
                                         </div>
                                     {/foreach}

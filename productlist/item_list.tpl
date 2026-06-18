@@ -252,6 +252,8 @@
                     {/block}
                 </div>
             {/block}
+			
+			{include file='layout/tracking/tagmanager_article.tpl' Artikel=$Artikel}
         </div>
     {/block}
 {/block}

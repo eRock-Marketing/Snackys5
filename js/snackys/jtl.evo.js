@@ -804,7 +804,7 @@
             this.wireUpPRGLinks();
         },
 
-        wireUpPRGLinks()
+        wireUpPRGLinks: function()
         {
             for (const prgLink of document.querySelectorAll('[data-prg-href]')) {
                 prgLink.addEventListener('click', e => {
@@ -831,6 +831,7 @@
 	/*
     $(window).on('resize', function () {
         $.evo.autoheight();
+		
     });
 	*/
 

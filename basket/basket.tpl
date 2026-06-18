@@ -333,6 +333,7 @@
 																	<div class="panel-body text-center">
 																		<div class="form-inline flx-je">
 																			<div id="quantity-grp{$smarty.foreach.positionen.index}" class="choose_quantity input-group w100">
+																			{include file='layout/tracking/tagmanager_article.tpl' Artikel=$oPosition->Artikel}
 																				{block name='basket-quantity-minus'}
 																					{if $snackyConfig.quantityButtons == '1'}
 																						<div class="btn-group qty-btns w100 m0">

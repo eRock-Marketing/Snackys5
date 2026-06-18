@@ -343,6 +343,7 @@ function loadContent(url)
             $.evo.article().onLoad();
             $.evo.article().register();
             addValidationListener();
+			$.evo.wireUpPRGLinks();
         }
     });
 }
@@ -495,8 +496,11 @@ function snackys()
 						//Set Price Range Slider
 						if( $('.js-price-range-box').length )
 							$.evo.initPriceSlider($('.js-price-range-box'), $('#js-price-redirect').val() != 1);
+						
+						$.evo.wireUpPRGLinks();
 					},false,false,'#sp-l');
 					$('#sp-l').removeClass('lazy');
+					$.evo.wireUpPRGLinks();
 				}
 				e.preventDefault(), document.body.classList.contains("show-sidebar") ? document.body.classList.remove("show-sidebar") : document.body.classList.add("show-sidebar")
 			}), t = document.querySelectorAll("#sp-l .overlay-bg,#sp-l .close-sidebar"), e = 0; e < t.length; e++) t[e].addEventListener("click", function(e) {

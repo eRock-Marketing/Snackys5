@@ -8,6 +8,7 @@
 				{snackys_content id="html_head_start" title="html_head_start"}
 				{block name="head-manifest"}
 					{if $snackyConfig.pwa == 'Y'}<link rel="manifest" href="manifest.json">{/if}
+					<link rel="manifest" href="manifest.json">
 				{/block}
 				{block name="head-ressources-polyfill"}
 					<script nomodule src="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}js/snackys/intersectionObserver.js"></script>
