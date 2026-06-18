@@ -82,8 +82,10 @@
 				{* now user hashed data sending *}
 				,
 				event_name: 'page_view',
+				{if JTL\Session\Frontend::getCustomer()->getID() > 0}
 				sha256_email_address: '{hashEmail}',
-				user_id: {if JTL\Session\Frontend::getCustomer()->getID() === 0}{JTL\Session\Frontend::getCustomer()->getID()}{else}undefined{/if},
+				user_id: {JTL\Session\Frontend::getCustomer()->getID()},
+				{/if}
 				logged_in: {if JTL\Session\Frontend::getCustomer()->getID() === 0}false{else}true{/if}
 			{rdelim});
 		{/block}
@@ -174,12 +176,14 @@
 			{/if}
 			
 			{* Product Detail View *}
-			{if $nSeitenTyp == 1}
+			{if $nSeitenTyp == 1 && !isset($bWarenkorbHinzugefuegt)}
 				{assign var=i_kat value=($Brotnavi|@count)-2}
 				{if $i_kat < 0}{assign var=i_kat value=0}{/if}
 				dataLayer.push({ ecommerce: null });
 				dataLayer.push({
 					'event': 'view_item',
+					'currency': '{$smarty.session.Waehrung->getCode()}',
+					'value': {$Artikel->Preise->fVKNetto|number_format:2:".":""},
 					'ecommerce': {
 						'items': [{
 							'item_name': '{getTrackingName article=$Artikel }', 
@@ -249,6 +253,7 @@
 					'event': 'add_to_cart',
 					'ecommerce': {
 						'currency': '{$smarty.session.Waehrung->getCode()}',
+						'value': {$pushedArtikel->Preise->fVKNetto|number_format:2:".":""},
 						'items': [{
 							'item_name': '{getTrackingName article=$pushedArtikel }', // Name or ID is required.
 							'item_id': '{if $snackyConfig.artnr == "id"}{$pushedArtikel->kArtikel}{else}{$pushedArtikel->cArtNr|escape}{/if}',
@@ -265,7 +270,7 @@
 			{/if}
 			
 			{* Begin Checkout *}
-			{if $nSeitenTyp == 11 || $nSeitenTyp == 3}
+			{if ($nSeitenTyp == 11 || $nSeitenTyp == 3) && $smarty.session.Warenkorb->PositionenArr|@count > 0}
 				{assign var="activeStep" value=1}	{*Schritt 1 = Warenkorb, Checkout dann weiterführend: 2=Adresse,3=Zahlung,4=Übersicht *}
 				{if $nSeitenTyp == 11}
 					{if $bestellschritt[1] == 1 || $bestellschritt[2] == 1}
@@ -279,7 +284,7 @@
 
 				dataLayer.push({ ecommerce: null });
 				dataLayer.push({
-					'event': '{if $nSeitenTyp == 3}view_cart{else}{if $activeStep == 1 || $activeStep == 2}begin_checkout{elseif $activeStep==3}add_shipping_info{elseif $activeStep==4}add_payment_info{else}checkout_step_{$activeStep}{/if}{/if}',
+					'event': '{if $nSeitenTyp == 3}view_cart{else}{if $activeStep == 1 || $activeStep == 2}begin_checkout{else}checkout_step_{$activeStep}{/if}{/if}',
 					'ecommerce': {
 						'currency': '{$smarty.session.Waehrung->getCode()}',
 						'value': {$smarty.session.Warenkorb->gibGesamtsummeWaren()|number_format:2:".":""},
@@ -303,36 +308,73 @@
 						]
 					}
 				});
-			{/if}
-			
-			{* View Cart *}
-			{if $nSeitenTyp == 3}
-				dataLayer.push({ ecommerce: null });
-				dataLayer.push({
-					'event': 'view_cart',
-					'ecommerce': {
-						'currency': '{$smarty.session.Waehrung->getCode()}',
-						'value': {$smarty.session.Warenkorb->gibGesamtsummeWaren()|number_format:2:".":""},
-						'items': [
-							{foreach from=$smarty.session.Warenkorb->PositionenArr item="prodid" name="prodid"}
-							{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
-							{if !$smarty.foreach.prodid.first},{/if}
-							{
-								'item_name': '{getTrackingName article=$prodid->Artikel }',       // Name or ID is required.
-								'item_id': '{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}',
-								'price': {$prodid->fPreis|number_format:2:".":""},
-								{if !empty($prodid->Artikel->cHersteller)}
-								'brand': '{$prodid->Artikel->cHersteller|escape}',
-								'item_brand': '{$prodid->Artikel->cHersteller|escape}',
-								{/if}
-								{getTrackingCategory article=$prodid->Artikel}
-								'quantity': {$prodid->nAnzahl}
+				
+				{* Observe Payment/Shipping Submit *}
+				{if $activeStep==3 || $activeStep==4}					
+					document.addEventListener('click', function (event) {
+						const submitButton = event.target.closest(
+							'button[type="submit"], input[type="submit"], .submit, .btn-primary'
+						);
+						
+						if (!submitButton) {
+							return;
+						}
+						
+						dataLayer.push({ ecommerce: null });
+						dataLayer.push({
+							'event': 'add_shipping_info',
+							'ecommerce': {
+								'currency': '{$smarty.session.Waehrung->getCode()}',
+								'value': {$smarty.session.Warenkorb->gibGesamtsummeWaren()|number_format:2:".":""},
+								'items': [
+									{foreach from=$smarty.session.Warenkorb->PositionenArr item="prodid" name="prodid"}
+									{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
+									{if !$smarty.foreach.prodid.first},{/if}
+									{
+										'item_name': '{getTrackingName article=$prodid->Artikel }',       // Name or ID is required.
+										'item_id': '{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}',
+										'price': {$prodid->fPreis|number_format:2:".":""},
+										{if !empty($prodid->Artikel->cHersteller)}
+										'brand': '{$prodid->Artikel->cHersteller|escape}',
+										'item_brand': '{$prodid->Artikel->cHersteller|escape}',
+										{/if}
+										{getTrackingCategory article=$prodid->Artikel}
+										'quantity': {$prodid->nAnzahl}
+									}
+									{/if}
+									{/foreach}
+								]
 							}
-							{/if}
-							{/foreach}
-						]
-					}
-				});
+						});
+
+						dataLayer.push({ ecommerce: null });
+						dataLayer.push({
+							'event': 'add_payment_info',
+							'ecommerce': {
+								'currency': '{$smarty.session.Waehrung->getCode()}',
+								'value': {$smarty.session.Warenkorb->gibGesamtsummeWaren()|number_format:2:".":""},
+								'items': [
+									{foreach from=$smarty.session.Warenkorb->PositionenArr item="prodid" name="prodid"}
+									{if $prodid->nPosTyp == $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL}
+									{if !$smarty.foreach.prodid.first},{/if}
+									{
+										'item_name': '{getTrackingName article=$prodid->Artikel }',       // Name or ID is required.
+										'item_id': '{if $snackyConfig.artnr == "id"}{$prodid->Artikel->kArtikel}{else}{$prodid->Artikel->cArtNr|escape}{/if}',
+										'price': {$prodid->fPreis|number_format:2:".":""},
+										{if !empty($prodid->Artikel->cHersteller)}
+										'brand': '{$prodid->Artikel->cHersteller|escape}',
+										'item_brand': '{$prodid->Artikel->cHersteller|escape}',
+										{/if}
+										{getTrackingCategory article=$prodid->Artikel}
+										'quantity': {$prodid->nAnzahl}
+									}
+									{/if}
+									{/foreach}
+								]
+							}
+						});
+					});
+				{/if}
 			{/if}
 			
 			{* Purchase *}
@@ -515,7 +557,7 @@
 				dataLayer.push({
 					'event': 'sign_up',
 					'sha256_email_address': '{hashEmail}',
-					'user_id': {if JTL\Session\Frontend::getCustomer()->getID() === 0}{JTL\Session\Frontend::getCustomer()->getID()}{else}undefined{/if},
+					'user_id': {if JTL\Session\Frontend::getCustomer()->getID() > 0}{JTL\Session\Frontend::getCustomer()->getID()}{else}undefined{/if},
 					'logged_in': true
 				});
 				{unsetRegisterTracking}

@@ -46,6 +46,9 @@
 .p-c br{
     display: none;
 }
+.p-c .modal br{
+    display: block;
+}
 .product-border .p-c .img-w .img-ct, 
 .product-border .sc-w .img-ct{
 	border: 1px solid var(--pbx-im-r);

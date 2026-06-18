@@ -16,7 +16,7 @@
 						{/block}
 					</ul>
 					{if $oBox->getLinkGroupTemplate() === 'Fuss' && $snackyConfig.widerrufPosition == 0}
-						<div class="hidden-xs">
+						<div class="{if $snackyConfig.footerBoxesOpen === '0'}hidden-xs{/if}">
 							{block name='boxes-box-linkgroups-withdrawal-link'}
 								{include file='snippets/withdrawal_link.tpl'}
 							{/block}

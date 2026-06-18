@@ -242,7 +242,10 @@
 								{/block}
 							{/if}
 						{elseif isset($smallversion) && $smallversion}
-							{block name="footer-smallversion"}
+							{block name="footer-smallversion"}			
+								<div class="text-center mb-xs">								
+									{include file='snippets/withdrawal_link.tpl'}
+								</div>
 								{getLink nLinkart=12 cAssign="linkdatenschutz"}
 								{getLink nLinkart=27 cAssign="linkimpressum"}
 								{getLink nLinkart=24 cAssign="linkwrb"}

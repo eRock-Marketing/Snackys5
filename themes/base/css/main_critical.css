@@ -517,10 +517,10 @@ h2, .h2,
 .buy-wrapper .price{
     font-size: var(--h2-lg);
     font-weight: var(--h2-w);
-    color: var(--h2-t);
 }
 h2, .h2{
 	@fontfamily_h2;
+    color: var(--h2-t);
 }
 h3, .h3{
     font-size: var(--h3-lg);

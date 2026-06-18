@@ -15,7 +15,7 @@
             {col cols=12 md=6}
                 {formgroup label="{lang key='name'}"
                            label-for="withdrawal_name"
-                           class="{if isset($withdrawalErrors.name)}has-error{/if}"}
+                           class="required{if isset($withdrawalErrors.name)} has-error{/if}"}
                     {if isset($withdrawalErrors.name)}
                         <div class="form-error-msg" aria-live="assertive" role="alert">
                             <i class="fas fa-exclamation-triangle"></i> {lang key='fillOut'}
@@ -30,9 +30,10 @@
                 {/formgroup}
             {/col}
             {col cols=12 md=6}
-                {formgroup label="{lang key='yourOrderId' section='checkout'}"
+                {formgroup label="{lang key='revocationOrderNumber' section='global'}"
                            label-for="withdrawal_order"
-                           description="{if isset($Kunde) && $Kunde->kKunde > 0}<a href=\"{get_static_route id='jtl.php'}?bestellungen=1\" target=\"_blank\">{lang key='orderOverview' section='account data'}</a>{/if}"}
+                           class="required"
+                           description="{if isset($Kunde) && $Kunde->kKunde > 0}<a href=\"{get_static_route id='jtl.php'}?bestellungen=1\" target=\"_blank\">{lang key='orderOverview' section='account data'}</a>{else}<span>{lang key='revocationOrderNumberDesc' section='global'}</span>{/if}"}
                     {input type="text"
                            id="withdrawal_order"
                            name="withdrawal_order"
@@ -47,7 +48,7 @@
             {col cols=12 md=6}
                 {formgroup label="{lang key='email' section='account data'}"
                            label-for="withdrawal_email"
-                           class="{if isset($withdrawalErrors.email)}has-error{/if}"}
+                           class="required{if isset($withdrawalErrors.email)} has-error{/if}"}
                     {if isset($withdrawalErrors.email)}
                         <div class="form-error-msg" aria-live="assertive" role="alert">
                             <i class="fas fa-exclamation-triangle"></i> {lang key='invalidEmail'}
