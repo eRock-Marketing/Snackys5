@@ -59,13 +59,7 @@
     border-radius: var(--rnd-frc);
     background: #ddd;
 }
-html:not([dir=rtl]) .box .noUi-horizontal .noUi-origin{
-    height: 100%;
-}
-html:not([dir=rtl]) .box .noUi-horizontal .noUi-handle {
-    left: 0;
-    width: 100%;
-    height: 20px;
+.box .noUi-horizontal .noUi-handle {
     border: 0;
     border-radius: var(--rnd-fll);
     background: white;
@@ -77,8 +71,10 @@ html:not([dir=rtl]) .box .noUi-horizontal .noUi-handle {
 .box .noUi-handle:after{
     display: none;
 }
-.box .noUi-handle{
-    transform: translateX(50%);
+.box .noUi-horizontal .noUi-handle{
+    width: 20px;
+    height: 20px;
+    right: -10px;
 }
 .box .rng{
     padding: 0;

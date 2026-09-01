@@ -51,6 +51,9 @@
 #footer-boxes .col-6 > section.mb-lg{
     margin-bottom: 0;
 }
+#copyright > .text-center:empty{
+    display: none;
+}
 @media screen and (max-width: 1199px){
     #copyright{
         padding-top: 2rem;

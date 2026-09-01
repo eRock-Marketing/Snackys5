@@ -123,6 +123,15 @@
             this.initMinMaxAbnahme();
 			
 			this.snackys($wrapper);
+			
+			//open guarantee tab if clicked from listings
+            let $tabID = $('#tab-wp a[href="' + window.location.hash + '"]');
+            if ($tabID.length) {
+                $tabID.tab('show');
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $tabID.offset().top
+                }, 200);
+            }
         },
 
 		snackys: function($wrapper){
@@ -135,6 +144,17 @@
 					});
 				},150);
 			});
+			$('#jump-to-guarantee-tab').on('click',function(event){
+				event.preventDefault();
+				$('a[aria-controls=tab-guarantee]').trigger('click');
+				window.setTimeout(function(){
+					document.querySelector('#tab-guarantee').scrollIntoView({
+					  behavior: 'smooth' 
+					});
+				},150);
+			});
+			
+			
 			
 			$('.qty-sub').off();
 			$('.qty-sub').click(function(e){
@@ -1060,6 +1080,9 @@
 
             $.evo.trigger('changed.article.price', { price: price });
         },
+		
+		setOldPrice: function(price, fmtPrice, discountPercent, wrapper) {
+		},
 
         setStockInformation: function(cEstimatedDelivery, wrapper) {
             var $wrapper = this.getWrapper(wrapper);

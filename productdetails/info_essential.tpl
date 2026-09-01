@@ -44,6 +44,23 @@
                             <strong>{lang key="category" section="global"}: </strong><a href="{$Brotnavi[$i_kat]->getURLFull()}" {if !empty($smarty.get.quickView)}target="_blank"{/if}>{$Brotnavi[$i_kat]->getName()}</a>
                         </li>
                     {/if}
+                {/block}
+                {block name='productdetails-details-guarantee-label'}
+                    {assign var=guaranteeLabel value=JTL\Catalog\Product\Guarantee\GuaranteeLabel::instance($Artikel)}
+                    {if $guaranteeLabel->isAvailable(JTL\Catalog\Product\Guarantee\GuaranteeLabelContext::ProductDetail)}
+                        <li class="nav-it">
+                            <div class="guarantee-label-wrapper">
+                                {link href="{$Artikel->cURLFull}#tab-guarantee"
+                                    id="jump-to-guarantee-tab"
+                                    aria=["label"=>{lang key='guarantee' section='productDetails'}]
+                                }
+                                    {block name='productdetails-details-include-guarantee-label-small'}
+                                        {include file='snippets/guarantee/guarantee_label_small.tpl' guaranteeLabel=$guaranteeLabel}
+                                    {/block}
+                                {/link}
+                            </div>
+                        </li>
+                    {/if}
                 {/block}                                
                 {block name="productdetails-info-gefahrgut-wrapper"}
                     {if !empty($Artikel->cUNNummer) && !empty($Artikel->cGefahrnr) && ($Einstellungen.artikeldetails.adr_hazard_display === 'D' || $Einstellungen.artikeldetails.adr_hazard_display === 'DL')}

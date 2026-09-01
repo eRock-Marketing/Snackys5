@@ -26,7 +26,7 @@
                                         {/if}
                                     {/foreach}
                                 {/if}
-                                <strong>{$oVariationWertHead->cName}</strong>
+                                <span class="t-bold">{$oVariationWertHead->cName}</span>
                             </th>
                         {/foreach}
                     </tr>
@@ -49,7 +49,7 @@
                                             {/if}
                                         {/foreach}
                                     {/if}
-                                    <strong>{$oVariationWert1->cName}</strong>
+                                    <span class="t-bold">{$oVariationWert1->cName}</span>
                                 </td>
                                 {foreach $Artikel->VariationenOhneFreifeld[0]->Werte as $oVariationWert0}
                                     {assign var=bAusblenden value=false}
@@ -273,7 +273,7 @@
                                                 {/if}
                                             {/foreach}
                                         {/if}
-                                        <strong>{$oVariationWertHead->cName}</strong>
+                                        <span class="t-bold">{$oVariationWertHead->cName}</span>
                                     </th>
                                 {/if}
                             {/foreach}
@@ -453,7 +453,7 @@
                                                 {/if}
                                             {/foreach}
                                         {/if}
-                                        <strong> {$oVariationWertHead->cName}</strong>
+                                        <span class="t-bold"> {$oVariationWertHead->cName}</span>
                                     </td>
                                     <td>
                                         <div class="form-inline">

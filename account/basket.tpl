@@ -119,7 +119,7 @@
                                                                                 {/if}
                                                                             </span>
                                                                             <span class="prd">
-                                                                                <span class="qty">{if !(is_string($oPosition->cUnique) && !empty($oPosition->cUnique) && (int)$oPosition->kKonfigitem === 0)}{$KonfigPos->nAnzahlEinzel}{else}1{/if}x</span>
+                                                                                <span class="qty">{$KonfigPos->nAnzahlEinzel}x</span>
                                                                                 {$KonfigPos->cName|trans}
                                                                             </span>
                                                                             <span class="prcv">

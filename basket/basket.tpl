@@ -83,6 +83,22 @@
 												{block name='oder-items-product-data-name'}
 													<a href="{$oPosition->Artikel->cURLFull}" class="prd-itm">{$oPosition->cName|transByISO}</a>
 												{/block}
+												{block name='basket-cart-items-include-guarantee-label-small'}
+													{assign var=guaranteeLabel value=JTL\Catalog\Product\Guarantee\GuaranteeLabel::instance($oPosition->Artikel)}
+													{if $tplscope === 'cart'}
+														{if $guaranteeLabel->isAvailable(JTL\Catalog\Product\Guarantee\GuaranteeLabelContext::Cart)}
+															<div class="guarantee-label-wrapper" data-toggle="collapse" data-target="#moreinfo{$smarty.foreach.positionen.index}">
+																{include file='snippets/guarantee/guarantee_label_small.tpl' guaranteeLabel=$guaranteeLabel}
+															</div>
+														{/if}
+													{else}
+														{if $guaranteeLabel->isAvailable(JTL\Catalog\Product\Guarantee\GuaranteeLabelContext::Checkout)}
+															<div class="guarantee-label-wrapper">
+																{include file='snippets/guarantee/guarantee_label_small.tpl' guaranteeLabel=$guaranteeLabel}
+															</div>
+														{/if}
+													{/if}
+												{/block}
 												{block name='oder-items-product-data-list'}
 													{assign "hasmore" 0}
 													{if ($Einstellungen.kaufabwicklung.warenkorb_varianten_varikombi_anzeigen === 'Y' && isset($oPosition->WarenkorbPosEigenschaftArr) && !empty($oPosition->WarenkorbPosEigenschaftArr))
@@ -93,7 +109,8 @@
 														|| ($Einstellungen.kaufabwicklung.bestellvorgang_artikelattribute == 'Y' && !empty($oPosition->Artikel->Attribute))
 														|| (isset($oPosition->getTotalConfigWeight()) && $Einstellungen.artikeldetails.artikeldetails_gewicht_anzeigen === 'Y' && $oPosition->getTotalConfigWeight() > 0)
 														|| (isset($oPosition->Artikel->cGewicht) && $Einstellungen.artikeldetails.artikeldetails_gewicht_anzeigen === 'Y' && $oPosition->Artikel->fGewicht > 0)
-														|| ($Einstellungen.kaufabwicklung.bestellvorgang_artikelkurzbeschreibung == 'Y' && $oPosition->Artikel->cKurzBeschreibung|strlen > 0)
+														|| ($Einstellungen.kaufabwicklung.bestellvorgang_artikelkurzbeschreibung == 'Y' && $oPosition->Artikel->cKurzBeschreibung|strlen > 0) 
+														|| ($guaranteeLabel->isAvailable(JTL\Catalog\Product\Guarantee\GuaranteeLabelContext::Cart) && $tplscope === 'cart')
 													}
 														{assign "hasmore" 1}
 													{/if}
@@ -441,6 +458,12 @@
 						{if $hasmore == 1}
 							<div class="collapse small" id="moreinfo{$smarty.foreach.positionen.index}">
 								<div class="bskt-is">
+									{block name='basket-cart-items-guarantee-collapse'}
+										{assign var=guaranteeLabel value=JTL\Catalog\Product\Guarantee\GuaranteeLabel::instance($oPosition->Artikel)}
+										{if $guaranteeLabel->isAvailable(JTL\Catalog\Product\Guarantee\GuaranteeLabelContext::Cart)}
+											{include file='snippets/guarantee/guarantee_label.tpl' guaranteeLabel=$guaranteeLabel}
+										{/if}
+									{/block}
 									{block name='order-items-item-infos-variations'}
 										{if $Einstellungen.kaufabwicklung.warenkorb_varianten_varikombi_anzeigen === 'Y' && isset($oPosition->WarenkorbPosEigenschaftArr) && !empty($oPosition->WarenkorbPosEigenschaftArr)}
 											{foreach name=variationen from=$oPosition->WarenkorbPosEigenschaftArr item=Variation}
