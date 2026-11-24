@@ -3,7 +3,7 @@
 	{if \JTL\Session\Frontend::getWishlist()->getID() > 0}
 		{$wlCount = \JTL\Session\Frontend::getWishlist()->getItems()|count}
 	{/if}
-	{if $wlCount >= 1 || $snackyConfig.show_wishlist_always == 'Y'}
+	{if $wlCount >= 1}
 		<div class="wish-list-menu hidden-xs">
 			<a href="{get_static_route id='wunschliste.php'}" title="{lang key="wishlist" sektion="global"}" class="link_to_wishlist popup hdr-l" aria-label="{lang key='goToWishlist'}">
 				<span class="img-ct icon icon-xl">
@@ -11,9 +11,7 @@
 					  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-heart"></use>
 					</svg>
 				</span>
-				{if $wlCount >= 1}
-					<sup class="badge"><em>{$wlCount}</em></sup>
-				{/if}
+				<sup class="badge"><em>{$wlCount}</em></sup>
 			</a>
 		</div>
 	{/if}

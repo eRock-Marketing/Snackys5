@@ -2,9 +2,7 @@
     <ul class="snippets-filter-custom {if isset($class)}{$class}{else}nav nav-list{/if}">
         {foreach $filter->getOptions() as $filterOption}
             <li>
-                {link rel="nofollow" 
-				usePRG=($Einstellungen.prgpattern.prg_pattern_enabled !== 'N')
-				href=$filterOption->getURL()}
+                {link rel="nofollow" href=$filterOption->getURL()}
                     <i class="fa {if $NaviFilter->getFilterValue($filter->getClassName()) == $filterOption->getValue()}fa-check-square-o{else}fa-square-o{/if} text-muted-util"></i>
                     {$filterOption->getName()|escape:'html'}{badge}{$filterOption->getCount()} <span class="sr-only">{lang key='products'} {lang key='found'}</span>{/badge}
                 {/link}

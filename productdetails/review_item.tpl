@@ -4,7 +4,7 @@
             <div class="top5">
                 {block name="productdetails-review-header"}
                     <div class="title flx-jb flx-as">
-                        <strong>{$oBewertung->cTitel|escape:'html':'UTF-8':false}</strong>
+                        <strong>{$oBewertung->cTitel}</strong>
                         <span>
                             {include file='productdetails/rating.tpl' stars=$oBewertung->nSterne}
                             <small class="hide">
@@ -37,9 +37,9 @@
                 {/block}
                 {block name="productdetails-review-item-details"}
                     <blockquote class="m0">
-                        <p>{$oBewertung->cText|escape:'html':'UTF-8':false|nl2br}</p>
+                        <p>{$oBewertung->cText|nl2br}</p>
                         <small>
-                            {$oBewertung->cName|escape:'html':'UTF-8':false}. | {$oBewertung->Datum}
+                            {$oBewertung->cName}. | {$oBewertung->Datum}
                             {block name='productdetails-review-item-details-verified-purchase'}
                                 {if !empty($oBewertung->wasPurchased)}
                                      | {lang key='verifiedPurchase' section='product rating'}

@@ -17,29 +17,29 @@
         {/if}
 
         {if !empty($snackyConfig.google_analytics_four|trim)}
-            gtag( 'config', '{$snackyConfig.google_analytics_four|trim}');
+            gtag( 'config', '{$snackyConfig.google_analytics_four|trim|escape:'javascript'}');
             {if $nSeitenTyp == 33 && $Bestellung->Positionen !== null && $Bestellung->Positionen|count > 0}
                 gtag('set', 'user_data', {
-                    'email': '{$Bestellung->oKunde->cMail}'
+                    'email': '{$Bestellung->oKunde->cMail|escape:'javascript'}'
                 });
             {/if}
         {/if}
 
         {if !empty($snackyConfig.google_ads|trim)}
             {if $snackyConfig.gads_enhanced_conversions == 'Y'}
-                gtag( 'config', '{$snackyConfig.google_ads|trim}', {ldelim}'allow_enhanced_conversions':true{rdelim});
+                gtag( 'config', '{$snackyConfig.google_ads|trim|escape:'javascript'}', {ldelim}'allow_enhanced_conversions':true{rdelim});
             {else}
-                gtag( 'config', '{$snackyConfig.google_ads|trim}');
+                gtag( 'config', '{$snackyConfig.google_ads|trim|escape:'javascript'}');
             {/if}
 
             {* Google Ads Conversion *}
             {if $nSeitenTyp == 33 && $Bestellung->Positionen !== null && $Bestellung->Positionen|count > 0}
             gtag('event', 'conversion', {
-                'send_to': '{$snackyConfig.google_ads|trim}/{$snackyConfig.google_ads_label|trim}',
+                'send_to': '{$snackyConfig.google_ads|trim|escape:'javascript'}/{$snackyConfig.google_ads_label|trim|escape:'javascript'}',
                 'value': {$Bestellung->fWarensummeNetto|number_format:2:".":""},
                 'currency': '{$smarty.session.Waehrung->getCode()}'
                 {if $snackyConfig.gads_enhanced_conversions == 'Y'}
-                    ,'email': '{$Bestellung->oKunde->cMail}'
+                    ,'email': '{$Bestellung->oKunde->cMail|escape:'javascript'}'
                 {/if},
 				'transaction_id': '{$Bestellung->cBestellNr}'
             });
@@ -128,7 +128,7 @@
                     item_category: "{$Brotnavi[$i_kat]->getName()|escape}",
                     {/if}
                     price: {$pushedArtikel->Preise->fVKNetto|number_format:2:".":""},
-                    quantity: {if $smarty.request.anzahl>0}{$smarty.request.anzahl}{else}1{/if}
+                    quantity: {if $smarty.request.anzahl>0}{$smarty.request.anzahl|string_format:"%d"}{else}1{/if}
                 }
             ]
         });
@@ -202,5 +202,5 @@
         {/if}
 
     </script>
-	<script async src="https://www.googletagmanager.com/gtag/js?id={if !empty($snackyConfig.google_analytics_four|trim)}{$snackyConfig.google_analytics_four|trim}{else}{$snackyConfig.google_ads|trim}{/if}"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id={if !empty($snackyConfig.google_analytics_four|trim)}{$snackyConfig.google_analytics_four|trim|escape:'html'}{else}{$snackyConfig.google_ads|trim|escape:'html'}{/if}"></script>
 {/block}

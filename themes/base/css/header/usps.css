@@ -7,10 +7,6 @@
 	color: var(--ben-t);
 	overflow: hidden;
 }
-#h-us a{
-	color: var(--ben-t);
-	text-decoration: underline;
-}
 #h-us .css-check::before{
 	color: var(--ben-i);
 }

@@ -9,7 +9,7 @@
 			w[u]=w[u]||[],f=function()
 			{
 				var o={
-					ti:"{$snackyConfig.bing_ads|trim}"
+					ti:"{$snackyConfig.bing_ads|trim|escape:'javascript'}"
 				};
 				o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")
 			},
@@ -35,9 +35,9 @@
 		_paq.push(['trackPageView']);
 		_paq.push(['enableLinkTracking']);
 		(function() {
-			var u="{$snackyConfig.matomo|trim}";
+			var u="{$snackyConfig.matomo|trim|escape:'javascript'}";
 			_paq.push(['setTrackerUrl', u+'matomo.php']);
-			_paq.push(['setSiteId', '{$snackyConfig.matomoSiteId}']);
+			_paq.push(['setSiteId', '{$snackyConfig.matomoSiteId|escape:'javascript'}']);
 			var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
 			g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
 		})();

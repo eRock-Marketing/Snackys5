@@ -2,7 +2,7 @@
 	{foreach $Suchergebnisse->Kategorieauswahl as $Kategorie}
 		{if $Kategorie->nAnzahl >= 1}
 			<li class="nav-it{if $NaviFilter->hasCategoryFilter() && $NaviFilter->getCategory()->getValue() == $Kategorie->kKategorie} active{/if}">
-				<a rel="nofollow" href="{$Kategorie->cURL}" class="flx">
+				<a rel="nofollow" href="{$Kategorie->cURL}#content" class="flx">
 					{block name='snippets-filter-category-name'}
 						<span class="value">
 							{$Kategorie->cName|escape:'html'}

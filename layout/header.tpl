@@ -8,7 +8,6 @@
 				{snackys_content id="html_head_start" title="html_head_start"}
 				{block name="head-manifest"}
 					{if $snackyConfig.pwa == 'Y'}<link rel="manifest" href="manifest.json">{/if}
-					<link rel="manifest" href="manifest.json">
 				{/block}
 				{block name="head-ressources-polyfill"}
 					<script nomodule src="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}js/snackys/intersectionObserver.js"></script>
@@ -19,7 +18,7 @@
 				{block name="head-resources-jquery"}
 					<link rel="preload" href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}js/jquery36-lazysizes.min.js" as="script">
 					{if !empty($snackyConfig.svgLogo)}
-						<link rel="preload" href="{$snackyConfig.svgLogo}" as="image">
+						<link rel="preload" href="{$snackyConfig.svgLogo|escape:'html'}" as="image">
 							{else}
 						<link rel="preload" href="{$ShopLogoURL}" as="image">
 					{/if}
@@ -27,7 +26,7 @@
 						window.lazySizesConfig = window.lazySizesConfig || {};
 						window.lazySizesConfig.expand  = 50;
 					</script>
-					{if !empty($snackyConfig.gtag|trim) || $snackyConfig.use_tagmanager_gateway == 1}
+					{if !empty($snackyConfig.gtag|trim)}
 						{include file="layout/tracking/tagmanager.tpl"}
 					{/if}
 					{if !empty($snackyConfig.matomo|trim)}
@@ -149,14 +148,10 @@
 				{block name='layout-header-head-icons'}
 					<link rel="icon" href="{$ShopURL}/favicon.ico" sizes="48x48" >
 					<link rel="icon" href="{$ShopURL}/favicon.svg" sizes="any" type="image/svg+xml">
-					{*<link rel="manifest" href="{$ShopURL}/site.webmanifest" />*}
+					<link rel="manifest" href="{$ShopURL}/site.webmanifest" />
 				{/block}
 				{createArray arr="cssArray"}			
 				{block name="head-resources"}
-				
-					<script>
-						window.jtlShopBaseUrl = '{$ShopURL}';
-					</script>
 					{block name="opc-dependencies"}
 						{getActiveOPCItems cAssign="opcItems"}
 						{if is_array($opcItems)}
@@ -444,12 +439,6 @@
 						{if "ManufacturerSlider\ManufacturerSlider"|in_array:$opcItems}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/opc-manufacturer.css'}
 						{/if}
-						{if $snackyConfig.show_topbar_b2b == 1 || $snackyConfig.show_mobile_b2b == 1}
-							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/brutto-netto-switcher.css'}
-						{/if}
-						{if $snackyConfig.productbox_design == 2}
-							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productbox_boxed.css'}
-						{/if}
 					{/block}
 					{if $opc->isEditMode() === false && $opc->isPreviewMode() === false && \JTL\Shop::isAdmin(true)}
 						<link type="text/css" href="{$ShopURL}/admin/opc/css/startmenu.css" rel="stylesheet">
@@ -490,9 +479,9 @@
 					<meta name="theme-color" content="{if !empty($snackyConfig.css_themecolor)}{$snackyConfig.css_themecolor}{else}{$snackyConfig.css_brand}{/if}">
 				{/block}
 				{block name="snackys-head-icons"}
-					{if !empty($snackyConfig.appleTouchIcon)}<link rel="apple-touch-icon" href="{$snackyConfig.appleTouchIcon}"/>{/if}
-					{if !empty($snackyConfig.pwa_icon192) && $snackyConfig.pwa == 'Y'}<link rel="icon" sizes="192x192" href="{$snackyConfig.pwa_icon192}">{/if}
-					{if !empty($snackyConfig.pwa_icon512) && $snackyConfig.pwa == 'Y'}<link rel="icon" sizes="512x512" href="{$snackyConfig.pwa_icon512}">{/if}
+					{if !empty($snackyConfig.appleTouchIcon)}<link rel="apple-touch-icon" href="{$snackyConfig.appleTouchIcon|escape:'html'}"/>{/if}
+					{if !empty($snackyConfig.pwa_icon192) && $snackyConfig.pwa == 'Y'}<link rel="icon" sizes="192x192" href="{$snackyConfig.pwa_icon192|escape:'html'}">{/if}
+					{if !empty($snackyConfig.pwa_icon512) && $snackyConfig.pwa == 'Y'}<link rel="icon" sizes="512x512" href="{$snackyConfig.pwa_icon512|escape:'html'}">{/if}
 				{/block}
 				{$additionalHeadTags}
 				{$dbgBarHead}
@@ -524,9 +513,9 @@
 			{if  isset($step3_active) && $step3_active} no-pd{/if}
 			{if $isMobile} mobile{/if}
 			"
-					{if isset($maintenance) && $maintenance && !empty($snackyConfig.maintenanceBG)} style="background: url({$snackyConfig.maintenanceBG})no-repeat center center/cover;"{/if}
+					{if isset($maintenance) && $maintenance && !empty($snackyConfig.maintenanceBG)} style="background: url('{$snackyConfig.maintenanceBG|escape:'html'}')no-repeat center center/cover;"{/if}
 					{if isset($Link) && !empty($Link->getIdentifier())} id="{$Link->getIdentifier()}"{/if}
-					{if !empty($snackyConfig.boxedImg) && $snackyConfig.designWidth == 1} style="background: url({$snackyConfig.boxedImg})no-repeat center center/cover;{if !$isMobile} background-attachment: fixed{/if}"{/if}
+					{if !empty($snackyConfig.boxedImg) && $snackyConfig.designWidth == 1} style="background: url('{$snackyConfig.boxedImg|escape:'html'}')no-repeat center center/cover;{if !$isMobile} background-attachment: fixed{/if}"{/if}
 			>
 		{/strip}
 		{snackys_content id="html_body_start" title="html_body_start"}
@@ -656,7 +645,7 @@
 									{block name="logo"}
 										<a href="{$ShopURL}" title="{$Einstellungen.global.global_shopname}" class="pr">
 											{if !empty($snackyConfig.svgLogo)}
-												<img src="{$snackyConfig.svgLogo}" alt="{$Einstellungen.global.global_shopname}">
+												<img src="{$snackyConfig.svgLogo|escape:'html'}" alt="{$Einstellungen.global.global_shopname}">
 											{else}
 												{if isset($ShopLogoURL)}
 													{image src=$ShopLogoURL alt=$Einstellungen.global.global_shopname class="img-responsive"}

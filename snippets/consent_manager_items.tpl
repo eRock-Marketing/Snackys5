@@ -1,5 +1,5 @@
 {* Google Tag Manager *}
-{if !empty($snackyConfig.gtag|trim) || $snackyConfig.use_tagmanager_gateway == 1}
+{if !empty($snackyConfig.gtag|trim)}
 	{inline_script}
 		<script>			
 			document.addEventListener('consent.ready', function(e) {
@@ -9,20 +9,11 @@
 				km_tagManager_consent(e.detail);
 			});
 
-			var tagmanagerloaded = {if $snackyConfig.tagmanager_consentmode == 'V2'}true{else}false{/if};
 			function km_tagManager_consent(detail)
 			{
+				
 				if (detail !== null && typeof detail.km_tagmanager !== 'undefined') {
 					if (detail.km_tagmanager === true) {
-						
-						{if $snackyConfig.tagmanager_consentmode != 'V2'}
-							if(tagmanagerloaded == false)
-							{
-								loadTagmanager();
-								tagmanagerloaded = true;
-							}
-						{/if}
-						
 						gtag('consent', 'update', {
 							'ad_user_data': 'granted',
 							'ad_personalization': 'granted',
@@ -34,10 +25,6 @@
 				}
 
 			}
-			
-			{if $snackyConfig.tagmanager_consentmode == 'V2'}
-				loadTagmanager();
-			{/if}
 		</script>
 	{/inline_script}
 {/if}
@@ -119,9 +106,9 @@
 
 		{if $snackyConfig.matomoConsent != 'Y'}
 			(function(){
-				var u="{$snackyConfig.matomo|trim}";
+				var u="{$snackyConfig.matomo|trim|escape:'javascript'}";
 				_paq.push(['setTrackerUrl', u+'matomo.php']);
-				_paq.push(['setSiteId', '{$snackyConfig.matomoSiteId}']);
+				_paq.push(['setSiteId', '{$snackyConfig.matomoSiteId|escape:'javascript'}']);
 				var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
 				g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
 			})();
@@ -136,9 +123,9 @@
 			function km_matomo_consent(detail)
 			{
 				if (matomoLoaded == false && detail !== null && typeof detail.km_matomo !== 'undefined' && detail.km_matomo === true) {
-					var u="{$snackyConfig.matomo|trim}";
+					var u="{$snackyConfig.matomo|trim|escape:'javascript'}";
 					_paq.push(['setTrackerUrl', u+'matomo.php']);
-					_paq.push(['setSiteId', '{$snackyConfig.matomoSiteId}']);
+					_paq.push(['setSiteId', '{$snackyConfig.matomoSiteId|escape:'javascript'}']);
 					var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
 					g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
 					matomoLoaded = true;
@@ -151,51 +138,41 @@
 
 {inline_script}
 <script>
-	setTimeout(function() {
-		$('#consent-manager, #consent-settings-btn').removeClass('d-none');
-	}, 100);
-
 	document.addEventListener('consent.updated', function(e) {
 		$.post('{$ShopURLSSL}/_updateconsent', {
-			'action': 'updateconsent',
-			'jtl_token': '{$smarty.session.jtl_token}',
-			'data': e.detail
-		});
+				'action': 'updateconsent',
+				'jtl_token': '{$smarty.session.jtl_token}',
+				'data': e.detail
+			}
+		);
 	});
-
 	{if !isset($smarty.session.consents)}
-	document.addEventListener('consent.ready', function(e) {
-		document.dispatchEvent(new CustomEvent('consent.updated', { detail: e.detail }));
-	});
+		document.addEventListener('consent.ready', function(e) {
+			document.dispatchEvent(new CustomEvent('consent.updated', { detail: e.detail }));
+		});
 	{/if}
 
 	window.CM = new ConsentManager({
 		version: {$smarty.session.consentVersion|default:1}
 	});
-
-	// Zentrale Handler-Funktion
+	var trigger = document.querySelectorAll('.trigger')
 	var triggerCall = function(e) {
 		e.preventDefault();
-		const type = (e.currentTarget && e.currentTarget.dataset) ? e.currentTarget.dataset.consent : undefined;
-		if (!type) return;
-
-		if (window.CM && window.CM.getSettings(type) === false) {
-			window.CM.openConfirmationModal(type, function () {
-				let data = window.CM._getLocalData();
-				if (data === null) {
+		let type = e.target.dataset.consent;
+		if (CM.getSettings(type) === false) {
+			CM.openConfirmationModal(type, function() {
+				let data = CM._getLocalData();
+				if (data === null ) {
 					data = { settings: {} };
 				}
 				data.settings[type] = true;
 				document.dispatchEvent(new CustomEvent('consent.updated', { detail: data.settings }));
 			});
 		}
-	};
-
-	// Delegierter Click-Handler (funktioniert auch nach AJAX)
-	$(document)
-		.off('click.consentTrigger')
-		.on('click.consentTrigger', '.trigger', triggerCall);
-
+	}
+	for(let i = 0; i < trigger.length; ++i) {
+		trigger[i].addEventListener('click', triggerCall)
+	}
 </script>
 {/inline_script}
 

@@ -10,7 +10,7 @@
             {else}
                 {$tooltip = []}
             {/if}
-            <a href="{if !empty($filterOption->getURL())}{$filterOption->getURL()}{else}#{/if}" title="{$filterOption->getName()}: {$filterOption->getCount()}" class="filter-item flx-ac {if $filterOption->isActive()}active{/if}" rel="nofollow" aria-label="{lang key='filterBy'}: {$filterOption->getName()}">
+            <a href="{if !empty($filterOption->getURL())}{$filterOption->getURL()}#content{else}#{/if}" title="{$filterOption->getName()}: {$filterOption->getCount()}" class="filter-item flx-ac {if $filterOption->isActive()}active{/if}" rel="nofollow" aria-label="{lang key='filterBy'}: {$filterOption->getName()}">
                 {if $Einstellungen.navigationsfilter.hersteller_anzeigen_als == 'B'}
                     {block name='snippets-filter-manufacturer-item-image'}
                     <span class="img-ct icon ic-lg icon-wt">

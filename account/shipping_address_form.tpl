@@ -83,10 +83,10 @@
 											{/block}
 											{block name='account-shipping-address-item-modal-body'}
 												<div class="modal-body">
-													{if $address->cFirma}{$address->cFirma|escape:'html':'UTF-8':false}<br />{/if}
-													<strong>{if $address->cTitel}{$address->cTitel|escape:'html':'UTF-8':false}{/if} {$address->cVorname|escape:'html':'UTF-8':false} {$address->cNachname|escape:'html':'UTF-8':false}</strong><br />
-													{$address->cStrasse|escape:'html':'UTF-8':false} {$address->cHausnummer|escape:'html':'UTF-8':false}<br />
-													{$address->cPLZ|escape:'html':'UTF-8':false} {$address->cOrt|escape:'html':'UTF-8':false}<br />
+													{if $address->cFirma}{$address->cFirma}<br />{/if}
+													<strong>{if $address->cTitel}{$address->cTitel}{/if} {$address->cVorname} {$address->cNachname}</strong><br />
+													{$address->cStrasse} {$address->cHausnummer}<br />
+													{$address->cPLZ} {$address->cOrt}<br />
 													{include file='checkout/inc_delivery_address.tpl' Lieferadresse=$address hideMainInfo=true}
 													{if $Einstellungen.kaufabwicklung.bestellvorgang_kaufabwicklungsmethode == 'N' && $address->nIstStandardLieferadresse !== 1}
 														<hr class="invisible hr-sm">
@@ -101,8 +101,8 @@
 									<div class="flx flx-ac item">
 										{block name='account-shipping-address-item-card-info'}
 											<span class="w100">
-												<strong class="block">{if $address->cTitel}{$address->cTitel|escape:'html':'UTF-8':false}{/if} {$address->cVorname|escape:'html':'UTF-8':false} {$address->cNachname|escape:'html':'UTF-8':false}</strong>
-												<small class="text-muted">{$address->cStrasse|escape:'html':'UTF-8':false} {$address->cHausnummer|escape:'html':'UTF-8':false}, {$address->cPLZ|escape:'html':'UTF-8':false} {$address->cOrt|escape:'html':'UTF-8':false}</small>
+												<strong class="block">{if $address->cTitel}{$address->cTitel}{/if} {$address->cVorname} {$address->cNachname}</strong>
+												<small class="text-muted">{$address->cStrasse} {$address->cHausnummer}, {$address->cPLZ} {$address->cOrt}</small>
 											</span>	
 										{/block}
 										{block name='account-shipping-address-item-card-popup'}

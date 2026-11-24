@@ -110,13 +110,7 @@
 																			<strong class="block">
 																				{$oVerpackung->cName}	
 																				<span class="badge small">
-																					{if $oVerpackung->nKostenfrei == 1}
-																						{lang key='ExemptFromCharges'}
-																					{elseif JTL\Session\Frontend::getCustomerGroup()->isMerchant()}
-																						{$oVerpackung->fNettoLocalized}
-																					{else}
-																						{$oVerpackung->fBruttoLocalized}
-																					{/if}
+																					{if $oVerpackung->nKostenfrei == 1}{lang key="ExemptFromCharges" section="global"}{else}{$oVerpackung->fBruttoLocalized}{/if}
 																				</span>
 																			</strong>	
 																		{/block}

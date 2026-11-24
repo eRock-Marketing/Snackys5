@@ -58,7 +58,7 @@
 									class="form-control" 
 									placeholder="{lang key="title" section="account data"}" 
 									{if $Einstellungen.kunden.kundenregistrierung_abfragen_titel === 'Y'}required{/if} 
-									{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTitel)}pattern="{$snackyConfig.patternTitel}"{/if}
+									{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTitel)}pattern="{$snackyConfig.patternTitel|escape:'html'}"{/if}
 									spellcheck="false" 
 									autocorrect="off" 
 									maxlength="64"
@@ -93,7 +93,7 @@
 								class="form-control" 
 								placeholder="{lang key="firstName" section="account data"}" 
 								{if $Einstellungen.kunden.kundenregistrierung_pflicht_vorname === 'Y'} required{/if} 
-								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternVorname)}pattern="{$snackyConfig.patternVorname}"{/if}
+								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternVorname)}pattern="{$snackyConfig.patternVorname|escape:'html'}"{/if}
 								spellcheck="false" 
 								autocorrect="off"
 								>
@@ -126,7 +126,7 @@
 								class="form-control" 
 								placeholder="{lang key="lastName" section="account data"}" 
 								required  
-								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternNachname)}pattern="{$snackyConfig.patternNachname}"{/if}
+								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternNachname)}pattern="{$snackyConfig.patternNachname|escape:'html'}"{/if}
 								spellcheck="false" 
 								autocorrect="off" 
 								>
@@ -219,7 +219,7 @@
 								class="form-control" 
 								placeholder="{lang key="street" section="account data"}" 
 								required  
-								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternStrasse)}pattern="{$snackyConfig.patternStrasse}"{/if}
+								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternStrasse)}pattern="{$snackyConfig.patternStrasse|escape:'html'}"{/if}
 								spellcheck="false" 
 								autocorrect="off"  
 								>
@@ -248,7 +248,7 @@
 								class="form-control" 
 								placeholder="{lang key="streetnumber" section="account data"}" 
 								required  
-								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternHausnummer)}pattern="{$snackyConfig.patternHausnummer}"{/if} 
+								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternHausnummer)}pattern="{$snackyConfig.patternHausnummer|escape:'html'}"{/if} 
 								spellcheck="false" 
 								autocorrect="off"
 								>
@@ -281,7 +281,7 @@
 								class="form-control"
 								placeholder="{lang key="street2" section="account data"}" 
 								{if $Einstellungen.kunden.kundenregistrierung_abfragen_adresszusatz === 'Y'} required{/if}
-								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternAdresszusatz)}pattern="{$snackyConfig.patternAdresszusatz}"{/if} 
+								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternAdresszusatz)}pattern="{$snackyConfig.patternAdresszusatz|escape:'html'}"{/if} 
 								spellcheck="false" 
 								autocorrect="off"
 								/>
@@ -393,7 +393,7 @@
 								class="postcode_input form-control"
 								placeholder="{lang key="plz" section="account data"}"
 								required
-								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternPLZ)}pattern="{$snackyConfig.patternPLZ}"{/if}
+								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternPLZ)}pattern="{$snackyConfig.patternPLZ|escape:'html'}"{/if}
 								spellcheck="false" 
 								autocorrect="off"
 								autocomplete="billing postal-code" 
@@ -423,7 +423,7 @@
 								class="city_input form-control"
 								placeholder="{lang key="city" section="account data"}" 
 								required 
-								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternOrt)}pattern="{$snackyConfig.patternOrt}"{/if}
+								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternOrt)}pattern="{$snackyConfig.patternOrt|escape:'html'}"{/if}
 								spellcheck="false" 
 								autocorrect="off"
 								autocomplete="billing address-level2"
@@ -452,7 +452,7 @@
 								class="form-control" 
 								placeholder="{lang key="ustid" section="account data"}" 
 								{if $Einstellungen.kunden.kundenregistrierung_abfragen_ustid === 'Y'} required{/if} 
-								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternUst)}pattern="{$snackyConfig.patternUst}"{/if}
+								{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternUst)}pattern="{$snackyConfig.patternUst|escape:'html'}"{/if}
 								spellcheck="false" 
 								autocorrect="off" 
 								maxlength="20"
@@ -561,7 +561,7 @@
 										class="form-control"
 										placeholder="{lang key="tel" section="account data"}" 
 										{if $Einstellungen.kunden.kundenregistrierung_abfragen_tel === 'Y'} required{/if} 
-										{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTelefon)}pattern="{$snackyConfig.patternTelefon}"{/if}
+										{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTelefon)}pattern="{$snackyConfig.patternTelefon|escape:'html'}"{/if}
 										spellcheck="false" 
 										autocorrect="off" 
 										maxlength="45"
@@ -597,7 +597,7 @@
 										class="form-control"
 										placeholder="{lang key="fax" section="account data"}" 
 										{if $Einstellungen.kunden.kundenregistrierung_abfragen_fax === 'Y'} required{/if}
-										{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternFax)}pattern="{$snackyConfig.patternFax}"{/if}
+										{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternFax)}pattern="{$snackyConfig.patternFax|escape:'html'}"{/if}
 										spellcheck="false" 
 										autocorrect="off" 
 										maxlength="45"
@@ -639,7 +639,7 @@
 										class="form-control"
 										placeholder="{lang key="mobile" section="account data"}" 
 										{if $Einstellungen.kunden.kundenregistrierung_abfragen_mobil === 'Y'} required{/if} 
-										{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternMobil)}pattern="{$snackyConfig.patternMobil}"{/if}
+										{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternMobil)}pattern="{$snackyConfig.patternMobil|escape:'html'}"{/if}
 										spellcheck="false" 
 										autocorrect="off" 
 										maxlength="30"

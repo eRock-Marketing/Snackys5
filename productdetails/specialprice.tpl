@@ -67,7 +67,7 @@
 		{block name="specialprice-date"}
 			<div class="mb-sm mt-sm panel text-center">
 				<div class="h4 m0">
-					{lang key="sonderpreisBisDetail" section="custom"} {$Artikel->dSonderpreisEnde_de|date_format:"{$snackyConfig.deliveryDateFormat}"}
+					{lang key="sonderpreisBisDetail" section="custom"} {$Artikel->dSonderpreisEnde_de|date_format:"{$snackyConfig.deliveryDateFormat}"|escape:'html'}
 				</div>
 			</div>
 		{/block}

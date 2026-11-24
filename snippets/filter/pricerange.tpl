@@ -3,7 +3,7 @@
     {if $NaviFilter->hasPriceRangeFilter()}
         {if $NaviFilter->getPriceRangeFilter()->getOffsetStart() >= 0 && $NaviFilter->getPriceRangeFilter()->getOffsetEnd() > 0}
             <li>
-                <a href="{$NaviFilter->URL->getPriceRanges()}" rel="nofollow" class="active">
+                <a href="{$NaviFilter->URL->getPriceRanges()}#content" rel="nofollow" class="active">
                     <span class="value">
                         {$NaviFilter->getPriceRangeFilter()->getOffsetStartLocalized()} - {$NaviFilter->getPriceRangeFilter()->getOffsetEndLocalized()}
                     </span>
@@ -13,7 +13,7 @@
     {else}
         {foreach $Suchergebnisse->Preisspanne as $oPreisspannenfilter}
             <li>
-                <a href="{$oPreisspannenfilter->cURL}" rel="nofollow">
+                <a href="{$oPreisspannenfilter->cURL}#content" rel="nofollow">
                     <span class="badge">{$oPreisspannenfilter->nAnzahlArtikel}</span>
                     <span class="value">
                         {$oPreisspannenfilter->getOffsetStartLocalized()}  - {$oPreisspannenfilter->getOffsetEndLocalized()}

@@ -1,6 +1,6 @@
 {block name='page-404'}
 	<div id="pnf" class="flx-ac flx-jc text-center" 
-		 style="background: url('{if !empty($snackyConfig.error404BG)}{$snackyConfig.error404BG}{else}/templates/Snackys/img/background/bg-404.jpg{/if}')no-repeat center center/cover">
+		 style="background: url('{if !empty($snackyConfig.error404BG)}{$snackyConfig.error404BG|escape:'html'}{else}/templates/Snackys/img/background/bg-404.jpg{/if}')no-repeat center center/cover">
 		<div class="content">
 			{block name='page-404-headline'}
 				{if $snackyConfig.old_content_ids === 'Y'}

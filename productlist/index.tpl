@@ -172,7 +172,7 @@
                                         {/if}
                                     {/block}
                                     {block name="productlist-results-pagination-url"}
-                                        <span class="pagination-url" data-url="{$smarty.server.REQUEST_URI}"></span>
+                                        <span class="pagination-url" data-url="{$smarty.server.REQUEST_URI|escape:'html'}"></span>
                                     {/block}
                                     {block name="productlist-results-items"}
                                         {foreach name=artikel from=$Suchergebnisse->getProducts() item=Artikel}

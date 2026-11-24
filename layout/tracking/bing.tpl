@@ -12,7 +12,7 @@
 			w[u]=w[u]||[],f=function()
 			{
 				var o={
-					ti:"{$snackyConfig.bing_ads|trim}",
+					ti:"{$snackyConfig.bing_ads|trim|escape:'javascript'}",
 					enableAutoSpaTracking: true
 				};
 				o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")

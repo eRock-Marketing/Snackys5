@@ -19,7 +19,7 @@
 									<input
 											type="email"
 											name="{$prefix}[{$name}][email]"
-											value="{if isset($Lieferadresse->cMail)}{$Lieferadresse->cMail|escape:'html':'UTF-8':false}{/if}"
+											value="{if isset($Lieferadresse->cMail)}{$Lieferadresse->cMail}{/if}"
 											id="{$prefix}-{$name}-email"
 											class="form-control"
 											placeholder="{lang key="email" section="account data"}"
@@ -52,11 +52,11 @@
 									<input
 											type="tel"
 											name="{$prefix}[{$name}][mobil]"
-											value="{if isset($Lieferadresse->cMobil)}{$Lieferadresse->cMobil|escape:'html':'UTF-8':false}{/if}"
+											value="{if isset($Lieferadresse->cMobil)}{$Lieferadresse->cMobil}{/if}"
 											id="{$prefix}-{$name}-mobile"
 											class="form-control"
 											placeholder="{lang key="mobile" section="account data"}"
-											{if $Einstellungen.kunden.lieferadresse_abfragen_mobil === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternMobil)}pattern="{$snackyConfig.patternMobil}"{/if} spellcheck="false" autocorrect="off" maxlength="30"
+											{if $Einstellungen.kunden.lieferadresse_abfragen_mobil === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternMobil)}pattern="{$snackyConfig.patternMobil|escape:'html'}"{/if} spellcheck="false" autocorrect="off" maxlength="30"
 									/>
 									{if isset($fehlendeAngaben.mobil)}
 										<div class="form-error-msg text-danger">
@@ -85,11 +85,11 @@
 									<input
 											type="tel"
 											name="{$prefix}[{$name}][tel]"
-											value="{if isset($Lieferadresse->cTel)}{$Lieferadresse->cTel|escape:'html':'UTF-8':false}{/if}"
+											value="{if isset($Lieferadresse->cTel)}{$Lieferadresse->cTel}{/if}"
 											id="{$prefix}-{$name}-tel"
 											class="form-control"
 											placeholder="{lang key="tel" section="account data"}"
-											{if $Einstellungen.kunden.lieferadresse_abfragen_tel === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTelefon)}pattern="{$snackyConfig.patternTelefon}"{/if} spellcheck="false" autocorrect="off" maxlength="45"
+											{if $Einstellungen.kunden.lieferadresse_abfragen_tel === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTelefon)}pattern="{$snackyConfig.patternTelefon|escape:'html'}"{/if} spellcheck="false" autocorrect="off" maxlength="45"
 									/>
 									{if isset($fehlendeAngaben.tel)}
 										<div class="form-error-msg text-danger">
@@ -112,11 +112,11 @@
 									<input
 											type="tel"
 											name="{$prefix}[{$name}][fax]"
-											value="{if isset($Lieferadresse->cFax)}{$Lieferadresse->cFax|escape:'html':'UTF-8':false}{/if}"
+											value="{if isset($Lieferadresse->cFax)}{$Lieferadresse->cFax}{/if}"
 											id="{$prefix}-{$name}-fax"
 											class="form-control"
 											placeholder="{lang key="fax" section="account data"}"
-											{if $Einstellungen.kunden.lieferadresse_abfragen_fax === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternFax)}pattern="{$snackyConfig.patternFax}"{/if} spellcheck="false" autocorrect="off" maxlength="45"
+											{if $Einstellungen.kunden.lieferadresse_abfragen_fax === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternFax)}pattern="{$snackyConfig.patternFax|escape:'html'}"{/if} spellcheck="false" autocorrect="off" maxlength="45"
 									/>
 									{if isset($fehlendeAngaben.fax)}
 										<div class="form-error-msg text-danger">

@@ -26,7 +26,7 @@
 					<div class="col-12 col-md-6">
 						<div class="form-group float-label-control{if !empty($fehlendeAngaben.titel)} has-error{/if}{if $Einstellungen.kunden.lieferadresse_abfragen_titel === 'Y'} required{/if}">
 							<label for="{$prefix}-{$name}-title" class="control-label">{lang key="title" section="account data"}</label>
-							<input type="text" name="{$prefix}[{$name}][titel]" value="{if isset($Lieferadresse->cTitel)}{$Lieferadresse->cTitel|escape:'html':'UTF-8':false}{/if}" id="{$prefix}-{$name}-title" class="form-control" placeholder="{lang key="title" section="account data"}"{if $Einstellungen.kunden.lieferadresse_abfragen_titel === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTitel)}pattern="{$snackyConfig.patternTitel}"{/if} spellcheck="false"  autocorrect="off" maxlength="64">
+							<input type="text" name="{$prefix}[{$name}][titel]" value="{if isset($Lieferadresse->cTitel)}{$Lieferadresse->cTitel}{/if}" id="{$prefix}-{$name}-title" class="form-control" placeholder="{lang key="title" section="account data"}"{if $Einstellungen.kunden.lieferadresse_abfragen_titel === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternTitel)}pattern="{$snackyConfig.patternTitel|escape:'html'}"{/if} spellcheck="false"  autocorrect="off" maxlength="64">
 							{if !empty($fehlendeAngaben.titel)}
 								<div class="alert alert-danger">{lang key="fillOut" section="global"}</div>
 							{/if}
@@ -42,7 +42,7 @@
 				<div class="col-12 col-md-6">
 					<div class="form-group float-label-control{if !empty($fehlendeAngaben.vorname)} has-error{/if}{if $Einstellungen.kunden.kundenregistrierung_pflicht_vorname === 'Y'} required{/if}">
 						<label for="{$prefix}-{$name}-firstName" class="control-label">{lang key="firstName" section="account data"}</label>
-						<input type="text" name="{$prefix}[{$name}][vorname]" value="{if isset($Lieferadresse->cVorname)}{$Lieferadresse->cVorname|escape:'html':'UTF-8':false}{/if}" id="{$prefix}-{$name}-firstName" class="form-control" placeholder="{lang key="firstName" section="account data"}"{if $Einstellungen.kunden.kundenregistrierung_pflicht_vorname === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternVorname)}pattern="{$snackyConfig.patternVorname}"{/if} spellcheck="false"  autocorrect="off">
+						<input type="text" name="{$prefix}[{$name}][vorname]" value="{if isset($Lieferadresse->cVorname)}{$Lieferadresse->cVorname}{/if}" id="{$prefix}-{$name}-firstName" class="form-control" placeholder="{lang key="firstName" section="account data"}"{if $Einstellungen.kunden.kundenregistrierung_pflicht_vorname === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternVorname)}pattern="{$snackyConfig.patternVorname|escape:'html'}"{/if} spellcheck="false"  autocorrect="off">
 						{if !empty($fehlendeAngaben.vorname)}
 							{if $fehlendeAngaben.vorname == 1}
 								<div class="alert alert-danger">{lang key="fillOut" section="global"}</div>
@@ -57,7 +57,7 @@
 				<div class="col-12 col-md-6">
 					<div class="form-group float-label-control{if !empty($fehlendeAngaben.nachname)} has-error{/if} required">
 						<label for="{$prefix}-{$name}-lastName" class="control-label">{lang key="lastName" section="account data"}</label>
-						<input type="text" name="{$prefix}[{$name}][nachname]" value="{if isset($Lieferadresse->cNachname)}{$Lieferadresse->cNachname|entferneFehlerzeichen|escape:'html':'UTF-8':false}{/if}" id="{$prefix}-{$name}-lastName" class="form-control" placeholder="{lang key="lastName" section="account data"}" required {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternNachname)}pattern="{$snackyConfig.patternNachname}"{/if} spellcheck="false"  autocorrect="off"/>
+						<input type="text" name="{$prefix}[{$name}][nachname]" value="{if isset($Lieferadresse->cNachname)}{$Lieferadresse->cNachname|entferneFehlerzeichen}{/if}" id="{$prefix}-{$name}-lastName" class="form-control" placeholder="{lang key="lastName" section="account data"}" required {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternNachname)}pattern="{$snackyConfig.patternNachname|escape:'html'}"{/if} spellcheck="false"  autocorrect="off"/>
 						{if !empty($fehlendeAngaben.nachname)}
 							{if $fehlendeAngaben.nachname == 1}
 								<div class="alert alert-danger">{lang key="fillOut" section="global"}</div>
@@ -77,7 +77,7 @@
 					<div class="col-12 col-md-6">
 						<div class="form-group float-label-control{if !empty($fehlendeAngaben.firma)} has-error{/if}{if $Einstellungen.kunden.lieferadresse_abfragen_firma === 'Y'} required{/if}">
 							<label for="{$prefix}-{$name}-firm" class="control-label">{lang key="firm" section="account data"}</label>
-							<input type="text" name="{$prefix}[{$name}][firma]" value="{if isset($Lieferadresse->cFirma)}{$Lieferadresse->cFirma|entferneFehlerzeichen|escape:'html':'UTF-8':false}{/if}" id="{$prefix}-{$name}-firm" class="form-control" placeholder="{lang key="firm" section="account data"}"{if $Einstellungen.kunden.lieferadresse_abfragen_firma === 'Y'} required{/if} spellcheck="false"  autocorrect="off" maxlength="128">
+							<input type="text" name="{$prefix}[{$name}][firma]" value="{if isset($Lieferadresse->cFirma)}{$Lieferadresse->cFirma|entferneFehlerzeichen}{/if}" id="{$prefix}-{$name}-firm" class="form-control" placeholder="{lang key="firm" section="account data"}"{if $Einstellungen.kunden.lieferadresse_abfragen_firma === 'Y'} required{/if} spellcheck="false"  autocorrect="off" maxlength="128">
 							{if !empty($fehlendeAngaben.firma)}
 								<div class="alert alert-danger">{lang key="fillOut" section="global"}</div>
 							{/if}
@@ -91,7 +91,7 @@
 						{include file='snippets/form_group_simple.tpl'
                             options=[
                                 "text", "{$prefix}-{$name}-firmext", "{$prefix}[{$name}][firmazusatz]",
-                                {$Lieferadresse->cZusatz|default:null|escape:'html':'UTF-8':false}, {lang key='firmext' section='account data'},
+                                {$Lieferadresse->cZusatz|default:null}, {lang key='firmext' section='account data'},
                                 $Einstellungen.kunden.lieferadresse_abfragen_firmazusatz, null, "shipping organization ext",
                                 null, 60
                             ]
@@ -107,7 +107,7 @@
 				<div class="col-12 col-md-6">
 					<div class="form-group float-label-control{if !empty($fehlendeAngaben.strasse)} has-error{/if} required">
 						<label class="control-label" for="{$prefix}-{$name}-street">{lang key="street" section="account data"}</label>
-						<input type="text" name="{$prefix}[{$name}][strasse]" value="{if isset($Lieferadresse->cStrasse)}{$Lieferadresse->cStrasse|entferneFehlerzeichen|escape:'html':'UTF-8':false}{/if}" id="{$prefix}-{$name}-street" class="form-control" placeholder="{lang key="street" section="account data"}*" required	{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternStrasse)}pattern="{$snackyConfig.patternStrasse}"{/if} spellcheck="false"  autocorrect="off">
+						<input type="text" name="{$prefix}[{$name}][strasse]" value="{if isset($Lieferadresse->cStrasse)}{$Lieferadresse->cStrasse|entferneFehlerzeichen}{/if}" id="{$prefix}-{$name}-street" class="form-control" placeholder="{lang key="street" section="account data"}*" required	{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternStrasse)}pattern="{$snackyConfig.patternStrasse|escape:'html'}"{/if} spellcheck="false"  autocorrect="off">
 						{if !empty($fehlendeAngaben.strasse)}
 							<div class="alert alert-danger">{lang key="fillOut" section="global"}</div>
 						{/if}
@@ -118,7 +118,7 @@
 				<div class="col-12 col-md-6">
 					<div class="form-group float-label-control{if !empty($fehlendeAngaben.hausnummer)} has-error{/if} required">
 						<label class="control-label" for="{$prefix}-{$name}-streetnumber">{lang key="streetnumber" section="account data"}</label>
-						<input type="text" name="{$prefix}[{$name}][hausnummer]" value="{if isset($Lieferadresse->cHausnummer)}{$Lieferadresse->cHausnummer|escape:'html':'UTF-8':false}{/if}" id="{$prefix}-{$name}-streetnumber" class="form-control" placeholder="{lang key="streetnumber" section="account data"}*" required {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternHausnummer)}pattern="{$snackyConfig.patternHausnummer}"{/if} spellcheck="false"  autocorrect="off"/>
+						<input type="text" name="{$prefix}[{$name}][hausnummer]" value="{if isset($Lieferadresse->cHausnummer)}{$Lieferadresse->cHausnummer}{/if}" id="{$prefix}-{$name}-streetnumber" class="form-control" placeholder="{lang key="streetnumber" section="account data"}*" required {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternHausnummer)}pattern="{$snackyConfig.patternHausnummer|escape:'html'}"{/if} spellcheck="false"  autocorrect="off"/>
 						{if !empty($fehlendeAngaben.hausnummer)}
 							<div class="alert alert-danger">{lang key="fillOut" section="global"}</div>
 						{/if}
@@ -133,7 +133,7 @@
 				<div class="col-12 col-md-6">
 					<div class="form-group float-label-control{if !empty($fehlendeAngaben.adresszusatz)} has-error{/if}{if $Einstellungen.kunden.lieferadresse_abfragen_adresszusatz === 'Y'} required{/if}">
 						<label class="control-label" for="{$prefix}-{$name}-street2">{lang key="street2" section="account data"}</label>
-						<input type="text" name="{$prefix}[{$name}][adresszusatz]" value="{if isset($Lieferadresse->cAdressZusatz)}{$Lieferadresse->cAdressZusatz|escape:'html':'UTF-8':false}{/if}" id="{$prefix}-{$name}-street2" class="form-control" placeholder="{lang key="street2" section="account data"}"{if $Einstellungen.kunden.lieferadresse_abfragen_adresszusatz === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternAdresszusatz)}pattern="{$snackyConfig.patternAdresszusatz}"{/if} spellcheck="false"  autocorrect="off">
+						<input type="text" name="{$prefix}[{$name}][adresszusatz]" value="{if isset($Lieferadresse->cAdressZusatz)}{$Lieferadresse->cAdressZusatz}{/if}" id="{$prefix}-{$name}-street2" class="form-control" placeholder="{lang key="street2" section="account data"}"{if $Einstellungen.kunden.lieferadresse_abfragen_adresszusatz === 'Y'} required{/if} {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternAdresszusatz)}pattern="{$snackyConfig.patternAdresszusatz|escape:'html'}"{/if} spellcheck="false"  autocorrect="off">
 						{if !empty($fehlendeAngaben.adresszusatz)}
 							<div class="alert alert-danger">{lang key="fillOut" section="global"}</div>
 						{/if}
@@ -208,7 +208,7 @@
 									type="text"
 									title="{lang key=pleaseChoose}"
 									name="{$prefix}[{$name}][bundesland]"
-									value="{if isset($Lieferadresse->cBundesland)}{$Lieferadresse->cBundesland|escape:'html':'UTF-8':false}{/if}"
+									value="{if isset($Lieferadresse->cBundesland)}{$Lieferadresse->cBundesland}{/if}"
 									id="{$prefix}-{$name}-state"
 									class="form-control"
 									data-toggle="state" data-target="#{$prefix}-{$name}-country"
@@ -233,12 +233,12 @@
 						<input
 							type="text"
 							name="{$prefix}[{$name}][plz]"
-							value="{if isset($Lieferadresse->cPLZ)}{$Lieferadresse->cPLZ|escape:'html':'UTF-8':false}{/if}"
+							value="{if isset($Lieferadresse->cPLZ)}{$Lieferadresse->cPLZ}{/if}"
 							id="{$prefix}-{$name}-postcode"
 							class="postcode_input form-control typeahead bg-typeahead-fix"
 							placeholder="{lang key="plz" section="account data"}"
 							data-toggle="postcode" data-city="#{$prefix}-{$name}-city" data-country="#{$prefix}-{$name}-country"
-							required {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternPLZ)}pattern="{$snackyConfig.patternPLZ}"{/if}
+							required {if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternPLZ)}pattern="{$snackyConfig.patternPLZ|escape:'html'}"{/if}
 							spellcheck="false"
 							autocorrect="off"
 							autocomplete="shipping postal-code" 
@@ -259,9 +259,9 @@
 				<div class="col-12 col-md-6">
 					<div class="form-group float-label-control typeahead-required{if !empty($fehlendeAngaben.ort)} has-error{/if} required">
 						<label class="control-label" for="{$prefix}-{$name}-city">{lang key="city" section="account data"}</label>
-						<input type="text" name="{$prefix}[{$name}][ort]" value="{if isset($Lieferadresse->cOrt)}{$Lieferadresse->cOrt|escape:'html':'UTF-8':false}{/if}" id="{$prefix}-{$name}-city" 
+						<input type="text" name="{$prefix}[{$name}][ort]" value="{if isset($Lieferadresse->cOrt)}{$Lieferadresse->cOrt}{/if}" id="{$prefix}-{$name}-city" 
 						class="city_input form-control" placeholder="{lang key='city' section='account data'}" required 
-						{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternOrt)}pattern="{$snackyConfig.patternOrt}"{/if} 
+						{if $snackyConfig.formvalidActive === '0' && !empty($snackyConfig.patternOrt)}pattern="{$snackyConfig.patternOrt|escape:'html'}"{/if} 
 						spellcheck="false"  autocorrect="off"
 						autocomplete="shipping address-level2"
 						>

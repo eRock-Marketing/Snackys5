@@ -8,14 +8,14 @@
 		<p class="alert alert-info">{lang key="freeGiftFromOrderValue"}</p>
 	{/block}
 	{block name='free-gift-list'}
-		{if !empty($freeGiftsAll)}
+		{if !empty($freeGifts)}
 			{if $snackyConfig.old_content_ids === 'Y'}
 				{include file="snippets/zonen.tpl" id="opc_before_free_gift_list"}
 			{else}
 				{include file="snippets/zonen.tpl" id="before_free_gift_list"}
 			{/if}
 			<div id="freegift" class="row row-eq-height">
-				{foreach $freeGiftsAll as $freeGiftProduct}
+				{foreach $freeGifts as $freeGiftProduct}
 					{$basketValue = $freeGiftProduct->availableFrom - $freeGiftProduct->getStillMissingAmount()}
 					{$isFreeGiftAvailableNow = $basketValue >= $freeGiftProduct->availableFrom}
 					<div class="col-6 text-center">

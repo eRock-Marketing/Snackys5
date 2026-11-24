@@ -15,13 +15,6 @@
 						{include file='snippets/linkgroup_recursive.tpl' links=$oBox->getLinkGroup()->getHierarchy() linkgroupIdentifier=$oBox->getLinkGroupTemplate() dropdownSupport=true  tplscope='box' limit=3}
 						{/block}
 					</ul>
-					{if $oBox->getLinkGroupTemplate() === 'Fuss' && $snackyConfig.widerrufPosition == 0}
-						<div class="{if $snackyConfig.footerBoxesOpen === '0'}hidden-xs{/if}">
-							{block name='boxes-box-linkgroups-withdrawal-link'}
-								{include file='snippets/withdrawal_link.tpl'}
-							{/block}
-						</div>
-					{/if}
 				</div>
 			{/block}
 		</section>
