@@ -125,9 +125,11 @@
 			this.snackys($wrapper);
 			
 			//open guarantee tab if clicked from listings
-            let $tabID = $('#tab-wp a[href="' + window.location.hash + '"]');
+            let $tabID = $('#tab-wp [href="' + window.location.hash + '"]');
             if ($tabID.length) {
                 $tabID.tab('show');
+                $('#article-tabs .tab-ct.tab-pane').removeClass('show');
+                $(document.getElementById(window.location.hash.substring(1))).addClass('show');
                 $([document.documentElement, document.body]).animate({
                     scrollTop: $tabID.offset().top
                 }, 200);
@@ -146,7 +148,7 @@
 			});
 			$('#jump-to-guarantee-tab').on('click',function(event){
 				event.preventDefault();
-				$('a[aria-controls=tab-guarantee]').trigger('click');
+				$('a[aria-controls=tab-guarantee], button[href="#tab-guarantee"]').trigger('click');
 				window.setTimeout(function(){
 					document.querySelector('#tab-guarantee').scrollIntoView({
 					  behavior: 'smooth' 
