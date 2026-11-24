@@ -140,7 +140,7 @@
 								"price": "{$Artikel->Preise->cVKLocalized[$NettoPreise]|formatForMicrodata}",
 								"priceCurrency": "{JTL\Session\Frontend::getCurrency()->getName()}",
 								{block name='rich-snippets-availability'}
-									"availability": "{if $Artikel->cLagerBeachten === 'N' || $Artikel->fLagerbestand > 0 || $Artikel->cLagerKleinerNull === 'Y'}https://schema.org/InStock{elseif $Artikel->nErscheinendesProdukt && $Artikel->Erscheinungsdatum_de !== '00.00.0000' && $Einstellungen.global.global_erscheinende_kaeuflich === 'Y'}https://schema.org/PreOrder{elseif $Artikel->cLagerBeachten === 'Y' && $Artikel->cLagerKleinerNull === 'N' && $Artikel->fLagerbestand <= 0}https://schema.org/OutOfStock{/if}",
+									"availability": "{if $Artikel->nErscheinendesProdukt && $Artikel->Erscheinungsdatum_de !== '00.00.0000' && $Einstellungen.global.global_erscheinende_kaeuflich === 'Y'}https://schema.org/PreOrder{elseif $Artikel->cLagerBeachten === 'N' || $Artikel->fLagerbestand > 0 || $Artikel->cLagerKleinerNull === 'Y'}https://schema.org/InStock{elseif $Artikel->cLagerBeachten === 'Y' && $Artikel->cLagerKleinerNull === 'N' && $Artikel->fLagerbestand <= 0}https://schema.org/OutOfStock{/if}",
 								{/block}
 								"businessFunction": "http://purl.org/goodrelations/v1#Sell",
 								"url": "{$cCanonicalURL}"
@@ -240,7 +240,7 @@
 										"price": "{$Artikel->Preise->cVKLocalized[$NettoPreise]|formatForMicrodata}",
 										"priceCurrency": "{JTL\Session\Frontend::getCurrency()->getName()}",
 										{block name='rich-snippets-list-availability'}
-											"availability": "{if $Artikel->cLagerBeachten === 'N' || $Artikel->fLagerbestand > 0 || $Artikel->cLagerKleinerNull === 'Y'}https://schema.org/InStock{elseif $Artikel->nErscheinendesProdukt && $Artikel->Erscheinungsdatum_de !== '00.00.0000' && $Einstellungen.global.global_erscheinende_kaeuflich === 'Y'}https://schema.org/PreOrder{elseif $Artikel->cLagerBeachten === 'Y' && $Artikel->cLagerKleinerNull === 'N' && $Artikel->fLagerbestand <= 0}https://schema.org/OutOfStock{/if}",
+											"availability": "{if $Artikel->nErscheinendesProdukt && $Artikel->Erscheinungsdatum_de !== '00.00.0000' && $Einstellungen.global.global_erscheinende_kaeuflich === 'Y'}https://schema.org/PreOrder{elseif $Artikel->cLagerBeachten === 'N' || $Artikel->fLagerbestand > 0 || $Artikel->cLagerKleinerNull === 'Y'}https://schema.org/InStock{elseif $Artikel->cLagerBeachten === 'Y' && $Artikel->cLagerKleinerNull === 'N' && $Artikel->fLagerbestand <= 0}https://schema.org/OutOfStock{/if}",
 										{/block}
 										"businessFunction": "http://purl.org/goodrelations/v1#Sell",
 										"url": "{$cCanonicalURL}"

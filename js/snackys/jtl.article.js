@@ -697,7 +697,11 @@
 
        addToWishlist: function(data) {
             var productId = parseInt(data[this.options.input.id]);
+            var childId = parseInt(data[this.options.input.childId]);
             var qty =  parseFloat(data[this.options.input.quantity]);
+            if (childId > 0) {
+                productId = childId;
+            }
             if (isNaN(qty)) {
                 qty = 1;
             }

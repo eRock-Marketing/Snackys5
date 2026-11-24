@@ -31,23 +31,19 @@
     {if $Einstellungen.artikeldetails.artikel_variationspreisanzeige == 1 && $Variationswert->fAufpreisNetto!=0}
         <span class="tag">{$Variationswert->cAufpreisLocalized[$NettoPreise]}</span>
     {elseif $Einstellungen.artikeldetails.artikel_variationspreisanzeige == 2 && $Variationswert->fAufpreisNetto!=0}
-        <span class="tag">{$Variationswert->cPreisInklAufpreis[$NettoPreise]}</span>
+        {* Bei mehrdimensionalen einfachen Variationen: nur Aufpreis anzeigen *}
+        {if $Artikel->nVariationOhneFreifeldAnzahl > 1}
+            <span class="tag">{$Variationswert->cAufpreisLocalized[$NettoPreise]}</span>    
+        {else}
+            <span class="tag">{$Variationswert->cPreisInklAufpreis[$NettoPreise]}</span>
+        {/if}
     {/if}
 {/if}
-{* variationskombination mit mindestens 2 nicht-freifeld positionen *}
+{* Variationskombination mit mindestens 2 Nicht-Freifeld-Variationen *}
 {if ($Artikel->kVaterArtikel > 0 || $Artikel->nIstVater == 1) && $Artikel->nVariationOhneFreifeldAnzahl > 1 && isset($Variationswert->fAufpreisNetto)}
-    {if $Einstellungen.artikeldetails.artikel_variationspreisanzeige == 1 && $Variationswert->fAufpreisNetto!=0}
-        <span class="tag">{$Variationswert->cAufpreisLocalized[$NettoPreise]}
-        {if !empty($Variationswert->cPreisVPEWertAufpreis[$NettoPreise]) && $Artikel->nVariationOhneFreifeldAnzahl == 1}
-            &nbsp;({$Variationswert->cPreisVPEWertAufpreis[$NettoPreise]})
-        {/if}
-        </span>
-    {elseif $Einstellungen.artikeldetails.artikel_variationspreisanzeige == 2 && $Variationswert->fAufpreisNetto!=0}
-        <span class="tag">{$Variationswert->cPreisInklAufpreis[$NettoPreise]}
-        {if !empty($Variationswert->cPreisVPEWertInklAufpreis[$NettoPreise]) && $Artikel->nVariationOhneFreifeldAnzahl == 1}
-            &nbsp;({$Variationswert->cPreisVPEWertInklAufpreis[$NettoPreise]})
-        {/if}
-        </span>
+    {* Bei mehrdimensionalen Variationen: Einstellung 2 ignorieren, immer Aufpreise anzeigen *}
+    {if ($Einstellungen.artikeldetails.artikel_variationspreisanzeige == 1 || $Einstellungen.artikeldetails.artikel_variationspreisanzeige == 2) && $Variationswert->fAufpreisNetto!=0}
+        <span class="tag">{$Variationswert->cAufpreisLocalized[$NettoPreise]}</span>
     {/if}
 {/if}
 {/strip}

@@ -39,7 +39,7 @@
                 				{if $Einstellungen.kaufabwicklung.warenkorb_produktbilder_anzeigen === 'Y'}
                     				<div class="img-col col-3 col-sm-2 col-md-2">
                         				{if !empty($oPosition->Artikel->cVorschaubildURL)}
-                        					<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO|escape:'html'}" class="img-ct w100" aria-hidden="true" tabindex="-1">
+                        					<a href="{$oPosition->Artikel->cURLFull}" title="{$oPosition->cName|transByISO}" class="img-ct w100" aria-hidden="true" tabindex="-1">
 												{if isset($nSeitenTyp) && $nSeitenTyp == 37}
 													{include file='snippets/image.tpl'
 														fluid=false
@@ -66,7 +66,7 @@
                         					<div class="col-8 col-md-8 col-lg-9">
                              					{if $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_ARTIKEL || $oPosition->nPosTyp === $smarty.const.C_WARENKORBPOS_TYP_GRATISGESCHENK}
 													{block name='order-items-item-name'}
-                                						<a href="{$oPosition->Artikel->cURLFull}" class="block">
+                                						<a href="{$oPosition->Artikel->cURLFull}" class="block no-tdc">
 															<strong class="title">{$oPosition->cName|transByISO}</strong>
 														</a>
 													{/block}
@@ -162,7 +162,7 @@
 																		{if isset($oPosition->Artikel->cGewicht) && $Einstellungen.artikeldetails.artikeldetails_gewicht_anzeigen === 'Y' && $oPosition->Artikel->fGewicht > 0}
 																			<li class="weight">
 																				<strong>{lang key="shippingWeight" section="global"}: </strong>
-																				<span class="value">{$oPosition->Artikel->cGewicht} {lang key="weightUnit" section="global"}</span>
+																				<span class="value">{if $oPosition->istKonfigVater()}{$oPosition->getTotalConfigWeight()}{else}{$oPosition->Artikel->cGewicht}{/if} {lang key="weightUnit" section="global"}</span>
 																			</li>
 																		{/if}
 																	{/if}

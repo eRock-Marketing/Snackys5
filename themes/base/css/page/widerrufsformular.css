@@ -1,0 +1,6 @@
+.flex-column-reverse{
+    flex-direction: column-reverse;
+}
+.flex-column-reverse .pt-0{
+    padding: 0;
+}

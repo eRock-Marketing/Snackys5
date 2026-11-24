@@ -203,7 +203,12 @@
 																	</span>
 																{else}
 																	<span class="single-price small block nowrap">
-																		{lang key="pricePerUnit" section="checkout"}: {$oPosition->cKonfigeinzelpreisLocalized[$NettoPreise]}
+																		{lang key="pricePerUnit" section="checkout"}: 
+																		{if isset($oPosition->cKonfigeinzelpreisLocalized[$NettoPreise])}
+																			{$oPosition->cKonfigeinzelpreisLocalized[$NettoPreise]}
+																		{else}
+																			{$oPosition->cEinzelpreisLocalized[$NettoPreise]}
+																		{/if}
 																	</span>
 																{/if}
 															{/if}
@@ -212,7 +217,11 @@
 													{block name='account-order-item-content-prices-price'}
 														<strong class="price block nowrap">
 															{if is_string($oPosition->cUnique) && !empty($oPosition->cUnique) && (int)$oPosition->kKonfigitem === 0}
-																{$oPosition->cKonfigpreisLocalized[$NettoPreise]}
+																{if isset($oPosition->cKonfigpreisLocalized[$NettoPreise])}
+																	{$oPosition->cKonfigpreisLocalized[$NettoPreise]}
+																{else}
+																	{$oPosition->cGesamtpreisLocalized[$NettoPreise]}
+																{/if}
 															{else}
 																{$oPosition->cGesamtpreisLocalized[$NettoPreise]}
 															{/if}

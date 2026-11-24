@@ -62,7 +62,7 @@
         {if isset($snackyConfig.show_manufacturers) && $snackyConfig.show_manufacturers !== 'N' 
             && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
             {include file="snippets/zonen.tpl" id="before_mobilemenu_manufacturers" title="before_mobilemenu_manufacturers"}
-            {get_manufacturers assign='manufacturers'}
+            {get_manufacturers assign='manufacturers' limit=$snackyConfig.amount_manufacturers assignTotal='manufacturersTotal'}
             {if !empty($manufacturers)}
                 <li class="dropdown-style mgm-fw{if $NaviFilter->hasManufacturer() || $nSeitenTyp == PAGE_HERSTELLER} active{/if}">
                     {assign var='linkKeyHersteller' value=\JTL\Shop::Container()->getLinkService()->getSpecialPageID(LINKTYP_HERSTELLER, false)|default:0}
@@ -89,6 +89,9 @@
                         {foreach name=hersteller from=$manufacturers item=hst}
                             <li class="title{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}"><a href="{$hst->getURL()}" class="dropdown-link defaultlink"><span class="notextov">{$hst->getName()|escape:'html'}</span></a></li>
                         {/foreach}
+                        {if ($linkSEOHersteller !== null && !empty($linkSEOHersteller->getName())) && $manufacturersTotal|default:0 > count($manufacturers)}
+                            <li class="title"><a href="{$linkSEOHersteller->getURL()}" class="dropdown-link defaultlink"><span class="notextov">{lang key='showManufacturerButton'}</span></a></li>
+                        {/if}
                     </ul>
                 </li>
             {/if}
@@ -200,6 +203,13 @@
                     </li>
                 {/if}
             {/block}
+        {/block}
+    {/if}
+    {if $snackyConfig.show_mobile_b2b == 1 && $nSeitenTyp != 4}
+        {block name="mobilemenu-additional-b2b"}
+            <li class="dropdown-style visible-xs">
+                {include file="snippets/brutto-netto-switcher.tpl"}
+            </li>
         {/block}
     {/if}
     {include file="snippets/zonen.tpl" id="after_mobilemenu_content" title="after_mobilemenu_content"}

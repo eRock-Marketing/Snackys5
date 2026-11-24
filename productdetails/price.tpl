@@ -32,6 +32,8 @@
 									{block name="snackys-del-price"}
 										{if $Artikel->Preise->Sonderpreis_aktiv && $Einstellungen.artikeldetails.artikeldetails_sonderpreisanzeige == 2 && $snackyConfig.oldPricePlace == '1' && isset($Artikel->Preise->alterVKLocalized[$NettoPreise])}
 											<del class="old-price">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
+										{elseif $Einstellungen.artikeldetails.artikeldetails_uvp_anzeigen === 'Y' && $Artikel->showUVP() && $snackyConfig.uvp_saleprice == 'Y'}
+											<del class="old-price">{$Artikel->getUVPLocalized($NettoPreise)}</del>
 										{elseif !$Artikel->Preise->Sonderpreis_aktiv && $Artikel->Preise->rabatt > 0}
 											{if ($Einstellungen.artikeldetails.artikeldetails_rabattanzeige == 3 || $Einstellungen.artikeldetails.artikeldetails_rabattanzeige == 4) && $snackyConfig.oldPricePlace == '1' && isset($Artikel->Preise->alterVKLocalized[$NettoPreise])}
 												<del class="old-price">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
@@ -106,11 +108,11 @@
 									{/if}
 								{/block}
 								{block name='price-detailpage-uvp'}
-									{if $Einstellungen.artikeldetails.artikeldetails_uvp_anzeigen === 'Y' && $Artikel->fUVP > 0 && $Artikel->Preise->fVKBrutto < $Artikel->fUVP}
+									{if $Einstellungen.artikeldetails.artikeldetails_uvp_anzeigen === 'Y' && $Artikel->showUVP()}
 											<div class="suggested-price">
-												{lang key="suggestedPrice" section="productDetails"}: {$Artikel->cUVPLocalized}
+												{lang key="suggestedPrice" section="productDetails"}: {$Artikel->getUVPLocalized($NettoPreise)}
 											</div>
-										{if isset($Artikel->SieSparenX) && $Artikel->SieSparenX->anzeigen == 1 && $Artikel->SieSparenX->nProzent > 0 && !$NettoPreise && $Artikel->taxData['tax'] > 0}
+										{if isset($Artikel->SieSparenX) && $Artikel->SieSparenX->anzeigen == 1 && $Artikel->SieSparenX->nProzent > 0 && $snackyConfig.uvp_saleprice == 'N'}
 											<div class="yousave">({lang key="youSave" section="productDetails"}
 												<span class="percent">{$Artikel->SieSparenX->nProzent}%</span>, {lang key="thatIs" section="productDetails"}
 												<span class="value text-nowrap">{$Artikel->SieSparenX->cLocalizedSparbetrag}</span>)

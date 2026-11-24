@@ -8,6 +8,7 @@
 				{snackys_content id="html_head_start" title="html_head_start"}
 				{block name="head-manifest"}
 					{if $snackyConfig.pwa == 'Y'}<link rel="manifest" href="manifest.json">{/if}
+					<link rel="manifest" href="manifest.json">
 				{/block}
 				{block name="head-ressources-polyfill"}
 					<script nomodule src="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}js/snackys/intersectionObserver.js"></script>
@@ -26,7 +27,7 @@
 						window.lazySizesConfig = window.lazySizesConfig || {};
 						window.lazySizesConfig.expand  = 50;
 					</script>
-					{if !empty($snackyConfig.gtag|trim)}
+					{if !empty($snackyConfig.gtag|trim) || $snackyConfig.use_tagmanager_gateway == 1}
 						{include file="layout/tracking/tagmanager.tpl"}
 					{/if}
 					{if !empty($snackyConfig.matomo|trim)}
@@ -148,10 +149,14 @@
 				{block name='layout-header-head-icons'}
 					<link rel="icon" href="{$ShopURL}/favicon.ico" sizes="48x48" >
 					<link rel="icon" href="{$ShopURL}/favicon.svg" sizes="any" type="image/svg+xml">
-					<link rel="manifest" href="{$ShopURL}/site.webmanifest" />
+					{*<link rel="manifest" href="{$ShopURL}/site.webmanifest" />*}
 				{/block}
 				{createArray arr="cssArray"}			
 				{block name="head-resources"}
+				
+					<script>
+						window.jtlShopBaseUrl = '{$ShopURL}';
+					</script>
 					{block name="opc-dependencies"}
 						{getActiveOPCItems cAssign="opcItems"}
 						{if is_array($opcItems)}
@@ -438,6 +443,12 @@
 						{/if}
 						{if "ManufacturerSlider\ManufacturerSlider"|in_array:$opcItems}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/opc-manufacturer.css'}
+						{/if}
+						{if $snackyConfig.show_topbar_b2b == 1 || $snackyConfig.show_mobile_b2b == 1}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/brutto-netto-switcher.css'}
+						{/if}
+						{if $snackyConfig.productbox_design == 2}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productbox_boxed.css'}
 						{/if}
 					{/block}
 					{if $opc->isEditMode() === false && $opc->isPreviewMode() === false && \JTL\Shop::isAdmin(true)}

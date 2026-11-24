@@ -11,10 +11,12 @@
 @media (min-width: 992px) {
     #newslist .col-lg-4 {
         min-width: 33.33333333%;
+        width: 33.33333333%;
     }
 }
 @media screen and (min-width: 1600px){
     #newslist .col-xl-3{
         min-width: 25%;
+        width: 25%;
     }
 }

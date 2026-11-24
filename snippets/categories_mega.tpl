@@ -130,7 +130,7 @@
 {block name="megamenu-manufacturers"}
 {if isset($snackyConfig.show_manufacturers) && $snackyConfig.show_manufacturers !== 'N' 
     && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
-    {get_manufacturers assign='manufacturers'}
+    {get_manufacturers assign='manufacturers' limit=$snackyConfig.amount_manufacturers assignTotal='manufacturersTotal'}
     {if !empty($manufacturers)}
         <li class="mgm-fw mm-manu{if $NaviFilter->hasManufacturer() || $nSeitenTyp == PAGE_HERSTELLER} active{/if}">
             {assign var='linkKeyHersteller' value=\JTL\Shop::Container()->getLinkService()->getSpecialPageID(LINKTYP_HERSTELLER, false)|default:0}
@@ -166,6 +166,24 @@
 								</a>
 							</div>
 						{/foreach}
+                        {block name='snippets-categories-mega-manufacturers-show-all'}
+                            {if ($linkSEOHersteller !== null && !empty($linkSEOHersteller->getName())) && $manufacturersTotal|default:0 > count($manufacturers)}
+                                <div class="col-12 col-sm-3 col-md-3 col-lg-2{if $snackyConfig.css_maxPageWidth >= 1600} col-xl-2{/if}">
+                                    <a class="block hidden-xs img-w" href="{$linkSEOHersteller->getURL()}">
+                                        {if isset($snackyConfig.show_category_images) && $snackyConfig.show_category_images !== 'N'}
+                                            <span class="block hidden-xs img-w">
+                                                <span class="img-ct more-manu flx-ac flx-jc">
+                                                    <span class="btn flx-ac flx-jc">
+                                                        <span class="ar ar-r"></span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        {/if}
+                                        <span class="defaultlink h6 title block">{lang key='showManufacturerButton'}</span>
+                                    </a>
+                                </div>
+                            {/if}
+                        {/block}
 					</div>{* /row *}
                     {include file="snippets/zonen.tpl" id="after_megamenu_content_manufacturers" title="after_megamenu_content_manufacturers"}
                 </li>

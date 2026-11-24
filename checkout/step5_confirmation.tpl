@@ -99,11 +99,13 @@
 												{block name='step5-overview-shipping-estimated'}
 													{if $snackyConfig.deliveryDate == '1'}
 														{block name='step5-overview-shipping-snackys-deliverydate'}
+															
+															{$minMaxDelivery = JTL\Session\Frontend::getCart()->getLongestMinMaxDelivery()}
 															<p>
 																<strong>{lang key="deliveryDate" section="custom"}:</strong>
-																{getDeliveryDate calculateDays=$snackyConfig.daysForDeliverCalculation days=JTL\Session\Frontend::getCart()->oFavourableShipping->nMinLiefertage saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
-																{if JTL\Session\Frontend::getCart()->oFavourableShipping->nMinLiefertage < JTL\Session\Frontend::getCart()->oFavourableShipping->nMaxLiefertage}
-																	- {getDeliveryDate calculateDays=$snackyConfig.daysForDeliverCalculation days=JTL\Session\Frontend::getCart()->oFavourableShipping->nMaxLiefertage saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
+																{getDeliveryDate calculateDays=$snackyConfig.daysForDeliverCalculation days=$minMaxDelivery->longestMin saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
+																{if $minMaxDelivery->longestMin < $minMaxDelivery->longestMax}
+																	- {getDeliveryDate calculateDays=$snackyConfig.daysForDeliverCalculation days=$minMaxDelivery->longestMax saturday=$snackyConfig.deliveryDateSaturday state=$snackyConfig.deliveryDateState endTime=$snackyConfig.deliveryDateFinishTime format=$snackyConfig.deliveryDateFormat}
 																{/if}
 															</p>
 														{/block}
@@ -397,7 +399,7 @@
 												{/block}
                             				</div>
 											{block name='step5-complete-submit-change-basket'}
-                            					<a href="{get_static_route id='warenkorb.php'}" class="btn btn-link btn-lg hidden-xxs btn-block">{lang key="modifyBasket" section="checkout"}</a>
+                            					<a href="{get_static_route id='warenkorb.php'}" class="btn btn-outline btn-lg hidden-xxs btn-block">{lang key="modifyBasket" section="checkout"}</a>
 											{/block}
 											{block name='step5-complete-submit-buynow'}
 												<div class="mt-xs">

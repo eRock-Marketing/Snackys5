@@ -1,27 +1,26 @@
 {block name='snippets-uploads'}
     {if !empty($oUploadSchema_arr)}
         {getUploaderLang iso=$smarty.session.currentLanguage->getIso639()|default:'' assign='uploaderLang'}
-        {if $tplscope === 'product' && !empty($Artikel) && !($Artikel->nIstVater || $Artikel->kVaterArtikel > 0 || $Artikel->isSimpleVariation || $Artikel->bHasKonfig)}
-        <div class="small mt-xs mb-xs" id="dt-upload">
+        {if $tplscope === 'product' && !empty($Artikel) && !($Artikel->nIstVater || $Artikel->kVaterArtikel > 0 || $Artikel->bHasKonfig)}
             {block name='snippets-uploads-subheading-product'}
-                <div class="h5 section-heading">{lang key='uploadHeadline'}</div>
+                <div class="h4 section-heading">{lang key='uploadHeadline'}</div>
             {/block}
             {block name='snippets-uploads-alert-product'}
-                {alert variant="info" class="m0"}
+                {alert variant="info"}
                     {lang key='maxUploadSize'}: <strong>{$cMaxUploadSize}</strong>
                 {/alert}
             {/block}
             {block name='snippets-uploads-schemes-product'}
                 {foreach $oUploadSchema_arr as $oUploadSchema}
-                    {row class="upload-scheme-product mt-xs"}
+                    {row class="upload-scheme-product mb-xs"}
                         {if !empty($oUploadSchema->cName) || !empty($oUploadSchema->cBeschreibung)}
                             {block name='snippets-uploads-scheme-product-name'}
                                 {col cols=12}
                                     {if !empty($oUploadSchema->cName)}
-                                        <div class="h6 upload_title m0">{$oUploadSchema->cName}</div>
+                                        <div class="h6 upload_title">{$oUploadSchema->cName}</div>
                                     {/if}
                                     {if !empty($oUploadSchema->cBeschreibung)}
-                                        <small class="upload_desc block mt-xxs">{$oUploadSchema->cBeschreibung}</small>
+                                        <p class="upload_desc">{$oUploadSchema->cBeschreibung}</p>
                                     {/if}
                                 {/col}
                             {/block}
@@ -64,7 +63,6 @@
                                                 },
                                                 allowedFileExtensions: [{$oUploadSchema->cDateiListe|replace:'*.':'\''|replace:';':'\','|cat:'\''}],
                                                 language:              '{$uploaderLang}',
-                                                theme:                 'fas',
                                                 browseOnZoneClick:     true,
                                                 uploadExtraData:       {
                                                     sid:        "{$cSessionID}",
@@ -95,7 +93,7 @@
                                                 msgField.removeClass('text-danger').addClass('text-success');
                                                 if (typeof data.response !== 'undefined' && typeof data.response.cName !== 'undefined') {
                                                     msgField.removeClass('text-danger').addClass('text-success');
-                                                    msgField.html('<i class="check" aria-hidden="true"></i>' + data.response.cName + ' (' + data.response.cKB + ' KB)');
+                                                    msgField.html('<i class="fas fa-check" aria-hidden="true"></i>' + data.response.cName + ' (' + data.response.cKB + ' KB)');
                                                 } else {
                                                     msgField.removeClass('text-success').addClass('text-danger');
                                                     msgField.html('{lang key='uploadError'}');
@@ -151,7 +149,7 @@
                                 <div id="queue{$oUploadSchema@index}" style="margin-bottom: 15px;" class="uploadifyMsg">
                                     <span class="current-upload small text-success">
                                         {if $oUploadSchema->bVorhanden}
-                                            <i class="check" aria-hidden="true"></i>
+                                            <i class="fas fa-check" aria-hidden="true"></i>
                                             {$oUploadSchema->cDateiname} ({$oUploadSchema->cDateigroesse})
                                         {/if}
                                     </span>
@@ -161,29 +159,30 @@
                     {/row}
                 {/foreach}
             {/block}
-        </div>
         {elseif $tplscope === 'basket'}
             {block name='snippets-uploads-subheading'}
-                <h2 class="h5 section-heading">{lang key='uploadHeadline'}</h2>
+                <div class="h4 section-heading">{lang key='uploadHeadline'}</div>
             {/block}
             {block name='snippets-uploads-schemes'}
                 {foreach $oUploadSchema_arr as $oUploadSchema}
                     <div class="upload-scheme-cart">
                         {block name='snippets-uploads-scheme-name'}
-                            <span class="upload-scheme-cart-name h6 block m0">
-                                {$oUploadSchema->cName}
-                                {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)}
-                                    <small>
-                                        {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}
-                                            - {$Variation->cEigenschaftName|transByISO}: {$Variation->cEigenschaftWertName|transByISO}
-                                        {/foreach}
-                                    </small>
-                                {/if}
-                            </span>
+                            <div class="h5 mb-xxxs">
+                                <span class="upload-scheme-cart-name">
+                                    {$oUploadSchema->cName}
+                                    {if !empty($oUploadSchema->WarenkorbPosEigenschaftArr)}
+                                        <small>
+                                            {foreach name=variationen from=$oUploadSchema->WarenkorbPosEigenschaftArr item=Variation}
+                                                - {$Variation->cEigenschaftName|transByISO}: {$Variation->cEigenschaftWertName|transByISO}
+                                            {/foreach}
+                                        </small>
+                                    {/if}
+                                </span>
+                            </div>
                         {/block}
                         {block name='snippets-uploads-scheme-uploads'}
                             {foreach $oUploadSchema->oUpload_arr as $oUpload}
-                                {row class="upload-scheme-cart-upload mt-xxs"}
+                                {row class="upload-scheme-cart-upload"}
                                     {if !empty($oUpload->cName) || !empty($oUpload->cBeschreibung)}
                                         {block name='snippets-uploads-scheme-upload-name-desc'}
                                             {col cols=12}
@@ -202,7 +201,7 @@
                                                 <div id="queue{$oUploadSchema@index}{$oUpload@index}" style="margin-bottom: 15px;" class="uploadifyMsg">
                                                         <span class="current-upload small text-success">
                                                             {if $oUpload->bVorhanden}
-                                                                <i class="check" aria-hidden="true"></i>
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
                                                                 {$oUpload->cDateiname} ({$oUpload->cDateigroesse})
                                                             {/if}
                                                         </span>
@@ -210,7 +209,8 @@
                                                 <div class="text-center-util {if isset($smarty.get.fillOut) && $smarty.get.fillOut == 12 && ($oUpload->nPflicht
                                                 && !$oUpload->bVorhanden)} upload-error{/if}"
                                                      id="upload-{$oUploadSchema@index}{$oUpload@index}">
-                                                    <input id="fileinput{$oUploadSchema@index}{$oUpload@index}" type="file" class="file-upload file-loading" aria-hidden="true" tabindex="-1"/>
+                                                    <input id="fileinput{$oUploadSchema@index}{$oUpload@index}"
+                                                           type="file" class="file-upload file-loading"/>
                                                     <div id="kv-error-{$oUploadSchema@index}{$oUpload@index}"
                                                          style="margin-top:10px; display:none;"></div>
                                                 </div>
@@ -269,7 +269,7 @@
                                                             msgField.removeClass('text-danger').addClass('text-success');
                                                             if (typeof data.response !== 'undefined' && typeof data.response.cName !== 'undefined') {
                                                                 msgField.removeClass('text-danger').addClass('text-success');
-                                                                msgField.html('<i class="check" aria-hidden="true"></i>' + data.response.cName + ' (' + data.response.cKB + ' KB)');
+                                                                msgField.html('<i class="fas fa-check" aria-hidden="true"></i>' + data.response.cName + ' (' + data.response.cKB + ' KB)');
                                                             } else {
                                                                 msgField.removeClass('text-success').addClass('text-danger');
                                                                 msgField.html('{lang key='uploadError' addslashes=true}');
@@ -326,10 +326,159 @@
                                     {/block}
                                 {/row}
                             {/foreach}
+                            {if !$oUploadSchema@last}
+                                <hr>
+                            {/if}
                         {/block}
                     </div>
                 {/foreach}
+                {block name='snippets-uploads-schemes-hr'}
+                {/block}
             {/block}
+        {elseif $tplscope === 'basket-position'}
+            {if isset($currentUploadSchema) && !empty($currentUploadSchema->oUpload_arr)}
+                {block name='snippets-uploads-position-uploads'}
+                    {foreach $currentUploadSchema->oUpload_arr as $oUpload}
+                        <div class="upload-item mb-3">
+                            {if !empty($oUpload->cName) || !empty($oUpload->cBeschreibung)}
+                                {block name='snippets-uploads-position-upload-name-desc'}
+                                    <div class="upload-name-desc mb-2">
+                                        {if !empty($oUpload->cName)}
+                                            <p class="upload_title mb-1"><strong>{$oUpload->cName}</strong></p>
+                                        {/if}
+                                        {if !empty($oUpload->cBeschreibung)}
+                                            <p class="upload_desc text-muted-util small mb-1">{$oUpload->cBeschreibung}</p>
+                                        {/if}
+                                    </div>
+                                {/block}
+                            {/if}
+                            {block name='snippets-uploads-position-upload-filedata-main'}
+                                <div class="upload-filedata">
+                                    <div id="queue{$schemaIndex}{$oUpload@index}" style="margin-bottom: 15px;" class="uploadifyMsg">
+                                        <span class="current-upload small text-success">
+                                            {if $oUpload->bVorhanden}
+                                                <i class="fas fa-check" aria-hidden="true"></i>
+                                                {$oUpload->cDateiname} ({$oUpload->cDateigroesse})
+                                            {/if}
+                                        </span>
+                                    </div>
+                                    <div class="text-center-util {if isset($smarty.get.fillOut) && $smarty.get.fillOut == 12 && ($oUpload->nPflicht && !$oUpload->bVorhanden)} upload-error{/if}"
+                                         id="upload-{$schemaIndex}{$oUpload@index}">
+                                        <input id="fileinput{$schemaIndex}{$oUpload@index}"
+                                               type="file" class="file-upload file-loading"/>
+                                        <div id="kv-error-{$schemaIndex}{$oUpload@index}"
+                                             style="margin-top:10px; display:none;"></div>
+                                    </div>
+                                </div>
+                            {/block}
+                            {block name='snippets-uploads-position-script'}
+                                {inline_script}<script>
+                                    var clientUploadErrorIsActive = false;
+                                    $(function () {
+                                        var $el = $('#fileinput{$schemaIndex}{$oUpload@index}');
+                                        $el.fileinput({
+                                            uploadUrl:             '{$ShopURL}/{$smarty.const.PFAD_UPLOAD_CALLBACK}',
+                                            uploadAsync:           false,
+                                            showPreview:           false,
+                                            showUpload:            false,
+                                            showRemove:            false,
+                                            tabIndexConfig: {
+                                                browse: 0,
+                                                remove: 0,
+                                                upload: 0
+                                            },
+                                            required:              true,
+                                            browseClass:           'btn btn-light',
+                                            fileActionSettings:    {
+                                                showZoom:   false,
+                                                showRemove: false
+                                            },
+                                            allowedFileExtensions: [{$oUpload->cDateiListe|replace:'*.':'\''|replace:';':'\','|cat:'\''}],
+                                            language:              '{$uploaderLang}',
+                                            theme:                 'fas',
+                                            browseOnZoneClick:     true,
+                                            uploadExtraData:       {
+                                                sid:        "{$cSessionID}",
+                                                jtl_token:  "{$smarty.session.jtl_token}",
+                                                uniquename: "{$oUpload->cUnique}",
+                                                uploader:   "4.00",
+                                                kUploadSchema:"{$oUpload->kUploadSchema}",
+                                                prodID:     "{$oUpload->prodID}",
+                                                cname:      "{$oUpload->cName|replace:" ":"_"}"
+                                                {if !empty($currentUploadSchema->WarenkorbPosEigenschaftArr)},
+                                                variation: "{strip}
+                                                {foreach name=variationen from=$currentUploadSchema->WarenkorbPosEigenschaftArr item=Variation}_{$Variation->cEigenschaftWertName|transByISO|replace:" ":"_"}{/foreach}
+                                                    "{/strip}
+                                                {/if}
+                                            },
+                                            maxFileSize:           {$nMaxUploadSize/1024},
+                                            elErrorContainer:      '#kv-error-{$schemaIndex}{$oUpload@index}',
+                                            maxFilesNum:           1
+                                        }).on("filebrowse", function (event, files) {
+                                            clientUploadErrorIsActive = false;
+                                            $el.fileinput('clear');
+                                        }).on("filebatchselected", function (event, files) {
+                                            $el.fileinput("upload");
+                                        }).on('filebatchuploadsuccess', function (event, data) {
+                                            var msgField       = $('#queue{$schemaIndex}{$oUpload@index} .current-upload'),
+                                                uploadMsgField = $('.uploadifyMsg');
+                                            msgField.removeClass('text-danger').addClass('text-success');
+                                            if (typeof data.response !== 'undefined' && typeof data.response.cName !== 'undefined') {
+                                                msgField.removeClass('text-danger').addClass('text-success');
+                                                msgField.html('<i class="fas fa-check" aria-hidden="true"></i>' + data.response.cName + ' (' + data.response.cKB + ' KB)');
+                                            } else {
+                                                msgField.removeClass('text-success').addClass('text-danger');
+                                                msgField.html('{lang key='uploadError' addslashes=true}');
+                                                msgField.removeClass('text-success').addClass('text-danger');
+                                                $el.fileinput('clear');
+                                            }
+                                            $('#msgWarning').hide();
+                                            uploadMsgField.find('.alert-danger').hide();
+                                            $('#buy-form').find('.upload-error').removeClass('upload-error');
+                                        }).on('fileuploaderror', function () {
+                                            $('#upload-{$schemaIndex}{$oUpload@index} .fileinput-upload').addClass('disabled');
+                                            clientUploadErrorIsActive = true;
+                                            let msgField = $('#queue{$schemaIndex}{$oUpload@index} .current-upload');
+                                            msgField.html(msg);
+                                            msgField.removeClass('text-success').addClass('text-danger');
+                                            $el.fileinput('clear');
+                                            $('#upload-{$schemaIndex}{$oUpload@index} .fileinput-upload').addClass('disabled');
+                                        }).on('filebatchuploaderror', function(event, data, msg) {
+                                            if(clientUploadErrorIsActive === false){
+                                                let msgField = $('#queue{$schemaIndex}{$oUpload@index} .current-upload');;
+                                                let message  = '{lang key='uploadError'}';
+                                                let status;
+                                                try{
+                                                    let response =JSON.parse(msg);
+                                                    status = response.status;
+                                                }catch(e){
+                                                    status = 'response_error';
+                                                }
+                                                switch(status){
+                                                    case 'reached_limit_per_hour':
+                                                        message = '{lang key='uploadErrorReachedLimitPerHour' addslashes=true}';
+                                                        break;
+                                                    case 'filetype_forbidden':
+                                                        message = '{lang key='uploadErrorFiletypeForbidden' addslashes=true}';
+                                                        break;
+                                                    case 'extension_not_listed':
+                                                        message = '{lang key='uploadErrorExtensionNotListed' addslashes=true}';
+                                                        break;
+                                                }
+                                                msgField.html(message);
+                                                msgField.removeClass('text-success').addClass('text-danger');
+                                                $el.fileinput('clear');
+                                            }
+                                        }).on('fileloaded', function () {
+                                            $('#upload-{$schemaIndex}{$oUpload@index} .fileinput-upload').removeClass('disabled');
+                                        });
+                                    });
+                                </script>{/inline_script}
+                            {/block}
+                        </div>
+                    {/foreach}
+                {/block}
+            {/if}
         {/if}
     {/if}
 {/block}

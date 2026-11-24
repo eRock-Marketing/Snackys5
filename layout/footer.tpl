@@ -232,12 +232,20 @@
 													</a>
 												{/if}
 											</div>
+											<div class="mw-container text-center small{if $linkimpressum && $linkdatenschutz} mt-xs{/if}">
+												{if $snackyConfig.widerrufPosition == 0}
+													{include file='snippets/withdrawal_link.tpl'}
+												{/if}
+											</div>
 										</div>
 									{/if}
 								{/block}
 							{/if}
 						{elseif isset($smallversion) && $smallversion}
-							{block name="footer-smallversion"}
+							{block name="footer-smallversion"}			
+								<div class="text-center mb-xs">								
+									{include file='snippets/withdrawal_link.tpl'}
+								</div>
 								{getLink nLinkart=12 cAssign="linkdatenschutz"}
 								{getLink nLinkart=27 cAssign="linkimpressum"}
 								{getLink nLinkart=24 cAssign="linkwrb"}
@@ -295,6 +303,11 @@
 									{include file='snippets/socialprofiles.tpl' tplscope="footer"}
 								</div>
 							{/if}
+							<div class="text-center">
+								{if $snackyConfig.widerrufPosition == 1}
+									{include file='snippets/withdrawal_link.tpl'}
+								{/if}
+							</div>
 						{/if}
 					{/block}
 					{block name="footer-copyright-wrapper"}			

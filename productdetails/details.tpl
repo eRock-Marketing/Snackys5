@@ -149,20 +149,6 @@
 										{block name="productdetails-gpsr-description"}
 											<strong class="block">{lang key='gpsrHeadline' section='custom'}</strong>
 											<a href="#" data-toggle="modal" data-target="#gpsr-popup" title="{lang key='gpsrHeadline' section='custom'}"><u>{lang key='gpsrLink' section='custom'}</u></a>
-											<div class="modal modal-dialog blanklist" tabindex="-1" id="gpsr-popup">
-												<div class="modal-content">
-													<div class="modal-header">
-														<span class="modal-title block h5">
-															{lang key='gpsrHeadline' section='custom'}
-														</span>
-														<button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
-														</button>
-													</div>
-													<div class="modal-body">
-														{include file="snippets/gpsr.tpl" hideTitle=true}
-													</div>
-												</div>
-											</div>
 										{/block}
 									{/if}
 								{/block}
@@ -323,6 +309,8 @@
 					{/if}
 				{/block}
 			{/if}
+			
+			{include file='layout/tracking/tagmanager_article.tpl' Artikel=$Artikel}
 		</form>
 	{/block}
 	{block name="details-question-availability-modals"}
@@ -362,6 +350,24 @@
 				</div>
 			{/if}
 		{/block}
+	{/block}
+	{block name="detials-gpsr-modal"}
+		{if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 3} 
+			<div class="modal modal-dialog blanklist" tabindex="-1" id="gpsr-popup">
+				<div class="modal-content">
+					<div class="modal-header">
+						<span class="modal-title block h5">
+							{lang key='gpsrHeadline' section='custom'}
+						</span>
+						<button type="button" class="close-btn" data-dismiss="modal" aria-label="{lang key='close' section='account data'}">
+						</button>
+					</div>
+					<div class="modal-body">
+						{include file="snippets/gpsr.tpl" hideTitle=true}
+					</div>
+				</div>
+			</div>
+		{/if}
 	{/block}
 	{if empty($smarty.get.quickView)}
 		{block name="details-tabs"}

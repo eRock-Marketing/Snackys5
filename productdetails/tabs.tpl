@@ -16,13 +16,25 @@
         {/if}
         {$dimension = $Artikel->getDimension()}
         {$funcAttr = $Artikel->FunktionsAttribute[$smarty.const.FKT_ATTRIBUT_ATTRIBUTEANHAENGEN]|default:0}
-        {if $snackyConfig.gpsr_shown == 2}
+        {if $snackyConfig.gpsr_shown == 2 && isset($Artikel->cHerstellerBeschreibung)}
             {assign var="splitManuDesc" value="####"|explode:$Artikel->cHerstellerBeschreibung}
             {if count($splitManuDesc)>1}
                 {assign var="hasSplitManu" value=true}
             {/if}
         {/if}
-        {$showGPSR = isset($Artikel->cHerstellerBeschreibung) && ($snackyConfig.gpsr_position == 0 || $snackyConfig.gpsr_position == 1) && ($snackyConfig.gpsr_shown == 1 || ($snackyConfig.gpsr_shown == 2 && isset($hasSplitManu)))}
+        {if isset($Artikel->FunktionsAttribute.gpsr_manufacturer_homepage) 
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_email)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_country)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_state)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_city)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_postalcode)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_housenumber)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_street)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_name)
+        }
+            {assign var="hasGPSR" value=true}
+        {/if}
+        {$showGPSR = (($snackyConfig.gpsr_position == 0 || $snackyConfig.gpsr_position == 1) && (($snackyConfig.gpsr_shown == 1 && isset($Artikel->cHerstellerBeschreibung)) || isset($hasGPSR) || ($snackyConfig.gpsr_shown == 2 && isset($hasSplitManu))))}
         {$showAttributesTable = ($Einstellungen.artikeldetails.merkmale_anzeigen === 'Y'
             && !empty($Artikel->oMerkmale_arr) || $showProductWeight || $showShippingWeight
             || $Einstellungen.artikeldetails.artikeldetails_abmessungen_anzeigen === 'Y'

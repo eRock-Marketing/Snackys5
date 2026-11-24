@@ -112,7 +112,7 @@
 {block name="megamenu-manufacturers"}
 {if isset($snackyConfig.show_manufacturers) && $snackyConfig.show_manufacturers !== 'N' 
     && ($Einstellungen.global.global_sichtbarkeit != 3 || JTL\Session\Frontend::getCustomer()->getID() > 0)}
-    {get_manufacturers assign='manufacturers'}
+    {get_manufacturers assign='manufacturers' limit=$snackyConfig.amount_manufacturers assignTotal='manufacturersTotal'}
     {if !empty($manufacturers)}
         <li class="dropdown-style mgm-fw{if $NaviFilter->hasManufacturer() || $nSeitenTyp == PAGE_HERSTELLER} active{/if}">
             {assign var='linkKeyHersteller' value=\JTL\Shop::Container()->getLinkService()->getSpecialPageID(LINKTYP_HERSTELLER, false)|default:0}
@@ -132,6 +132,9 @@
 				{foreach name=hersteller from=$manufacturers item=hst}
 					<li class="title{if isset($NaviFilter->Hersteller) && $NaviFilter->Hersteller->kHersteller == $hst->kHersteller} active{/if}"><a href="{$hst->getURL()}" class="dropdown-link defaultlink"><span class="notextov">{$hst->getName()|escape:'html'}</span></a></li>
 				{/foreach}
+                {if ($linkSEOHersteller !== null && !empty($linkSEOHersteller->getName())) && $manufacturersTotal|default:0 > count($manufacturers)}
+                    <li class="title"><a href="{$linkSEOHersteller->getURL()}" class="dropdown-link defaultlink"><span class="notextov">{lang key='showManufacturerButton'}</span></a></li>
+                {/if}
             </ul>
         </li>
     {/if}
