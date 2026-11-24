@@ -23,7 +23,7 @@
             <table class="table warehouse-table">
             {foreach $Artikel->oWarenlager_arr as $oWarenlager}
                 <tr>
-                    <td class="name"><strong>{$oWarenlager->getName()}</strong></td>
+                    <td class="name"><span class="t-bold">{$oWarenlager->getName()}</span></td>
                     <td class="delivery-status">
                     {if $anzeige !== 'nichts'
                         && $oWarenlager->getBackorderString($Artikel) !== ''

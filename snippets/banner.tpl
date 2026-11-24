@@ -8,9 +8,9 @@
     <div class="banner">
         {block name="banner-map"}
             {if ($snackyConfig.headerType == 4 || $snackyConfig.headerType == 4.5 || $snackyConfig.headerType == 5 || $snackyConfig.headerType == 5.5) && $nSeitenTyp === 18 && $snackyConfig.fullscreenElement == 2}
-                {image lazy=true src=$oImageMap->cBildPfad alt=$oImageMap->cTitel width=$oImageMap->fWidth height=$oImageMap->fHeight}
+                {image lazy=true webp=true src=$oImageMap->cBildPfad alt=$oImageMap->cTitel width=$oImageMap->fWidth height=$oImageMap->fHeight}
             {else}
-                {image fluid=true lazy=true src=$oImageMap->cBildPfad alt=$oImageMap->cTitel width=$oImageMap->fWidth height=$oImageMap->fHeight}
+                {image fluid=true lazy=true webp=true src=$oImageMap->cBildPfad alt=$oImageMap->cTitel width=$oImageMap->fWidth height=$oImageMap->fHeight}
                 {foreach $oImageMap->oArea_arr as $oImageMapArea}
                     {assign var="hasInsideContent" value=false}
                     {if $oImageMapArea->oArtikel || $oImageMapArea->cBeschreibung|strlen > 0}

@@ -287,6 +287,15 @@
 						<hr>
 					{/if}
 				{/block}
+				{block name='checkout-step5-confirmation-include-warranty-label'}
+					{if $Einstellungen.global.global_warranty_label_enabled === 'Y'}
+						{if !$bCheckBox}
+							<hr>
+						{/if}
+						{include file='warranty/label_checkout.tpl'}
+						<hr>
+					{/if}
+				{/block}
 				{block name='step5-complete-submit'}
         			<div class="row">
             			<div class="col-12 order-submit">

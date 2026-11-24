@@ -15,7 +15,7 @@
         <div id="extension-container">
         {if (($snackyConfig.fullscreenElement != 1 && $fwHeader == 'true') || $fwHeader == 'false') && (isset($oSlider) && count($oSlider->getSlides()) > 0)}
             <div class="{if ($fwSlider == 'false' || $fwHeader == 'true') && $nSeitenTyp === 18}mw-container {/if}mb-lg">
-              {include file="snippets/slider.tpl"}
+              {include file="snippets/slider_snackys.tpl"}
             </div>
         {/if}
         {if (($snackyConfig.fullscreenElement != 2 && $fwHeader == 'true') || $fwHeader == 'false') && isset($oImageMap)}

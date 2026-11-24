@@ -41,8 +41,8 @@
                                 {col cols=12 md=4 lg=3}
                                     <ul class="nav">
                                         <li>
-                                            {link href=$oKategorie->getURL() title=$oKategorie->getName()|escape:'html' class="nice-deco"}
-                                                <strong>{$oKategorie->getShortName()}</strong>
+                                            {link href=$oKategorie->getURL() title=$oKategorie->getName()|escape:'html' class="nice-deco t-bold"}
+                                                {$oKategorie->getShortName()}
                                             {/link}
                                         </li>
                                         {foreach $oKategorie->getChildren() as $oSubKategorie}
@@ -115,7 +115,7 @@
                             {if $oNewsMonatsUebersicht->oNews_arr|count > 0}
                                 {math equation='x-y' x=$oNewsMonatsUebersicht@iteration y=1 assign='i'}
                                 {col cols=12 md=4 lg=3}
-                                    <strong class="block mb-xxs">{link href=$oNewsMonatsUebersicht->cURLFull class="nice-deco"}{$oNewsMonatsUebersicht->cName}{/link}</strong>
+                                    {link href=$oNewsMonatsUebersicht->cURLFull class="nice-deco block mb-xxs t-bold"}{$oNewsMonatsUebersicht->cName}{/link}
                                     <ul class="nav">
                                         {foreach $oNewsMonatsUebersicht->oNews_arr as $oNews}
                                             <li>{link href=$oNews->cURLFull class="nice-deco"}{$oNews->cBetreff}{/link}</li>
@@ -142,7 +142,7 @@
                         {foreach $oNewsKategorie_arr as $oNewsKategorie}
                             {if $oNewsKategorie->oNews_arr|count > 0}
                                 {col cols=12 md=4 lg=3}
-                                    <strong class="block mb-xxs">{link href=$oNewsKategorie->cURLFull}{$oNewsKategorie->cName}{/link}</strong>
+                                    {link class="block mb-xxs t-bold" href=$oNewsKategorie->cURLFull}{$oNewsKategorie->cName}{/link}
                                     <ul class="nav">
                                         {foreach $oNewsKategorie->oNews_arr as $oNews}
                                             <li>

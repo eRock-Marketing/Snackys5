@@ -167,15 +167,6 @@
 							{if "ManufacturerSlider\ManufacturerSlider"|in_array:$opcItems}
 								<script src="{$ShopURL}/templates/Snackys/js/manufacturer-slider.js?v={$nTemplateVersion}" type="text/javascript" defer></script>
 							{/if}
-							{if "Gallery\Gallery"|in_array:$opcItems}
-								<link rel="stylesheet" href="{$ShopURL}/templates/Snackys/themes/base/slick-lightbox.css?v={$nTemplateVersion}" type="text/css">
-								<script src="{$ShopURL}/templates/Snackys/js/slick-lightbox.min.js?v={$nTemplateVersion}" type="text/javascript" defer></script>
-								<script src="{$ShopURL}/templates/Snackys/js/colcade.js?v={$nTemplateVersion}" type="text/javascript" defer></script>
-							{/if}
-							{if "ImageSlider\ImageSlider"|in_array:$opcItems}
-								<link rel="stylesheet" href="{$ShopURL}/templates/Snackys/themes/base/css/elements/slider-opc.css?v={$nTemplateVersion}" type="text/css">
-								<script src="{$ShopURL}/templates/Snackys/js/jquery.nivo.slider.pack.js?v={$nTemplateVersion}" type="text/javascript" defer></script>
-							{/if}
 						{/if}
 					{/block}
 					{block name="snackys-compatibility-items"}
@@ -187,6 +178,23 @@
 							<noscript>
 								<link href="{$ShopURL}/templates/Snackys/themes/base/css/bootstrap/bootstrap_full.css?v={$nTemplateVersion}" rel="stylesheet">
 							</noscript>
+						{/if}
+					{/block}
+					{block name="guarantee-label-dependencies"} 
+						{if $Einstellungen.global.global_guarantee_label_enabled === 'Y'}
+							{if $Einstellungen.global.global_guarantee_label_pdp === 'Y' && $nSeitenTyp == 1}
+								{assign var='loadGuaranteeLabel' value='true'}
+							{elseif $Einstellungen.global.global_guarantee_label_plp === 'Y' && $nSeitenTyp == 2}
+								{assign var='loadGuaranteeLabel' value='true'}
+							{elseif $Einstellungen.global.global_guarantee_label_cart === 'Y' && $nSeitenTyp == 3}
+								{assign var='loadGuaranteeLabel' value='true'}
+							{elseif $Einstellungen.global.global_guarantee_label_checkout === 'Y' && $nSeitenTyp == 11}
+								{assign var='loadGuaranteeLabel' value='true'}
+							{/if}
+							{if isset($loadGuaranteeLabel) && $loadGuaranteeLabel}
+								<link rel="preload" href="{$ShopURL}/templates/Snackys/themes/base/fonts/inter/Inter-ExtraBold.woff2" as="font" crossorigin/>
+								<link rel="preload" href="{$ShopURL}/templates/Snackys/themes/base/fonts/inter/Inter-Regular.woff2" as="font" crossorigin/>
+							{/if}
 						{/if}
 					{/block}
 					{block name="snackys-mobileslider-assign"}
@@ -236,6 +244,9 @@
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/header/search-toggle.css'}
 						{else}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/header_default.css'}
+							{if $snackyConfig.headerType == 8}
+								{append var='cssArray' value='/templates/Snackys/themes/base/css/header/header-new.css'}
+							{/if}
 						{/if}
 						{if $snackyConfig.headerType == 4 || $snackyConfig.headerType == 5 || $Einstellungen.template.theme.theme_default == 'darkmode' || ($isMobile && $snackyConfig.fullscreenElement == 1 && $hasMobileSlider == 'false' && ($snackyConfig.headerType == 4 || $snackyConfig.headerType == 5))}
 							{append var='cssArray' value='/templates/Snackys/themes/darkmode/css/header-darkmode.css'}
@@ -449,6 +460,9 @@
 						{/if}
 						{if $snackyConfig.productbox_design == 2}
 							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/productbox_boxed.css'}
+						{/if}
+						{if $Einstellungen.global.global_guarantee_label_enabled === 'Y'}
+							{append var='cssArray' value='/templates/Snackys/themes/base/css/elements/guarantee-label.css'}
 						{/if}
 					{/block}
 					{if $opc->isEditMode() === false && $opc->isPreviewMode() === false && \JTL\Shop::isAdmin(true)}

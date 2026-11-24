@@ -3,8 +3,8 @@
     <Name>Snackys</Name>
     <Author>eRock Creations</Author>
     <URL>https://www.erock-creations.de</URL>
-    <MinShopVersion>5.7.0</MinShopVersion>
-    <Version>5.7.4</Version>
+    <MinShopVersion>5.8.0</MinShopVersion>
+    <Version>5.8.3</Version>
     <Preview>preview-snackys.png</Preview>
     <Description>Ultraschnelles responsive JTL Template von eRock Creations</Description>
     <Framework>Bootstrap4</Framework>
@@ -125,6 +125,8 @@
 				<File Path="js/Chart.js" DependsOnSettingGroup="CONF_PREISVERLAUF" DependsOnSetting="preisverlauf.preisverlauf_anzeigen" DependsOnSettingValue="Y"/>
 				<File Path="js/nouislider.min.js" />
 				<File Path="js/slick-lightbox.min.js" />
+				<File Path="js/splide.min.js" />
+				<File Path="js/colcade.js" />
 				<File Path="js/consent.js" />
 				<File Path="js/snackys/livesearch.js" />
 
@@ -160,6 +162,7 @@
 			<File Path="/templates/Snackys/themes/base/css/elements/pagination_critical.css"/>
 			<File Path="/templates/Snackys/themes/base/consent.css"/>
 			<File Path="/templates/Snackys/themes/base/css/elements/opc.css"/>
+			<File Path="/templates/Snackys/themes/base/css/elements/slider-splide.css"/>
 	</CSSMain>
 	<CSSPageTypes>
 			<File Path="/templates/Snackys/themes/base/css/details/details.css" PageType="1"/>

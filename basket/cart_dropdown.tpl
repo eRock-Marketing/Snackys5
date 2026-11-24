@@ -74,9 +74,9 @@
 												{block name='sidebasket-items-warenkorbartikel-price'}
 													<div class="cols-price">
 														{if $oPosition->istKonfigVater()}
-															<strong>{$oPosition->cKonfigpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}</strong>
+															<span class="t-bold">{$oPosition->cKonfigpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}</span>
 														{else}
-															<strong>{$oPosition->cEinzelpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}</strong>
+															<span class="t-bold">{$oPosition->cEinzelpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}</span>
 														{/if}
 													</div>
 												{/block}
@@ -167,7 +167,7 @@
 											{/block}
 											{block name='sidebasket-items-nichtwarenkorbartikel-price'}
 												<div class="cols-price">
-													<strong>{$oPosition->cEinzelpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}</strong>
+													<span class="t-bold">{$oPosition->cEinzelpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}</span>
 												</div>
 											{/block}
 											{block name='sidebasket-items-nichtwarenkorbartikel-edit'}
@@ -232,7 +232,7 @@
 								{/if}:
 							</div>
 							<div class="text-nowrap text-right total">
-								<strong>{$WarensummeLocalized[0]}</strong>
+								<span class="t-bold">{$WarensummeLocalized[0]}</span>
 							</div>
 						</div>
 					{/block}

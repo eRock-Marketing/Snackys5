@@ -243,9 +243,6 @@
 							{/if}
 						{elseif isset($smallversion) && $smallversion}
 							{block name="footer-smallversion"}			
-								<div class="text-center mb-xs">								
-									{include file='snippets/withdrawal_link.tpl'}
-								</div>
 								{getLink nLinkart=12 cAssign="linkdatenschutz"}
 								{getLink nLinkart=27 cAssign="linkimpressum"}
 								{getLink nLinkart=24 cAssign="linkwrb"}
@@ -303,15 +300,17 @@
 									{include file='snippets/socialprofiles.tpl' tplscope="footer"}
 								</div>
 							{/if}
-							<div class="text-center">
-								{if $snackyConfig.widerrufPosition == 1}
-									{include file='snippets/withdrawal_link.tpl'}
-								{/if}
-							</div>
 						{/if}
 					{/block}
 					{block name="footer-copyright-wrapper"}			
         				<div id="copyright" class="mw-container text-center small">
+							{block name="footer-widerruf-wrapper"}	
+								<div class="text-center mb-xs">
+									{if $snackyConfig.widerrufPosition == 1 || $nSeitenTyp == 11}
+										{include file='snippets/withdrawal_link.tpl'}
+									{/if}
+								</div>
+							{/block}
             				{block name="footer-copyright"}
 								<ul class="blanklist{if $snackyConfig.footerCopyright == 1 && !$isMobile} list-inline{/if}">
 									{block name="footer-copyright-assigns"}

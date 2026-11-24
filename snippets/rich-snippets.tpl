@@ -48,7 +48,7 @@
 						&& $oNavigationsinfo->getImageURL() !== 'gfx/keinBild_kl.gif'
 					}
 						"@type": "CollectionPage",
-						"image": "{$imageBaseURL}{$oNavigationsinfo->getImageURL()}",
+						"image": "{$oNavigationsinfo->getImageURL()}",
 					{else}
 						"@type": "Organization",
 						"logo": "{$ShopLogoURL}",

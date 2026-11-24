@@ -6,7 +6,7 @@
         <ul class="blanklist">
             {if isset($orderDetail)}
                 {if $addressData->cFirma}<li>{$addressData->cFirma|entferneFehlerzeichen|escape:'html':'UTF-8':false}</li>{/if}
-                <li>{$addressData->cTitel|escape:'html':'UTF-8':false} {$addressData->cVorname|escape:'html':'UTF-8':false} {$addressData->cNachname|entferneFehlerzeichen|escape:'html':'UTF-8':false}</li>
+                <li>{$addressData->cTitel} {$addressData->cVorname|escape:'html':'UTF-8':false} {$addressData->cNachname|entferneFehlerzeichen|escape:'html':'UTF-8':false}</li>
                 <li>
                     {$addressData->cStrasse|entferneFehlerzeichen|escape:'html':'UTF-8':false} {$addressData->cHausnummer|escape:'html':'UTF-8':false} {if $addressData->cAdressZusatz}{$addressData->cAdressZusatz|escape:'html':'UTF-8':false}{/if},
                     {$addressData->cPLZ|escape:'html':'UTF-8':false} {$addressData->cOrt|escape:'html':'UTF-8':false},
@@ -15,7 +15,7 @@
             {else}
                 {if $addressData->cFirma}<li>{$addressData->cFirma|entferneFehlerzeichen|escape:'html':'UTF-8':false}</li>{/if}
                 {if $addressData->cZusatz}<li>{$addressData->cZusatz|entferneFehlerzeichen|escape:'html':'UTF-8':false}</li>{/if}
-                <li>{$addressData->cTitel|escape:'html':'UTF-8':false} {$addressData->cVorname|escape:'html':'UTF-8':false} {$addressData->cNachname|entferneFehlerzeichen|escape:'html':'UTF-8':false}</li>
+                <li>{$addressData->cTitel} {$addressData->cVorname|escape:'html':'UTF-8':false} {$addressData->cNachname|entferneFehlerzeichen|escape:'html':'UTF-8':false}</li>
                 <li>{$addressData->cStrasse|entferneFehlerzeichen|escape:'html':'UTF-8':false} {$addressData->cHausnummer|escape:'html':'UTF-8':false}</li>
                 {if $addressData->cAdressZusatz}<li>{$addressData->cAdressZusatz|escape:'html':'UTF-8':false}</li>{/if}
                 <li>{$addressData->cPLZ|escape:'html':'UTF-8':false} {$addressData->cOrt|escape:'html':'UTF-8':false}</li>

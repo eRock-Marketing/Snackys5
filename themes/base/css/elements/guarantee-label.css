@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Inter';
+    src:
+        url('/templates/Snackys/themes/base/fonts/inter/Inter-Regular.woff2') format('woff2'),
+        url('/templates/Snackys/themes/base/fonts/inter/Inter-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Inter-ExtraBold';
+    src:
+        url('/templates/Snackys/themes/base/fonts/inter/Inter-ExtraBold.woff2') format('woff2'),
+        url('/templates/Snackys/themes/base/fonts/inter/Inter-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+.guarantee-label{
+    background: #fff; 
+    border: 1px solid #7E7E7E;
+}
+.guarantee-label-small{
+    max-width: 250px;
+}
+.guarantee-label-full{
+    max-width: 800px;
+}
+[data-page="3"] .bskt .guarantee-label-small{
+    cursor: pointer;
+}
