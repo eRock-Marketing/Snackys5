@@ -124,7 +124,7 @@
 											</a>
 										{/block}
 										{block name='account-shipping-address-item-card-delete'}
-											<a class="btn btn-blank" href="{get_static_route id='jtl.php'}?editLieferadresse=1&deleteAddress={$address->kLieferadresse}&token={$smarty.session.jtl_token}" aria-label="{lang key='deleteAddress' section='account data'}">
+											<a class="btn btn-blank" href="{get_static_route id='jtl.php'}?editLieferadresse=1&deleteAddress={$address->kLieferadresse}" aria-label="{lang key='deleteAddress' section='account data'}">
 												<span class="img-ct icon">
 													<svg>
 													  <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-bin"></use>

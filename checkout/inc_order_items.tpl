@@ -70,53 +70,25 @@
 															<strong class="title">{$oPosition->cName|transByISO}</strong>
 														</a>
 													{/block}
-													{block name='basket-cart-items-include-guarantee-label-small'}
-														{assign var=guaranteeLabel value=JTL\Catalog\Product\Guarantee\GuaranteeLabel::instance($oPosition->Artikel)}
-														{if $tplscope === 'cart'}
-															{if $guaranteeLabel->isAvailable(JTL\Catalog\Product\Guarantee\GuaranteeLabelContext::Cart)}
-																<div class="guarantee-label-wrapper mt-xxs" data-toggle="collapse" data-target="#cllps-guarantee-{$oPosition@index}">
-																	{include file='snippets/guarantee/guarantee_label_small.tpl' guaranteeLabel=$guaranteeLabel}
-																</div>
-															{/if}
-														{else}
-															{if $guaranteeLabel->isAvailable(JTL\Catalog\Product\Guarantee\GuaranteeLabelContext::Checkout)}
-																<div class="guarantee-label-wrapper mt-xxs">
-																	{include file='snippets/guarantee/guarantee_label_small.tpl' guaranteeLabel=$guaranteeLabel}
-																</div>
-															{/if}
-														{/if}
-													{/block}
-													{block name='basket-cart-items-guarantee-collapse'}
-														{assign var=guaranteeLabel value=JTL\Catalog\Product\Guarantee\GuaranteeLabel::instance($oPosition->Artikel)}
-														{if $tplscope === 'cart'}
-															{if $guaranteeLabel->isAvailable(JTL\Catalog\Product\Guarantee\GuaranteeLabelContext::Cart)}
-																{collapse id="cllps-guarantee-{$oPosition@index}"}
-																	<div class="mt-xs">
-																		{include file='snippets/guarantee/guarantee_label.tpl' guaranteeLabel=$guaranteeLabel}
-																	</div>
-																{/collapse}
-															{/if}
-														{/if}
-													{/block}
 													{block name='order-items-item-infos-list'}
                                 						{if !isset($isSidebar)}
                                 							<ul class="list-unstyled text-muted small info-ul blanklist">
 																{block name='order-items-item-infos-sku'}
                                     								<li class="sku">
-																		<span class="t-bold">{lang key="productNo" section="global"}:</span> {$oPosition->Artikel->cArtNr}
+																		<strong>{lang key="productNo" section="global"}:</strong> {$oPosition->Artikel->cArtNr}
 																	</li>
 																{/block}
 																{block name='order-items-item-infos-mhd'}
 																	{if $Einstellungen.artikeldetails.show_shelf_life_expiration_date === 'Y' && isset($oPosition->Artikel->dMHD) && isset($oPosition->Artikel->dMHD_de) && $oPosition->Artikel->dMHD_de !== null}
 																		<li title="{lang key='productMHDTool' section='global'}" class="best-before">
-																			<span class="t-bold">{lang key="productMHD" section="global"}:</span> {$oPosition->Artikel->dMHD_de}
+																			<strong>{lang key="productMHD" section="global"}:</strong> {$oPosition->Artikel->dMHD_de}
 																		</li>
 																	{/if}
 																{/block}
 																{block name='order-items-item-infos-baseprice'}
 																	{if $oPosition->Artikel->cLocalizedVPE && $oPosition->Artikel->cVPE !== 'N' && $oPosition->nPosTyp !== $smarty.const.C_WARENKORBPOS_TYP_GRATISGESCHENK}
 																		<li class="baseprice">
-																			<span class="t-bold">{lang key="basePrice" section="global"}:</span> {$oPosition->Artikel->cLocalizedVPE[$NettoPreise]}
+																			<strong>{lang key="basePrice" section="global"}:</strong> {$oPosition->Artikel->cLocalizedVPE[$NettoPreise]}
 																		</li>
 																	{/if}
 																{/block}
@@ -124,7 +96,7 @@
 																	{if $Einstellungen.kaufabwicklung.warenkorb_varianten_varikombi_anzeigen === 'Y' && isset($oPosition->WarenkorbPosEigenschaftArr) && !empty($oPosition->WarenkorbPosEigenschaftArr)}
 																		{foreach name=variationen from=$oPosition->WarenkorbPosEigenschaftArr item=Variation}
 																			<li class="variation">
-																				<span class="t-bold">{$Variation->cEigenschaftName|transByISO}:</span> {$Variation->cEigenschaftWertName|transByISO}
+																				<strong>{$Variation->cEigenschaftName|transByISO}:</strong> {$Variation->cEigenschaftWertName|transByISO}
 																			</li>
 																		{/foreach}
 																	{/if}
@@ -132,7 +104,7 @@
 																{block name='order-items-item-infos-delivery'}
 																	{if $Einstellungen.kaufabwicklung.bestellvorgang_lieferstatus_anzeigen === 'Y' && $oPosition->cLieferstatus|transByISO}
 																		<li class="delivery-status">
-																			<span class="t-bold">{lang key="deliveryStatus" section="global"}:</span> {$oPosition->cLieferstatus|transByISO}
+																			<strong>{lang key="deliveryStatus" section="global"}:</strong> {$oPosition->cLieferstatus|transByISO}
 																		</li>
 																	{/if}
 																{/block}
@@ -144,7 +116,7 @@
 																{block name='order-items-item-infos-manufacturer'}
 																	{if $oPosition->Artikel->cHersteller && $Einstellungen.artikeldetails.artikeldetails_hersteller_anzeigen != "N"}
 																		 <li class="manufacturer">
-																			<span class="t-bold">{lang key="manufacturer" section="productDetails"}</span>:
+																			<strong>{lang key="manufacturer" section="productDetails"}</strong>:
 																			<span class="values">
 																			   {$oPosition->Artikel->cHersteller}
 																			</span>
@@ -155,7 +127,7 @@
 																	{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelmerkmale == 'Y' && !empty($oPosition->Artikel->oMerkmale_arr)}
 																		{foreach $oPosition->Artikel->oMerkmale_arr as $characteristic}
 																			<li class="characteristic">
-																				<span class="t-bold">{$characteristic->getName()|escape:'html'}</span>:
+																				<strong>{$characteristic->getName()|escape:'html'}</strong>:
 																				<span class="values">
 																					{foreach $characteristic->getCharacteristicValues() as $characteristicValue}
 																						{if !$characteristicValue@first}, {/if}
@@ -170,7 +142,7 @@
 																	{if $Einstellungen.kaufabwicklung.bestellvorgang_artikelattribute == 'Y' && !empty($oPosition->Artikel->Attribute)}
 																		{foreach $oPosition->Artikel->Attribute as $oAttribute_arr}
 																			<li class="attribute">
-																				<span class="t-bold">{$oAttribute_arr->cName}</span>:
+																				<strong>{$oAttribute_arr->cName}</strong>:
 																				<span class="values">
 																					{$oAttribute_arr->cWert}
 																				</span>
@@ -182,14 +154,14 @@
 																	{if $oPosition->istKonfigVater()}
 																		{if isset($oPosition->getTotalConfigWeight()) && $Einstellungen.artikeldetails.artikeldetails_gewicht_anzeigen === 'Y' && $oPosition->getTotalConfigWeight() > 0}
 																			<li class="weight">
-																				<span class="t-bold">{lang key="shippingWeight" section="global"}: </span>
+																				<strong>{lang key="shippingWeight" section="global"}: </strong>
 																				<span class="value">{$oPosition->getTotalConfigWeight()} {lang key="weightUnit" section="global"}</span>
 																			</li>
 																		{/if}
 																	{else}
 																		{if isset($oPosition->Artikel->cGewicht) && $Einstellungen.artikeldetails.artikeldetails_gewicht_anzeigen === 'Y' && $oPosition->Artikel->fGewicht > 0}
 																			<li class="weight">
-																				<span class="t-bold">{lang key="shippingWeight" section="global"}: </span>
+																				<strong>{lang key="shippingWeight" section="global"}: </strong>
 																				<span class="value">{if $oPosition->istKonfigVater()}{$oPosition->getTotalConfigWeight()}{else}{$oPosition->Artikel->cGewicht}{/if} {lang key="weightUnit" section="global"}</span>
 																			</li>
 																		{/if}
@@ -207,7 +179,7 @@
 													{/block}
                             					{else}
 													{block name='order-items-item-name-specialpos'}
-                                						<span class="t-bold">{$oPosition->cName|transByISO}{if isset($oPosition->discountForArticle)}{$oPosition->discountForArticle|transByISO}{/if}</span>
+                                						<strong>{$oPosition->cName|transByISO}{if isset($oPosition->discountForArticle)}{$oPosition->discountForArticle|transByISO}{/if}</strong>
 													{/block}
 													{block name='order-items-item-affix-specialpos'}
 														{if isset($oPosition->cArticleNameAffix)}
@@ -297,13 +269,13 @@
 															{/if}
 														{/block}
 														{block name='order-items-item-price-price'}
-															<span class="price block nowrap t-bold">
+															<strong class="price block nowrap">
 																{if $oPosition->istKonfigVater()}
 																	{$oPosition->cKonfigpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}{if $tplscope != 'confirmation'} <span class="footnote-reference">*</span>{/if}
 																{else}
 																	{$oPosition->cGesamtpreisLocalized[$NettoPreise][$smarty.session.cWaehrungName]}{if $tplscope != 'confirmation'} <span class="footnote-reference">*</span>{/if}
 																{/if}
-															</span>
+															</strong>
 														{/block}
 													  </div>
 												{/block}

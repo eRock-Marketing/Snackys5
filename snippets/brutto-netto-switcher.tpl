@@ -10,5 +10,5 @@
                 <span class="b2b-tgl-knob"></span>
             </span>
         </span>
-    </a>
+    </span>
 {/block}

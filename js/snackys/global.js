@@ -96,6 +96,12 @@ function formatSize(size) {
 function getCategoryMenu(categoryId, success) {
 }
 
+function initWow()
+{
+	//Only initialize if Lib is loaded
+	if(typeof WOW != "undefined")
+		new WOW().init();
+}
 
 function categoryMenu(rootcategory) {
 }
@@ -1026,5 +1032,7 @@ $(document).ready(function () {
     });
 
     addValidationListener();
+	
+    initWow();
 	snackys();
 });

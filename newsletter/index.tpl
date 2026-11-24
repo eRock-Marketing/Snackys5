@@ -188,10 +188,10 @@
 						<div id="newsletterContent">
 							<ul class="nv blanklist">
 								<li class="nav-it">
-									<span class="t-bold">{lang key="newsletterdraftsubject" section="newsletter"}:</span> {$oNewsletterHistory->cBetreff}
+									<strong>{lang key="newsletterdraftsubject" section="newsletter"}:</strong> {$oNewsletterHistory->cBetreff}
 								</li>
 								<li class="nav-it">
-									<span class="t-bold">{lang key="newsletterdraftdate" section="newsletter"}:</span> {$oNewsletterHistory->Datum}
+									<strong>{lang key="newsletterdraftdate" section="newsletter"}:</strong> {$oNewsletterHistory->Datum}
 								</li>
 							</ul>
 

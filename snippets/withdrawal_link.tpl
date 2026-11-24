@@ -1,5 +1,5 @@
 {block name='snippets-withdrawal-link'}
-    {if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_ONLINE_WRB_FORMULAR]) && $Einstellungen.kunden.widerruf_button_aktiv === 'Y'}
+    {if isset($oSpezialseiten_arr[$smarty.const.LINKTYP_ONLINE_WRB_FORMULAR])}
         {if $snackyConfig.widerrufPosition == 0 && $nSeitenTyp != 11}
             {button href=$oSpezialseiten_arr[$smarty.const.LINKTYP_ONLINE_WRB_FORMULAR]->getURL()
                     variant='primary'

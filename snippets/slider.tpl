@@ -1,193 +1,82 @@
 {block name='snippets-slider'}
-    {$sliderID             = $sliderID|default:'slider'}
-    {$sliderTheme          = $sliderTheme|default:'default'}
-    {$sliderSlides         = $sliderSlides|default:[]}
-    {$sliderHasThumbs      = $sliderHasThumbs|default:false}
-    {$sliderPauseTime      = $sliderPauseTime|default:6000}
-    {$sliderAnimationSpeed = $sliderAnimationSpeed|default:1500}
-    {$sliderPauseOnHover   = $sliderPauseOnHover|default:false}
-    {$sliderDirectionNav   = $sliderDirectionNav|default:false}
-    {$sliderControlNav     = $sliderControlNav|default:false}
-    {$sliderRandomStart    = $sliderRandomStart|default:false}
-    {$sliderCropImages     = $sliderCropImages|default:false}
-    {$sliderEffect         = $sliderEffect|default:'slide'}
-    {$sliderAutoplay       = $sliderAutoplay|default:true}
-    {$sliderUseContainer   = $sliderUseContainer|default:false}
-    {$sliderContainerFluid = $sliderContainerFluid|default:false}
-    {$sliderMountBefore    = $sliderMountBefore|default:false}
-
-    {if $sliderSlides|count > 0}
-        {capture assign='sliderMarkup'}
-            <div class="slider-wrapper theme-{$sliderTheme}">
-                <div id="slider-{$sliderID}" class="splide" role="group" aria-label="Slider">
-                    <div class="splide__track">
-                        <ul class="splide__list">
-                            {block name='snippets-slider-slides'}
-                                {foreach $sliderSlides as $slide}
-                                    <li class="splide__slide{if $sliderCropImages} splide__responsive{/if}">
-                                        {if !empty($slide.link)}
-                                            <a href="{$slide.link}"{if !empty($slide.text)} title="{$slide.text|strip_tags}"{/if}>
-                                        {/if}
-                                        {block name='snippets-slider-slide-image'}
-                                            {image
-                                                alt=$slide.alt|escape:'html'
-                                                sizes=$slide.srcsizes
-                                                data=['splide-lazy' => $slide.src, 'splide-lazy-srcset' => $slide.srcset, 'splide-lazy-sizes' => $slide.srcsizes]}
-                                        {/block}
-                                        {if !empty($slide.link)}
-                                            </a>
-                                        {/if}
-                                        {if !empty($slide.title) || !empty($slide.text)}
-                                            <div class="splide__slide__caption">
-                                                {if !empty($slide.title)}
-                                                    {block name='snippets-slider-slide-caption-title'}
-                                                        <strong class="title">{$slide.title|escape:'html'}</strong>
-                                                    {/block}
-                                                {/if}
-                                                {if !empty($slide.text)}
-                                                    {block name='snippets-slider-slide-caption-desc'}
-                                                        <p class="desc">{$slide.text|escape:'html'}</p>
-                                                    {/block}
-                                                {/if}
-                                            </div>
-                                        {/if}
-                                    </li>
-                                {/foreach}
-                            {/block}
-                        </ul>
-                    </div>
-                </div>
-
-                {if $sliderHasThumbs}
-                    <div id="slider-{$sliderID}-thumbs" class="splide splide--thumbs" aria-label="Thumbnail Slider">
-                        <div class="splide__track">
-                            <ul class="splide__list">
-                                {foreach $sliderSlides as $slide}
-                                    <li class="splide__slide">
-                                        {image
-                                            alt=$slide.alt|escape:'html'
-                                            src=$slide.thumbSrc
-                                        }
-                                    </li>
-                                {/foreach}
-                            </ul>
-                        </div>
-                    </div>
-                {/if}
-            </div>
-        {/capture}
-
-        {if $sliderUseContainer}
-            {container fluid=$sliderContainerFluid class="{if $Einstellungen.template.theme.left_sidebar === 'Y' && $boxesLeftActive}container-plus-sidebar{/if}"}
-                {if $sliderMountBefore}
-                    {opcMountPoint id='opc_before_slider'}
-                {/if}
-                {$sliderMarkup}
-            {/container}
+    {if isset($oSlider) && count($oSlider->getSlides()) > 0}
+        {if $snackyConfig.old_content_ids === 'Y'}
+            {include file="snippets/zonen.tpl" id="opc_before_slider"}
         {else}
-            {$sliderMarkup}
+            {include file="snippets/zonen.tpl" id="before_slider"}
         {/if}
-
-        {block name='snippets-slider-script'}
-            {inline_script}<script>
-                $(function () {
-                    var slider = $('#slider-{$sliderID}');
-                    var thumbsSlider = $('#slider-{$sliderID}-thumbs');
-
-                    slider.find('a').on('click', function () {
-                        if (!this.href.match(new RegExp('^' + location.protocol + '\\/\\/' + location.host))) {
-                            this.target = '_blank';
-                        }
-                    });
-
-                    var splide = new Splide('#slider-{$sliderID}', {
-                        type: '{$sliderEffect}',
-                        rewind: true,
-                        autoplay: {if $sliderAutoplay}true{else}false{/if},
-                        interval: {$sliderPauseTime},
-                        speed: {$sliderAnimationSpeed},
-                        pauseOnHover: {if $sliderPauseOnHover}true{else}false{/if},
-                        pauseOnFocus: false,
-                        arrows: {if $sliderDirectionNav}true{else}false{/if},
-                        pagination: {if $sliderControlNav}true{else}false{/if},
-                        lazyLoad: 'nearby',
-                        preloadPages: 1,
-                        updateOnMove: true{if $sliderCropImages},
-                        heightRatio: 0.5{/if}{if $sliderRandomStart},
-                        start: Math.floor(Math.random() * {$sliderSlides|count}){/if}
-                    });
-
-                    var thumbs = null;
-
-                    {if $sliderHasThumbs}
-                    if (thumbsSlider.length) {
-                        thumbs = new Splide('#slider-{$sliderID}-thumbs', {
-                            isNavigation: true,
-                            pagination: false,
-                            arrows: true,
-                            gap: '0.5rem',
-                            fixedWidth: 100,
-                            fixedHeight: 60,
-                            focus: 'center',
-                            breakpoints: {
-                                576: {
-                                    fixedWidth: 70,
-                                    fixedHeight: 40
-                                }
-                            }
-                        });
-
-                        splide.sync(thumbs);
-                    }
+        <div class="sl-w panel-slider t-{$oSlider->getTheme()}">
+            {if $oSlider->getDirectionNav()}
+                <div class="sl-ar sl-pr btn">
+                    <span class="ar ar-l"></span>
+                </div>
+            {/if}
+            <div id="slider-{$oSlider->getID()}" class="fw-sl no-scrollbar"{if $oSlider->getPauseTime()>300} data-autoplay="{$oSlider->getPauseTime()}"{/if}>
+                {foreach from=$oSlider->getSlides() item=oSlide name="slides"}
+                    {assign var="slideTitle" value=$oSlide->getTitle()}
+                    {if !empty($oSlide->getText())}
+                        {assign var="slideTitle" value="#slide_caption_{$oSlide->getID()}"}
                     {/if}
-
-                    splide.on('mounted', function() {
-                        slider.addClass('loaded');
-
-                        var pauseButton = $('<button tabindex="0" class="btn btn-secondary btn-sm slider-pause-btn" title="{lang key='pause' section='aria'}" aria-label="{lang key='pause' section='aria'}"><i class="fas fa-pause"></i></button>');
-                        var container   = $('<div></div>')
-                            .addClass('slider-pause-controls-inside')
-                            .append(pauseButton);
-                        slider.append(container);
-
-                        var Autoplay = splide.Components.Autoplay;
-
-                        pauseButton.on('click', function () {
-                            var fa = pauseButton.find('i');
-                            var isPaused = Autoplay.isPaused();
-
-                            if (isPaused) {
-                                Autoplay.play();
-                                fa.removeClass('fa-play').addClass('fa-pause');
-                                pauseButton.attr('title', '{lang key='pause' section='aria'}')
-                                    .attr('aria-label', '{lang key='pause' section='aria'}');
-                            } else {
-                                Autoplay.pause();
-                                fa.removeClass('fa-pause').addClass('fa-play');
-                                pauseButton.attr('title', '{lang key='play' section='aria'}')
-                                    .attr('aria-label', '{lang key='play' section='aria'}');
-                            }
-                        });
-
-                        splide.on('autoplay:play', function() {
-                            pauseButton.find('i').removeClass('fa-play').addClass('fa-pause');
-                            pauseButton.attr('title', '{lang key='pause' section='aria'}')
-                                .attr('aria-label', '{lang key='pause' section='aria'}');
-                        });
-
-                        splide.on('autoplay:pause', function() {
-                            pauseButton.find('i').removeClass('fa-pause').addClass('fa-play');
-                            pauseButton.attr('title', '{lang key='play' section='aria'}')
-                                .attr('aria-label', '{lang key='play' section='aria'}');
-                        });
-                    });
-
-                    splide.mount();
-                    if (thumbs) {
-                        thumbs.mount();
-                    }
-                });
-            </script>{/inline_script}
-        {/block}
+                    {if !empty($oSlide->getLink())}
+                        <a href="{$oSlide->getLink()}" class="slide" id="slide-{$oSlide->getID()}">
+                    {else}
+                        <div class="slide" id="slide-{$oSlide->getID()}">
+                    {/if}
+                    <div class="img-ct">
+                        {if $smarty.foreach.slides.first && $snackyConfig.nolazyloadSlider == 'Y'}
+                            {image src=$oSlide->getAbsoluteImage() lazy=false alt="{if !empty($oSlide->getTitle())}{$oSlide->getTitle()}{else}Slide{/if}"}
+                        {else}
+                            {image src=$oSlide->getAbsoluteImage() lazy=true alt="{if !empty($oSlide->getTitle())}{$oSlide->getTitle()}{else}Slide{/if}"}
+                        {/if}
+                    </div>
+                    {if !empty($oSlide->getText()) || !empty($oSlide->getTitle())}
+                        <div id="slide_caption_{$oSlide->getID()}" class="htmlcaption">
+                            {if isset($oSlide->getTitle())}<strong class="title block">{$oSlide->getTitle()}</strong>{/if}
+                            <p class="desc m0">{$oSlide->getText()}</p>
+                        </div>
+                    {/if}
+                    {if !empty($oSlide->getLink())}
+                        </a>
+                    {else}
+                        </div>
+                    {/if}
+                {/foreach}
+            </div>
+            {if $oSlider->getDirectionNav()}
+                <div class="sl-ar sl-nx btn">
+                    <span class="ar ar-r"></span>
+                </div>
+            {/if}
+            {if $oSlider->getPauseTime()>300}
+                <div class="sl-stp">
+                    <button type="button" class="btn play" aria-label="{lang key='play' section='aria'}">
+                        <span class="play">⏵︎</span>
+                    </button>
+                    <button type="button" class="btn pause" aria-label="{lang key='pause' section='aria'}">
+                        <span class="pause">⏸︎</span>
+                    </button>
+                </div>
+            {/if}
+            {if $oSlider->getControlNav()}
+                <div class="sl-dots flx-ac flx-jc">
+                    {foreach from=$oSlider->getSlides() item=oSlide name="dots"}
+                        <button type="button" data-slide="{$smarty.foreach.dots.iteration}" aria-label="Slide {$smarty.foreach.dots.iteration}"{if $smarty.foreach.dots.iteration == 1} class="active"{/if}></button>
+                    {/foreach}
+                </div>
+            {/if}
+        </div>
+        
+        {assign var="firstSlide" value=$oSlider->getSlides()}
+        {getSizeBySrc src="{$firstSlide[0]->getAbsoluteImage()}" cAssign="sliderSize"}
+        {if !empty($sliderSize.padding)}
+        <style type="text/css">
+        .fw-sl .img-ct:before {ldelim} padding-top: {$sliderSize.padding}%;{rdelim}
+        </style>
+        {/if}
+        {if $snackyConfig.old_content_ids === 'Y'}
+            {include file="snippets/zonen.tpl" id="opc_after_slider"}
+        {else}
+            {include file="snippets/zonen.tpl" id="after_slider"}
+        {/if}
     {/if}
 {/block}

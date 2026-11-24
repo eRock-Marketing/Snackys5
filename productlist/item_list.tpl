@@ -106,16 +106,6 @@
                                 {/block}
                             </div>
                         {/block}
-                        {block name='productlist-item-list-include-guarantee-label'}
-                            {assign var=guaranteeLabel value=JTL\Catalog\Product\Guarantee\GuaranteeLabel::instance($Artikel)}
-                            {if $guaranteeLabel->isAvailable(JTL\Catalog\Product\Guarantee\GuaranteeLabelContext::ProductList)}
-                                <div class="guarantee-label-wrapper mb-xs">
-                                    {link href="{$Artikel->cURLFull}#tab-guarantee" aria=["label"=>{lang key='guarantee' section='productDetails'}]}
-                                        {include file='snippets/guarantee/guarantee_label_small.tpl' guaranteeLabel=$guaranteeLabel}
-                                    {/link}
-                                </div>
-                            {/if}
-                        {/block}
                         {block name='product-info-wrapper'}
                             <div class="product-info hidden-xs">
                                 {block name='product-info'}

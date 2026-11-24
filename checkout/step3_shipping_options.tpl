@@ -69,7 +69,7 @@
 																			{/block}
 																			{block name='step3-shippings-list-item-content-infos-zuschlag'}
 																				{if !empty($versandart->Zuschlag->fZuschlag)}
-																					<span class="block">{$versandart->Zuschlag->angezeigterName|transByISO} (+{$versandart->Zuschlag->cPreisLocalized})</span>
+																					<span class="block">{$versandart->Zuschlag->angezeigterName|transById} (+{$versandart->Zuschlag->cPreisLocalized})</span>
 																				{/if}
 																			{/block}
 																		</span>

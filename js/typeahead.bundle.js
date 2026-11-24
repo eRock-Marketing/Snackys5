@@ -2410,12 +2410,11 @@
             });
         }
         function buildHintFromInput($input, www) {
-            return $input.clone().addClass(www.classes.hint).removeData().css(www.css.hint).css(getBackgroundStyles($input)).prop("readonly", true).removeAttr("id name placeholder required").attr({
+            return $input.clone().addClass(www.classes.hint).removeData().css(www.css.hint).css(getBackgroundStyles($input)).prop("readonly", true).removeAttr("id name placeholder required aria-label").attr({
                 autocomplete: "off",
                 spellcheck: "false",
                 tabindex: -1,
-                "aria-hidden":"true",
-                "aria-label": $input.attr("aria-label")+" tt"
+                "aria-hidden":"true"
             });
         }
         function prepInput($input, www) {

@@ -96,16 +96,6 @@
                             {include file="productdetails/price.tpl" Artikel=$Artikel tplscope=$tplscope}
                         </div>
                     {/block}
-                    {block name='productlist-item-box-include-guarantee-label'}
-                        {assign var=guaranteeLabel value=JTL\Catalog\Product\Guarantee\GuaranteeLabel::instance($Artikel)}
-                        {if $guaranteeLabel->isAvailable(JTL\Catalog\Product\Guarantee\GuaranteeLabelContext::ProductList)}
-                            <div class="guarantee-label-wrapper mt-xxs">
-                                {link href="{$Artikel->cURLFull}#tab-guarantee" aria=["label"=>{lang key='guarantee' section='productDetails'}]}
-                                    {include file='snippets/guarantee/guarantee_label_small.tpl' guaranteeLabel=$guaranteeLabel}
-                                {/link}
-                            </div>
-                        {/if}
-                    {/block}
                     {block name="productlist-caption-gpsr-link"}
                         {if isset($Artikel->FunktionsAttribute.gpsr_manufacturer_homepage) 
                             || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_email)

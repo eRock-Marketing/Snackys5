@@ -163,7 +163,7 @@
 															{foreach $Bestellung->Positionen as $KonfigPos}
 																{if $oPosition->cUnique == $KonfigPos->cUnique && $KonfigPos->kKonfigitem > 0}
 																	<li>
-																		<span class="qty">{$KonfigPos->nAnzahlEinzel}x</span>
+																		<span class="qty">{if !(is_string($oPosition->cUnique) && !empty($oPosition->cUnique) && (int)$oPosition->kKonfigitem === 0)}{$KonfigPos->nAnzahlEinzel}{else}1{/if}x</span>
 																		{$KonfigPos->cName|transByISO} &raquo;<br/>
 																		<span class="price_value">
 																			{if substr($KonfigPos->cEinzelpreisLocalized[$NettoPreise], 0, 1) !== '-'}+{/if}{$KonfigPos->cEinzelpreisLocalized[$NettoPreise]}

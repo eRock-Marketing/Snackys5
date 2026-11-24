@@ -35,7 +35,6 @@
             {assign var="hasGPSR" value=true}
         {/if}
         {$showGPSR = (($snackyConfig.gpsr_position == 0 || $snackyConfig.gpsr_position == 1) && (($snackyConfig.gpsr_shown == 1 && isset($Artikel->cHerstellerBeschreibung)) || isset($hasGPSR) || ($snackyConfig.gpsr_shown == 2 && isset($hasSplitManu))))}
-        {$useGPSR = ($snackyConfig.gpsr_position == 2 && (($snackyConfig.gpsr_shown == 1 && isset($Artikel->cHerstellerBeschreibung)) || isset($hasGPSR) || ($snackyConfig.gpsr_shown == 2 && isset($hasSplitManu))))}
         {$showAttributesTable = ($Einstellungen.artikeldetails.merkmale_anzeigen === 'Y'
             && !empty($Artikel->oMerkmale_arr) || $showProductWeight || $showShippingWeight
             || $Einstellungen.artikeldetails.artikeldetails_abmessungen_anzeigen === 'Y'
@@ -48,7 +47,6 @@
             && $Artikel->cMedienDateiAnzeige !== 'tab') || $Artikel->cMedienDateiAnzeige === 'beschreibung')
             && !empty($Artikel->getMediaTypes()))}
         {$useDescription = (($Artikel->cBeschreibung|strlen > 0) || $useDescriptionWithMediaGroup || $showAttributesTable || $showGPSR)}
-        {$useGuarantee = JTL\Catalog\Product\Guarantee\GuaranteeLabel::instance($Artikel)->isAvailable(JTL\Catalog\Product\Guarantee\GuaranteeLabelContext::ProductDetail)}
         {$useDownloads = (isset($Artikel->oDownload_arr) && $Artikel->oDownload_arr|count > 0)}
         {$useVotes = $Einstellungen.bewertung.bewertung_anzeigen === 'Y'}
         {$useQuestionOnItem = $Einstellungen.artikeldetails.artikeldetails_fragezumprodukt_anzeigen === 'Y'}
@@ -62,6 +60,18 @@
             || isset($smarty.get.ratings_nItemsPerPage)
             || isset($smarty.get.ratings_nSortByDir)
             || isset($smarty.get.btgsterne)}
+        {if isset($Artikel->FunktionsAttribute.gpsr_manufacturer_homepage) 
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_email)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_country)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_state)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_city)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_postalcode)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_housenumber)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_street)
+            || isset($Artikel->FunktionsAttribute.gpsr_manufacturer_name)
+        }
+            {assign var="hasGPSR" value=true}
+        {/if}
         {section name=iterator start=1 loop=11}
             {$tab = tab}
             {$tabname = $tab|cat:$smarty.section.iterator.index|cat:" name"}
@@ -74,35 +84,26 @@
                 'content' => {$Artikel->AttributeAssoc[$tabinhalt]}
                 ]}
             {/if}
-        {/section}        
-        {$tabOrder = [
-            ['key' => 'description', 'enabled' => $useDescription && !$hasVotesHash],
-            ['key' => 'guarantee', 'enabled' => $useGuarantee],
-            ['key' => 'gpsr', 'enabled' => $useGPSR],
-            ['key' => 'downloads', 'enabled' => $useDownloads],
-            ['key' => 'separatedTabs', 'enabled' => !empty($separatedTabs)],
-            ['key' => 'votes', 'enabled' => $useVotes || $hasVotesHash],
-            ['key' => 'questionOnItem', 'enabled' => $useQuestionOnItem],
-            ['key' => 'priceFlow', 'enabled' => $usePriceFlow],
-            ['key' => 'availabilityNotification', 'enabled' => $useAvailabilityNotification],
-            ['key' => 'mediaGroup', 'enabled' => $useMediaGroup]
+        {/section}
+        {$setActiveClass = [
+            'description'    => (!$hasVotesHash),
+            'downloads'      => (!$hasVotesHash && !$useDescription),
+            'separatedTabs'  => (!$hasVotesHash && !$useDescription && !$useDownloads),
+            'votes'          => ($hasVotesHash || !$useDescription && !$useDownloads && empty($separatedTabs)),
+            'questionOnItem' => (!$hasVotesHash && !$useDescription && !$useDownloads && empty($separatedTabs) && !$useVotes),
+            'priceFlow'      => (!$useVotes && !$hasVotesHash && !$useDescription && !$useDownloads && empty($separatedTabs)
+                && !$useQuestionOnItem),
+            'availabilityNotification' => (!$useVotes && !$hasVotesHash && !$useDescription && !$useDownloads
+                && empty($separatedTabs) && !$useQuestionOnItem && !$usePriceFlow),
+            'mediaGroup' => (!$useVotes && !$hasVotesHash && !$useDescription && !$useDownloads && empty($separatedTabs)
+                && !$useQuestionOnItem && !$usePriceFlow && !$useAvailabilityNotification)
         ]}
-        {$setActiveClass = []}
-        {$firstActiveFound = false}
-        {foreach $tabOrder as $tab}
-            {if $tab.enabled && !$firstActiveFound}
-                {$setActiveClass[$tab.key] = true}
-                {$firstActiveFound = true}
-            {else}
-                {$setActiveClass[$tab.key] = false}
-            {/if}
-        {/foreach}
         {if $snackyConfig.positionArticleTabs == 1}
             {$setActiveClass = false}
         {/if}
     {/block}
     {block name='productdetails-tabs-wrapper'}
-        {if $useDescription || $useGuarantee || $useGPSR || $useDownloads || $useDescriptionWithMediaGroup || $useVotes || $useQuestionOnItem || $usePriceFlow
+        {if $useDescription || $useDownloads || $useDescriptionWithMediaGroup || $useVotes || $useQuestionOnItem || $usePriceFlow
             || $useAvailabilityNotification || $useMediaGroup || !empty($separatedTabs)}
 	        {if $snackyConfig.old_content_ids === 'Y'}
 				{include file="snippets/zonen.tpl" id="opc_before_tabs"}
@@ -122,19 +123,10 @@
                                     </li>
                                 {/if}
                             {/block}
-                            {block name="tab-nav-block-guarantee"}
-                                {if $useGuarantee}
-                                    <li role="presentation" class="nav-item">
-                                        <a class="nav-link{if $setActiveClass.guarantee} active{/if}" aria-controls="tab-guarantee" role="tab" data-toggle="tab" href="#tab-guarantee">
-                                            {lang key='guarantee' section='productDetails'}
-                                        </a>
-                                    </li>
-                                {/if}
-                            {/block}
                             {block name="tab-nav-block-gpsr"}
                                 {if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 2}
                                     <li role="presentation" class="nav-item">
-                                        <a class="nav-link{if $setActiveClass.gpsr} active{/if}" aria-controls="tab-gpsr" role="tab" data-toggle="tab" href="#tab-gpsr">
+                                        <a class="nav-link" aria-controls="tab-gpsr" role="tab" data-toggle="tab" href="#tab-gpsr">
                                             {lang key='gpsrHeadline' section='custom'}
                                         </a>
                                     </li>
@@ -312,40 +304,9 @@
                                     </div>
                                 {/if}
                             {/block}
-                            {block name="tabs-guarantee"}
-                                {if $useGuarantee}
-                                    <div class="tab-ct tab-pane panel-default{if $setActiveClass.guarantee} show active{/if}" id="tab-guarantee">
-                                        {block name="tabs-guarantee-accordeon"}
-                                            <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-guarantee" role="button" type="button">
-                                                <div class="panel-title {if $snackyConfig.positionArticleTabs == 1 || $snackyConfig.accordionDesign == 1}h4{else}h3{/if} m0">{lang key='guarantee' section='productDetails'}</div>
-                                                <span class="img-ct icon">
-                                                    <svg>
-                                                    <use xlink:href="{$ShopURL}/{if empty($parentTemplateDir)}{$currentTemplateDir}{else}{$parentTemplateDir}{/if}img/icons/icons.svg?v={$nTemplateVersion}#icon-caret"></use>
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                        {/block}
-                                        {block name="tabs-guarantee-body"}
-                                            <div class="panel-body{if !$tabanzeige} mb-md{/if}">
-                                                {if $snackyConfig.old_content_ids === 'Y'}
-                                                    {include file="snippets/zonen.tpl" id="opc_before_guarantee"}
-                                                {else}
-                                                    {include file="snippets/zonen.tpl" id="before_guarantee"}
-                                                {/if}
-                                               {include file='snippets/guarantee/guarantee_label.tpl' guaranteeLabel=JTL\Catalog\Product\Guarantee\GuaranteeLabel::instance($Artikel)}
-                                                {if $snackyConfig.old_content_ids === 'Y'}
-                                                    {include file="snippets/zonen.tpl" id="opc_after_guarantee"}
-                                                {else}
-                                                    {include file="snippets/zonen.tpl" id="after_guarantee"}
-                                                {/if}
-                                            </div>
-                                        {/block}
-                                    </div>
-                                {/if}
-                            {/block}
                             {block name="tabs-gpsr"}
                                 {if ($snackyConfig.gpsr_shown != 0 || (isset($hasGPSR) && $hasGPSR)) && $snackyConfig.gpsr_position == 2}
-                                    <div class="tab-ct tab-pane panel-default{if $setActiveClass.gpsr} show active{/if}" id="tab-gpsr">
+                                    <div class="tab-ct tab-pane panel-default" id="tab-gpsr">
                                         {block name="tabs-gpsr-accordeon"}
                                             <button class="panel-heading flx-ac flx-jb" data-toggle="collapse" href="#tab-gpsr" role="button" type="button">
                                                 <div class="panel-title {if $snackyConfig.positionArticleTabs == 1 || $snackyConfig.accordionDesign == 1}h4{else}h3{/if} m0">{lang key='gpsrHeadline' section='custom'}</div>

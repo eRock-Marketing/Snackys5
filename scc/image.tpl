@@ -1,4 +1,4 @@
-{if strlen($params.webp->getValue()) > 0 && $params.src->getValue()|webpExists}
+{if $params.webp->getValue() !== true && $params.src->getValue()|webpExists}
 	{$params.webp->setValue(true)}
 {/if}
 {assign var=rounded value=''}

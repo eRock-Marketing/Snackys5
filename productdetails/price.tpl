@@ -31,12 +31,12 @@
 								<strong class="price text-nowrap{if isset($Artikel->Preise->Sonderpreis_aktiv) && $Artikel->Preise->Sonderpreis_aktiv} special-price{/if}">
 									{block name="snackys-del-price"}
 										{if $Artikel->Preise->Sonderpreis_aktiv && $Einstellungen.artikeldetails.artikeldetails_sonderpreisanzeige == 2 && $snackyConfig.oldPricePlace == '1' && isset($Artikel->Preise->alterVKLocalized[$NettoPreise])}
-											<del class="old-price old-price-dynamic"><span class="old-price-value">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</span></del>
+											<del class="old-price">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
 										{elseif $Einstellungen.artikeldetails.artikeldetails_uvp_anzeigen === 'Y' && $Artikel->showUVP() && $snackyConfig.uvp_saleprice == 'Y'}
 											<del class="old-price">{$Artikel->getUVPLocalized($NettoPreise)}</del>
 										{elseif !$Artikel->Preise->Sonderpreis_aktiv && $Artikel->Preise->rabatt > 0}
 											{if ($Einstellungen.artikeldetails.artikeldetails_rabattanzeige == 3 || $Einstellungen.artikeldetails.artikeldetails_rabattanzeige == 4) && $snackyConfig.oldPricePlace == '1' && isset($Artikel->Preise->alterVKLocalized[$NettoPreise])}
-												<del class="old-price old-price-dynamic"><span class="old-price-value">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</span></del>
+												<del class="old-price">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
 											{/if}
 										{/if}
 									{/block}
@@ -91,18 +91,18 @@
 								{/block}
 								{block name='price-detailpage-oldprice'}                
 									{if $Artikel->Preise->Sonderpreis_aktiv && $Einstellungen.artikeldetails.artikeldetails_sonderpreisanzeige == 2 && $snackyConfig.oldPricePlace !== '1' && isset($Artikel->Preise->alterVKLocalized[$NettoPreise])}
-										<div class="instead_of old_price old-price-dynamic">{lang key="oldPrice" section="global"}:
-											<del class="value old-price-value">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
+										<div class="instead_of old_price">{lang key="oldPrice" section="global"}:
+											<del class="value">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
 										</div>
 									{elseif !$Artikel->Preise->Sonderpreis_aktiv && $Artikel->Preise->rabatt > 0}
 										{if ($Einstellungen.artikeldetails.artikeldetails_rabattanzeige == 3 || $Einstellungen.artikeldetails.artikeldetails_rabattanzeige == 4) && $snackyConfig.oldPricePlace !== '1' && isset($Artikel->Preise->alterVKLocalized[$NettoPreise])}
-											<div class="old_price old-price-dynamic">{lang key="oldPrice"}:
-												<del class="value text-nowrap old-price-value">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
+											<div class="old_price">{lang key="oldPrice"}:
+												<del class="value text-nowrap">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
 											</div>
 										{/if}
 										{if $Einstellungen.artikeldetails.artikeldetails_rabattanzeige == 2 || $Einstellungen.artikeldetails.artikeldetails_rabattanzeige == 4}
-											<div class="discount discount-dynamic">{lang key="discount"}:
-												<span class="value text-nowrap discount-percent">{$Artikel->Preise->rabatt}%</span>
+											<div class="discount">{lang key="discount"}:
+												<span class="value text-nowrap">{$Artikel->Preise->rabatt}%</span>
 											</div>
 										{/if}
 									{/if}
@@ -112,7 +112,7 @@
 											<div class="suggested-price">
 												{lang key="suggestedPrice" section="productDetails"}: {$Artikel->getUVPLocalized($NettoPreise)}
 											</div>
-										{if isset($Artikel->SieSparenX) && $Artikel->SieSparenX->anzeigen == 1 && $Artikel->SieSparenX->nProzent > 0}
+										{if isset($Artikel->SieSparenX) && $Artikel->SieSparenX->anzeigen == 1 && $Artikel->SieSparenX->nProzent > 0 && $snackyConfig.uvp_saleprice == 'N'}
 											<div class="yousave">({lang key="youSave" section="productDetails"}
 												<span class="percent">{$Artikel->SieSparenX->nProzent}%</span>, {lang key="thatIs" section="productDetails"}
 												<span class="value text-nowrap">{$Artikel->SieSparenX->cLocalizedSparbetrag}</span>)
@@ -138,10 +138,10 @@
                 					{if $Artikel->Preise->Sonderpreis_aktiv && isset($Einstellungen.artikeluebersicht) && $Einstellungen.artikeluebersicht.artikeluebersicht_sonderpreisanzeige == 2}
 										{block name='price-listingpage-rabatte-sonderpreise'} 
 											{if $snackyConfig.oldPricePlace !== '1' && isset($Artikel->Preise->alterVKLocalized[$NettoPreise])}
-												<div class="instead-of old-price old-price-dynamic">
+												<div class="instead-of old-price">
 													<small class="text-muted">
 														{lang key="oldPrice"}: 
-														<del class="value old-price-value">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
+														<del class="value">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
 													</small>
 												</div>
 											{/if}
@@ -149,18 +149,18 @@
                 					{elseif !$Artikel->Preise->Sonderpreis_aktiv && $Artikel->Preise->rabatt > 0 && isset($Einstellungen.artikeluebersicht)}
 										{block name='price-listingpage-rabatte-other'} 
 											{if ($Einstellungen.artikeluebersicht.artikeluebersicht_rabattanzeige == 3 || $Einstellungen.artikeluebersicht.artikeluebersicht_rabattanzeige == 4) && $snackyConfig.oldPricePlace !== '1' && isset($Artikel->Preise->alterVKLocalized[$NettoPreise])}
-												<div class="old-price old-price-dynamic">
+												<div class="old-price">
 													<small class="text-muted">
 														{lang key="oldPrice"}: 
-														<del class="value text-nowrap old-price-value">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
+														<del class="value text-nowrap">{$Artikel->Preise->alterVKLocalized[$NettoPreise]}</del>
 													</small>
 												</div>
 											{/if}
 											{if $Einstellungen.artikeluebersicht.artikeluebersicht_rabattanzeige == 2 || isset($Einstellungen.artikeluebersicht) && $Einstellungen.artikeluebersicht.artikeluebersicht_rabattanzeige == 4}
-												<div class="discount discount-dynamic">
+												<div class="discount">
 													<small class="text-muted">
 														{lang key="discount"}: 
-														<span class="value text-nowrap discount-percent">{$Artikel->Preise->rabatt}%</span>
+														<span class="value text-nowrap">{$Artikel->Preise->rabatt}%</span>
 													</small>
 												</div>
 											{/if}
