@@ -19,7 +19,7 @@
 									<input
 											type="email"
 											name="{$prefix}[{$name}][email]"
-											value="{if isset($Lieferadresse->cMail)}{$Lieferadresse->cMail}{/if}"
+											value="{if isset($Lieferadresse->cMail)}{$Lieferadresse->cMail|escape:'html':'UTF-8':false}{/if}"
 											id="{$prefix}-{$name}-email"
 											class="form-control"
 											placeholder="{lang key="email" section="account data"}"
@@ -52,7 +52,7 @@
 									<input
 											type="tel"
 											name="{$prefix}[{$name}][mobil]"
-											value="{if isset($Lieferadresse->cMobil)}{$Lieferadresse->cMobil}{/if}"
+											value="{if isset($Lieferadresse->cMobil)}{$Lieferadresse->cMobil|escape:'html':'UTF-8':false}{/if}"
 											id="{$prefix}-{$name}-mobile"
 											class="form-control"
 											placeholder="{lang key="mobile" section="account data"}"
@@ -85,7 +85,7 @@
 									<input
 											type="tel"
 											name="{$prefix}[{$name}][tel]"
-											value="{if isset($Lieferadresse->cTel)}{$Lieferadresse->cTel}{/if}"
+											value="{if isset($Lieferadresse->cTel)}{$Lieferadresse->cTel|escape:'html':'UTF-8':false}{/if}"
 											id="{$prefix}-{$name}-tel"
 											class="form-control"
 											placeholder="{lang key="tel" section="account data"}"
@@ -112,7 +112,7 @@
 									<input
 											type="tel"
 											name="{$prefix}[{$name}][fax]"
-											value="{if isset($Lieferadresse->cFax)}{$Lieferadresse->cFax}{/if}"
+											value="{if isset($Lieferadresse->cFax)}{$Lieferadresse->cFax|escape:'html':'UTF-8':false}{/if}"
 											id="{$prefix}-{$name}-fax"
 											class="form-control"
 											placeholder="{lang key="fax" section="account data"}"

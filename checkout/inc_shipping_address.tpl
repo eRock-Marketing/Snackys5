@@ -55,10 +55,10 @@
 													{/block}
 													{block name='ship-address-choose-address-item-modal-body'}
                         								<div class="modal-body">
-															{if $adresse->cFirma}{$adresse->cFirma}<br>{/if}
-															<strong>{if $adresse->cTitel}{$adresse->cTitel}{/if} {$adresse->cVorname} {$adresse->cNachname}</strong><br>
-															{$adresse->cStrasse} {$adresse->cHausnummer}<br>
-															{$adresse->cPLZ} {$adresse->cOrt}<br>
+															{if $adresse->cFirma}{$adresse->cFirma|escape:'html':'UTF-8':false}<br>{/if}
+															<strong>{if $adresse->cTitel}{$adresse->cTitel|escape:'html':'UTF-8':false}{/if} {$adresse->cVorname|escape:'html':'UTF-8':false} {$adresse->cNachname|escape:'html':'UTF-8':false}</strong><br>
+															{$adresse->cStrasse|escape:'html':'UTF-8':false} {$adresse->cHausnummer|escape:'html':'UTF-8':false}<br>
+															{$adresse->cPLZ|escape:'html':'UTF-8':false} {$adresse->cOrt|escape:'html':'UTF-8':false}<br>
 															{include file='checkout/inc_delivery_address.tpl' Lieferadresse=$adresse hideMainInfo=true}
 														</div>
 													{/block}
@@ -77,9 +77,9 @@
 														{/block}
 														{block name='ship-address-choose-address-item-infos'}
 															<span class="payship-content">
-																<small class="block text-muted">{if $adresse->cFirma}{$adresse->cFirma|entferneFehlerzeichen}{/if}</small> 
-																<strong class="block">{$adresse->cVorname} {$adresse->cNachname|entferneFehlerzeichen}</strong> 
-																<small class="block text-muted">{$adresse->cStrasse|entferneFehlerzeichen} {$adresse->cHausnummer}, {$adresse->cPLZ} {$adresse->cOrt}, {$adresse->angezeigtesLand}</small>
+																<small class="block text-muted">{if $adresse->cFirma}{$adresse->cFirma|entferneFehlerzeichen|escape:'html':'UTF-8':false}{/if}</small> 
+																<strong class="block">{$adresse->cVorname|escape:'html':'UTF-8':false} {$adresse->cNachname|entferneFehlerzeichen|escape:'html':'UTF-8':false}</strong> 
+																<small class="block text-muted">{$adresse->cStrasse|entferneFehlerzeichen|escape:'html':'UTF-8':false} {$adresse->cHausnummer|escape:'html':'UTF-8':false}, {$adresse->cPLZ|escape:'html':'UTF-8':false} {$adresse->cOrt|escape:'html':'UTF-8':false}, {$adresse->angezeigtesLand|escape:'html':'UTF-8':false}</small>
 															</span>
 														{/block}
 													</label>
